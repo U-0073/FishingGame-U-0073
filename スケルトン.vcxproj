@@ -152,7 +152,6 @@
     <ClCompile Include="KdLibrary\KdModel.cpp" />
     <ClCompile Include="KdLibrary\KdResourceManager.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2d\Bord.h" />
