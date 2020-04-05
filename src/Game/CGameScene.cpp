@@ -1,6 +1,14 @@
 #include"../System/KdLibrary/KdLibrary.h"
 #include"CGameScene.h"
 
+CGameScene::CGameScene(LPDIRECT3DDEVICE9 lpD3DDevice)
+{
+}
+
+CGameScene::~CGameScene()
+{
+}
+
 void CGameScene::Update()
 {
 }

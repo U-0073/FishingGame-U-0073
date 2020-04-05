@@ -1,6 +1,5 @@
 #pragma once
 #include"../System/FrameBase/CSceneBase.h"
-class SceneBase;
 
 class CGameScene : public CSceneBase
 {
