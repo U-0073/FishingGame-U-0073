@@ -1,5 +1,8 @@
 ﻿#include"KdLibrary/KdLibrary.h"
 
+//コメント
+
+
 //#include<windows.h>
 //#include<stdio.h>
 //#include<d3dx9.h>
