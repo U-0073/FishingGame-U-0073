@@ -1,7 +1,7 @@
 ﻿#include"KdLibrary/KdLibrary.h"
 
 //コメント
-
+//コメントその②
 
 //#include<windows.h>
 //#include<stdio.h>
