@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="ソース ファイル">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="ヘッダー ファイル">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="リソース ファイル">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -22,17 +14,15 @@
     <Filter Include="2d">
       <UniqueIdentifier>{00f126ac-5802-4739-99a0-141af06087a8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\ゲームソース">
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="src\ゲーム">
       <UniqueIdentifier>{b344c737-c580-4dd0-90db-49911136fe1f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\システムソース">
+    <Filter Include="src\システム">
       <UniqueIdentifier>{16077d8f-315b-46b1-b333-59f1ec57ccf3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\ゲームヘッダー">
-      <UniqueIdentifier>{5e3aeef2-9132-423a-88e2-70ab642889d7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\システムヘッダー">
-      <UniqueIdentifier>{4c54fd0d-6446-4ba6-8e5a-e6956acae653}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -64,16 +54,22 @@
       <Filter>ライブラリ</Filter>
     </ClCompile>
     <ClCompile Include="src\System\FrameBase\CGameFrame.cpp">
-      <Filter>ソース ファイル\システムソース</Filter>
+      <Filter>src\システム</Filter>
     </ClCompile>
     <ClCompile Include="src\System\FrameBase\CSceneBase.cpp">
-      <Filter>ソース ファイル\システムソース</Filter>
+      <Filter>src\システム</Filter>
     </ClCompile>
     <ClCompile Include="src\System\FrameBase\main.cpp">
-      <Filter>ソース ファイル\システムソース</Filter>
+      <Filter>src\システム</Filter>
     </ClCompile>
     <ClCompile Include="src\Game\CGameScene.cpp">
-      <Filter>ソース ファイル\ゲームソース</Filter>
+      <Filter>src\ゲーム</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\FrameBase\GameObject.cpp">
+      <Filter>ライブラリ</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\TestCharacter.cpp">
+      <Filter>src\ゲーム</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -113,14 +109,20 @@
     <ClInclude Include="src\System\KdLibrary\KdDirect3D.h">
       <Filter>ライブラリ</Filter>
     </ClInclude>
+    <ClInclude Include="src\System\FrameBase\GameObject.h">
+      <Filter>ライブラリ</Filter>
+    </ClInclude>
     <ClInclude Include="src\System\FrameBase\CGameFrame.h">
-      <Filter>ヘッダー ファイル\システムヘッダー</Filter>
+      <Filter>src\システム</Filter>
     </ClInclude>
     <ClInclude Include="src\System\FrameBase\CSceneBase.h">
-      <Filter>ヘッダー ファイル\システムヘッダー</Filter>
+      <Filter>src\システム</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\CGameScene.h">
-      <Filter>ヘッダー ファイル\ゲームヘッダー</Filter>
+      <Filter>src\ゲーム</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\TestCharacter.h">
+      <Filter>src\ゲーム</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

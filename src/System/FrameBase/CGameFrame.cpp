@@ -65,8 +65,8 @@ void CGameFrame::GameLoop()
 	// 描画開始
 	KD3D.GetDev()->BeginScene();
 
+	CAMERA.SetCameraPos(D3DXVECTOR3(0, 10, -0), D3DXVECTOR3(0, 0, 0));
 	CAMERA.Set(mWindowSize);
-
 
 
 

@@ -145,11 +145,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Game\CGameScene.cpp" />
+    <ClCompile Include="src\Game\TestCharacter.cpp" />
     <ClCompile Include="src\System\2d\Bord.cpp" />
     <ClCompile Include="src\System\2d\C2DBase.cpp" />
     <ClCompile Include="src\System\Component\InputComponent.cpp" />
     <ClCompile Include="src\System\FrameBase\CGameFrame.cpp" />
     <ClCompile Include="src\System\FrameBase\CSceneBase.cpp" />
+    <ClCompile Include="src\System\FrameBase\GameObject.cpp" />
     <ClCompile Include="src\System\FrameBase\main.cpp" />
     <ClCompile Include="src\System\KdLibrary\CCamera.cpp" />
     <ClCompile Include="src\System\KdLibrary\KdDirect3D.cpp" />
@@ -160,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Game\CGameScene.h" />
+    <ClInclude Include="src\Game\TestCharacter.h" />
     <ClInclude Include="src\System\2d\Bord.h" />
     <ClInclude Include="src\System\2d\C2DBase.h" />
     <ClInclude Include="src\System\2d\stBord.h" />
@@ -167,6 +170,7 @@
     <ClInclude Include="src\System\Component\InputComponent.h" />
     <ClInclude Include="src\System\FrameBase\CGameFrame.h" />
     <ClInclude Include="src\System\FrameBase\CSceneBase.h" />
+    <ClInclude Include="src\System\FrameBase\GameObject.h" />
     <ClInclude Include="src\System\KdLibrary\CCamera.h" />
     <ClInclude Include="src\System\KdLibrary\KdDirect3D.h" />
     <ClInclude Include="src\System\KdLibrary\KdHelper.h" />
