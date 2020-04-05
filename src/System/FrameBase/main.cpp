@@ -1,11 +1,11 @@
-﻿#include"src/System/KdLibrary/KdLibrary.h"
+﻿#include"../KdLibrary/KdLibrary.h"
 
 
 //#include<windows.h>
 //#include<stdio.h>
 //#include<d3dx9.h>
 //#include<cassert>
-#include"src/System/FrameBase/CGameFrame.h"
+#include"CGameFrame.h"
 //
 //#pragma comment(lib, "d3d9.lib")
 //#pragma comment(lib, "d3dx9.lib")

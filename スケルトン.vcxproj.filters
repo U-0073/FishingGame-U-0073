@@ -24,87 +24,84 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="src\System\2d\Bord.cpp">
+      <Filter>2d</Filter>
     </ClCompile>
-    <ClCompile Include="CGameFrame.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="src\System\2d\C2DBase.cpp">
+      <Filter>2d</Filter>
     </ClCompile>
-    <ClCompile Include="CSceneBase.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="KdLibrary\KdDirect3D.cpp">
-      <Filter>ライブラリ</Filter>
-    </ClCompile>
-    <ClCompile Include="KdLibrary\KdHelper.cpp">
-      <Filter>ライブラリ</Filter>
-    </ClCompile>
-    <ClCompile Include="KdLibrary\KdMath.cpp">
-      <Filter>ライブラリ</Filter>
-    </ClCompile>
-    <ClCompile Include="KdLibrary\KdModel.cpp">
-      <Filter>ライブラリ</Filter>
-    </ClCompile>
-    <ClCompile Include="KdLibrary\KdResourceManager.cpp">
-      <Filter>ライブラリ</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\InputComponent.cpp">
+    <ClCompile Include="src\System\Component\InputComponent.cpp">
       <Filter>コンポーネント</Filter>
     </ClCompile>
-    <ClCompile Include="2d\Bord.cpp">
-      <Filter>2d</Filter>
-    </ClCompile>
-    <ClCompile Include="2d\C2DBase.cpp">
-      <Filter>2d</Filter>
-    </ClCompile>
-    <ClCompile Include="KdLibrary\CCamera.cpp">
+    <ClCompile Include="src\System\KdLibrary\KdHelper.cpp">
       <Filter>ライブラリ</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\KdLibrary\KdMath.cpp">
+      <Filter>ライブラリ</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\KdLibrary\KdModel.cpp">
+      <Filter>ライブラリ</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\KdLibrary\KdResourceManager.cpp">
+      <Filter>ライブラリ</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\KdLibrary\CCamera.cpp">
+      <Filter>ライブラリ</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\KdLibrary\KdDirect3D.cpp">
+      <Filter>ライブラリ</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\FrameBase\CSceneBase.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\FrameBase\CGameFrame.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\FrameBase\main.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CGameFrame.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="src\System\2d\Bord.h">
+      <Filter>2d</Filter>
     </ClInclude>
-    <ClInclude Include="CSceneBase.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="src\System\2d\C2DBase.h">
+      <Filter>2d</Filter>
     </ClInclude>
-    <ClInclude Include="KdLibrary\KdDirect3D.h">
-      <Filter>ライブラリ</Filter>
+    <ClInclude Include="src\System\2d\stBord.h">
+      <Filter>2d</Filter>
     </ClInclude>
-    <ClInclude Include="KdLibrary\KdHelper.h">
-      <Filter>ライブラリ</Filter>
+    <ClInclude Include="src\System\2d\VerTex.h">
+      <Filter>2d</Filter>
     </ClInclude>
-    <ClInclude Include="KdLibrary\KdLibrary.h">
-      <Filter>ライブラリ</Filter>
-    </ClInclude>
-    <ClInclude Include="KdLibrary\KdMath.h">
-      <Filter>ライブラリ</Filter>
-    </ClInclude>
-    <ClInclude Include="KdLibrary\KdModel.h">
-      <Filter>ライブラリ</Filter>
-    </ClInclude>
-    <ClInclude Include="KdLibrary\KdResourceManager.h">
-      <Filter>ライブラリ</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\InputComponent.h">
+    <ClInclude Include="src\System\Component\InputComponent.h">
       <Filter>コンポーネント</Filter>
     </ClInclude>
-    <ClInclude Include="2d\Bord.h">
-      <Filter>2d</Filter>
-    </ClInclude>
-    <ClInclude Include="2d\C2DBase.h">
-      <Filter>2d</Filter>
-    </ClInclude>
-    <ClInclude Include="2d\stBord.h">
-      <Filter>2d</Filter>
-    </ClInclude>
-    <ClInclude Include="2d\VerTex.h">
-      <Filter>2d</Filter>
-    </ClInclude>
-    <ClInclude Include="KdLibrary\CCamera.h">
+    <ClInclude Include="src\System\KdLibrary\KdHelper.h">
       <Filter>ライブラリ</Filter>
     </ClInclude>
-    <ClInclude Include="test.h">
+    <ClInclude Include="src\System\KdLibrary\KdLibrary.h">
+      <Filter>ライブラリ</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\KdLibrary\KdMath.h">
+      <Filter>ライブラリ</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\KdLibrary\KdModel.h">
+      <Filter>ライブラリ</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\KdLibrary\KdResourceManager.h">
+      <Filter>ライブラリ</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\KdLibrary\CCamera.h">
+      <Filter>ライブラリ</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\KdLibrary\KdDirect3D.h">
+      <Filter>ライブラリ</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\FrameBase\CSceneBase.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\FrameBase\CGameFrame.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

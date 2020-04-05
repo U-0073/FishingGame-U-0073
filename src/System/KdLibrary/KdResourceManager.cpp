@@ -1,4 +1,4 @@
-#include"KdLibrary.h"
+#include"../KdLibrary/KdLibrary.h"
 #include"KdResourceManager.h"
 
 std::shared_ptr<KdModel> KdResourcemanager::GetModel(const std::string & Filename)

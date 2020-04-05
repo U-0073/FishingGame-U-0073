@@ -1,4 +1,4 @@
-#include"KdLibrary.h"
+#include"../KdLibrary/KdLibrary.h"
 #include "CCamera.h"
 
 

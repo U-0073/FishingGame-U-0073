@@ -1,4 +1,4 @@
-﻿#include"KdLibrary/KdLibrary.h"
+﻿#include"../KdLibrary/KdLibrary.h"
 #include "CGameFrame.h"
 #include "CSceneBase.h"
 

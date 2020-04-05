@@ -144,35 +144,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="2d\Bord.cpp" />
-    <ClCompile Include="2d\C2DBase.cpp" />
-    <ClCompile Include="CGameFrame.cpp" />
-    <ClCompile Include="Component\InputComponent.cpp" />
-    <ClCompile Include="CSceneBase.cpp" />
-    <ClCompile Include="KdLibrary\CCamera.cpp" />
-    <ClCompile Include="KdLibrary\KdDirect3D.cpp" />
-    <ClCompile Include="KdLibrary\KdHelper.cpp" />
-    <ClCompile Include="KdLibrary\KdMath.cpp" />
-    <ClCompile Include="KdLibrary\KdModel.cpp" />
-    <ClCompile Include="KdLibrary\KdResourceManager.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\System\2d\Bord.cpp" />
+    <ClCompile Include="src\System\2d\C2DBase.cpp" />
+    <ClCompile Include="src\System\Component\InputComponent.cpp" />
+    <ClCompile Include="src\System\FrameBase\CGameFrame.cpp" />
+    <ClCompile Include="src\System\FrameBase\CSceneBase.cpp" />
+    <ClCompile Include="src\System\FrameBase\main.cpp" />
+    <ClCompile Include="src\System\KdLibrary\CCamera.cpp" />
+    <ClCompile Include="src\System\KdLibrary\KdDirect3D.cpp" />
+    <ClCompile Include="src\System\KdLibrary\KdHelper.cpp" />
+    <ClCompile Include="src\System\KdLibrary\KdMath.cpp" />
+    <ClCompile Include="src\System\KdLibrary\KdModel.cpp" />
+    <ClCompile Include="src\System\KdLibrary\KdResourceManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="2d\Bord.h" />
-    <ClInclude Include="2d\C2DBase.h" />
-    <ClInclude Include="2d\stBord.h" />
-    <ClInclude Include="2d\VerTex.h" />
-    <ClInclude Include="CGameFrame.h" />
-    <ClInclude Include="Component\InputComponent.h" />
-    <ClInclude Include="CSceneBase.h" />
-    <ClInclude Include="KdLibrary\CCamera.h" />
-    <ClInclude Include="KdLibrary\KdDirect3D.h" />
-    <ClInclude Include="KdLibrary\KdHelper.h" />
-    <ClInclude Include="KdLibrary\KdLibrary.h" />
-    <ClInclude Include="KdLibrary\KdMath.h" />
-    <ClInclude Include="KdLibrary\KdModel.h" />
-    <ClInclude Include="KdLibrary\KdResourceManager.h" />
-    <ClInclude Include="test.h" />
+    <ClInclude Include="src\System\2d\Bord.h" />
+    <ClInclude Include="src\System\2d\C2DBase.h" />
+    <ClInclude Include="src\System\2d\stBord.h" />
+    <ClInclude Include="src\System\2d\VerTex.h" />
+    <ClInclude Include="src\System\Component\InputComponent.h" />
+    <ClInclude Include="src\System\FrameBase\CGameFrame.h" />
+    <ClInclude Include="src\System\FrameBase\CSceneBase.h" />
+    <ClInclude Include="src\System\KdLibrary\CCamera.h" />
+    <ClInclude Include="src\System\KdLibrary\KdDirect3D.h" />
+    <ClInclude Include="src\System\KdLibrary\KdHelper.h" />
+    <ClInclude Include="src\System\KdLibrary\KdLibrary.h" />
+    <ClInclude Include="src\System\KdLibrary\KdMath.h" />
+    <ClInclude Include="src\System\KdLibrary\KdModel.h" />
+    <ClInclude Include="src\System\KdLibrary\KdResourceManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
