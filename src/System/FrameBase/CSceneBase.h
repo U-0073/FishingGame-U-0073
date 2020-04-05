@@ -1,15 +1,15 @@
 ﻿#pragma once
 
 
-class CGameScene
+class CSceneBase
 {
 public:
-    CGameScene( LPDIRECT3DDEVICE9 lpD3DDevice ) ;
-    ~CGameScene();
+    CSceneBase( LPDIRECT3DDEVICE9 lpD3DDevice ) ;
+    ~CSceneBase();
 
-    void Update();
-    void Draw2D( LPDIRECT3DDEVICE9 lpD3DDevice );
-    void Draw3D( LPDIRECT3DDEVICE9 lpD3DDevice );
+  virtual void Update();
+  virtual void Draw2D( LPDIRECT3DDEVICE9 lpD3DDevice );
+  virtual void Draw3D( LPDIRECT3DDEVICE9 lpD3DDevice );
 
 private:
 

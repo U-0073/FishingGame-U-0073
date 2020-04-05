@@ -2,7 +2,7 @@
 
 
 
-class CGameScene;
+class CSceneBase;
 
 class CGameFrame
 {
@@ -29,7 +29,7 @@ private:
     WNDCLASS				mWndClass;
     
 
-    CGameScene *            mpScene;
+    CSceneBase *            mpScene;
     const bool              mIsFullScreen;
     const D3DXVECTOR2       mWindowSize;
     const std::string       mAppName;

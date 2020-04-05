@@ -4,7 +4,7 @@
 
 
 
-CGameScene::CGameScene( LPDIRECT3DDEVICE9 lpD3DDevice )
+CSceneBase::CSceneBase( LPDIRECT3DDEVICE9 lpD3DDevice )
    : mpSprite( nullptr )
    , mpFont( nullptr )
 {
@@ -21,18 +21,18 @@ CGameScene::CGameScene( LPDIRECT3DDEVICE9 lpD3DDevice )
 }
 
 
-CGameScene::~CGameScene()
+CSceneBase::~CSceneBase()
 {
 
 }
 
-void CGameScene::Update()
+void CSceneBase::Update()
 {
 
 
 }
 
-void CGameScene::Draw2D(LPDIRECT3DDEVICE9 lpD3DDevice)
+void CSceneBase::Draw2D(LPDIRECT3DDEVICE9 lpD3DDevice)
 {
     mpSprite->Begin(D3DXSPRITE_ALPHABLEND);
 
@@ -40,11 +40,11 @@ void CGameScene::Draw2D(LPDIRECT3DDEVICE9 lpD3DDevice)
     mpSprite->End();
 }
 
-void CGameScene::Draw3D(LPDIRECT3DDEVICE9 lpD3DDevice)
+void CSceneBase::Draw3D(LPDIRECT3DDEVICE9 lpD3DDevice)
 {
 }
 
-void CGameScene::LoadTexture(LPDIRECT3DDEVICE9 lpD3DDevice,LPDIRECT3DTEXTURE9 *lpTex, const std::string & Path,int W,int H, const D3DCOLOR Color)
+void CSceneBase::LoadTexture(LPDIRECT3DDEVICE9 lpD3DDevice,LPDIRECT3DTEXTURE9 *lpTex, const std::string & Path,int W,int H, const D3DCOLOR Color)
 {
     if (W == 0)W = D3DX_DEFAULT;
     if (H == 0)H = D3DX_DEFAULT;

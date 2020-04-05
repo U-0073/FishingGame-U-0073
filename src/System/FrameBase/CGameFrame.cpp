@@ -49,7 +49,7 @@ const bool CGameFrame::Initialize(HINSTANCE aHInst, const int aCmdShow)
     if (CreateWNDCLASS(aHInst) == false) { return false; }
     if( CreateHWND(aHInst,aCmdShow) == false ){return false;}
     if( CreateDirectX9() == false ){return false;}
-    mpScene = new CGameScene(KD3D.GetDev());
+    mpScene = new CSceneBase(KD3D.GetDev());
     return true;
 }
 

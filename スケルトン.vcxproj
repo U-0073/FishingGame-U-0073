@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Game\CGameScene.cpp" />
     <ClCompile Include="src\System\2d\Bord.cpp" />
     <ClCompile Include="src\System\2d\C2DBase.cpp" />
     <ClCompile Include="src\System\Component\InputComponent.cpp" />
@@ -158,6 +159,7 @@
     <ClCompile Include="src\System\KdLibrary\KdResourceManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Game\CGameScene.h" />
     <ClInclude Include="src\System\2d\Bord.h" />
     <ClInclude Include="src\System\2d\C2DBase.h" />
     <ClInclude Include="src\System\2d\stBord.h" />
