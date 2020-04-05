@@ -1,5 +1,5 @@
-﻿#include"KdLibrary/KdLibrary.h"
-#include "CSceneBase.h"
+﻿#include"../KdLibrary/KdLibrary.h"
+#include "../FrameBase/CSceneBase.h"
 
 
 
