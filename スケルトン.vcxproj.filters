@@ -60,9 +60,6 @@
     <ClCompile Include="KdLibrary\CCamera.cpp">
       <Filter>ライブラリ</Filter>
     </ClCompile>
-    <ClCompile Include="test.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGameFrame.h">
