@@ -10,6 +10,7 @@
 //林がいじった分
 //ビッキーがいじった分
 //ワッキーがいじったよおおお
+//雄也がwwww
 
 //#include<windows.h>
 //#include<stdio.h>
