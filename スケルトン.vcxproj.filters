@@ -22,6 +22,18 @@
     <Filter Include="2d">
       <UniqueIdentifier>{00f126ac-5802-4739-99a0-141af06087a8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\ゲームソース">
+      <UniqueIdentifier>{b344c737-c580-4dd0-90db-49911136fe1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\システムソース">
+      <UniqueIdentifier>{16077d8f-315b-46b1-b333-59f1ec57ccf3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\システムベース">
+      <UniqueIdentifier>{4c54fd0d-6446-4ba6-8e5a-e6956acae653}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\ゲームベース">
+      <UniqueIdentifier>{5e3aeef2-9132-423a-88e2-70ab642889d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\System\2d\Bord.cpp">
@@ -51,14 +63,14 @@
     <ClCompile Include="src\System\KdLibrary\KdDirect3D.cpp">
       <Filter>ライブラリ</Filter>
     </ClCompile>
-    <ClCompile Include="src\System\FrameBase\CSceneBase.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\System\FrameBase\CGameFrame.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\システムソース</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\FrameBase\CSceneBase.cpp">
+      <Filter>ソース ファイル\システムソース</Filter>
     </ClCompile>
     <ClCompile Include="src\System\FrameBase\main.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\システムソース</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -98,11 +110,11 @@
     <ClInclude Include="src\System\KdLibrary\KdDirect3D.h">
       <Filter>ライブラリ</Filter>
     </ClInclude>
-    <ClInclude Include="src\System\FrameBase\CSceneBase.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="src\System\FrameBase\CGameFrame.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\システムベース</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\FrameBase\CSceneBase.h">
+      <Filter>ヘッダー ファイル\システムベース</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
