@@ -1,6 +1,8 @@
 ﻿#include"../KdLibrary/KdLibrary.h"
 
 
+//俺(正井）
+
 //#include<windows.h>
 //#include<stdio.h>
 //#include<d3dx9.h>
