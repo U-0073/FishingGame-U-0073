@@ -5,6 +5,9 @@
 class CSceneBase;
 class CGameScene;
 
+class CCamera;
+
+
 class CGameFrame
 {
 public:
@@ -34,6 +37,7 @@ private:
 	const bool              mIsFullScreen;
 	const D3DXVECTOR2       mWindowSize;
 	const std::string       mAppName;
+
 
 };
 
