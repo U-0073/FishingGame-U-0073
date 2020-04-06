@@ -15,11 +15,13 @@ CGameScene::CGameScene()
 	test = std::make_shared<TestCharacter>();
 	test->Init();
 
+	//ŠC
 	Sea = std::make_shared<Bord>();
-	Sea->CleateBordList(10,10);
+	Sea->CleateBordList(10,10);			
 	Sea->CangeSize(D3DXVECTOR3(100, 100, 0));
 	Sea->setTexParam("Resouce/Texture/Ground.bmp", 1024, 1024, D3DCOLOR_ARGB(255, 255, 255, 255),true);
 
+	//ƒvƒŒƒCƒ„[
 	m_Player = std::make_shared<C_Player>();
 	
 }
