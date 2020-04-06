@@ -16,7 +16,7 @@ public:
 	// D3Dオブジェクト取得
 	LPDIRECT3D9EX			GetD3D(){ return m_lpD3D; }
 	// D3Dデバイス取得
-	LPDIRECT3DDEVICE9EX		GetDev(){ return m_lpD3DDev;}
+	LPDIRECT3DDEVICE9EX&	GetDev(){ return m_lpD3DDev;}
 	// D3Dパラメータ取得
 	D3DPRESENT_PARAMETERS*	GetD3DPP(){return &m_d3dpp;}
 	// デバイス情報取得

@@ -56,8 +56,14 @@ const bool CGameFrame::Initialize(HINSTANCE aHInst, const int aCmdShow)
 
 void CGameFrame::GameLoop()
 {
-	// バックバッファと Z バッファをクリア
-	KD3D.GetDev()->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 255), 1.0f, 0);
+
+
+	DWORD flags =
+		D3DCLEAR_TARGET | // ARGB情報
+		D3DCLEAR_ZBUFFER | // 奥行情報
+		D3DCLEAR_STENCIL;	// マスク用情報
+	KD3D.GetDev()->Clear(0, nullptr, flags, D3DCOLOR_ARGB(255, 255, 0, 255), 1.0f, 0);
+
 
 	//シーンの更新.
 	nowScene->Update();
@@ -65,7 +71,8 @@ void CGameFrame::GameLoop()
 	// 描画開始
 	KD3D.GetDev()->BeginScene();
 
-	CAMERA.SetCameraPos(D3DXVECTOR3(0, 10, -0), D3DXVECTOR3(0, 0, 0));
+	CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -0.5), D3DXVECTOR3(0, 0, 1));
+	
 	CAMERA.Set(mWindowSize);
 
 
