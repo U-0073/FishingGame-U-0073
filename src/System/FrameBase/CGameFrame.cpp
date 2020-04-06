@@ -51,6 +51,7 @@ const bool CGameFrame::Initialize(HINSTANCE aHInst, const int aCmdShow)
 	if (CreateDirectX9() == false) { return false; }
 	nowScene = std::make_shared<CGameScene>(KD3D.GetDev());
 
+
 	return true;
 }
 
@@ -65,7 +66,7 @@ void CGameFrame::GameLoop()
 	// 描画開始
 	KD3D.GetDev()->BeginScene();
 
-	CAMERA.SetCameraPos(D3DXVECTOR3(0, 10, -0), D3DXVECTOR3(0, 0, 0));
+	CAMERA.SetCameraPos(D3DXVECTOR3(0, 10, -10), D3DXVECTOR3(0, 0, 0));
 	CAMERA.Set(mWindowSize);
 
 

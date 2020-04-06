@@ -1,9 +1,6 @@
 ﻿#include"../KdLibrary/KdLibrary.h"
 
 
-//俺(正井）//俺俺//俺(正井
-//コメント追加しました
-
 //#include<windows.h>
 //#include<stdio.h>
 //#include<d3dx9.h>
