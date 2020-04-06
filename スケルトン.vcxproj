@@ -147,7 +147,6 @@
     <ClCompile Include="src\Game\CGameScene.cpp" />
     <ClCompile Include="src\Game\TestCharacter.cpp" />
     <ClCompile Include="src\System\2d\Bord.cpp" />
-    <ClCompile Include="src\System\2d\C2DBase.cpp" />
     <ClCompile Include="src\System\Component\InputComponent.cpp" />
     <ClCompile Include="src\System\FrameBase\CGameFrame.cpp" />
     <ClCompile Include="src\System\FrameBase\CSceneBase.cpp" />
@@ -164,9 +163,6 @@
     <ClInclude Include="src\Game\CGameScene.h" />
     <ClInclude Include="src\Game\TestCharacter.h" />
     <ClInclude Include="src\System\2d\Bord.h" />
-    <ClInclude Include="src\System\2d\C2DBase.h" />
-    <ClInclude Include="src\System\2d\stBord.h" />
-    <ClInclude Include="src\System\2d\VerTex.h" />
     <ClInclude Include="src\System\Component\InputComponent.h" />
     <ClInclude Include="src\System\FrameBase\CGameFrame.h" />
     <ClInclude Include="src\System\FrameBase\CSceneBase.h" />

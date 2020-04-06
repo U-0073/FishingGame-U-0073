@@ -29,9 +29,6 @@
     <ClCompile Include="src\System\2d\Bord.cpp">
       <Filter>2d</Filter>
     </ClCompile>
-    <ClCompile Include="src\System\2d\C2DBase.cpp">
-      <Filter>2d</Filter>
-    </ClCompile>
     <ClCompile Include="src\System\Component\InputComponent.cpp">
       <Filter>コンポーネント</Filter>
     </ClCompile>
@@ -74,15 +71,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\System\2d\Bord.h">
-      <Filter>2d</Filter>
-    </ClInclude>
-    <ClInclude Include="src\System\2d\C2DBase.h">
-      <Filter>2d</Filter>
-    </ClInclude>
-    <ClInclude Include="src\System\2d\stBord.h">
-      <Filter>2d</Filter>
-    </ClInclude>
-    <ClInclude Include="src\System\2d\VerTex.h">
       <Filter>2d</Filter>
     </ClInclude>
     <ClInclude Include="src\System\Component\InputComponent.h">
