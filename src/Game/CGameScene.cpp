@@ -9,7 +9,7 @@ CGameScene::CGameScene(LPDIRECT3DDEVICE9 lpD3DDevice)
 {
 	//テストキャラクター
 	test = std::make_shared<TestCharacter>();
-	test->Init(lpD3DDevice);
+	test->Init();
 }
 
 CGameScene::~CGameScene()
@@ -27,5 +27,5 @@ void CGameScene::Draw2D(LPDIRECT3DDEVICE9 lpD3DDevice)
 
 void CGameScene::Draw3D(LPDIRECT3DDEVICE9 lpD3DDevice)
 {
-	test->Draw3D(lpD3DDevice);
+	test->Draw3D();
 }

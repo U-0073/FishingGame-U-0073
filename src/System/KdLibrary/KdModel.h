@@ -5,13 +5,13 @@ public:
 	// Xファイル読み込み
 	// ・filename	: ファイル名
 	// 戻り値		: true … 成功 false … 失敗
-	bool LoadXFile(LPDIRECT3DDEVICE9& mpD3DDevice,const std::string& filename);
+	bool LoadXFile(const std::string& filename);
 
 	// 解放
 	void Release();
 
 	// 描画
-	void Draw(LPDIRECT3DDEVICE9& mpD3DDevice);
+	void Draw();
 
 	// デストラクタ(このクラスが消えるときに、自動で実行される関数です)
 	~KdModel(){

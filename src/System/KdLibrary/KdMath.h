@@ -63,9 +63,7 @@ public:
 		*(D3DXMATRIX*)this = m;
 		return *this;
 	}
-	void SetWorldMatrix(LPDIRECT3DDEVICE9 mpD3DDevice) {
-		mpD3DDevice->SetTransform(D3DTS_WORLD, this);
-	}
+
 
 	//ˆÚ“®
 	void CreateTrans(float x, float y, float z) {

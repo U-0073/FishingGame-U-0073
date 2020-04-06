@@ -76,7 +76,7 @@
 
 #include"CCamera.h"//ƒJƒƒ‰
 
-//#include "KdDirect3D.h"
+#include "KdDirect3D.h"
 #include "KdModel.h"
 
 #include"KdResourceManager.h"

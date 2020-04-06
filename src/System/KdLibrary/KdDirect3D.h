@@ -58,8 +58,9 @@ public:
 	// 行列セット
 	//=============================================
 	// ワールド変換行列をセット
-
-
+	void SetWorldMatrix(const D3DXMATRIX* m) {
+		m_lpD3DDev->SetTransform(D3DTS_WORLD, m);
+	}
 	// 
 	~KdDirect3D() {
 		Release();
