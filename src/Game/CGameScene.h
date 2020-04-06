@@ -6,12 +6,12 @@ class TestCharacter;
 class CGameScene : public CSceneBase
 {
 public:
-	CGameScene(LPDIRECT3DDEVICE9 lpD3DDevice);
+	CGameScene();
 	~CGameScene();
 
 	void Update()override;
-	void Draw2D(LPDIRECT3DDEVICE9 lpD3DDevice)override;
-	void Draw3D(LPDIRECT3DDEVICE9 lpD3DDevice)override;
+	void Draw2D()override;
+	void Draw3D()override;
 
 private:
 	std::shared_ptr<TestCharacter> test = nullptr;

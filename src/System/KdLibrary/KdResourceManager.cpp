@@ -1,7 +1,7 @@
 #include"../KdLibrary/KdLibrary.h"
 #include"KdResourceManager.h"
 
-std::shared_ptr<KdModel> KdResourcemanager::GetModel(LPDIRECT3DDEVICE9& mpD3DDevice,const std::string & Filename)
+std::shared_ptr<KdModel> KdResourcemanager::GetModel(const std::string & Filename)
 {
 	//Šù‚É“Ç‚İ‚ñ‚¾‚©‚Ç‚¤‚©‚ğ’²‚×‚é
 	if (m_models.find(Filename) != m_models.end()) {
@@ -14,7 +14,7 @@ std::shared_ptr<KdModel> KdResourcemanager::GetModel(LPDIRECT3DDEVICE9& mpD3DDev
 
 	//‚Ü‚¾‚È‚©‚Á‚½
 	auto nModel = std::make_shared<KdModel>();
-	if (nModel->LoadXFile(mpD3DDevice,Filename) == false) {
+	if (nModel->LoadXFile(Filename) == false) {
 	
 		//“Ç‚İ‚ß‚È‚©‚Á‚½
 		nModel = nullptr;

@@ -1,7 +1,7 @@
 #include "KdLibrary.h"
 #include "KdModel.h"
 
-bool KdModel::LoadXFile(LPDIRECT3DDEVICE9& mpD3DDevice,const std::string& filename)
+bool KdModel::LoadXFile(const std::string& filename)
 {
 	Release();
 
@@ -27,7 +27,7 @@ bool KdModel::LoadXFile(LPDIRECT3DDEVICE9& mpD3DDevice,const std::string& filena
 	DWORD mateNum;
 	hr = D3DXLoadMeshFromX(filename.c_str(),
 		D3DXMESH_SYSTEMMEM,
-		mpD3DDevice,
+		KD3D.GetDev(),
 		nullptr,
 		&pD3DXMtrlBuffer,	// マテリアルデータを格納するための変数を指定
 		nullptr,
@@ -58,7 +58,7 @@ bool KdModel::LoadXFile(LPDIRECT3DDEVICE9& mpD3DDevice,const std::string& filena
 		// テクスチャ読み込み
 		D3DXIMAGE_INFO		m_Info;					// 情報(ここで必要かは不明)
 		HRESULT hr = D3DXCreateTextureFromFileEx(
-			mpD3DDevice,
+			KD3D.GetDev(),
 			strTexFile.c_str(),
 			D3DX_DEFAULT_NONPOW2,			// Width
 			D3DX_DEFAULT_NONPOW2,			// Height
@@ -97,7 +97,7 @@ void KdModel::Release()
 	m_fileName = "";
 }
 
-void KdModel::Draw(LPDIRECT3DDEVICE9& mpD3DDevice)
+void KdModel::Draw()
 {
 	// メッシュがないときは、何もしない
 	if(m_pMesh == nullptr)return;
@@ -105,9 +105,9 @@ void KdModel::Draw(LPDIRECT3DDEVICE9& mpD3DDevice)
 	// マテリアル単位で描画する
 	for(UINT i=0;i<m_materials.size();i++){
 		// i番目のマテリアル(材質情報)をセット
-		mpD3DDevice->SetMaterial(&m_materials[i].matD3D);
+		KD3D.GetDev()->SetMaterial(&m_materials[i].matD3D);
 		// i番目のテクスチャ(画像)をセット
-		mpD3DDevice->SetTexture(0, m_materials[i].pTex);
+		KD3D.GetDev()->SetTexture(0, m_materials[i].pTex);
 
 		// i番目のマテリアルのポリゴンを描画
 		m_pMesh->DrawSubset(i);

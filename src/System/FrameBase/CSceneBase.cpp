@@ -4,22 +4,20 @@
 
 
 
-CSceneBase::CSceneBase()
-{
-}
 
-CSceneBase::CSceneBase(LPDIRECT3DDEVICE9 lpD3DDevice)
+
+CSceneBase::CSceneBase()
 	: mpSprite(nullptr)
 	, mpFont(nullptr)
 {
 	// スプライト作成.
-	D3DXCreateSprite(lpD3DDevice, &mpSprite);
+	D3DXCreateSprite(KD3D.GetDev(), &mpSprite);
 	mpSprite->OnResetDevice();
 
 
 
 	// フォント作成
-	D3DXCreateFont(lpD3DDevice, 20, 20, FW_REGULAR, NULL, FALSE, SHIFTJIS_CHARSET,
+	D3DXCreateFont(KD3D.GetDev(), 20, 20, FW_REGULAR, NULL, FALSE, SHIFTJIS_CHARSET,
 		OUT_DEFAULT_PRECIS, PROOF_QUALITY, FIXED_PITCH | FF_MODERN, "ＭＳ ゴシック", &mpFont);
 	mpFont->OnResetDevice();
 }
@@ -36,7 +34,7 @@ void CSceneBase::Update()
 
 }
 
-void CSceneBase::Draw2D(LPDIRECT3DDEVICE9 lpD3DDevice)
+void CSceneBase::Draw2D()
 {
 	mpSprite->Begin(D3DXSPRITE_ALPHABLEND);
 
@@ -44,7 +42,7 @@ void CSceneBase::Draw2D(LPDIRECT3DDEVICE9 lpD3DDevice)
 	mpSprite->End();
 }
 
-void CSceneBase::Draw3D(LPDIRECT3DDEVICE9 lpD3DDevice)
+void CSceneBase::Draw3D()
 {
 }
 
