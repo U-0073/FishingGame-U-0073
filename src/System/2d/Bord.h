@@ -1,10 +1,6 @@
 #pragma once
-
-#include"VerTex.h"
-//#include"C2DBase.h"
 #include"stBord.h"
-#include <vector>
-#include<d3dx9.h>
+//struct stBordProto;
 class Bord
 {
 protected:

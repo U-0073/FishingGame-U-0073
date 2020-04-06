@@ -1,3 +1,6 @@
+
+
+#include<string>
 #include "C2DBase.h"
 
 

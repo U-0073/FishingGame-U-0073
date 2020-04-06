@@ -15,4 +15,6 @@ public:
 
 private:
 	std::shared_ptr<TestCharacter> test = nullptr;
+	
+
 };

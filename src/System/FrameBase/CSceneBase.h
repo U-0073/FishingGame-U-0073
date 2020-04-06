@@ -13,8 +13,7 @@ public:
 
 private:
 
-	void LoadTexture(LPDIRECT3DDEVICE9 lpD3DDevice, LPDIRECT3DTEXTURE9* lpTex, const std::string& Path, const int W, const int H, const D3DCOLOR Color);
-
+	
 
 
 };

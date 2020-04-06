@@ -5,11 +5,14 @@
 
 
 
+
 CGameScene::CGameScene()
 {
 	//テストキャラクター
 	test = std::make_shared<TestCharacter>();
 	test->Init();
+
+
 }
 
 CGameScene::~CGameScene()
@@ -28,4 +31,5 @@ void CGameScene::Draw2D()
 void CGameScene::Draw3D()
 {
 	test->Draw3D();
+	
 }
