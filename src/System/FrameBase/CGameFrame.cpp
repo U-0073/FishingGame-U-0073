@@ -50,7 +50,7 @@ const bool CGameFrame::Initialize(HINSTANCE aHInst, const int aCmdShow)
 	if (CreateHWND(aHInst, aCmdShow) == false) { return false; }
 	if (CreateDirectX9() == false) { return false; }
 	
-	nowScene = std::make_shared<CGameScene>(KD3D.GetDev());
+	nowScene = std::make_shared<CGameScene>();
 	CAMERA.Set(mWindowSize);
 	return true;
 }
@@ -80,9 +80,9 @@ void CGameFrame::GameLoop()
 
 	
 	//2D描画.
-	nowScene->Draw2D(KD3D.GetDev());
+	nowScene->Draw2D();
 	//3D描画.
-	nowScene->Draw3D(KD3D.GetDev());
+	nowScene->Draw3D();
 
 	// 描画終了
 	KD3D.GetDev()->EndScene();

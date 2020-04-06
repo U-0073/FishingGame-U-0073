@@ -5,12 +5,11 @@ class CSceneBase
 {
 public:
 	CSceneBase();
-	CSceneBase(LPDIRECT3DDEVICE9 lpD3DDevice);
 	~CSceneBase();
 
 	virtual void Update();
-	virtual void Draw2D(LPDIRECT3DDEVICE9 lpD3DDevice);
-	virtual void Draw3D(LPDIRECT3DDEVICE9 lpD3DDevice);
+	virtual void Draw2D();
+	virtual void Draw3D();
 
 private:
 

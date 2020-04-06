@@ -4,7 +4,7 @@ class GameObject
 {
 public:
 	GameObject();
-	GameObject(LPDIRECT3DDEVICE9 lpD3DDevice);
+
 	~GameObject();
 	virtual void Init();		//‰¼‘zŠÖ”
 	virtual void Update() = 0;	//ƒˆ‰¼‘zŠÖ”
