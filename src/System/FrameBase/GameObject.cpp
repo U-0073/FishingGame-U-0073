@@ -13,7 +13,7 @@ GameObject::~GameObject()
 {
 }
 
-void GameObject::Init()
+void GameObject::Init(LPDIRECT3DDEVICE9 &lpD3DDevice)
 {
 	D3DXMatrixIdentity(&m_world);
 }

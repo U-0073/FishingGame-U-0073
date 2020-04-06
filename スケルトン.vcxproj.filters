@@ -50,9 +50,6 @@
     <ClCompile Include="src\System\KdLibrary\CCamera.cpp">
       <Filter>ライブラリ</Filter>
     </ClCompile>
-    <ClCompile Include="src\System\KdLibrary\KdDirect3D.cpp">
-      <Filter>ライブラリ</Filter>
-    </ClCompile>
     <ClCompile Include="src\System\FrameBase\CGameFrame.cpp">
       <Filter>src\システム</Filter>
     </ClCompile>
@@ -104,9 +101,6 @@
       <Filter>ライブラリ</Filter>
     </ClInclude>
     <ClInclude Include="src\System\KdLibrary\CCamera.h">
-      <Filter>ライブラリ</Filter>
-    </ClInclude>
-    <ClInclude Include="src\System\KdLibrary\KdDirect3D.h">
       <Filter>ライブラリ</Filter>
     </ClInclude>
     <ClInclude Include="src\System\FrameBase\GameObject.h">

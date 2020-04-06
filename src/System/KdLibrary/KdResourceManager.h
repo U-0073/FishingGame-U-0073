@@ -3,7 +3,7 @@
 class KdModel;
 class KdResourcemanager {
 public:
-	std::shared_ptr<KdModel>GetModel(const std::string&Filename);//リソースの管理
+	std::shared_ptr<KdModel>GetModel(LPDIRECT3DDEVICE9& mpD3DDevice,const std::string&Filename);//リソースの管理
 	void clear(void) { m_models.clear(); }
 private:
 
