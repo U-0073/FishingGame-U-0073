@@ -1,7 +1,7 @@
 ﻿#include"../KdLibrary/KdLibrary.h"
 
 
-//俺(正井）
+//俺(正井）//俺俺
 
 //#include<windows.h>
 //#include<stdio.h>
