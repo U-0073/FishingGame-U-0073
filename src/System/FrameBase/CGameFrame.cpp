@@ -76,7 +76,6 @@ void CGameFrame::GameLoop()
 	
 	CAMERA.Set(mWindowSize);
 
-
 	
 
 	
