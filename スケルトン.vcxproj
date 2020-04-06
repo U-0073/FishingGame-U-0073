@@ -145,6 +145,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Game\CGameScene.cpp" />
+    <ClCompile Include="src\Game\C_Player.cpp" />
     <ClCompile Include="src\Game\TestCharacter.cpp" />
     <ClCompile Include="src\System\2d\Bord.cpp" />
     <ClCompile Include="src\System\2d\C2DBase.cpp" />
@@ -162,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Game\CGameScene.h" />
+    <ClInclude Include="src\Game\C_Player.h" />
     <ClInclude Include="src\Game\TestCharacter.h" />
     <ClInclude Include="src\System\2d\Bord.h" />
     <ClInclude Include="src\System\2d\C2DBase.h" />
