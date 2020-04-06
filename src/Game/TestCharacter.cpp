@@ -12,7 +12,7 @@ TestCharacter::~TestCharacter()
 void TestCharacter::Init()
 {
 	GameObject::Init();
-	m_pModel = RESOURCE_MNG.GetModel("./Resouce/3DModel/F-15.x");
+	m_pModel = RESOURCE_MNG.GetModel("./Resouce/3DModel/body.x");
 }
 
 void TestCharacter::Update()
