@@ -145,6 +145,15 @@ bool KdDirect3D::Init(HWND hWnd, int width, int height, bool fullscreen, std::st
 	//ライトを有効にする
 	m_lpD3DDev->LightEnable(0, true);
 
+
+	// スプライト作成.
+	D3DXCreateSprite(m_lpD3DDev, &mpSprite);
+	mpSprite->OnResetDevice();
+
+	// フォント作成
+	D3DXCreateFont(m_lpD3DDev, 20, 20, FW_REGULAR, NULL, FALSE, SHIFTJIS_CHARSET,
+		OUT_DEFAULT_PRECIS, PROOF_QUALITY, FIXED_PITCH | FF_MODERN, "ＭＳ ゴシック", &mpFont);
+	mpFont->OnResetDevice();
 	return true;
 }
 

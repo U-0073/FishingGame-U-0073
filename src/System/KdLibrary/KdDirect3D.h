@@ -29,6 +29,9 @@ public:
 	int						GetRezoH() const {return m_d3dpp.BackBufferHeight;}
 
 
+	LPD3DXSPRITE& GetSprite() { return mpSprite; } 	// スプライト
+	LPD3DXFONT& GetFont() { return mpFont; }		// フォント
+
 	
 
 
@@ -79,6 +82,13 @@ private:
 	LPDIRECT3DSURFACE9			m_OrgRenderTarget = nullptr;	// デフォルトのバックバッファ
 	LPDIRECT3DSURFACE9			m_OrgDepthStencil = nullptr;	// デフォルトの深度(Z)バッファ
 
+
+
+	//スプライト関係
+	LPD3DXSPRITE	mpSprite = nullptr;	// スプライト
+	LPD3DXFONT		mpFont = nullptr;		// フォント
+
+
 //-------------------------------
 // シングルトン用
 //-------------------------------
@@ -100,4 +110,5 @@ public:
 
 // 簡単にアクセスできるようにするためのマクロ
 #define KD3D KdDirect3D::GetInstance()
-
+#define FONT KdDirect3D::GetInstance().GetFont()
+#define SPRITE KdDirect3D::GetInstance().GetSprite()

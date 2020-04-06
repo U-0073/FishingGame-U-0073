@@ -63,7 +63,7 @@ void CGameFrame::GameLoop()
 		D3DCLEAR_TARGET | // ARGB情報
 		D3DCLEAR_ZBUFFER | // 奥行情報
 		D3DCLEAR_STENCIL;	// マスク用情報
-	KD3D.GetDev()->Clear(0, nullptr, flags, D3DCOLOR_ARGB(255, 255, 0, 255), 1.0f, 0);
+	KD3D.GetDev()->Clear(0, nullptr, flags, D3DCOLOR_ARGB(255, 0, 0, 255), 1.0f, 0);
 
 
 	//シーンの更新.
