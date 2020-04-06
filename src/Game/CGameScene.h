@@ -6,6 +6,7 @@ class TestCharacter;
 class C_Player;		//プレイヤー全般
 
 
+class Bord;
 class CGameScene : public CSceneBase
 {
 public:
@@ -18,6 +19,7 @@ public:
 
 private:
 	std::shared_ptr<TestCharacter> test = nullptr;
+	std::shared_ptr<Bord> Sea = nullptr;
 	
 
 	//林プログラム
