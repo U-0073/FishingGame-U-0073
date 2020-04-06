@@ -154,7 +154,6 @@
     <ClCompile Include="src\System\FrameBase\GameObject.cpp" />
     <ClCompile Include="src\System\FrameBase\main.cpp" />
     <ClCompile Include="src\System\KdLibrary\CCamera.cpp" />
-    <ClCompile Include="src\System\KdLibrary\KdDirect3D.cpp" />
     <ClCompile Include="src\System\KdLibrary\KdHelper.cpp" />
     <ClCompile Include="src\System\KdLibrary\KdMath.cpp" />
     <ClCompile Include="src\System\KdLibrary\KdModel.cpp" />
@@ -172,7 +171,6 @@
     <ClInclude Include="src\System\FrameBase\CSceneBase.h" />
     <ClInclude Include="src\System\FrameBase\GameObject.h" />
     <ClInclude Include="src\System\KdLibrary\CCamera.h" />
-    <ClInclude Include="src\System\KdLibrary\KdDirect3D.h" />
     <ClInclude Include="src\System\KdLibrary\KdHelper.h" />
     <ClInclude Include="src\System\KdLibrary\KdLibrary.h" />
     <ClInclude Include="src\System\KdLibrary\KdMath.h" />

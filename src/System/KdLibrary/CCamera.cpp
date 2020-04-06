@@ -18,7 +18,7 @@ CCamera::~CCamera()
 }*/
 
 //G‚ç‚È‚¢‚Å
-void CCamera::Set(const D3DXVECTOR2& mWindowSize)
+void CCamera::Set(LPDIRECT3DDEVICE9& mpD3DDevice,const D3DXVECTOR2& mWindowSize)
 {
 	
 	D3DXMATRIX mView, mProj;
@@ -37,8 +37,8 @@ void CCamera::Set(const D3DXVECTOR2& mWindowSize)
 	D3DXMatrixPerspectiveFovLH(&mProj, D3DXToRadian(60), mWindowSize.x / mWindowSize.y, 1.0f, 1000.0f);
 
 	//s—ñÝ’è
-	KD3D.GetDev()->SetTransform(D3DTS_VIEW, &mView);
-	KD3D.GetDev()->SetTransform(D3DTS_PROJECTION, &mProj);
+	mpD3DDevice->SetTransform(D3DTS_VIEW, &mView);
+	mpD3DDevice->SetTransform(D3DTS_PROJECTION, &mProj);
 
 }
 

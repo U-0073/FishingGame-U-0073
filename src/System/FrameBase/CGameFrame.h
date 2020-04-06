@@ -25,11 +25,11 @@ private:
 	const bool CreateDirectX9();
 
 	HWND					mpHwnd;
-	/*
+	
 	   LPDIRECT3D9				mpD3D;
 	   LPDIRECT3DDEVICE9		mpD3DDevice;
 	   D3DPRESENT_PARAMETERS	mD3Dpp;
-	   */
+	   
 	WNDCLASS				mWndClass;
 
 

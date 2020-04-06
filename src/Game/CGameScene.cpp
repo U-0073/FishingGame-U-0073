@@ -9,7 +9,7 @@ CGameScene::CGameScene(LPDIRECT3DDEVICE9 lpD3DDevice)
 {
 	//テストキャラクター
 	test = std::make_shared<TestCharacter>();
-	test->Init();
+	test->Init(lpD3DDevice);
 }
 
 CGameScene::~CGameScene()

@@ -7,7 +7,7 @@ public:
 	TestCharacter();
 	~TestCharacter();
 
-	void Init()override;
+	void Init(LPDIRECT3DDEVICE9& lpD3DDevice)override;
 	void Update()override;
 	void Draw3D(LPDIRECT3DDEVICE9 lpD3DDevice)override;
 private:

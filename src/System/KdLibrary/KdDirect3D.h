@@ -19,6 +19,7 @@ public:
 	LPDIRECT3DDEVICE9EX		GetDev(){ return m_lpD3DDev;}
 	// D3Dパラメータ取得
 	D3DPRESENT_PARAMETERS*	GetD3DPP(){return &m_d3dpp;}
+
 	// デバイス情報取得
 	D3DCAPS9*				GetCaps(){return &m_Caps;}
 
@@ -26,6 +27,9 @@ public:
 	int						GetRezoW() const {return m_d3dpp.BackBufferWidth;}
 	// Y解像度取得(画面の高)
 	int						GetRezoH() const {return m_d3dpp.BackBufferHeight;}
+
+
+	
 
 
 	//=============================================
@@ -54,9 +58,7 @@ public:
 	// 行列セット
 	//=============================================
 	// ワールド変換行列をセット
-	void SetWorldMatrix(const D3DXMATRIX* m) {
-		m_lpD3DDev->SetTransform(D3DTS_WORLD, m);
-	}
+
 
 	// 
 	~KdDirect3D() {

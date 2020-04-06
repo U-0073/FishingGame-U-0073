@@ -25,9 +25,9 @@ LRESULT APIENTRY WndFunc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 //コンストラクタ(インスタンス化(作られたとき)時に呼び出される関数)
 CGameFrame::CGameFrame()
 	: mpHwnd(nullptr)
-	/* , mpD3D( nullptr )
+	 , mpD3D( nullptr )
 	 , mpD3DDevice( nullptr )
-	 , mD3Dpp()*/
+	 , mD3Dpp()
 	, mWndClass()
 	, nowScene(nullptr)
 	, mIsFullScreen(false)
@@ -49,37 +49,37 @@ const bool CGameFrame::Initialize(HINSTANCE aHInst, const int aCmdShow)
 	if (CreateWNDCLASS(aHInst) == false) { return false; }
 	if (CreateHWND(aHInst, aCmdShow) == false) { return false; }
 	if (CreateDirectX9() == false) { return false; }
-	nowScene = std::make_shared<CGameScene>(KD3D.GetDev());
-
+	
+	nowScene = std::make_shared<CGameScene>(mpD3DDevice);
+	CAMERA.Set(mpD3DDevice,mWindowSize);
 	return true;
 }
 
 void CGameFrame::GameLoop()
 {
 	// バックバッファと Z バッファをクリア
-	KD3D.GetDev()->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 255), 1.0f, 0);
-
-	//シーンの更新.
+	mpD3DDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 255), 1.0f, 0);
 	nowScene->Update();
 
 	// 描画開始
-	KD3D.GetDev()->BeginScene();
-
-	CAMERA.SetCameraPos(D3DXVECTOR3(0, 10, -0), D3DXVECTOR3(0, 0, 0));
-	CAMERA.Set(mWindowSize);
+	mpD3DDevice->BeginScene();
 
 
+	CAMERA.Set(mpD3DDevice,mWindowSize);
 
+	
+
+	
 	//2D描画.
-	nowScene->Draw2D(KD3D.GetDev());
+	nowScene->Draw2D(mpD3DDevice);
 	//3D描画.
-	nowScene->Draw3D(KD3D.GetDev());
+	nowScene->Draw3D(mpD3DDevice);
 
 	// 描画終了
-	KD3D.GetDev()->EndScene();
+	mpD3DDevice->EndScene();
 
 	// バックバッファをプライマリバッファにコピー
-	KD3D.GetDev()->Present(NULL, NULL, NULL, NULL);
+	mpD3DDevice->Present(NULL, NULL, NULL, NULL);
 }
 
 const bool CGameFrame::CreateWNDCLASS(HINSTANCE aHInst)
@@ -130,16 +130,17 @@ const bool CGameFrame::CreateHWND(HINSTANCE aHInst, const int aCmdShow)
 
 	return true;
 }
-const bool CGameFrame::CreateDirectX9() {
-	//===================================================================
-	// Direct3D初期化
-	//===================================================================
-	std::string errorMsg;
-	if (KD3D.Init(mpHwnd, mWindowSize.x, mWindowSize.y, mIsFullScreen, errorMsg) == false) {
-		MessageBox(mpHwnd, errorMsg.c_str(), "Direct3D初期化失敗", MB_OK | MB_ICONSTOP);
-		return false;
-	}
-}/*
+//const bool CGameFrame::CreateDirectX9() {
+//	//===================================================================
+//	// Direct3D初期化
+//	//===================================================================
+//	std::string errorMsg;
+//	if (KD3D.Init(mpHwnd, mWindowSize.y, mWindowSize.x, mIsFullScreen, errorMsg) == false) {
+//		MessageBox(mpHwnd, errorMsg.c_str(), "Direct3D初期化失敗", MB_OK | MB_ICONSTOP);
+//		return false;
+//	}
+//	return true;
+//}
 const bool CGameFrame::CreateDirectX9()
 {
 
@@ -252,4 +253,3 @@ const bool CGameFrame::CreateDirectX9()
 
 
 }
-*/
