@@ -22,11 +22,10 @@ void TestCharacter::Update()
 
 void TestCharacter::Draw3D(LPDIRECT3DDEVICE9 mpD3DDevice)
 {
-	
-	
-	m_world.SetWorldMatrix(mpD3DDevice);
-	mpD3DDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
-	m_pModel->Draw(mpD3DDevice);
-	mpD3DDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
+	KD3D.SetWorldMatrix(&m_world);
+
+	lpD3DDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
+	m_pModel->Draw();
+	lpD3DDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 
 }
