@@ -1,5 +1,5 @@
 #include"../System/KdLibrary/KdLibrary.h"
-#include"../System/2d/Bord.h"
+#include"../System/2d/Board.h"
 
 #include"CGameScene.h"
 //-----------
@@ -14,8 +14,8 @@ CGameScene::CGameScene()
 	test = std::make_shared<TestCharacter>();
 	test->Init();
 
-	Sea = std::make_shared<Bord>();
-	Sea->CleateBordList(10,10);
+	Sea = std::make_shared<Board>();
+	Sea->CleateBoardList(10,10);
 	Sea->CangeSize(D3DXVECTOR3(100, 100, 0));
 	Sea->setTexParam("Resouce/Texture/Ground.bmp", 1024, 1024, D3DCOLOR_ARGB(255, 255, 255, 255),true);
 

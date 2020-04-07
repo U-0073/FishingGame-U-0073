@@ -26,9 +26,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\System\2d\Bord.cpp">
-      <Filter>2d</Filter>
-    </ClCompile>
     <ClCompile Include="src\System\Component\InputComponent.cpp">
       <Filter>コンポーネント</Filter>
     </ClCompile>
@@ -68,11 +65,11 @@
     <ClCompile Include="src\System\KdLibrary\KdDirect3D.cpp">
       <Filter>ライブラリ</Filter>
     </ClCompile>
+    <ClCompile Include="src\System\2d\Board.cpp">
+      <Filter>2d</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\System\2d\Bord.h">
-      <Filter>2d</Filter>
-    </ClInclude>
     <ClInclude Include="src\System\Component\InputComponent.h">
       <Filter>コンポーネント</Filter>
     </ClInclude>
@@ -111,6 +108,9 @@
     </ClInclude>
     <ClInclude Include="src\System\KdLibrary\KdDirect3D.h">
       <Filter>ライブラリ</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\2d\Board.h">
+      <Filter>2d</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 #pragma once
 #define	FVF_VERTEX (D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1)
 
-//struct stBordProto;
+//struct stBoardProto;
 // 頂点フォーマットの定義
 struct VERTEX
 {
@@ -12,7 +12,7 @@ struct VERTEX
 
 
 //VERTEX=頂点
-struct stBord {
+struct stBoard {
 	VERTEX	v[4];
 
 	D3DXVECTOR2	DrawSize;
@@ -20,11 +20,11 @@ struct stBord {
 	D3DXVECTOR3	Pos;
 };
 
-class Bord
+class Board
 {
 
 private:
-	std::vector<std::vector<stBord>> mList;
+	std::vector<std::vector<stBoard>> mList;
 	std::string mPath="";
 	int mW=0, mH=0;
 	D3DCOLOR mColor=0;
@@ -33,9 +33,9 @@ private:
 
 
 public:
-	Bord();
+	Board();
 	void Draw();
-	void SafeRereace(LPDIRECT3DTEXTURE9& LoadTex);
+	void SafeRelease(LPDIRECT3DTEXTURE9& LoadTex);
 
 	void setTexParam(std::string Path, int W, int H, D3DCOLOR color,bool flg) { mPath = Path;
 	mW = W;
@@ -46,7 +46,7 @@ public:
 
 	void CangeSize(D3DXVECTOR3 size) { mSize = size; }
 
-	void CleateBordList(int cnt, int  cnt2);
+	void CleateBoardList(int cnt, int  cnt2);
 
 	void Update();
 

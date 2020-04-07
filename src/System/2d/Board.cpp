@@ -2,14 +2,14 @@
 //#include"C2DBase.h"
 
 #include"../KdLibrary/KdLibrary.h"
-#include "Bord.h"
+#include "Board.h"
 
-Bord::Bord()
+Board::Board()
 {
 }
 
 //板ポリの表示
-void Bord::Draw()
+void Board::Draw()
 {
 	for (int siz1 = 0; siz1 < mList.size(); siz1++) {
 		for (int siz2 = 0; siz2 < mList[siz1].size(); siz2++) {
@@ -26,7 +26,7 @@ void Bord::Draw()
 
 
 
-void Bord::SafeRereace(LPDIRECT3DTEXTURE9& LoadTex)
+void Board::SafeRelease(LPDIRECT3DTEXTURE9& LoadTex)
 {
 	if (LoadTex != nullptr) {
 		LoadTex->Release();
@@ -35,19 +35,19 @@ void Bord::SafeRereace(LPDIRECT3DTEXTURE9& LoadTex)
 
 
 //複数板ポリの生成
-void Bord::CleateBordList(int cnt,int cnt2)
+void Board::CleateBoardList(int cnt,int cnt2)
 {
 	
-	std::vector<std::vector<stBord>>mList(cnt, std::vector<stBord>(cnt2));
+	std::vector<std::vector<stBoard>>mList(cnt, std::vector<stBoard>(cnt2));
 
 	
 }
 
 
-void Bord::Update()
+void Board::Update()
 {
-	//std::vector<std::vector<stBordProto>>::iterator itr_b ;
-	//std::vector<stBordProto>::iterator itr_bb ;
+	//std::vector<std::vector<stBoardProto>>::iterator itr_b ;
+	//std::vector<stBoardProto>::iterator itr_bb ;
 	//
 	for (int siz1 = 0; siz1 < mList.size(); siz1++) {
 		for (int siz2 = 0; siz2 < mList[siz1].size(); siz2 ++ ) {
@@ -89,7 +89,7 @@ void Bord::Update()
 
 }
 //テクスチャの分割貼り付け
-void Bord::SetTex(bool Flg/*tue=分割*/)//
+void Board::SetTex(bool Flg/*tue=分割*/)//
 {
 	for (int siz1 = 0; siz1 < mList.size(); siz1++) {
 		for (int siz2 = 0; siz2 < mList[siz1].size(); siz2++) {
