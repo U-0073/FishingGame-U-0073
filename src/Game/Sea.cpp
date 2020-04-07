@@ -11,7 +11,7 @@ Sea::Sea()
 		}
 	}
 	setTexParam("Resouce/Texture/Ground.bmp", 1024, 1024, D3DCOLOR_ARGB(255, 255, 255, 255));
-
+	CreateBoard(20, 20, &D3DXVECTOR3(10, 0, 10), &D3DXVECTOR3(0, 0, 0));
 }
 
 Sea::~Sea()
