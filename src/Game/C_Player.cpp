@@ -71,12 +71,17 @@ void C_Player::Update()
 
 	MoveProc();
 
-// 	CAMERA.SetCameraPos(D3DXVECTOR3(PlayerVec.x, PlayerVec.y + 10.0f, PlayerVec.z), D3DXVECTOR3(PlayerVec.x, PlayerVec.y, PlayerVec.z + 1));
+	CAMERA.SetCameraPos(D3DXVECTOR3(0, 10, -10), D3DXVECTOR3(0, 0, 0));
+	//CAMERA.SetCameraPos(D3DXVECTOR3(PlayerVec.x, PlayerVec.y + 10.0f, PlayerVec.z), D3DXVECTOR3(PlayerVec.x, PlayerVec.y, PlayerVec.z + 1));
 
 }
 
-void C_Player::Draw3D()
-{
+void C_Player::Draw3D() {
+	KD3D.SetWorldMatrix(&m_world);
+
+	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, TRUE);
+	m_pModel->Draw();
+	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
 }
 void C_Player::Draw2D()
 {
