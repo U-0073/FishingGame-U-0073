@@ -68,6 +68,9 @@
     <ClCompile Include="src\System\2d\Board.cpp">
       <Filter>2d</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Sea.cpp">
+      <Filter>src\ゲーム</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\System\Component\InputComponent.h">
@@ -111,6 +114,9 @@
     </ClInclude>
     <ClInclude Include="src\System\2d\Board.h">
       <Filter>2d</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Sea.h">
+      <Filter>src\ゲーム</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
