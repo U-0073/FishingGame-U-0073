@@ -71,6 +71,8 @@
 // 便利汎用機能
 #include "KdHelper.h"
 
+
+
 // Direct3D
 #include"KdMath.h"//優先度高い
 
@@ -79,6 +81,7 @@
 #include "KdDirect3D.h"
 #include "KdModel.h"
 
+#include"../../../src/System/FrameBase/CGameFrame.h"
 #include"KdResourceManager.h"
 
 

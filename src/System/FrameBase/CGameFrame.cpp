@@ -25,9 +25,9 @@ LRESULT APIENTRY WndFunc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 //コンストラクタ(インスタンス化(作られたとき)時に呼び出される関数)
 CGameFrame::CGameFrame()
 	: mpHwnd(nullptr)
-	 , mpD3D( nullptr )
-	 , mpD3DDevice( nullptr )
-	 , mD3Dpp()
+	 //, mpD3D( nullptr )
+	 //, mpD3DDevice( nullptr )
+	 //, mD3Dpp()
 	, mWndClass()
 	, nowScene(nullptr)
 	, mIsFullScreen(false)
@@ -43,11 +43,43 @@ CGameFrame::~CGameFrame()
 {
 }
 
+const bool CGameFrame::CreateHWND(HINSTANCE aHInst, const int aCmdShow)
+{
+	mpHwnd = CreateWindowEx(
+		0,
+		mAppName.c_str(),
+		mAppName.c_str(),
+		WS_OVERLAPPEDWINDOW,
+		CW_USEDEFAULT,
+		CW_USEDEFAULT,
+		static_cast<int>(mWindowSize.x), static_cast<int>(mWindowSize.y),
+		NULL, NULL, aHInst,
+		NULL);
+
+	if (!mpHwnd)return false;
+
+	ShowWindow(mpHwnd, aCmdShow);
+	UpdateWindow(mpHwnd);
+	SetFocus(mpHwnd);
+
+	if (mIsFullScreen) {
+		ShowCursor(FALSE);
+	}
+	else {
+		RECT rc = { 0,0, static_cast<LONG>(mWindowSize.x), static_cast<LONG>(mWindowSize.y) };
+		AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
+		SetWindowPos(mpHwnd, NULL, 50, 50, rc.right - rc.left, rc.bottom - rc.top, SWP_SHOWWINDOW | SWP_NOZORDER);
+	}
+
+	return true;
+}
 //初期化関数、ウィンドウとDirectX関連に必要なものを生成する.
 const bool CGameFrame::Initialize(HINSTANCE aHInst, const int aCmdShow)
 {
 	if (CreateWNDCLASS(aHInst) == false) { return false; }
+
 	if (CreateHWND(aHInst, aCmdShow) == false) { return false; }
+	
 	if (CreateDirectX9() == false) { return false; }
 	
 	nowScene = std::make_shared<CGameScene>();
@@ -109,36 +141,7 @@ const bool CGameFrame::CreateWNDCLASS(HINSTANCE aHInst)
 	return true;
 }
 
-const bool CGameFrame::CreateHWND(HINSTANCE aHInst, const int aCmdShow)
-{
-	mpHwnd = CreateWindowEx(
-		0,
-		mAppName.c_str(),
-		mAppName.c_str(),
-		WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT,
-		CW_USEDEFAULT,
-		static_cast<int>(mWindowSize.x), static_cast<int>(mWindowSize.y),
-		NULL, NULL, aHInst,
-		NULL);
 
-	if (!mpHwnd)return false;
-
-	ShowWindow(mpHwnd, aCmdShow);
-	UpdateWindow(mpHwnd);
-	SetFocus(mpHwnd);
-
-	if (mIsFullScreen) {
-		ShowCursor(FALSE);
-	}
-	else {
-		RECT rc = { 0,0, static_cast<LONG>(mWindowSize.x), static_cast<LONG>(mWindowSize.y) };
-		AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
-		SetWindowPos(mpHwnd, NULL, 50, 50, rc.right - rc.left, rc.bottom - rc.top, SWP_SHOWWINDOW | SWP_NOZORDER);
-	}
-
-	return true;
-}
 const bool CGameFrame::CreateDirectX9() {
 //	//===================================================================
 //	// Direct3D初期化
