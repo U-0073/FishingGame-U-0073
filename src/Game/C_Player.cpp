@@ -71,7 +71,7 @@ void C_Player::Update()
 
 	MoveProc();
 
-	CAMERA.SetCameraPos(D3DXVECTOR3(0, 10, -10), D3DXVECTOR3(0, 0, 0));
+//	CAMERA.SetCameraPos(D3DXVECTOR3(0, 10, -10), D3DXVECTOR3(0, 0, 0));
 	//CAMERA.SetCameraPos(D3DXVECTOR3(PlayerVec.x, PlayerVec.y + 10.0f, PlayerVec.z), D3DXVECTOR3(PlayerVec.x, PlayerVec.y, PlayerVec.z + 1));
 
 }

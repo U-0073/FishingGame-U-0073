@@ -32,7 +32,7 @@ CGameScene::~CGameScene()
 
 void CGameScene::Update()
 {
-	Sea->Update();
+	CAMERA.SetCameraPos(D3DXVECTOR3(0, 5, -5), D3DXVECTOR3(0, -0.5, 1));
 	m_Player->Update();
 }
 
