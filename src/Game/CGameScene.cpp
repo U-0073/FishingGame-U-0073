@@ -27,7 +27,7 @@ CGameScene::~CGameScene()
 
 void CGameScene::Update()
 {
-	
+	CAMERA.SetCameraPos(D3DXVECTOR3(0, 1, -1), D3DXVECTOR3(0, -0.5, 1));
 }
 
 void CGameScene::Draw2D()
@@ -36,7 +36,7 @@ void CGameScene::Draw2D()
 
 void CGameScene::Draw3D()
 {
-	test->Draw3D();
 	Seas->Draw();
+	test->Draw3D();
 	
 }

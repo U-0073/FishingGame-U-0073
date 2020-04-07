@@ -51,4 +51,4 @@ public:
 	}
 };
 #define FRAME CGameFrame::GetInstance()
-#define GETHWND FRAME. GetHWND()
+#define GETHWND FRAME.GetHWND()
