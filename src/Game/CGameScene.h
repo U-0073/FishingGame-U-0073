@@ -2,7 +2,8 @@
 #include"../System/FrameBase/CSceneBase.h"
 
 class TestCharacter;
-class Board;
+class Sea;
+
 class CGameScene : public CSceneBase
 {
 public:
@@ -15,7 +16,7 @@ public:
 
 private:
 	std::shared_ptr<TestCharacter> test = nullptr;
-	std::shared_ptr<Board> Sea = nullptr;
+	std::shared_ptr<Sea> Seas = nullptr;
 	
 
 };
