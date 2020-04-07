@@ -3,10 +3,9 @@
 
 //クラスの前方宣言
 class TestCharacter;
+class Skysphere;
 class C_Player;		//プレイヤー全般
 
-
-class Bord;
 class Sea;
 
 class CGameScene : public CSceneBase
@@ -21,6 +20,7 @@ public:
 
 private:
 	std::shared_ptr<TestCharacter> test = nullptr;
+	std::shared_ptr<Skysphere> Sky = nullptr;
 	std::shared_ptr<Sea> Seas = nullptr;
 	
 

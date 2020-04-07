@@ -17,7 +17,6 @@ void TestCharacter::Init()
 
 void TestCharacter::Update()
 {
-	//CAMERA.SetCameraPos(D3DXVECTOR3(0, 10, -0), D3DXVECTOR3(0, 0, 0));
 }
 
 void TestCharacter::Draw3D()

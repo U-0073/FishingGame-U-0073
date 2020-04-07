@@ -25,6 +25,8 @@ Sea::~Sea()
 
 void Sea::Draw()
 {
+	KD3D.GetDev()->SetTexture(0, NULL);
+
 	//í∏ì_Ç≤Ç∆Ç…êFÇéwíË
 	v[0].Color = D3DCOLOR_ARGB(0, 255, 255, 255);
 	v[1].Color = D3DCOLOR_ARGB(255, 0, 255, 255);
