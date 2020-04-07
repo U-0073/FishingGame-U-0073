@@ -1,7 +1,8 @@
 #include"../System/KdLibrary/KdLibrary.h"
 
 #include"CGameScene.h"
-//-----------
+//―――――――――――――――――――――――――
+#include "../Game/C_Player.h"
 #include"../Game/TestCharacter.h"
 #include"../Game/Sea.h"
 
@@ -15,6 +16,9 @@ CGameScene::CGameScene()
 
 	Seas = std::make_shared<Sea>();
 
+	//プレイヤー
+	m_Player = std::make_shared<C_Player>();
+	
 }
 
 CGameScene::~CGameScene()
@@ -34,5 +38,5 @@ void CGameScene::Draw3D()
 {
 	Seas->Draw();
 	test->Draw3D();
-	
+	m_Player->Draw3D();
 }
