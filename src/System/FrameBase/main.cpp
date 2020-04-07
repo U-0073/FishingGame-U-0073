@@ -17,8 +17,9 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrev,
 {
     MSG msg;
 
-    CGameFrame gameFrame;
-    const bool result = gameFrame.Initialize(hInst, nCmdshow);
+  /*  CGameFrame gameFrame;*/
+    
+    const bool result = FRAME.Initialize(hInst, nCmdshow);
     if( result == false )
     {
         _ASSERT_EXPR( 0 , L"CGameFrame Initialize Error " );
@@ -34,7 +35,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrev,
             DispatchMessage(&msg);
         }
         else {
-            gameFrame.GameLoop();
+            FRAME.GameLoop();
         }
     }
 

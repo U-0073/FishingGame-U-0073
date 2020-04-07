@@ -1,11 +1,11 @@
 #include"../System/KdLibrary/KdLibrary.h"
-#include"../System/2d/Bord.h"
+//#include"../System/2d/Board.h"
 
 #include"CGameScene.h"
 //―――――――――――――――――――――――――
 #include "../Game/C_Player.h"
 #include"../Game/TestCharacter.h"
-
+#include"../Game/Sea.h"
 
 
 
@@ -15,11 +15,10 @@ CGameScene::CGameScene()
 	test = std::make_shared<TestCharacter>();
 	test->Init();
 
-	//海
-	Sea = std::make_shared<Bord>();
-	Sea->CleateBordList(10,10);			
-	Sea->CangeSize(D3DXVECTOR3(100, 100, 0));
-	Sea->setTexParam("Resouce/Texture/Ground.bmp", 1024, 1024, D3DCOLOR_ARGB(255, 255, 255, 255),true);
+	Seas = std::make_shared<Sea>();
+	//Sea->CleateBoardList(10,10);
+	//Sea->ChangeSize(D3DXVECTOR3(10, 0, 10));
+	Seas->setTexParam("Resouce/Texture/Ground.bmp", 1024, 1024, D3DCOLOR_ARGB(255, 255, 255, 255));
 
 	//プレイヤー
 	m_Player = std::make_shared<C_Player>();
@@ -32,8 +31,7 @@ CGameScene::~CGameScene()
 
 void CGameScene::Update()
 {
-	Sea->Update();
-	m_Player->Update();
+	CAMERA.SetCameraPos(D3DXVECTOR3(0, 1, -1), D3DXVECTOR3(0, -0.5, 1));
 }
 
 void CGameScene::Draw2D()
@@ -42,7 +40,7 @@ void CGameScene::Draw2D()
 
 void CGameScene::Draw3D()
 {
-	Sea->Draw();
+	Seas->Draw();
 	test->Draw3D();
 	m_Player->Draw3D();
 }

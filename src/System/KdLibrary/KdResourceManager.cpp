@@ -46,7 +46,7 @@ LPDIRECT3DTEXTURE9 KdResourcemanager::GetTexture(const std::string& Path, int W,
 	if (H == 0)H = D3DX_DEFAULT;
 	D3DXCreateTextureFromFileEx(KD3D.GetDev(), Path.c_str(), W, H, 1, 0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED, D3DX_FILTER_NONE, D3DX_DEFAULT, Color, NULL, NULL, &nTexture);
 
-	if (nTexture = nullptr) {
+	if (nTexture == nullptr) {
 
 		//ì«Ç›çûÇﬂÇ»Ç©Ç¡ÇΩ
 	
