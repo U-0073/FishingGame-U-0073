@@ -1,10 +1,11 @@
 #include"../System/KdLibrary/KdLibrary.h"
-//#include"../System/2d/Board.h"
-
 #include"CGameScene.h"
-//-----------
-#include"../Game/TestCharacter.h"
-#include"../Game/Sea.h"
+//―――――――――――――――――――――――――
+#include"C_Player.h"
+#include"TestCharacter.h"
+#include"Skysphere.h"
+#include"Sea.h"
+#include"Port.h"
 
 
 
@@ -13,12 +14,18 @@ CGameScene::CGameScene()
 	//テストキャラクター
 	test = std::make_shared<TestCharacter>();
 	test->Init();
-
+	//スカイスフィア
+	Sky = std::make_shared<Skysphere>();
+	Sky->Init();
+	//海
 	Seas = std::make_shared<Sea>();
-	//Sea->CleateBoardList(10,10);
-	//Sea->ChangeSize(D3DXVECTOR3(10, 0, 10));
-	Seas->setTexParam("Resouce/Texture/Ground.bmp", 1024, 1024, D3DCOLOR_ARGB(255, 255, 255, 255));
+	//港
+	m_Port = std::make_shared<Port>();
+	m_Port->Init();
 
+	//プレイヤー
+	m_Player = std::make_shared<C_Player>();
+	
 }
 
 CGameScene::~CGameScene()
@@ -27,16 +34,21 @@ CGameScene::~CGameScene()
 
 void CGameScene::Update()
 {
-	CAMERA.SetCameraPos(D3DXVECTOR3(0, 1, -1), D3DXVECTOR3(0, -0.5, 1));
+	m_Player->Update();
+	Sky->SetPos(m_Player->GetPlayerPos());
+	m_Port->Update();
 }
 
 void CGameScene::Draw2D()
 {
+	m_Player->Draw2D();
 }
 
 void CGameScene::Draw3D()
 {
-	Seas->Draw();
 	test->Draw3D();
-	
+	Sky->Draw3D();
+	m_Port->Draw3D();
+	Seas->Draw();
+	m_Player->Draw3D();
 }
