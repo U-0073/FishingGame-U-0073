@@ -10,6 +10,8 @@ Sea::Sea()
 			Height[i][k] = 0;
 		}
 	}
+	setTexParam("Resouce/Texture/Ground.bmp", 1024, 1024, D3DCOLOR_ARGB(255, 255, 255, 255));
+
 }
 
 Sea::~Sea()
@@ -18,17 +20,13 @@ Sea::~Sea()
 
 
 
-void Sea::Init(void)
-{
-}
 
-void Sea::Update(void)
-{
-}
 
 
 void Sea::Draw()
 {
+	KD3D.GetDev()->SetTexture(0, NULL);
+
 	//í∏ì_Ç≤Ç∆Ç…êFÇéwíË
 	v[0].Color = D3DCOLOR_ARGB(0, 255, 255, 255);
 	v[1].Color = D3DCOLOR_ARGB(255, 0, 255, 255);

@@ -71,6 +71,18 @@
     <ClCompile Include="src\Game\Sea.cpp">
       <Filter>src\ゲーム</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Skysphere.cpp">
+      <Filter>src\ゲーム</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Port.cpp">
+      <Filter>src\ゲーム</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\C_Player.cpp">
+      <Filter>src\ゲーム</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Fish.cpp">
+      <Filter>src\ゲーム</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\System\Component\InputComponent.h">
@@ -116,6 +128,18 @@
       <Filter>2d</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\Sea.h">
+      <Filter>src\ゲーム</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Skysphere.h">
+      <Filter>src\ゲーム</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Port.h">
+      <Filter>src\ゲーム</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\C_Player.h">
+      <Filter>src\ゲーム</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Fish.h">
       <Filter>src\ゲーム</Filter>
     </ClInclude>
   </ItemGroup>

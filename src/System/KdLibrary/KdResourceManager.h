@@ -6,6 +6,14 @@ public:
 	std::shared_ptr<KdModel>GetModel(const std::string&Filename);//ÉäÉ\Å[ÉXÇÃä«óù
 	void clear(void) { m_models.clear(); m_texture.clear(); }
 
+	void LoadTexture(LPDIRECT3DTEXTURE9* lpTex, const char fname[], int W, int H, D3DCOLOR Color)
+	{
+		if (W == 0)W = D3DX_DEFAULT;
+		if (H == 0)H = D3DX_DEFAULT;
+		D3DXCreateTextureFromFileEx(KD3D.GetDev(), fname, W, H, 1, 0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED, D3DX_FILTER_NONE, D3DX_DEFAULT, Color, NULL, NULL, lpTex);
+	}
+
+
 	LPDIRECT3DTEXTURE9 GetTexture( const std::string& Path, const int W, const int H, const D3DCOLOR Color);
 
 private:
