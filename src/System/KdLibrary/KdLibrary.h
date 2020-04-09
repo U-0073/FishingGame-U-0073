@@ -81,5 +81,5 @@
 
 #include"KdResourceManager.h"
 
-
+#define GetKey GetAsyncKeyState
 

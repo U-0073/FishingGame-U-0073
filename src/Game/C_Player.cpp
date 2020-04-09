@@ -59,7 +59,7 @@ void C_Player::MoveProc()
 	static bool KeyCheck = false;
 	bool	MoveFlg = false;
 
-	if (GetAsyncKeyState('W') & 0x8000)
+	if (GetKey('W') & 0x8000)
 	{
 		D3DXMATRIX RotMat;
 		D3DXMatrixRotationY(&RotMat, D3DXToRadian(CamAngY));
@@ -67,7 +67,7 @@ void C_Player::MoveProc()
 		D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, 1), &RotMat);
 		PlayerVec += Vec * MoveSpeed;
 	}
-	if (GetAsyncKeyState('A') & 0x8000)
+	if (GetKey('A') & 0x8000)
 	{
 		D3DXMATRIX RotMat;
 		D3DXMatrixRotationY(&RotMat, D3DXToRadian(CamAngY));
@@ -75,7 +75,7 @@ void C_Player::MoveProc()
 		D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(-1, 0, 0), &RotMat);
 		PlayerVec += Vec * MoveSpeed;
 	}
-	if (GetAsyncKeyState('S') & 0x8000)
+	if (GetKey('S') & 0x8000)
 	{
 		D3DXMATRIX RotMat;
 		D3DXMatrixRotationY(&RotMat, D3DXToRadian(CamAngY));
@@ -83,7 +83,7 @@ void C_Player::MoveProc()
 		D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, -1), &RotMat);
 		PlayerVec += Vec * MoveSpeed;
 	}
-	if (GetAsyncKeyState('D') & 0x8000)
+	if (GetKey('D') & 0x8000)
 	{
 		D3DXMATRIX RotMat;
 		D3DXMatrixRotationY(&RotMat, D3DXToRadian(CamAngY));
@@ -98,22 +98,22 @@ void C_Player::MoveProc()
 	D3DXVECTOR3		moveVec(0, 0, 0);
 	D3DXVECTOR3		TmpVec(0, 0, 0);
 
-	if (GetAsyncKeyState('W') & 0x8000) {
+	if (GetKey('W') & 0x8000) {
 		D3DXVec3TransformNormal(&TmpVec, &D3DXVECTOR3(0, 0, 1), &PlayerRot);
 		moveVec += TmpVec;
 		MoveFlg = true;
 	}
-	if (GetAsyncKeyState('A') & 0x8000) {
+	if (GetKey('A') & 0x8000) {
 		D3DXVec3TransformNormal(&TmpVec, &D3DXVECTOR3(-1, 0, 0), &PlayerRot);
 		moveVec += TmpVec;
 		MoveFlg = true;
 	}
-	if (GetAsyncKeyState('S') & 0x8000) {
+	if (GetKey('S') & 0x8000) {
 		D3DXVec3TransformNormal(&TmpVec, &D3DXVECTOR3(0, 0, -1), &PlayerRot);
 		moveVec += TmpVec;
 		MoveFlg = true;
 	}
-	if (GetAsyncKeyState('D') & 0x8000) {
+	if (GetKey('D') & 0x8000) {
 		D3DXVec3TransformNormal(&TmpVec, &D3DXVECTOR3(1, 0, 0), &PlayerRot);
 		moveVec += TmpVec;
 		MoveFlg = true;
@@ -162,7 +162,7 @@ void C_Player::CameraProc()
 {
 	//マウスでのカメラ移動のon off
 	static bool	ClickStop = false;
-	if (GetAsyncKeyState('E') & 0x8000)
+	if (GetKey('E') & 0x8000)
 	{
 		if (!ClickStop)
 		{
@@ -179,16 +179,16 @@ void C_Player::CameraProc()
 	}
 	else ClickStop = false;
 
-	if (GetAsyncKeyState(VK_RIGHT) & 0x8000) {
+	if (GetKey(VK_RIGHT) & 0x8000) {
 		CamAngY += 1;
 	}
-	if (GetAsyncKeyState(VK_LEFT) & 0x8000) {
+	if (GetKey(VK_LEFT) & 0x8000) {
 		CamAngY -= 1;
 	}
-	if (GetAsyncKeyState(VK_UP) & 0x8000) {
+	if (GetKey(VK_UP) & 0x8000) {
 		CamAngX += 1;
 	}
-	if (GetAsyncKeyState(VK_DOWN) & 0x8000) {
+	if (GetKey(VK_DOWN) & 0x8000) {
 		CamAngX -= 1;
 	}
 
