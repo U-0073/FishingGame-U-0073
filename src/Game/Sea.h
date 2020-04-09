@@ -14,8 +14,6 @@ public:
 	float Ray_Judge(D3DXVECTOR3 Pos);
 
 
-
-
 private:
 
 

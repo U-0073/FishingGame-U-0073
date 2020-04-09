@@ -1,4 +1,5 @@
 #include"../System/KdLibrary/KdLibrary.h"
+//#include<d3dx9.h>
 #include"CGameScene.h"
 //―――――――――――――――――――――――――
 #include"C_Player.h"
@@ -16,6 +17,7 @@ CGameScene::CGameScene()
 	Sky->Init();
 	//海
 	Seas = std::make_shared<Sea>();
+
 	//港
 	m_Port = std::make_shared<Port>();
 	m_Port->Init();

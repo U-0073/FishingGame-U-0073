@@ -18,13 +18,15 @@ public:
 	void Update()override;
 	void Draw2D()override;
 	void Draw3D()override;
+	void CGameScene::LoadTexture(LPDIRECT3DTEXTURE9* lpTex, const std::string Path, int W, int H, const D3DCOLOR Color);
 
 private:
 	std::shared_ptr<Skysphere> Sky = nullptr;
 	std::shared_ptr<Sea> Seas = nullptr;
 	std::shared_ptr<Port> m_Port = nullptr;
 	std::shared_ptr<Fish> Fishes = nullptr;
-
+	
+	LPDIRECT3DTEXTURE9 seaTex;
 
 	//ó—ÉvÉçÉOÉâÉÄ
 	std::shared_ptr<C_Player> m_Player = nullptr;

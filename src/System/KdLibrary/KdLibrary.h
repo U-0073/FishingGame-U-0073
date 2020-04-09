@@ -72,14 +72,17 @@
 #include "KdHelper.h"
 
 // Direct3D
+#include "KdDirect3D.h"
+#include"KdResourceManager.h"
+
 #include"KdMath.h"//—Dæ“x‚‚¢
 
 #include"CCamera.h"//ƒJƒƒ‰
 
-#include "KdDirect3D.h"
+
 #include "KdModel.h"
 
-#include"KdResourceManager.h"
+
 
 #define GetKey GetAsyncKeyState
 

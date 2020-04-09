@@ -45,7 +45,7 @@ const LPDIRECT3DTEXTURE9 KdResourcemanager::GetTexture(const std::string& Path, 
 	//auto nTexture = std::make_shared<LPDIRECT3DTEXTURE9>();
 	//if (W == 0)W = D3DX_DEFAULT;
 	//if (H == 0)H = D3DX_DEFAULT;
-	KD3D.LoadTexture(&nTexture,Path, W, H, Color);
+	//KD3D.LoadTexture(&nTexture,Path, W, H, Color);
 	//D3DXCreateTextureFromFileEx(KD3D.GetDev(), Path.c_str(), W, H, 1, 0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED, D3DX_FILTER_NONE, D3DX_DEFAULT, Color, NULL, NULL, &nTexture);
 
 	if (nTexture == nullptr) {
@@ -84,7 +84,7 @@ void KdResourcemanager::GetTexture(LPDIRECT3DTEXTURE9& lpTex, const std::string&
 	//auto nTexture = std::make_shared<LPDIRECT3DTEXTURE9>();
 	//if (W == 0)W = D3DX_DEFAULT;
 	//if (H == 0)H = D3DX_DEFAULT;
-	KD3D.LoadTexture(&lpTex,Path, W, H, Color);
+	//KD3D.LoadTexture(&lpTex,Path, W, H, Color);
 	//D3DXCreateTextureFromFileEx(KD3D.GetDev(), Path.c_str(), W, H, 1, 0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED, D3DX_FILTER_NONE, D3DX_DEFAULT, Color, NULL, NULL, &nTexture);
 
 	//if (nTextur == nullptr) {

@@ -10,9 +10,9 @@ Sea::Sea()
 			Height[i][k] = 0;
 		}
 	}
+	KD3D.LoadTexture(&vTex, "Resouce/Texture/Ground.bmp", 1024, 1024, NULL);
 	//setTexParam("Resouce/Texture/HP_G.png", 3, 3,/*NULL*/ D3DCOLOR_ARGB(255, 255, 255, 255));
 	//RESOURCE_MNG.LoadTexture(&vTex, "Resouce/Texture/Ground.bmp", 1024, 1024, NULL);
-	KD3D.LoadTexture(&vTex,"Resouce/Texture/HP_G.png", 3, 3, NULL);
 }
 
 Sea::~Sea()
