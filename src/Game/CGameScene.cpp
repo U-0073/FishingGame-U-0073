@@ -30,6 +30,7 @@ CGameScene::~CGameScene()
 void CGameScene::Update()
 {
 	m_Player->Update();
+	Sky->SetPos(m_Player->GetPlayerPos());
 }
 
 void CGameScene::Draw2D()

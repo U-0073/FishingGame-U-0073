@@ -11,6 +11,8 @@ public:
 	void Update()override;
 	void Draw3D()override;
 	void Draw2D()override;
+	//プレイヤーの座標を取ってくる関数
+	KdVec3 *GetPlayerPos() { return &PlayerVec; }
 
 private:
 	//----------関数宣言-------------
