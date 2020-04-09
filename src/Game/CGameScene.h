@@ -5,6 +5,7 @@
 class TestCharacter;
 class Skysphere;
 class Port;
+class Fish;
 class C_Player;		//プレイヤー全般
 
 class Sea;
@@ -24,6 +25,7 @@ private:
 	std::shared_ptr<Skysphere> Sky = nullptr;
 	std::shared_ptr<Sea> Seas = nullptr;
 	std::shared_ptr<Port> m_Port = nullptr;
+	std::shared_ptr<Fish> Fishes = nullptr;
 	
 
 	//林プログラム

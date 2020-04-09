@@ -6,6 +6,7 @@
 #include"Skysphere.h"
 #include"Sea.h"
 #include"Port.h"
+#include"Fish.h"
 
 
 
@@ -22,10 +23,12 @@ CGameScene::CGameScene()
 	//`
 	m_Port = std::make_shared<Port>();
 	m_Port->Init();
-
+	//‹›
+	Fishes = std::make_shared<Fish>();
+	Fishes->Init();
 	//ƒvƒŒƒCƒ„[
 	m_Player = std::make_shared<C_Player>();
-	
+
 }
 
 CGameScene::~CGameScene()
@@ -37,6 +40,7 @@ void CGameScene::Update()
 	m_Player->Update();
 	Sky->SetPos(m_Player->GetPlayerPos());
 	m_Port->Update();
+	Fishes->Update();
 }
 
 void CGameScene::Draw2D()
@@ -50,5 +54,6 @@ void CGameScene::Draw3D()
 	Sky->Draw3D();
 	m_Port->Draw3D();
 	Seas->Draw();
+	Fishes->Draw3D();
 	m_Player->Draw3D();
 }
