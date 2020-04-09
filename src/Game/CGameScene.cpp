@@ -2,7 +2,6 @@
 #include"CGameScene.h"
 //―――――――――――――――――――――――――
 #include"C_Player.h"
-#include"TestCharacter.h"
 #include"Skysphere.h"
 #include"Sea.h"
 #include"Port.h"
@@ -12,9 +11,6 @@
 
 CGameScene::CGameScene()
 {
-	//テストキャラクター
-	test = std::make_shared<TestCharacter>();
-	test->Init();
 	//スカイスフィア
 	Sky = std::make_shared<Skysphere>();
 	Sky->Init();
@@ -50,7 +46,6 @@ void CGameScene::Draw2D()
 
 void CGameScene::Draw3D()
 {
-	test->Draw3D();
 	Sky->Draw3D();
 	m_Port->Draw3D();
 	Seas->Draw();

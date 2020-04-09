@@ -11,9 +11,10 @@ Fish::~Fish()
 
 void Fish::Init()
 {
-	D3DMATRIX ScaleMat;
+	D3DXMATRIX ScaleMat;
 	D3DXMatrixScaling(&ScaleMat, 0.25f, 0.25f, 0.25f);
 	D3DXMatrixTranslation(&m_world, (rand() % 50) / 10, 0, (rand() % 5) / 10);
+	m_world = ScaleMat * m_world;
 	int name = rand() % 3;
 	switch (name)
 	{
