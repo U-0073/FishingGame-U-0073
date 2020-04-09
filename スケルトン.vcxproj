@@ -145,6 +145,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Game\CGameScene.cpp" />
+    <ClCompile Include="src\Game\Fish.cpp" />
     <ClCompile Include="src\Game\Port.cpp" />
     <ClCompile Include="src\Game\Sea.cpp" />
     <ClCompile Include="src\Game\C_Player.cpp" />
@@ -165,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Game\CGameScene.h" />
+    <ClInclude Include="src\Game\Fish.h" />
     <ClInclude Include="src\Game\Port.h" />
     <ClInclude Include="src\Game\Sea.h" />
     <ClInclude Include="src\Game\C_Player.h" />
