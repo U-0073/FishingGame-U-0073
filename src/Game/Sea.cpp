@@ -10,8 +10,9 @@ Sea::Sea()
 			Height[i][k] = 0;
 		}
 	}
-	setTexParam("Resouce/Texture/Ground.bmp", 1024, 1024, D3DCOLOR_ARGB(255, 255, 255, 255));
-
+	//setTexParam("Resouce/Texture/HP_G.png", 3, 3,/*NULL*/ D3DCOLOR_ARGB(255, 255, 255, 255));
+	//RESOURCE_MNG.LoadTexture(&vTex, "Resouce/Texture/Ground.bmp", 1024, 1024, NULL);
+	KD3D.LoadTexture(&vTex,"Resouce/Texture/HP_G.png", 3, 3, NULL);
 }
 
 Sea::~Sea()
@@ -40,7 +41,7 @@ void Sea::Draw()
 
 	//描画位置の指定(板ポリの中心座標)
 	D3DXMATRIX TransMat;
-	vTex = RESOURCE_MNG.GetTexture(mPath, mW, mH, mColor);
+	//vTex = );
 
 	for (int i = 0; i < VIRTICAL; i++) {
 		for (int k = 0; k < SIDE; k++) {
@@ -63,8 +64,20 @@ void Sea::Draw()
 
 
 			D3DXMatrixTranslation(&TransMat, k * 5.0f, -0.3f, i * 5.0f);
+
+			KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
 			KD3D.GetDev()->SetTransform(D3DTS_WORLD, &TransMat);
+			
+			//RESOURCE_MNG.GetTexture(vTex, mPath, mW, mH, mColor);
+			
+			//KD3D.GetDev()->SetTexture(0, RESOURCE_MNG.GetTexture(mPath, mW, mH, NULL));
+			
+
+			KD3D.GetDev()->SetTexture(0, vTex);
+			
+			KD3D.GetDev()->SetFVF(FVF_VERTEX);
 			KD3D.GetDev()->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, v, sizeof(VERTEX));
+			KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, TRUE);
 		}
 	}
 	//KD3D.GetDev()->SetTexture(0, NULL);

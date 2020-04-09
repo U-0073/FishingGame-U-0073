@@ -19,7 +19,7 @@ public:
 private:
 
 
-LPDIRECT3DTEXTURE9 vTex;
+	LPDIRECT3DTEXTURE9 vTex;
 
 
 
