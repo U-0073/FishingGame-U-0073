@@ -13,6 +13,11 @@ void Skysphere::Init()
 {
 	GameObject::Init();
 	m_pModel = RESOURCE_MNG.GetModel("Resouce/3DModel/SkySphere.x");
+
+	D3DXMATRIX ScaleMat;
+	D3DXMatrixScaling(&ScaleMat, 100, 100, 100);
+	m_world = ScaleMat * m_world;
+
 }
 
 void Skysphere::Update(void)
@@ -22,12 +27,8 @@ void Skysphere::Update(void)
 
 void Skysphere::Draw3D()
 {
-	D3DXMATRIX ScaleMat;
-	D3DXMatrixScaling(&ScaleMat, 1, 1, 1);
-	//m_world = ScaleMat * m_world;
 	KD3D.SetWorldMatrix(&m_world);
 
-	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, TRUE);
-	m_pModel->Draw();
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
+	m_pModel->Draw();
 }

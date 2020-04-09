@@ -30,7 +30,6 @@ CGameScene::~CGameScene()
 void CGameScene::Update()
 {
 	m_Player->Update();
-	//CAMERA.SetCameraPos(D3DXVECTOR3(0, 1, -1), D3DXVECTOR3(0, -0.5, 1));
 }
 
 void CGameScene::Draw2D()

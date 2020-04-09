@@ -52,7 +52,7 @@ void C_Player::Update()
 	CameraProc();
 	MoveProc();
 
-	CmeraSet();
+	CameraSet();
 }
 void C_Player::MoveProc()
 {
@@ -218,7 +218,7 @@ void C_Player::PointUpdate() {
 
 	if (!CursorFlg) SetCursorPos(BasePt.x, BasePt.y);
 }
-void C_Player::CmeraSet()
+void C_Player::CameraSet()
 {
 	KdMatrix			CamRot;		//ƒJƒƒ‰‚ÌŒü‚¢‚Ä‚é•ûŒü‚¾‚¯‚ğŠÇ—‚·‚és—ñ
 	CamRot.CreateRotation(D3DXToRadian(CamAngX), D3DXToRadian(CamAngY), 0);

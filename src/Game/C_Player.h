@@ -20,7 +20,7 @@ private:
 	void PointUpdate();
 	void MoveProc();
 	void CameraProc();
-	void CmeraSet();
+	void CameraSet();
 	//---------s—ñ-------------
 	KdVec3			PlayerVec;
 	KdVec3			StartVec = KdVec3(0, 1, 0);		//‰ŠúˆÊ’u
