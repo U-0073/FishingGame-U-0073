@@ -4,6 +4,7 @@
 //クラスの前方宣言
 class TestCharacter;
 class Skysphere;
+class Port;
 class C_Player;		//プレイヤー全般
 
 class Sea;
@@ -22,6 +23,7 @@ private:
 	std::shared_ptr<TestCharacter> test = nullptr;
 	std::shared_ptr<Skysphere> Sky = nullptr;
 	std::shared_ptr<Sea> Seas = nullptr;
+	std::shared_ptr<Port> m_Port = nullptr;
 	
 
 	//林プログラム
