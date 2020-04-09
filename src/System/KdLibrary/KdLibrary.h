@@ -62,6 +62,11 @@
 //json11
 #include"json/json11.hpp"
 
+//imgui
+
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_dx9.h"
+#include "imgui/imgui_impl_win32.h"
 //===============================================
 //
 // KdLibrary

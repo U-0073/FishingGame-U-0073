@@ -274,6 +274,9 @@ void KdDirect3D::LoadTexture(LPDIRECT3DTEXTURE9* lpTex, const std::string Path, 
 
 	if (W == 0)W = D3DX_DEFAULT;
 	if (H == 0)H = D3DX_DEFAULT;
+	//‰½ŒÌ‚©“®‚©‚È‚¢‚Ù‚¤
 	//D3DXCreateTextureFromFileEx(KD3D.GetDev(), Path.c_str(), W, H, 1, 0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED, D3DX_FILTER_NONE, D3DX_DEFAULT, Color, NULL, NULL, lpTex);
+	
+	//‰½ŒÌ‚©“®‚¢‚¿‚á‚Á‚½•û
 	D3DXCreateTextureFromFile(KD3D.GetDev(), Path.c_str(), lpTex);
 }
