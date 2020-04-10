@@ -43,7 +43,7 @@ void CGameScene::Update()
 
 void CGameScene::Draw2D()
 {
-	m_Player->Draw2D();
+	//m_Player->Draw2D();
 }
 
 void CGameScene::Draw3D()
@@ -52,5 +52,5 @@ void CGameScene::Draw3D()
 	m_Port->Draw3D();
 	Seas->Draw();
 	Fishes->Draw3D();
-	m_Player->Draw3D();
+	//m_Player->Draw3D();
 }

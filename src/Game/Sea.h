@@ -21,8 +21,8 @@ private:
 
 
 
-const int SIDE = 20;
-const int VIRTICAL = 20;
+const int SIDE = 100;
+const int VIRTICAL = 100;
 
-float Height[21][21];
+float Height[101][101];
 };

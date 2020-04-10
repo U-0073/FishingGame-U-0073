@@ -138,7 +138,7 @@ bool KdDirect3D::Init(HWND hWnd, int width, int height, bool fullscreen, std::st
 	m_Light.Ambient.b = 0.2f;
 
 	//åıç∑Ç∑ï˚Ç÷
-	auto dir = KdVec3(0.5f, -1, 1);
+	auto dir = KdVec3(0.5f, -1, -1);
 	dir.Normalize();
 	m_Light.Direction = dir;
 
