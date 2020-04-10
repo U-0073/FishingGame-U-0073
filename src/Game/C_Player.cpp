@@ -227,7 +227,8 @@ void C_Player::CameraSet()
 	D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, 1), &CamRot);
 	CamLook = Vec;
 
-	CAMERA.SetCameraPos(PlayerVec, CamLook);
+	KdVec3 CamPos = KdVec3(PlayerVec.x, PlayerVec.y+2, PlayerVec.z);
+	CAMERA.SetCameraPos(CamPos, CamLook);
 }
 
 
