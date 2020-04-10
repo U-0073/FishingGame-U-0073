@@ -15,7 +15,7 @@ void Skysphere::Init()
 	m_pModel = RESOURCE_MNG.GetModel("Resouce/3DModel/SkySphere.x");
 
 	D3DXMATRIX ScaleMat;
-	D3DXMatrixScaling(&ScaleMat, 100, 100, 100);
+	D3DXMatrixScaling(&ScaleMat, 80, 80, 80);
 	m_world = ScaleMat * m_world;
 
 }
