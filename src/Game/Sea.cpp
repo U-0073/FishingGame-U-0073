@@ -20,10 +20,6 @@ Sea::~Sea()
 }
 
 
-
-
-
-
 void Sea::Draw()
 {
 	KD3D.GetDev()->SetTexture(0, NULL);
