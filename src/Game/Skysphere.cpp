@@ -11,7 +11,7 @@ Skysphere::~Skysphere()
 
 void Skysphere::Init()
 {
-	GameObject::Init();
+	GameObject::Init();	
 	m_pModel = RESOURCE_MNG.GetModel("Resouce/3DModel/SkySphere.x");
 
 	D3DXMATRIX ScaleMat;
