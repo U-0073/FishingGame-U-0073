@@ -99,3 +99,4 @@ void KdResourcemanager::GetTexture(LPDIRECT3DTEXTURE9& lpTex, const std::string&
 	if (lpTex == nullptr);
 	//return m_texture[Path];
 }
+

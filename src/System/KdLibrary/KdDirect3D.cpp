@@ -2,6 +2,8 @@
 
 #include "KdDirect3D.h"
 
+#include "../FrameBase/SoundBase.h"
+#include "../FrameBase/wavread.h"
 
 
 
@@ -25,7 +27,7 @@ bool KdDirect3D::Init(HWND hWnd, int width, int height, bool fullscreen, std::st
 	// D3Dオブジェクト作成
 	//=======================================================
 	hr = Direct3DCreate9Ex(D3D_SDK_VERSION, &m_lpD3D);
-	if(FAILED(hr)){
+	if (FAILED(hr)) {
 		return false;
 	}
 
@@ -42,10 +44,10 @@ bool KdDirect3D::Init(HWND hWnd, int width, int height, bool fullscreen, std::st
 	//=======================================================
 	// デバイス作成のための設定
 	//=======================================================
-	ZeroMemory( &m_d3dpp, sizeof(m_d3dpp) );
+	ZeroMemory(&m_d3dpp, sizeof(m_d3dpp));
 	m_d3dpp.BackBufferCount = 2;
 	// フルスクリーンモード時
-	if (fullscreen){
+	if (fullscreen) {
 		m_d3dpp.Windowed = FALSE;
 		m_d3dpp.BackBufferWidth = width;
 		m_d3dpp.BackBufferHeight = height;
@@ -53,7 +55,7 @@ bool KdDirect3D::Init(HWND hWnd, int width, int height, bool fullscreen, std::st
 		m_d3dpp.FullScreen_RefreshRateInHz = 60;
 	}
 	// ウィンドウモード時
-	else{
+	else {
 		m_d3dpp.Windowed = TRUE;
 		m_d3dpp.BackBufferWidth = 0;
 		m_d3dpp.BackBufferHeight = 0;
@@ -84,9 +86,9 @@ bool KdDirect3D::Init(HWND hWnd, int width, int height, bool fullscreen, std::st
 	// ※D3DCREATE_FPU_PRESERVE		…　floatの制度を下げずに維持する(高精度なfloatを使う)
 	DWORD flags = D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE;
 
-//	hr = m_lpD3D->CreateDeviceEx(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, flags, &m_d3dpp, (fullscreen ? &dm : nullptr), &m_lpD3DDev);
+	//	hr = m_lpD3D->CreateDeviceEx(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, flags, &m_d3dpp, (fullscreen ? &dm : nullptr), &m_lpD3DDev);
 	hr = m_lpD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, flags, &m_d3dpp, &m_lpD3DDev);
-	if(FAILED(hr))
+	if (FAILED(hr))
 	{
 		// 失敗
 		errorMsg = "Direct3Dの初期化に失敗", "Direct3D初期化";
@@ -100,7 +102,7 @@ bool KdDirect3D::Init(HWND hWnd, int width, int height, bool fullscreen, std::st
 	// Caps取得
 	//=======================================================
 	m_lpD3DDev->GetDeviceCaps(&m_Caps);
-	
+
 	//=======================================================
 	// デフォルトのバックバッファとZバッファ取得しておく
 	//=======================================================
@@ -120,7 +122,7 @@ bool KdDirect3D::Init(HWND hWnd, int width, int height, bool fullscreen, std::st
 
 	// 射影行列
 	D3DXMATRIX mProj;
-	D3DXMatrixPerspectiveFovLH(&mProj, D3DXToRadian(60), (float)width/height, 0.1f, 2000.0f);
+	D3DXMatrixPerspectiveFovLH(&mProj, D3DXToRadian(60), (float)width / height, 0.1f, 2000.0f);
 	m_lpD3DDev->SetTransform(D3DTS_PROJECTION, &mProj);
 
 	//ライト設定
@@ -157,6 +159,43 @@ bool KdDirect3D::Init(HWND hWnd, int width, int height, bool fullscreen, std::st
 	D3DXCreateFont(m_lpD3DDev, 20, 20, FW_REGULAR, NULL, FALSE, SHIFTJIS_CHARSET,
 		OUT_DEFAULT_PRECIS, PROOF_QUALITY, FIXED_PITCH | FF_MODERN, "ＭＳ ゴシック", &mpFont);
 	mpFont->OnResetDevice();
+
+	//-------------------
+	//DirectSoundの初期化
+	//-------------------
+	DirectSoundCreate8(NULL, &lpDSound, NULL);
+
+	//協調レベルを設定
+	lpDSound->SetCooperativeLevel(hWnd, DSSCL_PRIORITY);
+
+	// プライマリ・バッファの作成
+	// DSBUFFERDESC構造体を設定
+	DSBUFFERDESC dsbdesc;
+	ZeroMemory(&dsbdesc, sizeof(DSBUFFERDESC));
+	dsbdesc.dwSize = sizeof(DSBUFFERDESC);
+	// プライマリ・バッファを指定
+	dsbdesc.dwFlags = DSBCAPS_CTRLVOLUME | DSBCAPS_CTRL3D | DSBCAPS_PRIMARYBUFFER;
+	dsbdesc.dwBufferBytes = 0;
+	dsbdesc.lpwfxFormat = NULL;
+
+	// バッファを作る
+	lpDSound->CreateSoundBuffer(&dsbdesc, &lpSPrimary, NULL);
+
+	// プライマリ・バッファのWaveフォーマットを設定
+	// 　　　優先協調レベル以上の協調レベルが設定されている必要があります．
+	WAVEFORMATEX pcmwf;
+	ZeroMemory(&pcmwf, sizeof(WAVEFORMATEX));
+	pcmwf.wFormatTag = WAVE_FORMAT_PCM;
+	pcmwf.nChannels = 2;		// ２チャンネル（ステレオ）
+	pcmwf.nSamplesPerSec = 44100;	// サンプリング・レート　44.1kHz
+	pcmwf.nBlockAlign = 4;
+	pcmwf.nAvgBytesPerSec = pcmwf.nSamplesPerSec * pcmwf.nBlockAlign;
+	pcmwf.wBitsPerSample = 16;		// 16ビット
+	lpSPrimary->SetFormat(&pcmwf);
+
+	CoInitialize(NULL);
+
+
 	return true;
 }
 
@@ -170,6 +209,10 @@ void KdDirect3D::Release()
 	KdSafeRelease(m_lpD3DDev);
 	// Direct3D解放
 	KdSafeRelease(m_lpD3D);
+	//サウンド関連開放
+	KdSafeRelease(lpSPrimary);
+	KdSafeRelease(lpDSound);
+
 }
 
 bool KdDirect3D::ChangeFullScreenMode()
@@ -215,20 +258,20 @@ bool KdDirect3D::ChangeFullScreenMode()
 void KdDirect3D::SetDefaultState()
 {
 	// DirectGraphicsの詳細設定
-	m_lpD3DDev->SetRenderState(D3DRS_ZENABLE,TRUE);					// Zバッファ有効
-	m_lpD3DDev->SetRenderState(D3DRS_ZWRITEENABLE,TRUE);			// Zバッファに書き込み有効
+	m_lpD3DDev->SetRenderState(D3DRS_ZENABLE, TRUE);					// Zバッファ有効
+	m_lpD3DDev->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);			// Zバッファに書き込み有効
 	m_lpD3DDev->SetRenderState(D3DRS_STENCILENABLE, FALSE);
-	
-	m_lpD3DDev->SetRenderState( D3DRS_ALPHABLENDENABLE, TRUE );		// アルファブレンド有効
+
+	m_lpD3DDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);		// アルファブレンド有効
 
 	// 半透明モード
 	m_lpD3DDev->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
 	m_lpD3DDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	m_lpD3DDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
-	m_lpD3DDev->SetRenderState(D3DRS_NORMALIZENORMALS,TRUE);		//頂点法線の自動正規化
+	m_lpD3DDev->SetRenderState(D3DRS_NORMALIZENORMALS, TRUE);		//頂点法線の自動正規化
 
-	m_lpD3DDev->SetRenderState(D3DRS_SHADEMODE,D3DSHADE_GOURAUD);	// グローシェーディング
+	m_lpD3DDev->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);	// グローシェーディング
 	m_lpD3DDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);		// カリング CCW = 右回り = 表面のみ描画
 
 	// アルファ値個別計算
@@ -239,13 +282,13 @@ void KdDirect3D::SetDefaultState()
 
 	// テクスチャのα値のブレンディング方法の設定
 	// テクスチャα合成処理の方法
-	m_lpD3DDev->SetTextureStageState( 0, D3DTSS_ALPHAOP, D3DTOP_MODULATE );    // 以下の引数の成分を乗算する
-	m_lpD3DDev->SetTextureStageState( 0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE );    // テクスチャの色を使用
-	m_lpD3DDev->SetTextureStageState( 0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE );    // 頂点の色を使用
+	m_lpD3DDev->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);    // 以下の引数の成分を乗算する
+	m_lpD3DDev->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);    // テクスチャの色を使用
+	m_lpD3DDev->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);    // 頂点の色を使用
 	// 色を合成する方法
-	m_lpD3DDev->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE );    // 以下の引数の成分を乗算する
-	m_lpD3DDev->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );    // テクスチャの色を使用
-	m_lpD3DDev->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );    // 頂点の色を使用
+	m_lpD3DDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);    // 以下の引数の成分を乗算する
+	m_lpD3DDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);    // テクスチャの色を使用
+	m_lpD3DDev->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);    // 頂点の色を使用
 
 	// テクスチャ補間を線形に
 	m_lpD3DDev->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
@@ -253,8 +296,8 @@ void KdDirect3D::SetDefaultState()
 	m_lpD3DDev->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR);
 
 	// テクスチャアドレッシングモード設定
-	m_lpD3DDev->SetSamplerState(0,D3DSAMP_ADDRESSU,D3DTADDRESS_WRAP);	// ラップモード
-	m_lpD3DDev->SetSamplerState(0,D3DSAMP_ADDRESSV,D3DTADDRESS_WRAP);	// ラップモード
+	m_lpD3DDev->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_WRAP);	// ラップモード
+	m_lpD3DDev->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_WRAP);	// ラップモード
 
 	// ミップマップ詳細レベルを設定する。
 	float fMipBias = 0.0f;
@@ -276,7 +319,8 @@ void KdDirect3D::LoadTexture(LPDIRECT3DTEXTURE9* lpTex, const std::string Path, 
 	if (H == 0)H = D3DX_DEFAULT;
 	//何故か動かないほう
 	//D3DXCreateTextureFromFileEx(KD3D.GetDev(), Path.c_str(), W, H, 1, 0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED, D3DX_FILTER_NONE, D3DX_DEFAULT, Color, NULL, NULL, lpTex);
-	
+
 	//何故か動いちゃった方
 	D3DXCreateTextureFromFile(KD3D.GetDev(), Path.c_str(), lpTex);
 }
+

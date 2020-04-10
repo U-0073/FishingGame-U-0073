@@ -12,6 +12,7 @@
 #include <math.h>
 #include <commctrl.h>
 #include <ctime>
+#include<dsound.h>
 
 //===============================================
 //

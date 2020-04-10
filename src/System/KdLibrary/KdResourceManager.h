@@ -3,7 +3,7 @@
 class KdModel;
 class KdResourcemanager {
 public:
-	std::shared_ptr<KdModel>GetModel(const std::string&Filename);//リソースの管理
+	std::shared_ptr<KdModel>GetModel(const std::string& Filename);//リソースの管理
 	void clear(void) { m_models.clear(); m_texture.clear(); }
 
 	//void LoadTexture(LPDIRECT3DTEXTURE9* lpTex, const std::string& Path, int W, int H, const D3DCOLOR Color)
@@ -14,16 +14,27 @@ public:
 
 	//}
 
-	const LPDIRECT3DTEXTURE9 GetTexture( const std::string& Path,  int W,  int H, const D3DCOLOR Color);
+	const LPDIRECT3DTEXTURE9 GetTexture(const std::string& Path, int W, int H, const D3DCOLOR Color);
 	void GetTexture(LPDIRECT3DTEXTURE9& lpTex, const std::string& Path, const int W, const int H, const D3DCOLOR Color);
+//音の読込
+	void LoadSound(std::string fname);
+
 private:
 
 	//モデルデータ
 	std::map<std::string, std::shared_ptr<KdModel>>m_models;
 	//テクスチャ
-	std::map<std::string,LPDIRECT3DTEXTURE9>m_texture;
+	std::map<std::string, LPDIRECT3DTEXTURE9>m_texture;
 	//サウンドデータ
+	struct SoundData
+	{
+		LPDIRECTSOUND3DBUFFER8	LDS3B8;
+		LPDIRECTSOUNDBUFFER8	LDSB8;
+		D3DXVECTOR3 SEPos;
+	};
 
+
+	std::map<std::string, std::shared_ptr<SoundData>> m_Sound;
 private:
 	KdResourcemanager() {} // ← コンストラクタ
 	~KdResourcemanager() {} // ←デストラクタ
