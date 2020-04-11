@@ -31,7 +31,7 @@ CGameFrame::CGameFrame()
 	, mWndClass()
 	, nowScene(nullptr)
 	, mIsFullScreen(false)
-	, mWindowSize(1280, 768)
+	, mWindowSize(1280, 720)
 	, mAppName("KDFrame")
 	
 {
@@ -64,6 +64,12 @@ const bool CGameFrame::CreateHWND(HINSTANCE aHInst, const int aCmdShow)
 	ShowWindow(mpHwnd, aCmdShow);
 	UpdateWindow(mpHwnd);
 	SetFocus(mpHwnd);
+
+	mIsFullScreen = false;	// ウィンドウモード
+	if (MessageBox(mpHwnd, "フルスクリーンにしますか？", "フルスクリーン?", MB_ICONQUESTION | MB_YESNO) == IDYES) {
+		mIsFullScreen = true;
+	}
+
 
 	if (mIsFullScreen) {
 		ShowCursor(FALSE);
@@ -160,7 +166,7 @@ const bool CGameFrame::CreateDirectX9() {
 //	// Direct3D初期化
 //	//===================================================================
 	std::string errorMsg;
-	if (KD3D.Init(mpHwnd, mWindowSize.y, mWindowSize.x, mIsFullScreen, errorMsg) == false) {
+	if (KD3D.Init(mpHwnd, mWindowSize.x, mWindowSize.y, mIsFullScreen, errorMsg) == false) {
 		MessageBox(mpHwnd, errorMsg.c_str(), "Direct3D初期化失敗", MB_OK | MB_ICONSTOP);
 		return false;
 	}
