@@ -100,3 +100,7 @@ void KdResourcemanager::GetTexture(LPDIRECT3DTEXTURE9& lpTex, const std::string&
 	//return m_texture[Path];
 }
 
+void KdResourcemanager::GetSound(const std::string& Path)
+{
+}
+

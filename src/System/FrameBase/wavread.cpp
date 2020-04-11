@@ -263,76 +263,77 @@ HRESULT CWaveSoundRead::Close()
     return S_OK;
 }
 
-void LoadSound(std::string fname)
+#include "../FrameBase/SoundBase.h"
+#include "../FrameBase/wavread.h"
+
+SoundBase::SoundBase()
 {
-    LPDIRECTSOUND3DBUFFER8 pDSData3D;
-    LPDIRECTSOUNDBUFFER8 pDSData;
-    HRESULT hr;
-    std::string Sound_Path, format;
-    Sound_Path = "Resouce/Sound/";
-    format = ".wav";
+}
+
+SoundBase::~SoundBase()
+{
+
+}
+
+void SoundBase::Init(const HWND& hwnd)
+{
+}
 
 
-    //ファイルパスの自動生成
-    Sound_Path = Sound_Path + fname + format;
+void SoundBase::CreateSE(const char* Key, const D3DXVECTOR3& PosAdd, int Init, int Loop)
+{
+    List tmp;
+    //コピー
+    LPDIRECTSOUNDBUFFER lpSTmp;
+    KD3D.GetlpDSound()->DuplicateSoundBuffer(SE_List[Key].LDSB8, &lpSTmp);
+    lpSTmp->QueryInterface(IID_IDirectSoundBuffer8, (LPVOID*)&tmp.LDSB8);
+    tmp.LDSB8->QueryInterface(IID_IDirectSound3DBuffer8, (LPVOID*)&tmp.LDS3B8);
+    tmp.LDS3B8->SetMode(DS3DMODE_DISABLE, DS3D_IMMEDIATE);
 
-    // WAVEファイルを開く
-    CWaveSoundRead WaveFile;
-    WaveFile.Open((char*)Sound_Path.c_str());
+    List.emplace_back(tmp);
 
-    // セカンダリ・バッファを作成する
-    // DSBUFFERDESC構造体を設定
-    DSBUFFERDESC dsbdesc;
-    ZeroMemory(&dsbdesc, sizeof(DSBUFFERDESC));
-    dsbdesc.dwSize = sizeof(DSBUFFERDESC);
+    List[(List.size() - 1)].SEPos = PosAdd;
+    tmp.LDS3B8->SetPosition(List[(List.size() - 1)].SEPos.x, List[(List.size() - 1)].SEPos.y, List[(List.size() - 1)].SEPos.z, DS3D_IMMEDIATE);
+    lpSTmp->Release();
 
-    //(DSBCAPS_CTRL3D=３Ｄサウンドを使用)
-    dsbdesc.dwFlags = DSBCAPS_GETCURRENTPOSITION2 | DSBCAPS_GLOBALFOCUS | DSBCAPS_CTRL3D |
-        DSBCAPS_CTRLVOLUME | DSBCAPS_CTRLFREQUENCY;
-    dsbdesc.dwBufferBytes = WaveFile.m_ckIn.cksize;
-    dsbdesc.lpwfxFormat = WaveFile.m_pwfx;
 
-    //3DサウンドのHELアルゴリズムを選択
-    dsbdesc.guid3DAlgorithm = DS3DALG_NO_VIRTUALIZATION;
+    if (Init)	List[(List.size() - 1)].LDSB8->SetCurrentPosition(0);
+    if (Loop)	List[(List.size() - 1)].LDSB8->Play(0, 0, DSBPLAY_LOOPING);
+    else		List[(List.size() - 1)].LDSB8->Play(0, 0, 0);
 
-    // バッファを作る
-    LPDIRECTSOUNDBUFFER pDSTmp;
-    KD3D.GetlpDSound()->CreateSoundBuffer(&dsbdesc, &pDSTmp, NULL);
-    pDSTmp->QueryInterface(IID_IDirectSoundBuffer8, (LPVOID*)&pDSData);
-    pDSTmp->Release();
+}
 
-    // セカンダリ・バッファにWaveデータを書き込む
-    LPVOID lpvPtr1;		// 最初のブロックのポインタ
-    DWORD dwBytes1;		// 最初のブロックのサイズ
-    LPVOID lpvPtr2;		// ２番目のブロックのポインタ
-    DWORD dwBytes2;		// ２番目のブロックのサイズ
+void SoundBase::Update()
+{
+    //lpSListener->SetPosition();
 
-    hr = pDSData->Lock(0, WaveFile.m_ckIn.cksize, &lpvPtr1, &dwBytes1, &lpvPtr2, &dwBytes2, 0);
 
-    // DSERR_BUFFERLOSTが返された場合，Restoreメソッドを使ってバッファを復元する
-    if (DSERR_BUFFERLOST == hr)
+    for (int i = 0; i < List.size(); i++)
     {
-        pDSData->Restore();
-        hr = pDSData->Lock(0, WaveFile.m_ckIn.cksize, &lpvPtr1, &dwBytes1, &lpvPtr2, &dwBytes2, 0);
+        DWORD sFlg;
+        List[i].LDSB8->GetStatus(&sFlg);
+        if (!(sFlg & DSBSTATUS_PLAYING)) {
+            List.erase(List.begin() + i);
+            break;
+        }
     }
-    if (SUCCEEDED(hr))
+}
+
+
+void SoundBase::PlayBGM(const char* Key, int Init, int Loop)
+{
+    if (Init)
     {
-        // ロック成功
-
-        // ここで，バッファに書き込む
-        // バッファにデータをコピーする
-        UINT rsize;
-        WaveFile.Read(dwBytes1, (LPBYTE)lpvPtr1, &rsize);
-        if (0 != dwBytes2)
-            WaveFile.Read(dwBytes2, (LPBYTE)lpvPtr2, &rsize);
-
-        // 書き込みが終わったらすぐにUnlockする．
-        hr = pDSData->Unlock(lpvPtr1, dwBytes1, lpvPtr2, dwBytes2);
+        BGM_List[Key].LDSB8->SetCurrentPosition(0);
     }
-
-    //3Dのセカンダリバッファを作る
-    pDSData->QueryInterface(IID_IDirectSound3DBuffer8, (LPVOID*)&pDSData3D);
-
+    if (!Loop)
+    {
+        BGM_List[Key].LDSB8->Play(0, 0, 0);
+    }
+    else
+    {
+        BGM_List[Key].LDSB8->Play(0, 0, DSBPLAY_LOOPING);
+    }
 }
 
 

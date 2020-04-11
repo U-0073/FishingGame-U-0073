@@ -1,5 +1,4 @@
 #include "../FrameBase/SoundBase.h"
-#include "../FrameBase/wavread.h"
 
 
 
@@ -22,10 +21,6 @@ void SoundBase::Init(const HWND &hwnd)
 {
 }
 
-void SoundBase::LoadBGM(const char *fname)//ÅiâπÇÃì«çûÅj
-{
-
-}
 
 void SoundBase::CreateSE(const char * Key, const D3DXVECTOR3 &PosAdd, int Init, int Loop)
 {

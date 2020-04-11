@@ -39,3 +39,37 @@ public:
 
 
 #endif WAVE_READ_H
+
+class SoundBase {
+public:
+	//サウンドデータ構造体
+	struct SoundData
+	{
+		LPDIRECTSOUND3DBUFFER8	LDS3B8;
+		LPDIRECTSOUNDBUFFER8	LDSB8;
+		D3DXVECTOR3 SEPos;
+	};
+
+	SoundBase();
+	~SoundBase();
+
+	void Init(const HWND& hwnd);
+
+	void CreateSE(const char* Key, const D3DXVECTOR3& PosAdd, int Init, int Loop);
+
+	void Update();
+
+	void PlayBGM(const char* Key, int Init, int Loop);
+
+
+
+private:
+	//音源データ配列
+	map<std::string, SoundData> Sound_List;
+
+	//常に単一である情報の定義
+	LPDIRECTSOUND3DLISTENER8 lpSListener;
+
+
+
+};
