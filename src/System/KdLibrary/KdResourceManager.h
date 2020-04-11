@@ -12,12 +12,11 @@ public:
 	//	if (W == 0)W = D3DX_DEFAULT;
 	//	if (H == 0)H = D3DX_DEFAULT;
 	//	D3DXCreateTextureFromFileEx(KD3D.GetDev(), Path.c_str(), W, H, 1, 0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED, D3DX_FILTER_NONE, D3DX_DEFAULT, Color, NULL, NULL, lpTex);
-
 	//}
 
 	const LPDIRECT3DTEXTURE9 GetTexture(const std::string& Path, int W, int H, const D3DCOLOR Color);
 	void GetTexture(LPDIRECT3DTEXTURE9& lpTex, const std::string& Path, const int W, const int H, const D3DCOLOR Color);
-	void GetSound(const std::string& Path);
+	std::shared_ptr<SoundBase>GetSound(const std::string& Path);
 
 private:
 
@@ -26,7 +25,7 @@ private:
 	//テクスチャ
 	std::map<std::string, LPDIRECT3DTEXTURE9>m_texture;
 	//サウンド
-	std::map<std::string, std::shared_ptr<SoundData>> m_Sound;
+	std::map<std::string, std::shared_ptr<SoundBase>> m_sounds;
 private:
 	KdResourcemanager() {} // ← コンストラクタ
 	~KdResourcemanager() {} // ←デストラクタ

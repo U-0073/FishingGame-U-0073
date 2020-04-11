@@ -82,6 +82,7 @@
 #include"CCamera.h"//ƒJƒƒ‰
 
 
+#include "../FrameBase/wavread.h"
 #include "KdModel.h"
 
 

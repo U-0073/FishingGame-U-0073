@@ -2,7 +2,6 @@
 
 #include "KdDirect3D.h"
 
-#include "../FrameBase/SoundBase.h"
 #include "../FrameBase/wavread.h"
 
 
