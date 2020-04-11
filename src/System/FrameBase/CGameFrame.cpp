@@ -65,6 +65,11 @@ const bool CGameFrame::CreateHWND(HINSTANCE aHInst, const int aCmdShow)
 	UpdateWindow(mpHwnd);
 	SetFocus(mpHwnd);
 
+	mIsFullScreen = false;	// ウィンドウモード
+	if (MessageBox(mpHwnd, "フルスクリーンにしますか？", "フルスクリーン?", MB_ICONQUESTION | MB_YESNO) == IDYES) {
+		mIsFullScreen = true;
+	}
+
 	if (mIsFullScreen) {
 		ShowCursor(FALSE);
 	}

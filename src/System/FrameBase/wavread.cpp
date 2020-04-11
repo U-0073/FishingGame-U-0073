@@ -342,6 +342,7 @@ bool SoundBase::LoadSound(const std::string* fname)
 
 	return true;
 }
+
 /*
 void SoundBase::CreateSE(const char* Key, const D3DXVECTOR3& PosAdd, int Init, int Loop)
 {
@@ -366,6 +367,7 @@ void SoundBase::CreateSE(const char* Key, const D3DXVECTOR3& PosAdd, int Init, i
 
 }
 */
+
 void SoundBase::Update()
 {
 	//lpSListener->SetPosition();
@@ -388,6 +390,7 @@ void SoundBase::SoundPlay(const char* Key, int Init, int Loop)
 {
 	if (Init)
 	{
+		RESOURCE_MNG.GetSound("Resouce/Sound/MetroNight.wav");
 		BGM_List[Key].LDSB8->SetCurrentPosition(0);
 	}
 	if (!Loop)

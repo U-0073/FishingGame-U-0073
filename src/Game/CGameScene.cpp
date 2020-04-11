@@ -27,6 +27,8 @@ CGameScene::CGameScene()
 	//ƒvƒŒƒCƒ„[
 	m_Player = std::make_shared<C_Player>();
 
+	m_PSound->LoadSound((std::string*)"Resouce/Sound/MetroNight.wav");
+
 }
 
 CGameScene::~CGameScene()
@@ -39,6 +41,7 @@ void CGameScene::Update()
 	Sky->SetPos(m_Player->GetPlayerPos());
 	m_Port->Update();
 	Fishes->Update();
+
 }
 
 void CGameScene::Draw2D()
