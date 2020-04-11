@@ -27,6 +27,7 @@ CGameScene::CGameScene()
 	//ƒvƒŒƒCƒ„[
 	m_Player = std::make_shared<C_Player>();
 
+	m_PSound->LoadSound((std::string*)"Resouce/Sound/MetroNight.wav");
 }
 
 CGameScene::~CGameScene()

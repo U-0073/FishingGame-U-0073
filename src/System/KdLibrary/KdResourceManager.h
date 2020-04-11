@@ -1,6 +1,7 @@
 #pragma once
 
 class KdModel;
+class SoundBase;
 class KdResourcemanager {
 public:
 	std::shared_ptr<KdModel>GetModel(const std::string&Filename);//リソースの管理
@@ -16,14 +17,15 @@ public:
 
 	const LPDIRECT3DTEXTURE9 GetTexture( const std::string& Path,  int W,  int H, const D3DCOLOR Color);
 	void GetTexture(LPDIRECT3DTEXTURE9& lpTex, const std::string& Path, const int W, const int H, const D3DCOLOR Color);
+	std::shared_ptr<SoundBase>GetSound(const std::string& Path);
 private:
 
 	//モデルデータ
 	std::map<std::string, std::shared_ptr<KdModel>>m_models;
 	//テクスチャ
 	std::map<std::string,LPDIRECT3DTEXTURE9>m_texture;
-	//サウンドデータ
-
+	//サウンド
+	std::map<std::string, std::shared_ptr<SoundBase>> m_sounds;
 private:
 	KdResourcemanager() {} // ← コンストラクタ
 	~KdResourcemanager() {} // ←デストラクタ

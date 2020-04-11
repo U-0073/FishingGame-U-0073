@@ -157,6 +157,43 @@ bool KdDirect3D::Init(HWND hWnd, int width, int height, bool fullscreen, std::st
 	D3DXCreateFont(m_lpD3DDev, 20, 20, FW_REGULAR, NULL, FALSE, SHIFTJIS_CHARSET,
 		OUT_DEFAULT_PRECIS, PROOF_QUALITY, FIXED_PITCH | FF_MODERN, "ＭＳ ゴシック", &mpFont);
 	mpFont->OnResetDevice();
+
+	//-------------------
+	//DirectSoundの初期化
+	//-------------------
+	DirectSoundCreate8(NULL, &lpDSound, NULL);
+
+	//協調レベルを設定
+	lpDSound->SetCooperativeLevel(hWnd, DSSCL_PRIORITY);
+
+	// プライマリ・バッファの作成
+	// DSBUFFERDESC構造体を設定
+	DSBUFFERDESC dsbdesc;
+	ZeroMemory(&dsbdesc, sizeof(DSBUFFERDESC));
+	dsbdesc.dwSize = sizeof(DSBUFFERDESC);
+	// プライマリ・バッファを指定
+	dsbdesc.dwFlags = DSBCAPS_CTRLVOLUME | DSBCAPS_CTRL3D | DSBCAPS_PRIMARYBUFFER;
+	dsbdesc.dwBufferBytes = 0;
+	dsbdesc.lpwfxFormat = NULL;
+
+	// バッファを作る
+	lpDSound->CreateSoundBuffer(&dsbdesc, &lpSPrimary, NULL);
+
+	// プライマリ・バッファのWaveフォーマットを設定
+	// 　　　優先協調レベル以上の協調レベルが設定されている必要があります．
+	WAVEFORMATEX pcmwf;
+	ZeroMemory(&pcmwf, sizeof(WAVEFORMATEX));
+	pcmwf.wFormatTag = WAVE_FORMAT_PCM;
+	pcmwf.nChannels = 2;		// ２チャンネル（ステレオ）
+	pcmwf.nSamplesPerSec = 44100;	// サンプリング・レート　44.1kHz
+	pcmwf.nBlockAlign = 4;
+	pcmwf.nAvgBytesPerSec = pcmwf.nSamplesPerSec * pcmwf.nBlockAlign;
+	pcmwf.wBitsPerSample = 16;		// 16ビット
+	lpSPrimary->SetFormat(&pcmwf);
+
+	CoInitialize(NULL);
+
+
 	return true;
 }
 
@@ -170,6 +207,10 @@ void KdDirect3D::Release()
 	KdSafeRelease(m_lpD3DDev);
 	// Direct3D解放
 	KdSafeRelease(m_lpD3D);
+	//サウンド関連開放
+	KdSafeRelease(lpSPrimary);
+	KdSafeRelease(lpDSound);
+
 }
 
 bool KdDirect3D::ChangeFullScreenMode()

@@ -13,7 +13,8 @@ public:
 
 private:
 
-	
+protected:
+	std::shared_ptr<SoundBase> m_PSound;
 
 
 };
