@@ -381,19 +381,18 @@ void SoundBase::Update()
 }
 
 
-void SoundBase::SoundPlay(const char* Key, int Init, int Loop)
+void SoundBase::SoundPlay(const std::string* Key, bool Init, bool Loop, KdVec3* Pos)
 {
 	if (Init)
 	{
-		RESOURCE_MNG.GetSound("Resouce/Sound/MetroNight.wav");
-		BGM_List[Key].LDSB8->SetCurrentPosition(0);
+		RESOURCE_MNG.GetSound(*Key)->LDSB8->SetCurrentPosition(0);
 	}
 	if (!Loop)
 	{
-		BGM_List[Key].LDSB8->Play(0, 0, 0);
+		RESOURCE_MNG.GetSound(*Key)->LDSB8->Play(0, 0, 0);
 	}
 	else
 	{
-		BGM_List[Key].LDSB8->Play(0, 0, DSBPLAY_LOOPING);
+		RESOURCE_MNG.GetSound(*Key)->LDSB8->Play(0, 0, DSBPLAY_LOOPING);
 	}
 }

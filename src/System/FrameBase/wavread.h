@@ -52,7 +52,7 @@ public:
 
 	void Update();
 
-	void SoundPlay(const char* Key, int Init, int Loop);
+	void SoundPlay(const std::string* Key, bool Init, bool Loop, KdVec3* Pos);
 
 
 private:
