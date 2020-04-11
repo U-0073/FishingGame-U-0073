@@ -100,7 +100,7 @@ void KdResourcemanager::GetTexture(LPDIRECT3DTEXTURE9& lpTex, const std::string&
 	//return m_texture[Path];
 }
 
-std::shared_ptr<SoundBase> KdResourcemanager::GetSound(const std::string& Path)
+std::shared_ptr<SoundBase> KdResourcemanager::GetSound(const char* Path)
 {
 	if (m_sounds.find(Path) != m_sounds.end()) {
 		//ä˘Ç…Ç†Ç¡ÇΩ
@@ -110,7 +110,7 @@ std::shared_ptr<SoundBase> KdResourcemanager::GetSound(const std::string& Path)
 	}
 	//Ç‹Çæë∂ç›ÇµÇ»Ç©Ç¡ÇΩ
 	auto nSound = std::make_shared<SoundBase>();
-	if (nSound->LoadSound(&Path) == false) {
+	if (nSound->LoadSound(Path) == false) {
 		//ì«Ç›çûÇﬂÇ»Ç©Ç¡ÇΩ
 		nSound = nullptr;
 		return nullptr;

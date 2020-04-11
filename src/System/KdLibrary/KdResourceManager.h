@@ -17,7 +17,7 @@ public:
 
 	const LPDIRECT3DTEXTURE9 GetTexture( const std::string& Path,  int W,  int H, const D3DCOLOR Color);
 	void GetTexture(LPDIRECT3DTEXTURE9& lpTex, const std::string& Path, const int W, const int H, const D3DCOLOR Color);
-	std::shared_ptr<SoundBase>GetSound(const std::string& Path);
+	std::shared_ptr<SoundBase>GetSound(const char* Path);
 private:
 
 	//モデルデータ

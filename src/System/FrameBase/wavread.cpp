@@ -273,7 +273,7 @@ SoundBase::~SoundBase()
 
 }
 
-bool SoundBase::LoadSound(const std::string* fname)
+bool SoundBase::LoadSound(const char* fname)
 {
 	LPDIRECTSOUND3DBUFFER8 pDSData3D;
 	LPDIRECTSOUNDBUFFER8 pDSData;
@@ -381,18 +381,18 @@ void SoundBase::Update()
 }
 
 
-void SoundBase::SoundPlay(const std::string* Key, bool Init, bool Loop, KdVec3* Pos)
+void SoundBase::SoundPlay(const char* Key, bool Init, bool Loop, KdVec3* Pos)
 {
 	if (Init)
 	{
-		RESOURCE_MNG.GetSound(*Key)->LDSB8->SetCurrentPosition(0);
+		RESOURCE_MNG.GetSound(Key)->LDSB8->SetCurrentPosition(0);
 	}
 	if (!Loop)
 	{
-		RESOURCE_MNG.GetSound(*Key)->LDSB8->Play(0, 0, 0);
+		RESOURCE_MNG.GetSound(Key)->LDSB8->Play(0, 0, 0);
 	}
 	else
 	{
-		RESOURCE_MNG.GetSound(*Key)->LDSB8->Play(0, 0, DSBPLAY_LOOPING);
+		RESOURCE_MNG.GetSound(Key)->LDSB8->Play(0, 0, DSBPLAY_LOOPING);
 	}
 }
