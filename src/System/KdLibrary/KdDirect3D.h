@@ -32,7 +32,7 @@ public:
 	LPD3DXSPRITE& GetSprite() { return mpSprite; } 	// スプライト
 	LPD3DXFONT& GetFont() { return mpFont; }		// フォント
 
-	void KdDirect3D::LoadTexture(LPDIRECT3DTEXTURE9* lpTex, const std::string Path, int W, int H, const D3DCOLOR Color);
+	void LoadTexture(LPDIRECT3DTEXTURE9* lpTex, const std::string &Path, int W, int H, const D3DCOLOR Color);
 
 	//=============================================
 	// 初期化

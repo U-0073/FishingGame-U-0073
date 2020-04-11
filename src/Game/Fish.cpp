@@ -11,6 +11,7 @@ Fish::~Fish()
 
 void Fish::Init()
 {
+	GameObject::Init();
 	D3DXMATRIX ScaleMat;
 	D3DXMatrixScaling(&ScaleMat, 0.1f, 0.1f, 0.1f);
 	D3DXMatrixTranslation(&m_world, (rand() % 50) / 10, 0, (rand() % 5) / 10);

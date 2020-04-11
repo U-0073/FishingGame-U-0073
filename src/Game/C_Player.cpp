@@ -55,75 +55,38 @@ void C_Player::MoveProc()
 	static bool KeyCheck = false;
 	bool	MoveFlg = false;
 
-	if (GetKey('W') & 0x8000)
-	{
-		D3DXMATRIX RotMat;
-		D3DXMatrixRotationY(&RotMat, D3DXToRadian(CamAngY));
-		D3DXVECTOR3	Vec;
-		D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, 1), &RotMat);
-		PlayerVec += Vec * MoveSpeed;
-	}
-	if (GetKey('A') & 0x8000)
-	{
-		D3DXMATRIX RotMat;
-		D3DXMatrixRotationY(&RotMat, D3DXToRadian(CamAngY));
-		D3DXVECTOR3	Vec;
-		D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(-1, 0, 0), &RotMat);
-		PlayerVec += Vec * MoveSpeed;
-	}
-	if (GetKey('S') & 0x8000)
-	{
-		D3DXMATRIX RotMat;
-		D3DXMatrixRotationY(&RotMat, D3DXToRadian(CamAngY));
-		D3DXVECTOR3	Vec;
-		D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, -1), &RotMat);
-		PlayerVec += Vec * MoveSpeed;
-	}
-	if (GetKey('D') & 0x8000)
-	{
-		D3DXMATRIX RotMat;
-		D3DXMatrixRotationY(&RotMat, D3DXToRadian(CamAngY));
-		D3DXVECTOR3	Vec;
-		D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(1, 0, 0), &RotMat);
-		PlayerVec += Vec * MoveSpeed;
+	if (!FishFlg) {
+		if (GetKey('W') & 0x8000) {
+			D3DXMATRIX RotMat;
+			D3DXMatrixRotationY(&RotMat, D3DXToRadian(CamAngY));
+			D3DXVECTOR3	Vec;
+			D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, 1), &RotMat);
+			PlayerVec += Vec * MoveSpeed;
+		}
+		if (GetKey('A') & 0x8000) {
+			D3DXMATRIX RotMat;
+			D3DXMatrixRotationY(&RotMat, D3DXToRadian(CamAngY));
+			D3DXVECTOR3	Vec;
+			D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(-1, 0, 0), &RotMat);
+			PlayerVec += Vec * MoveSpeed;
+		}
+		if (GetKey('S') & 0x8000) {
+			D3DXMATRIX RotMat;
+			D3DXMatrixRotationY(&RotMat, D3DXToRadian(CamAngY));
+			D3DXVECTOR3	Vec;
+			D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, -1), &RotMat);
+			PlayerVec += Vec * MoveSpeed;
+		}
+		if (GetKey('D') & 0x8000) {
+			D3DXMATRIX RotMat;
+			D3DXMatrixRotationY(&RotMat, D3DXToRadian(CamAngY));
+			D3DXVECTOR3	Vec;
+			D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(1, 0, 0), &RotMat);
+			PlayerVec += Vec * MoveSpeed;
+		}
 	}
 
 
-	//カメラの向きと連動した移動
-	/*
-	D3DXVECTOR3		moveVec(0, 0, 0);
-	D3DXVECTOR3		TmpVec(0, 0, 0);
-
-	if (GetKey('W') & 0x8000) {
-		D3DXVec3TransformNormal(&TmpVec, &D3DXVECTOR3(0, 0, 1), &PlayerRot);
-		moveVec += TmpVec;
-		MoveFlg = true;
-	}
-	if (GetKey('A') & 0x8000) {
-		D3DXVec3TransformNormal(&TmpVec, &D3DXVECTOR3(-1, 0, 0), &PlayerRot);
-		moveVec += TmpVec;
-		MoveFlg = true;
-	}
-	if (GetKey('S') & 0x8000) {
-		D3DXVec3TransformNormal(&TmpVec, &D3DXVECTOR3(0, 0, -1), &PlayerRot);
-		moveVec += TmpVec;
-		MoveFlg = true;
-	}
-	if (GetKey('D') & 0x8000) {
-		D3DXVec3TransformNormal(&TmpVec, &D3DXVECTOR3(1, 0, 0), &PlayerRot);
-		moveVec += TmpVec;
-		MoveFlg = true;
-	}
-	if (MoveFlg)
-	{
-		D3DXVec3Normalize(&moveVec, &moveVec);
-		moveVec *= MoveSpeed;
-		KdMatrix		tmpMat;
-
-		tmpMat.CreateTrans(moveVec);
-		TransMat = tmpMat * TransMat;
-	}
-	*/
 	TransMat.CreateTrans(PlayerVec);
 
 	D3DXMatrixRotationY(&PlayerRot, D3DXToRadian(CamAngY));
@@ -141,16 +104,7 @@ void C_Player::Draw3D() {
 }
 void C_Player::Draw2D()
 {
-	RECT rcText = { 10,60 * 0,0,0 };
-	char Text[100];
-	sprintf_s(Text, sizeof(Text), "Playerの座標 \n %f %f %f", PlayerVec.x, PlayerVec.y, PlayerVec.z);
-	KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	RECT rcText2 = { 10,60 * 1,0,0 };
-	sprintf_s(Text, sizeof(Text), "CameraAngle  \n x=%f  y=%f ", CamAngX, CamAngY);
-	KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText2, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	RECT rcText3 = { 10,60 * 2,0,0 };
-	sprintf_s(Text, sizeof(Text), "CamLook      \n x=%f  y=%f z=%f ", CamLook.x, CamLook.y, CamLook.z);
-	KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText3, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+
 }
 
 
@@ -162,12 +116,16 @@ void C_Player::CameraProc()
 	{
 		if (!ClickStop)
 		{
-			CursorFlg = !CursorFlg;
 			ClickStop = true;
 
-			if (CursorFlg)	ShowCursor(TRUE);
+			if (FishFlg) {
+				ShowCursor(TRUE);
+				FishFlg = false;
+				CntFlg = true;
+			}
 			else
 			{
+				FishFlg = true;
 				ShowCursor(FALSE);
 				SetCursorPos(BasePt.x, BasePt.y);
 			}
@@ -175,17 +133,25 @@ void C_Player::CameraProc()
 	}
 	else ClickStop = false;
 
-	if (GetKey(VK_RIGHT) & 0x8000) {
-		CamAngY += 1;
-	}
-	if (GetKey(VK_LEFT) & 0x8000) {
-		CamAngY -= 1;
-	}
-	if (GetKey(VK_UP) & 0x8000) {
-		CamAngX += 1;
-	}
-	if (GetKey(VK_DOWN) & 0x8000) {
-		CamAngX -= 1;
+	if (!FishFlg && !CntFlg) {
+		if (GetKey(VK_RIGHT) & 0x8000) {
+			CamAngY += 1;
+		}
+		if (GetKey(VK_LEFT) & 0x8000) {
+			CamAngY -= 1;
+		}
+		if (GetKey(VK_UP) & 0x8000) {
+			CamAngX -= 1;
+		}
+		if (GetKey(VK_DOWN) & 0x8000) {
+			CamAngX += 1;
+		}
+		if (GetKey('Q') & 0x8000) {
+			CamAngY -= 1;
+		}
+		if (GetKey('R') & 0x8000) {
+			CamAngY += 1;
+		}
 	}
 
 
@@ -199,7 +165,7 @@ void C_Player::PointUpdate() {
 	POINT Pt;
 	GetCursorPos(&Pt);
 
-	if (!CursorFlg)
+	if (!FishFlg && !CntFlg)
 	{
 		long Move = (Pt.x - BasePt.x);
 		if ((Move >= 3) || (Move <= -3))
@@ -209,21 +175,74 @@ void C_Player::PointUpdate() {
 		}
 	}
 
-	if (CamAngX > 80.0f) CamAngX = 80;
-	if (CamAngX < -80.0f) CamAngX = -80;
+	if (CamAngX < -80.0f) CamAngX = -80.0f;
+	if (CamAngX > 10.0f && !CntFlg) CamAngX = 10.0f;
 
-	if (!CursorFlg) SetCursorPos(BasePt.x, BasePt.y);
+	if (!FishFlg) SetCursorPos(BasePt.x, BasePt.y);
 }
 void C_Player::CameraSet()
 {
-	KdMatrix			CamRot;		//カメラの向いてる方向だけを管理する行列
-	CamRot.CreateRotation(D3DXToRadian(CamAngX), D3DXToRadian(CamAngY), 0);
+	static KdVec3 CamPos;
+	static KdVec3 _CamPos;
+	static KdVec3 _CamLook;
 
-	D3DXVECTOR3 Vec;
-	D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, 1), &CamRot);
-	CamLook = Vec;
 
-	CAMERA.SetCameraPos(PlayerVec, CamLook);
+	if (!FishFlg) {
+		if (FishScene_CamAngX > 0) {
+			FishScene_CamAngX--;
+			if (CntFlg) {
+				CamAngX-=0.5f;
+			}
+		}
+		if (FishScene_CamPos.Length() > PlayerVec.y) {
+			KdMatrix CamRot;
+			CamRot.CreateRotationY(D3DXToRadian(CamAngY));
+			KdVec3 TmpVec;
+			D3DXVec3TransformCoord(&TmpVec, &D3DXVECTOR3(0.0f, 1.0f, 1.0f), &CamRot);
+
+			FishScene_CamPos -= TmpVec * 0.1f;
+		}
+		else FishScene_CamPos.z = 0;
+		if (FishScene_CamAngX == 0 && FishScene_CamPos.z == 0)CntFlg = false;
+
+
+		KdMatrix			CamRot;		//カメラの向いてる方向だけを管理する行列
+		CamRot.CreateRotation(D3DXToRadian(CamAngX), D3DXToRadian(CamAngY), 0);
+
+		D3DXVECTOR3 Vec;
+		D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, 1), &CamRot);
+		CamLook = Vec;
+
+		CamPos = PlayerVec + FishScene_CamPos;
+
+		FishScene_CamAngX = CamAngX;
+	}
+
+	if (FishFlg) {
+		if (FishScene_CamAngX < 50)FishScene_CamAngX+=0.5f;
+		else FishScene_CamAngX = 50;
+
+		if (FishScene_CamPos.Length() < 12.0f+ PlayerVec.y) {
+			KdMatrix CamRot;
+			CamRot.CreateRotationY(D3DXToRadian(CamAngY));
+			KdVec3 TmpVec;
+			D3DXVec3TransformCoord(&TmpVec, &D3DXVECTOR3(0.0f, 1.0f, 1.0f), &CamRot);
+
+			FishScene_CamPos += TmpVec * 0.1f;
+		}
+
+
+		KdMatrix			CamRot;
+		CamRot.CreateRotation(D3DXToRadian(FishScene_CamAngX), D3DXToRadian(CamAngY), 0);
+
+		D3DXVECTOR3 Vec;
+		D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, 1), &CamRot);
+		CamLook = Vec;
+
+		CamPos = PlayerVec + FishScene_CamPos;
+		CamAngX = FishScene_CamAngX;
+	}
+	CAMERA.SetCameraPos(CamPos, CamLook);
 }
 
 
