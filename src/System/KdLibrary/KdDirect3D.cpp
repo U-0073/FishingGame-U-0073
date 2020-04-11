@@ -3,6 +3,8 @@
 #include "KdDirect3D.h"
 
 
+
+
 //================================================================================
 //
 // Direct3D9Exを初期化する。
@@ -82,7 +84,8 @@ bool KdDirect3D::Init(HWND hWnd, int width, int height, bool fullscreen, std::st
 	// ※D3DCREATE_FPU_PRESERVE		…　floatの制度を下げずに維持する(高精度なfloatを使う)
 	DWORD flags = D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE;
 
-	hr = m_lpD3D->CreateDeviceEx(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, flags, &m_d3dpp, (fullscreen ? &dm : nullptr), &m_lpD3DDev);
+//	hr = m_lpD3D->CreateDeviceEx(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, flags, &m_d3dpp, (fullscreen ? &dm : nullptr), &m_lpD3DDev);
+	hr = m_lpD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, flags, &m_d3dpp, &m_lpD3DDev);
 	if(FAILED(hr))
 	{
 		// 失敗
@@ -135,7 +138,7 @@ bool KdDirect3D::Init(HWND hWnd, int width, int height, bool fullscreen, std::st
 	m_Light.Ambient.b = 0.2f;
 
 	//光差す方へ
-	auto dir = KdVec3(0.5f, -1, 1);
+	auto dir = KdVec3(0.5f, -1, -1);
 	dir.Normalize();
 	m_Light.Direction = dir;
 
@@ -195,7 +198,8 @@ bool KdDirect3D::ChangeFullScreenMode()
 	dm.Size = sizeof(dm);
 
 	// 
-	HRESULT hr = m_lpD3DDev->ResetEx(&m_d3dpp, m_d3dpp.Windowed ? nullptr : &dm);
+	//HRESULT hr = m_lpD3DDev->Reset(&m_d3dpp, m_d3dpp.Windowed ? nullptr : &dm);
+	HRESULT hr = m_lpD3DDev->Reset(&m_d3dpp);
 	if (FAILED(hr)) {
 		return false;
 	}
@@ -264,4 +268,15 @@ void KdDirect3D::SetDefaultState()
 
 	// フォグ(霧効果)
 	m_lpD3DDev->SetRenderState(D3DRS_FOGENABLE, FALSE);
+}
+
+void KdDirect3D::LoadTexture(LPDIRECT3DTEXTURE9* lpTex, const std::string &Path, int W, int H, const D3DCOLOR Color)
+{
+	
+	if (W == 0)W = D3DX_DEFAULT;
+	if (H == 0)H = D3DX_DEFAULT;
+	//何故か動かないほう
+	//D3DXCreateTextureFromFileEx(m_lpD3DDev,Path.c_str(),W,H, 1, 0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED, D3DX_FILTER_NONE, D3DX_DEFAULT, Color, nullptr, nullptr, lpTex);
+	//何故か動いちゃった方
+	D3DXCreateTextureFromFile(KD3D.GetDev(), Path.c_str(), lpTex);
 }

@@ -30,7 +30,6 @@ private:
 
 	KdMatrix		TransMat;
 	KdMatrix		PlayerRot;
-	LPD3DXFONT lpFont;		// フォント
 
 	//カメラ
 	POINT				BasePt;

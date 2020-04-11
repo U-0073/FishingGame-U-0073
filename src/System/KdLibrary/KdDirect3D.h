@@ -16,7 +16,7 @@ public:
 	// D3Dオブジェクト取得
 	LPDIRECT3D9EX			GetD3D(){ return m_lpD3D; }
 	// D3Dデバイス取得
-	LPDIRECT3DDEVICE9EX&	GetDev(){ return m_lpD3DDev;}
+	LPDIRECT3DDEVICE9	GetDev(){ return m_lpD3DDev;}
 	// D3Dパラメータ取得
 	D3DPRESENT_PARAMETERS*	GetD3DPP(){return &m_d3dpp;}
 
@@ -32,8 +32,7 @@ public:
 	LPD3DXSPRITE& GetSprite() { return mpSprite; } 	// スプライト
 	LPD3DXFONT& GetFont() { return mpFont; }		// フォント
 
-	
-
+	void LoadTexture(LPDIRECT3DTEXTURE9* lpTex, const std::string &Path, int W, int H, const D3DCOLOR Color);
 
 	//=============================================
 	// 初期化
@@ -75,7 +74,7 @@ private:
 
 
 	LPDIRECT3D9EX				m_lpD3D = nullptr;				// D3Dオブジェクト
-	LPDIRECT3DDEVICE9EX			m_lpD3DDev = nullptr;			// D3Dデバイス
+	LPDIRECT3DDEVICE9			m_lpD3DDev = nullptr;			// D3Dデバイス
 	D3DPRESENT_PARAMETERS		m_d3dpp;						// 詳細設定
 	D3DCAPS9					m_Caps;							// デバイスの情報
 

@@ -27,9 +27,6 @@ void C_Player::Start()
 	GameObject::Init();
 	m_pModel = RESOURCE_MNG.GetModel("./Resouce/3DModel/body.x");
 
-	// フォント作成
-	D3DXCreateFont(KD3D.GetDev(), 30, 30, FW_REGULAR, NULL, FALSE, SHIFTJIS_CHARSET,
-		OUT_DEFAULT_PRECIS, PROOF_QUALITY, FIXED_PITCH | FF_MODERN, "ＭＳ ゴシック", &lpFont);
 
 
 	//ポインター関係
@@ -42,7 +39,6 @@ void C_Player::Start()
 }
 void C_Player::End()
 {
-	lpFont->Release();
 	m_pModel = nullptr;
 }
 
@@ -111,10 +107,10 @@ void C_Player::Draw2D()
 	RECT rcText = { 10,60 * 0,0,0 };
 	char Text[100];
 	sprintf_s(Text, sizeof(Text), "Playerの座標 \n %f %f %f", PlayerVec.x, PlayerVec.y, PlayerVec.z);
-	lpFont->DrawText(NULL, Text, -1, &rcText, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	RECT rcText2 = { 10,60 * 1,0,0 };
 	sprintf_s(Text, sizeof(Text), "CameraAngle  \n x=%f  y=%f ", CamAngX, CamAngY);
-	lpFont->DrawText(NULL, Text, -1, &rcText2, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText2, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	RECT rcText3 = { 10,60 * 2,0,0 };
 	sprintf_s(Text, sizeof(Text), "FishSceneCamPos       \n x=%f  Length=%f z=%f ", FishScene_CamPos.x, FishScene_CamPos.Length(), FishScene_CamPos.z);
 	lpFont->DrawText(NULL, Text, -1, &rcText3, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
@@ -136,7 +132,7 @@ void C_Player::CameraProc()
 {
 	//マウスでのカメラ移動のon off
 	static bool	ClickStop = false;
-	if (GetAsyncKeyState('E') & 0x8000)
+	if (GetKey('E') & 0x8000)
 	{
 		if (!ClickStop)
 		{

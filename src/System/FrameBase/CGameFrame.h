@@ -42,6 +42,8 @@ private:
 	const std::string       mAppName;
 
 
+
+
 public:
 	static CGameFrame& GetInstance()
 	{

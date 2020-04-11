@@ -33,6 +33,7 @@ CGameFrame::CGameFrame()
 	, mIsFullScreen(false)
 	, mWindowSize(1280, 768)
 	, mAppName("KDFrame")
+	
 {
 
 
@@ -41,6 +42,8 @@ CGameFrame::CGameFrame()
 //デストラクタ(破棄した時(メモリから解放)に呼び出される関数)
 CGameFrame::~CGameFrame()
 {
+
+
 }
 
 const bool CGameFrame::CreateHWND(HINSTANCE aHInst, const int aCmdShow)
@@ -71,6 +74,9 @@ const bool CGameFrame::CreateHWND(HINSTANCE aHInst, const int aCmdShow)
 		SetWindowPos(mpHwnd, NULL, 50, 50, rc.right - rc.left, rc.bottom - rc.top, SWP_SHOWWINDOW | SWP_NOZORDER);
 	}
 
+
+	
+
 	return true;
 }
 //初期化関数、ウィンドウとDirectX関連に必要なものを生成する.
@@ -84,11 +90,18 @@ const bool CGameFrame::Initialize(HINSTANCE aHInst, const int aCmdShow)
 	
 	nowScene = std::make_shared<CGameScene>();
 	CAMERA.Set(mWindowSize);
+
+
+
+
 	return true;
 }
 
 void CGameFrame::GameLoop()
 {
+
+
+
 
 
 	DWORD flags =
