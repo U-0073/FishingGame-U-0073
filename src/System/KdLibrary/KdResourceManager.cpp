@@ -116,7 +116,8 @@ std::shared_ptr<SoundBase> KdResourcemanager::GetSound(const std::string& Path)
 		return nullptr;
 	}
 	//ƒŠƒXƒg‚É’Ç‰Á
-	m_sounds[Path] = nSound;
+	m_sounds.emplace(Path, nSound);
+	//m_sounds[Path] = nSound;
 
 	return nSound;
 }
