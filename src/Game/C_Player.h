@@ -12,7 +12,7 @@ public:
 	void Draw3D()override;
 	void Draw2D()override;
 	//プレイヤーの座標を取ってくる関数
-	KdVec3 *GetPlayerPos() { return &PlayerVec; }
+	KdVec3* GetPlayerPos() { return &PlayerVec; }
 
 private:
 	//----------関数宣言-------------
@@ -25,7 +25,8 @@ private:
 	void CameraSet();
 	//---------行列-------------
 	KdVec3			PlayerVec;
-	KdVec3			StartVec = KdVec3(0, 1, 0);		//初期位置
+	KdVec3			StartVec = KdVec3(-121.0f, 5.0f, 0.0f);		//初期位置
+	KdVec3			FishScene_CamPos = KdVec3(0.0f, 4.0f, 0.0f);
 
 	KdMatrix		TransMat;
 	KdMatrix		PlayerRot;
@@ -39,6 +40,7 @@ private:
 	float				CamAngY = 0.0f;
 	float				CamAngX = 0.0f;
 	float				MoveSpeed = 0.2f;
-	bool				CursorFlg = false;
-
+	float				FishScene_CamAngX = 0.0f;
+	bool				FishFlg = false;
+	bool				CntFlg = false;
 };
