@@ -56,28 +56,28 @@ void C_Player::MoveProc()
 	bool	MoveFlg = false;
 
 	if (!FishFlg) {
-		if (GetAsyncKeyState('W') & 0x8000) {
+		if (GetKey('W') & 0x8000) {
 			D3DXMATRIX RotMat;
 			D3DXMatrixRotationY(&RotMat, D3DXToRadian(CamAngY));
 			D3DXVECTOR3	Vec;
 			D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, 1), &RotMat);
 			PlayerVec += Vec * MoveSpeed;
 		}
-		if (GetAsyncKeyState('A') & 0x8000) {
+		if (GetKey('A') & 0x8000) {
 			D3DXMATRIX RotMat;
 			D3DXMatrixRotationY(&RotMat, D3DXToRadian(CamAngY));
 			D3DXVECTOR3	Vec;
 			D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(-1, 0, 0), &RotMat);
 			PlayerVec += Vec * MoveSpeed;
 		}
-		if (GetAsyncKeyState('S') & 0x8000) {
+		if (GetKey('S') & 0x8000) {
 			D3DXMATRIX RotMat;
 			D3DXMatrixRotationY(&RotMat, D3DXToRadian(CamAngY));
 			D3DXVECTOR3	Vec;
 			D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, -1), &RotMat);
 			PlayerVec += Vec * MoveSpeed;
 		}
-		if (GetAsyncKeyState('D') & 0x8000) {
+		if (GetKey('D') & 0x8000) {
 			D3DXMATRIX RotMat;
 			D3DXMatrixRotationY(&RotMat, D3DXToRadian(CamAngY));
 			D3DXVECTOR3	Vec;
@@ -104,26 +104,6 @@ void C_Player::Draw3D() {
 }
 void C_Player::Draw2D()
 {
-	RECT rcText = { 10,60 * 0,0,0 };
-	char Text[100];
-	sprintf_s(Text, sizeof(Text), "Player‚ÌÀ•W \n %f %f %f", PlayerVec.x, PlayerVec.y, PlayerVec.z);
-	KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	RECT rcText2 = { 10,60 * 1,0,0 };
-	sprintf_s(Text, sizeof(Text), "CameraAngle  \n x=%f  y=%f ", CamAngX, CamAngY);
-	KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText2, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	RECT rcText3 = { 10,60 * 2,0,0 };
-	sprintf_s(Text, sizeof(Text), "FishSceneCamPos       \n x=%f  Length=%f z=%f ", FishScene_CamPos.x, FishScene_CamPos.Length(), FishScene_CamPos.z);
-	lpFont->DrawText(NULL, Text, -1, &rcText3, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-
-	RECT rcText4 = { 10,60 * 3,0,0 };
-	if (!FishFlg)lpFont->DrawText(NULL, "FishFlg = false", -1, &rcText4, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	else lpFont->DrawText(NULL, "FishFlg = True", -1, &rcText4, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	RECT rcText5 = { 10,60 * 4,0,0 };
-	if (!CntFlg)lpFont->DrawText(NULL, "CntFlg = false", -1, &rcText5, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	else lpFont->DrawText(NULL, "CntFlg = True", -1, &rcText5, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	RECT rcText6 = { 10,60 * 5,0,0 };
-	sprintf_s(Text, sizeof(Text), "CamAng=%f \n FishSceneCamAng=%f", CamAngX, FishScene_CamAngX);
-	lpFont->DrawText(NULL, Text, -1, &rcText6, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 
 }
 
@@ -154,22 +134,22 @@ void C_Player::CameraProc()
 	else ClickStop = false;
 
 	if (!FishFlg && !CntFlg) {
-		if (GetAsyncKeyState(VK_RIGHT) & 0x8000) {
+		if (GetKey(VK_RIGHT) & 0x8000) {
 			CamAngY += 1;
 		}
-		if (GetAsyncKeyState(VK_LEFT) & 0x8000) {
+		if (GetKey(VK_LEFT) & 0x8000) {
 			CamAngY -= 1;
 		}
-		if (GetAsyncKeyState(VK_UP) & 0x8000) {
+		if (GetKey(VK_UP) & 0x8000) {
 			CamAngX -= 1;
 		}
-		if (GetAsyncKeyState(VK_DOWN) & 0x8000) {
+		if (GetKey(VK_DOWN) & 0x8000) {
 			CamAngX += 1;
 		}
-		if (GetAsyncKeyState('Q') & 0x8000) {
+		if (GetKey('Q') & 0x8000) {
 			CamAngY -= 1;
 		}
-		if (GetAsyncKeyState('R') & 0x8000) {
+		if (GetKey('R') & 0x8000) {
 			CamAngY += 1;
 		}
 	}
