@@ -18,7 +18,7 @@ void Fish::Start()
 	TransMat.CreateTrans(3.0f, -3.0f, 0.0f);
 	m_world = ScaleMat * TransMat;
 //	int name = rand() % 3;
-	int name = 1;
+	int name = 2;
 	switch (name)
 	{
 	case 0:
