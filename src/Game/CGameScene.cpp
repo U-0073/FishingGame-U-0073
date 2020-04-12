@@ -60,8 +60,8 @@ void CGameScene::Update()
 
 void CGameScene::Draw2D()
 {
-	m_Player->Draw2D();
-	m_Fishing->Draw2D();
+	//m_Player->Draw2D();
+	//m_Fishing->Draw2D();
 }
 
 void CGameScene::Draw3D()
