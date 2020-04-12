@@ -55,14 +55,14 @@ public:
 	void SoundPlay(const char* Key, bool Init, bool Loop, KdVec3* Pos);
 
 
+	LPDIRECTSOUND3DBUFFER8	LDS3B8;
+	LPDIRECTSOUNDBUFFER8	LDSB8;
+	D3DXVECTOR3 SEPos;
 private:
 
 	//èÌÇ…íPàÍÇ≈Ç†ÇÈèÓïÒÇÃíËã`
 	LPDIRECTSOUND3DLISTENER8 lpSListener;
 
-	LPDIRECTSOUND3DBUFFER8	LDS3B8;
-	LPDIRECTSOUNDBUFFER8	LDSB8;
-	D3DXVECTOR3 SEPos;
 
 
 };

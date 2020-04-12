@@ -11,10 +11,10 @@ public:
 	virtual void Draw2D();
 	virtual void Draw3D();
 
+	std::shared_ptr<SoundBase> m_PSound;
 private:
 
 protected:
-	std::shared_ptr<SoundBase> m_PSound;
 
 
 };

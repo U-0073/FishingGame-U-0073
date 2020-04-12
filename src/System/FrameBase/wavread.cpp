@@ -339,6 +339,9 @@ bool SoundBase::LoadSound(const char* fname)
 
 	//3Dのセカンダリバッファを作る
 	pDSData->QueryInterface(IID_IDirectSound3DBuffer8, (LPVOID*)&pDSData3D);
+	//ここまでは正常に機能している
+
+	//ここからnSoundにデータを返さないといけない
 
 	return true;
 }
