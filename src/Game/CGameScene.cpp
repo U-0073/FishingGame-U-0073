@@ -7,7 +7,7 @@
 #include"Sea.h"
 #include"Port.h"
 #include"Fish.h"
-
+#include "Fishing.h"
 
 
 CGameScene::CGameScene()
@@ -26,6 +26,9 @@ CGameScene::CGameScene()
 	Fishes->Init();
 	//ƒvƒŒƒCƒ„[
 	m_Player = std::make_shared<C_Player>();
+	//’Ş‚èŠÖŒW
+	m_Fishing = std::make_shared<C_Fishing>();
+	m_Fishing->Start();
 
 	m_PSound = RESOURCE_MNG.GetSound("Resouce/Sound/wave3.wav");
 	m_PSound->Playsound("Resouce/Sound/wave3.wav", true, false);
@@ -38,8 +41,14 @@ CGameScene::~CGameScene()
 void CGameScene::Update()
 {
 	m_Player->Update();
-	Sky->SetPos(m_Player->GetPlayerPos());
+	Sky->SetPos(m_Player->GetPlayerVec());
 	m_Port->Update();
+
+	m_Fishing->SetCamAngY(m_Player->GetCamAngY());
+	m_Fishing->SetPlayerVec(m_Player->GetPlayerVec());
+	m_Fishing->SetFishFlg(m_Player->GetFeshFlg());
+	m_Fishing->SetBuoiFlg(m_Player->GetBuoiFlg());
+	m_Fishing->Update();
 	Fishes->Update();
 
 	if (GetKey(VK_SPACE) & 0x8000) 
@@ -52,6 +61,7 @@ void CGameScene::Update()
 void CGameScene::Draw2D()
 {
 	m_Player->Draw2D();
+	m_Fishing->Draw2D();
 }
 
 void CGameScene::Draw3D()
@@ -59,6 +69,7 @@ void CGameScene::Draw3D()
 	Sky->Draw3D();
 	m_Port->Draw3D();
 	Seas->Draw();
+	m_Fishing->Draw3D();
 	Fishes->Draw3D();
 	//m_Player->Draw3D();
 }

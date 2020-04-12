@@ -53,5 +53,4 @@ void Fish::Draw3D()
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, TRUE);
 	m_pModel->Draw();
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
-
 }
