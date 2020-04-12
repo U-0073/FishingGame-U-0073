@@ -29,8 +29,8 @@ CGameScene::CGameScene()
 	m_Fishing = std::make_shared<C_Fishing>();
 	m_Fishing->Start();
 
-	m_PSound=RESOURCE_MNG.GetSound("Resouce/Sound/MetroNight.wav");
-	m_PSound->SoundPlay("Resouce/Sound/MetroNight.wav", true, false, nullptr);
+	m_PSound = RESOURCE_MNG.GetSound("Resouce/Sound/wave3.wav");
+	m_PSound->Playsound("Resouce/Sound/wave3.wav", true, false);
 }
 
 CGameScene::~CGameScene()
@@ -53,8 +53,8 @@ void CGameScene::Update()
 
 void CGameScene::Draw2D()
 {
-//	m_Player->Draw2D();
-//	m_Fishing->Draw2D();
+	//m_Player->Draw2D();
+	//m_Fishing->Draw2D();
 }
 
 void CGameScene::Draw3D()

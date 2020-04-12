@@ -48,13 +48,13 @@ public:
 	
 	void SetPos(D3DXVECTOR3& Pos);
 
-	bool LoadSound(const char* fname);
+	bool Loadsound(const char* fname);
 
-	//void CreateSE(const char* Key, const D3DXVECTOR3& PosAdd, int Init, int Loop);
+	void Copysound(const char* Key, int Init, int Loop);
 
 	void Update();
 
-	void SoundPlay(const char* Key, bool Init, bool Loop, KdVec3* Pos);
+	void Playsound(const char* Key, bool Init, bool Loop);
 
 
 	LPDIRECTSOUND3DBUFFER8	LDS3B8;
