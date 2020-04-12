@@ -45,6 +45,8 @@ class SoundBase {
 public:
 	SoundBase();
 	~SoundBase();
+	
+	void SetPos(D3DXVECTOR3& Pos);
 
 	bool LoadSound(const char* fname);
 
@@ -57,7 +59,7 @@ public:
 
 	LPDIRECTSOUND3DBUFFER8	LDS3B8;
 	LPDIRECTSOUNDBUFFER8	LDSB8;
-	D3DXVECTOR3 SEPos;
+	D3DXVECTOR3 SoundPos;
 private:
 
 	//í‚É’Pˆê‚Å‚ ‚éî•ñ‚Ì’è‹`

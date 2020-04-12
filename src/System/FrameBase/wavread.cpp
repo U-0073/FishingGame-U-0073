@@ -273,10 +273,15 @@ SoundBase::~SoundBase()
 
 }
 
+void SoundBase::SetPos(D3DXVECTOR3& Pos)
+{
+	SoundPos = Pos;
+}
+
 bool SoundBase::LoadSound(const char* fname)
 {
-	LPDIRECTSOUND3DBUFFER8 pDSData3D;
-	LPDIRECTSOUNDBUFFER8 pDSData;
+	//LPDIRECTSOUND3DBUFFER8 pDSData3D;
+	//LPDIRECTSOUNDBUFFER8 pDSData;
 	HRESULT hr;
 
 
@@ -302,7 +307,7 @@ bool SoundBase::LoadSound(const char* fname)
 	// バッファを作る
 	LPDIRECTSOUNDBUFFER pDSTmp;
 	KD3D.GetlpDSound()->CreateSoundBuffer(&dsbdesc, &pDSTmp, NULL);
-	pDSTmp->QueryInterface(IID_IDirectSoundBuffer8, (LPVOID*)&pDSData);
+	pDSTmp->QueryInterface(IID_IDirectSoundBuffer8, (LPVOID*)&LDSB8);
 	pDSTmp->Release();
 
 	// セカンダリ・バッファにWaveデータを書き込む
@@ -311,7 +316,7 @@ bool SoundBase::LoadSound(const char* fname)
 	LPVOID lpvPtr2;		// ２番目のブロックのポインタ
 	DWORD dwBytes2;		// ２番目のブロックのサイズ
 
-	hr = pDSData->Lock(0, WaveFile.m_ckIn.cksize, &lpvPtr1, &dwBytes1, &lpvPtr2, &dwBytes2, 0);
+	hr = LDSB8->Lock(0, WaveFile.m_ckIn.cksize, &lpvPtr1, &dwBytes1, &lpvPtr2, &dwBytes2, 0);
 	if (FAILED(hr)) {
 		return false;
 	}
@@ -319,8 +324,8 @@ bool SoundBase::LoadSound(const char* fname)
 	// DSERR_BUFFERLOSTが返された場合，Restoreメソッドを使ってバッファを復元する
 	if (DSERR_BUFFERLOST == hr)
 	{
-		pDSData->Restore();
-		hr = pDSData->Lock(0, WaveFile.m_ckIn.cksize, &lpvPtr1, &dwBytes1, &lpvPtr2, &dwBytes2, 0);
+		LDSB8->Restore();
+		hr = LDSB8->Lock(0, WaveFile.m_ckIn.cksize, &lpvPtr1, &dwBytes1, &lpvPtr2, &dwBytes2, 0);
 	}
 	if (SUCCEEDED(hr))
 	{
@@ -334,15 +339,11 @@ bool SoundBase::LoadSound(const char* fname)
 			WaveFile.Read(dwBytes2, (LPBYTE)lpvPtr2, &rsize);
 
 		// 書き込みが終わったらすぐにUnlockする．
-		hr = pDSData->Unlock(lpvPtr1, dwBytes1, lpvPtr2, dwBytes2);
+		hr = LDSB8->Unlock(lpvPtr1, dwBytes1, lpvPtr2, dwBytes2);
 	}
 
 	//3Dのセカンダリバッファを作る
-	pDSData->QueryInterface(IID_IDirectSound3DBuffer8, (LPVOID*)&pDSData3D);
-	//ここまでは正常に機能している
-
-	//ここからnSoundにデータを返さないといけない
-
+	LDSB8->QueryInterface(IID_IDirectSound3DBuffer8, (LPVOID*)&LDS3B8);
 	return true;
 }
 
