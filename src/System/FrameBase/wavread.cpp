@@ -348,7 +348,7 @@ bool SoundBase::LoadSound(const char* fname)
 }
 
 /*
-void SoundBase::CreateSE(const char* Key, const D3DXVECTOR3& PosAdd, int Init, int Loop)
+void SoundBase::Copysound(const char* Key, const D3DXVECTOR3& PosAdd, int Init, int Loop)
 {
 	List tmp;
 	//ÉRÉsÅ[
@@ -385,7 +385,7 @@ void SoundBase::Update()
 }
 
 
-void SoundBase::SoundPlay(const char* Key, bool Init, bool Loop, KdVec3* Pos)
+void SoundBase::PlaySound(const char* Key, bool Init, bool Loop)
 {
 	if (Init)
 	{

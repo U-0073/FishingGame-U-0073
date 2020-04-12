@@ -50,11 +50,11 @@ public:
 
 	bool LoadSound(const char* fname);
 
-	//void CreateSE(const char* Key, const D3DXVECTOR3& PosAdd, int Init, int Loop);
+	//void CopySound(const char* Key, const D3DXVECTOR3& PosAdd, int Init, int Loop);
 
 	void Update();
 
-	void SoundPlay(const char* Key, bool Init, bool Loop, KdVec3* Pos);
+	void PlaySound(const char* Key, bool Init, bool Loop);
 
 
 	LPDIRECTSOUND3DBUFFER8	LDS3B8;

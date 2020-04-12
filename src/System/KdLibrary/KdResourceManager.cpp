@@ -103,10 +103,9 @@ void KdResourcemanager::GetTexture(LPDIRECT3DTEXTURE9& lpTex, const std::string&
 std::shared_ptr<SoundBase> KdResourcemanager::GetSound(const char* Path)
 {
 	if (m_sounds.find(Path) != m_sounds.end()) {
-		//既にあった
+		//既にあったら
+		//copySound関数呼び出し
 		return m_sounds[Path];
-		//↑指定したキーにつながっている要素にアクセス
-		//存在しないキーを使った場合、自動追加してしまう
 	}
 	//まだ存在しなかった
 	auto nSound = std::make_shared<SoundBase>();
@@ -119,7 +118,5 @@ std::shared_ptr<SoundBase> KdResourcemanager::GetSound(const char* Path)
 	}
 	//リストに追加
 	m_sounds.emplace(Path, nSound);
-	//m_sounds[Path] = nSound;
-
 	return nSound;
 }
