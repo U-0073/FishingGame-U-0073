@@ -101,10 +101,20 @@ void C_Player::Draw3D() {
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, TRUE);
 	m_pModel->Draw();
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
+	//	Draw3DWall();
 }
 void C_Player::Draw2D()
 {
-
+	char Text[100];
+	RECT rcText2 = { 10,30 * 2,0,0 };
+	sprintf_s(Text, sizeof(Text), "PlayerVec  x %f  y%f z %f ", PlayerVec.x, PlayerVec.y, PlayerVec.z);
+	KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText2, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	RECT rcText3 = { 10,30 * 3,0,0 };
+	if (!CntFlg)KD3D.GetFont()->DrawText(NULL, "CntFlg=false", -1, &rcText3, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	else KD3D.GetFont()->DrawText(NULL, "CntFlg=true", -1, &rcText3, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	RECT rcText4 = { 10,30 * 4,0,0 };
+	if (!FishFlg)KD3D.GetFont()->DrawText(NULL, "FishFlg=false", -1, &rcText4, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	else KD3D.GetFont()->DrawText(NULL, "FishFlg=true", -1, &rcText4, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 }
 
 
@@ -146,12 +156,6 @@ void C_Player::CameraProc()
 		if (GetKey(VK_DOWN) & 0x8000) {
 			CamAngX += 1;
 		}
-		if (GetKey('Q') & 0x8000) {
-			CamAngY -= 1;
-		}
-		if (GetKey('R') & 0x8000) {
-			CamAngY += 1;
-		}
 	}
 
 
@@ -176,34 +180,39 @@ void C_Player::PointUpdate() {
 	}
 
 	if (CamAngX < -80.0f) CamAngX = -80.0f;
-	if (CamAngX > 10.0f && !CntFlg) CamAngX = 10.0f;
+	if (CamAngX > 20.0f && !CntFlg) CamAngX = 20.0f;
 
 	if (!FishFlg) SetCursorPos(BasePt.x, BasePt.y);
 }
 void C_Player::CameraSet()
 {
 	static KdVec3 CamPos;
-	static KdVec3 _CamPos;
-	static KdVec3 _CamLook;
 
 
 	if (!FishFlg) {
 		if (FishScene_CamAngX > 0) {
 			FishScene_CamAngX--;
 			if (CntFlg) {
-				CamAngX-=0.5f;
+				CamAngX -= 0.6f;
 			}
 		}
-		if (FishScene_CamPos.Length() > PlayerVec.y) {
+		if (FishScene_CamPos.Length() > PlayerVec.y + 2.0f) {
 			KdMatrix CamRot;
 			CamRot.CreateRotationY(D3DXToRadian(CamAngY));
-			KdVec3 TmpVec;
-			D3DXVec3TransformCoord(&TmpVec, &D3DXVECTOR3(0.0f, 1.0f, 1.0f), &CamRot);
 
-			FishScene_CamPos -= TmpVec * 0.1f;
+			KdVec3 TmpVec;
+			D3DXVec3TransformCoord(&TmpVec, &D3DXVECTOR3(0.0f, 0.0f, 1.0f), &CamRot);
+			FishScene_CamPos -= TmpVec * 0.05f;
+
+			KdVec3 TmpVec2;
+			D3DXVec3TransformCoord(&TmpVec2, &D3DXVECTOR3(0.0f, 1.0f, 0.0f), &CamRot);
+			FishScene_CamPos -= TmpVec2 * 0.1f;
 		}
-		else FishScene_CamPos.z = 0;
-		if (FishScene_CamAngX == 0 && FishScene_CamPos.z == 0)CntFlg = false;
+		else {
+			FishScene_CamPos.z = 0;
+			BuoiFlg = false;
+		}
+		if (FishScene_CamAngX <= 0 && FishScene_CamPos.z <= 0)CntFlg = false;
 
 
 		KdMatrix			CamRot;		//ƒJƒƒ‰‚ÌŒü‚¢‚Ä‚é•ûŒü‚¾‚¯‚ðŠÇ—‚·‚és—ñ
@@ -219,17 +228,23 @@ void C_Player::CameraSet()
 	}
 
 	if (FishFlg) {
-		if (FishScene_CamAngX < 50)FishScene_CamAngX+=0.5f;
-		else FishScene_CamAngX = 50;
+		if (FishScene_CamAngX < 40)FishScene_CamAngX += 0.4f;
+		else {
+			FishScene_CamAngX = 40;
+		}
 
-		if (FishScene_CamPos.Length() < 12.0f+ PlayerVec.y) {
+		if (FishScene_CamPos.Length() < 7.0f + PlayerVec.y) {
 			KdMatrix CamRot;
 			CamRot.CreateRotationY(D3DXToRadian(CamAngY));
 			KdVec3 TmpVec;
-			D3DXVec3TransformCoord(&TmpVec, &D3DXVECTOR3(0.0f, 1.0f, 1.0f), &CamRot);
+			D3DXVec3TransformCoord(&TmpVec, &D3DXVECTOR3(0.0f, 0.0f, 1.0f), &CamRot);
+			FishScene_CamPos += TmpVec * 0.025f;
 
-			FishScene_CamPos += TmpVec * 0.1f;
+			KdVec3 TmpVec2;
+			D3DXVec3TransformCoord(&TmpVec2, &D3DXVECTOR3(0.0f, 1.0f, 0.0f), &CamRot);
+			FishScene_CamPos += TmpVec2 * 0.05f;
 		}
+		else BuoiFlg = true;
 
 
 		KdMatrix			CamRot;
@@ -243,6 +258,28 @@ void C_Player::CameraSet()
 		CamAngX = FishScene_CamAngX;
 	}
 	CAMERA.SetCameraPos(CamPos, CamLook);
+}
+
+void C_Player::Draw3DWall()
+{
+
+	KD3D.GetDev()->SetFVF(FVF_VERTEX);
+	vWall[0].Color = D3DCOLOR_ARGB(255, 255, 0, 0);
+	vWall[1].Color = D3DCOLOR_ARGB(255, 255, 0, 0);
+	vWall[2].Color = D3DCOLOR_ARGB(255, 255, 0, 0);
+	vWall[3].Color = D3DCOLOR_ARGB(255, 255, 0, 0);
+
+	KD3D.GetDev()->SetTexture(0, NULL);
+
+	vWall[0].Pos = D3DXVECTOR3(-10.0f, -10.0f, 0.0f);
+	vWall[1].Pos = D3DXVECTOR3(-10.0f, 10.0f, 0.0f);
+	vWall[2].Pos = D3DXVECTOR3(10.0f, 10.0f, 0.0f);
+	vWall[3].Pos = D3DXVECTOR3(10.0f, -10.0f, 0.0f);
+
+
+	WallMat.CreateTrans(0.0f, 4.0f, 0.0f);
+	KD3D.GetDev()->SetTransform(D3DTS_WORLD, &WallMat);
+	KD3D.GetDev()->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, vWall, sizeof(VERTEX2));
 }
 
 

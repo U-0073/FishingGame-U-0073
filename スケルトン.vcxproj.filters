@@ -83,6 +83,9 @@
     <ClCompile Include="src\Game\Fish.cpp">
       <Filter>src\ゲーム</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Fishing.cpp">
+      <Filter>src\ゲーム</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\System\Component\InputComponent.h">
@@ -140,6 +143,9 @@
       <Filter>src\ゲーム</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\Fish.h">
+      <Filter>src\ゲーム</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Fishing.h">
       <Filter>src\ゲーム</Filter>
     </ClInclude>
   </ItemGroup>

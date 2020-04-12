@@ -6,6 +6,7 @@ class Skysphere;
 class Port;
 class Fish;
 class C_Player;		//プレイヤー全般
+class C_Fishing;
 
 class Sea;
 
@@ -25,10 +26,10 @@ private:
 	std::shared_ptr<Sea> Seas = nullptr;
 	std::shared_ptr<Port> m_Port = nullptr;
 	std::shared_ptr<Fish> Fishes = nullptr;
+	std::shared_ptr<C_Fishing> m_Fishing = nullptr;
 	
 	LPDIRECT3DTEXTURE9 seaTex;
 
 	//林プログラム
 	std::shared_ptr<C_Player> m_Player = nullptr;
-
 };
