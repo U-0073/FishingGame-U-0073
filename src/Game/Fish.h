@@ -13,7 +13,21 @@ public:
 	void Draw2D()override;
 	void Draw3D()override;
 
-private:
-	std::string m_Tag;//‰½‚Ì‹›‚©
+	const void SetPlayerVec(const KdVec3& Vec) { PlayerVec = Vec; }
+	const void SetCamAngY(const float& f) { CamAngY = f; }
+	const void SetFishFlg(const bool& flg) { FishFlg = flg; }
 
+private:
+	void Start();
+	std::string m_Tag;//‰½‚Ì‹›‚©
+	
+	KdVec3 PlayerVec;
+	KdVec3 FishVec;
+	KdVec3 FishLen;
+	KdMatrix TransMat;
+	KdMatrix ScaleMat;
+
+	float Count = 0.0f;
+	float CamAngY;
+	bool  FishFlg;
 };

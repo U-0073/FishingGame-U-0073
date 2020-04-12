@@ -22,8 +22,7 @@ CGameScene::CGameScene()
 	m_Port = std::make_shared<Port>();
 	m_Port->Init();
 	//‹›
-	Fishes = std::make_shared<Fish>();
-	Fishes->Init();
+//	Fishes = std::make_shared<Fish>();
 	//ƒvƒŒƒCƒ„[
 	m_Player = std::make_shared<C_Player>();
 	//’Ş‚èŠÖŒW
@@ -46,13 +45,13 @@ void CGameScene::Update()
 	m_Fishing->SetFishFlg(m_Player->GetFeshFlg());
 	m_Fishing->SetBuoiFlg(m_Player->GetBuoiFlg());
 	m_Fishing->Update();
-	Fishes->Update();
+//	Fishes->Update();
 }
 
 void CGameScene::Draw2D()
 {
-	m_Player->Draw2D();
-	m_Fishing->Draw2D();
+//	m_Player->Draw2D();
+//	m_Fishing->Draw2D();
 }
 
 void CGameScene::Draw3D()
@@ -61,6 +60,6 @@ void CGameScene::Draw3D()
 	m_Port->Draw3D();
 	Seas->Draw();
 	m_Fishing->Draw3D();
-	Fishes->Draw3D();
+//	Fishes->Draw3D();
 	//m_Player->Draw3D();
 }
