@@ -278,7 +278,7 @@ void SoundBase::SetPos(D3DXVECTOR3& Pos)
 	SoundPos = Pos;
 }
 
-bool SoundBase::LoadSound(const char* fname)
+bool SoundBase::Loadsound(const char* fname)
 {
 	//LPDIRECTSOUND3DBUFFER8 pDSData3D;
 	//LPDIRECTSOUNDBUFFER8 pDSData;
@@ -347,9 +347,10 @@ bool SoundBase::LoadSound(const char* fname)
 	return true;
 }
 
-/*
-void SoundBase::Copysound(const char* Key, const D3DXVECTOR3& PosAdd, int Init, int Loop)
+
+void SoundBase::Copysound(const char* Key, int Init, int Loop)
 {
+	/*
 	List tmp;
 	//ƒRƒs[
 	LPDIRECTSOUNDBUFFER lpSTmp;
@@ -364,8 +365,9 @@ void SoundBase::Copysound(const char* Key, const D3DXVECTOR3& PosAdd, int Init, 
 	if (Init)	List[(List.size() - 1)].LDSB8->SetCurrentPosition(0);
 	if (Loop)	List[(List.size() - 1)].LDSB8->Play(0, 0, DSBPLAY_LOOPING);
 	else		List[(List.size() - 1)].LDSB8->Play(0, 0, 0);
+	*/
 }
-*/
+
 
 void SoundBase::Update()
 {
@@ -385,7 +387,7 @@ void SoundBase::Update()
 }
 
 
-void SoundBase::PlaySound(const char* Key, bool Init, bool Loop)
+void SoundBase::Playsound(const char* Key, bool Init, bool Loop)
 {
 	if (Init)
 	{

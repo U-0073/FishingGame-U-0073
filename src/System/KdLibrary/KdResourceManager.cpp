@@ -111,7 +111,7 @@ std::shared_ptr<SoundBase> KdResourcemanager::GetSound(const char* Path)
 	auto nSound = std::make_shared<SoundBase>();
 	nSound->SetPos(D3DXVECTOR3(10, 10, 10));
 
-	if (nSound->LoadSound(Path) == false) {
+	if (nSound->Loadsound(Path) == false) {
 		//ì«Ç›çûÇﬂÇ»Ç©Ç¡ÇΩ
 		nSound = nullptr;
 		return nullptr;

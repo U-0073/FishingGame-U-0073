@@ -27,8 +27,8 @@ CGameScene::CGameScene()
 	//ƒvƒŒƒCƒ„[
 	m_Player = std::make_shared<C_Player>();
 
-	m_PSound = RESOURCE_MNG.GetSound("Resouce/Sound/MetroNight.wav");
-	m_PSound->PlaySound("Resouce/Sound/MetroNight.wav", true, false);
+	m_PSound = RESOURCE_MNG.GetSound("Resouce/Sound/wave3.wav");
+	m_PSound->Playsound("Resouce/Sound/wave3.wav", true, false);
 }
 
 CGameScene::~CGameScene()
@@ -41,6 +41,12 @@ void CGameScene::Update()
 	Sky->SetPos(m_Player->GetPlayerPos());
 	m_Port->Update();
 	Fishes->Update();
+
+	if (GetKey(VK_SPACE) & 0x8000) 
+	{
+		//m_PSound = RESOURCE_MNG.GetSound("Resouce/Sound/Michishirube.wav");
+		//m_PSound->Playsound("Resouce/Sound/Michishirube.wav", true, false);
+	}
 }
 
 void CGameScene::Draw2D()
