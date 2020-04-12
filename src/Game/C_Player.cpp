@@ -115,6 +115,9 @@ void C_Player::Draw2D()
 	RECT rcText4 = { 10,30 * 4,0,0 };
 	if (!FishFlg)KD3D.GetFont()->DrawText(NULL, "FishFlg=false", -1, &rcText4, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	else KD3D.GetFont()->DrawText(NULL, "FishFlg=true", -1, &rcText4, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	RECT rcText5 = { 10,30 * 5,0,0 };
+	if (!BuoiFlg)KD3D.GetFont()->DrawText(NULL, "BuoiFlg=false", -1, &rcText5, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	else KD3D.GetFont()->DrawText(NULL, "BuoiFlg=true", -1, &rcText5, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 }
 
 
@@ -187,13 +190,22 @@ void C_Player::PointUpdate() {
 void C_Player::CameraSet()
 {
 	static KdVec3 CamPos;
+	static bool flg1 = false;
+	static bool flg2 = false;
 
+	if (flg1 && flg2) {
+		BuoiFlg = true;
+	}
+	else {
+		BuoiFlg = false;
+	}
 
 	if (!FishFlg) {
 		if (FishScene_CamAngX > 0) {
 			FishScene_CamAngX--;
 			if (CntFlg) {
 				CamAngX -= 0.6f;
+				flg1 = false;
 			}
 		}
 		if (FishScene_CamPos.Length() > PlayerVec.y + 2.0f) {
@@ -210,7 +222,7 @@ void C_Player::CameraSet()
 		}
 		else {
 			FishScene_CamPos.z = 0;
-			BuoiFlg = false;
+			flg2 = false;
 		}
 		if (FishScene_CamAngX <= 0 && FishScene_CamPos.z <= 0)CntFlg = false;
 
@@ -231,6 +243,7 @@ void C_Player::CameraSet()
 		if (FishScene_CamAngX < 40)FishScene_CamAngX += 0.4f;
 		else {
 			FishScene_CamAngX = 40;
+			flg1 = true;
 		}
 
 		if (FishScene_CamPos.Length() < 7.0f + PlayerVec.y) {
@@ -244,8 +257,7 @@ void C_Player::CameraSet()
 			D3DXVec3TransformCoord(&TmpVec2, &D3DXVECTOR3(0.0f, 1.0f, 0.0f), &CamRot);
 			FishScene_CamPos += TmpVec2 * 0.05f;
 		}
-		else BuoiFlg = true;
-
+		else flg2 = true;
 
 		KdMatrix			CamRot;
 		CamRot.CreateRotation(D3DXToRadian(FishScene_CamAngX), D3DXToRadian(CamAngY), 0);
