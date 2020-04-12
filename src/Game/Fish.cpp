@@ -78,19 +78,25 @@ void Fish::Update()
 		FishPosYCnt = 8.0f;
 	}
 	else {
-		if (FishPosZCnt > 0 ) {
+		if (FishPosZCnt > 0 &&FishPosYCnt<7) {
+
 			D3DXVECTOR3	Vec;
 			RotMat.CreateRotationY(D3DXToRadian(CamAngY));
 			D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, 1), &RotMat);
 
-			FishVec -= Vec * 0.3;
-			FishPosZCnt -= 0.3f;
+			FishVec -= Vec * 0.5;
+			FishPosZCnt -= 0.5f;
 		}
 
 		if (FishPosYCnt > 0) {
-
-			FishVec += KdVec3(0.0f, 0.1f, 0.0f);
-			FishPosYCnt -= 0.1f;
+			if (FishPosYCnt > 7) {
+				FishVec += KdVec3(0.0f, 0.2f, 0.0f);
+				FishPosYCnt -= 0.2f;
+			}
+			else {
+			FishVec += KdVec3(0.0f, 0.2f, 0.0f);
+			FishPosYCnt -= 0.4f;
+			}
 		}
 	}
 
