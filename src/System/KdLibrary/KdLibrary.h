@@ -12,6 +12,7 @@
 #include <math.h>
 #include <commctrl.h>
 #include <ctime>
+#include<dsound.h>
 
 //===============================================
 //
@@ -82,7 +83,7 @@
 
 
 #include "KdModel.h"
-
+#include "../FrameBase/wavread.h"
 
 
 #define GetKey GetAsyncKeyState

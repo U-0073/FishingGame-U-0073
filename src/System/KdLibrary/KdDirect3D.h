@@ -27,10 +27,13 @@ public:
 	int						GetRezoW() const {return m_d3dpp.BackBufferWidth;}
 	// Y解像度取得(画面の高)
 	int						GetRezoH() const {return m_d3dpp.BackBufferHeight;}
-
+	//サウンド関連のデバイス制御変数
+	LPDIRECTSOUND8 lpDSound;
+	LPDIRECTSOUNDBUFFER lpSPrimary;
 
 	LPD3DXSPRITE& GetSprite() { return mpSprite; } 	// スプライト
 	LPD3DXFONT& GetFont() { return mpFont; }		// フォント
+	LPDIRECTSOUND8& GetlpDSound() { return lpDSound; }
 
 	void LoadTexture(LPDIRECT3DTEXTURE9* lpTex, const std::string &Path, int W, int H, const D3DCOLOR Color);
 
