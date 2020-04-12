@@ -10,6 +10,8 @@
 #include "Fishing.h"
 
 
+//(__)???????????????????
+
 CGameScene::CGameScene()
 {
 	//スカイスフィア
@@ -49,6 +51,7 @@ void CGameScene::Update()
 	m_Fishing->SetBuoiFlg(m_Player->GetBuoiFlg());
 	m_Fishing->Update();
 //	Fishes->Update();
+
 }
 
 void CGameScene::Draw2D()
