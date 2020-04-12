@@ -72,10 +72,10 @@ void C_Fishing::FishingProc()
 		if (BuoiPos.y > -3.7f)BuoiPos -= KdVec3(0.0f, 0.15f, 0.0f);
 		else {
 			BuoiPos.y = -3.7f;
-			if (GetKey('2') & 0x8000) {
+			if (GetKey('3') & 0x8000) {
 				GetFish = true;
 			}
-			if (GetKey('3') & 0x8000) {
+			if (GetKey('2') & 0x8000) {
 				HitFlg = false;
 			}
 		}
