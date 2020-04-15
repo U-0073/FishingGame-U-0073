@@ -34,7 +34,7 @@ private:
 	KdMatrix ScileMat;
 	KdMatrix TransMat;
 
-	float BuoiPosY = -3.7;
+	float BuoiPosY = -3.7f;
 	float CamAngY;
 	bool  FishSceneFlg = false;
 	bool BuoiFlg = false;

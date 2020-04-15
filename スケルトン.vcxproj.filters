@@ -89,6 +89,9 @@
     <ClCompile Include="src\System\FrameBase\wavread.cpp">
       <Filter>src\システム</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\CTitleScene.cpp">
+      <Filter>src\ゲーム</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\System\Component\InputComponent.h">
@@ -153,6 +156,9 @@
     </ClInclude>
     <ClInclude Include="src\System\FrameBase\wavread.h">
       <Filter>src\システム</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\CTitleScene.h">
+      <Filter>src\ゲーム</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

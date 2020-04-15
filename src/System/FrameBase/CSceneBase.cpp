@@ -1,6 +1,6 @@
 ﻿#include"../KdLibrary/KdLibrary.h"
-#include "../FrameBase/CSceneBase.h"
-
+#include "CSceneBase.h"
+#include"wavread.h"
 
 
 
@@ -20,6 +20,10 @@ CSceneBase::CSceneBase()
 CSceneBase::~CSceneBase()
 {
 
+}
+
+void CSceneBase::Init()
+{
 }
 
 void CSceneBase::Update()
