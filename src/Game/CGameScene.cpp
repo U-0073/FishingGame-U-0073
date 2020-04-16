@@ -31,8 +31,8 @@ CGameScene::CGameScene()
 	m_Fishing = std::make_shared<C_Fishing>();
 	m_Fishing->Start();
 
-	//m_PSound = RESOURCE_MNG.GetSound("Resouce/Sound/wave3.wav");
-	//m_PSound->Playsound("Resouce/Sound/wave3.wav", true, false);
+	m_PSound = RESOURCE_MNG.GetSound("Resouce/Sound/wave3.wav");
+	m_PSound->Playsound("Resouce/Sound/wave3.wav", true, false);
 }
 
 CGameScene::~CGameScene()

@@ -33,4 +33,8 @@ private:
 
 	//—ÑƒvƒƒOƒ‰ƒ€
 	std::shared_ptr<C_Player> m_Player = nullptr;
+
+
+	std::shared_ptr<SoundBase> m_PSound = nullptr;
+
 };
