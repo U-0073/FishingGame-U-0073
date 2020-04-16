@@ -4,6 +4,7 @@
 
 class CSceneBase;
 class CGameScene;
+class CTitleScene;
 
 class CCamera;
 

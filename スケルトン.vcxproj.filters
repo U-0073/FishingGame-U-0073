@@ -92,6 +92,9 @@
     <ClCompile Include="src\Game\CTitleScene.cpp">
       <Filter>src\ゲーム</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Title.cpp">
+      <Filter>src\ゲーム</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\System\Component\InputComponent.h">
@@ -158,6 +161,9 @@
       <Filter>src\システム</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\CTitleScene.h">
+      <Filter>src\ゲーム</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Title.h">
       <Filter>src\ゲーム</Filter>
     </ClInclude>
   </ItemGroup>

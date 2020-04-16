@@ -2,6 +2,7 @@
 #include "CGameFrame.h"
 #include "CSceneBase.h"
 #include"../../Game/CGameScene.h"
+#include"../../Game/CTitleScene.h"
 
 LRESULT APIENTRY WndFunc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -94,7 +95,8 @@ const bool CGameFrame::Initialize(HINSTANCE aHInst, const int aCmdShow)
 	
 	if (CreateDirectX9() == false) { return false; }
 	
-	nowScene = std::make_shared<CGameScene>();
+	//nowScene = std::make_shared<CGameScene>();
+	nowScene = std::make_shared<CTitleScene>();
 	CAMERA.Set(mWindowSize);
 
 

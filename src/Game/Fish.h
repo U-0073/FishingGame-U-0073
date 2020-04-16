@@ -13,6 +13,9 @@ public:
 	void Draw2D()override;
 	void Draw3D()override;
 
+	void TitleUpdate();
+	void TitleDraw3D();
+
 	const void SetPlayerVec(const KdVec3& Vec) { PlayerVec = Vec; }
 	const void SetCamAngY(const float& f) { CamAngY = f; }
 	const void SetFishFlg(const bool& flg) { FishFlg = flg; }

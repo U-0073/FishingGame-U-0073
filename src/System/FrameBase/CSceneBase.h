@@ -12,7 +12,7 @@ public:
 	virtual void Draw2D();
 	virtual void Draw3D();
 
-	std::shared_ptr<SoundBase> m_PSound = nullptr;
+	//std::shared_ptr<SoundBase> m_PSound = nullptr;
 private:
 
 

@@ -126,3 +126,19 @@ void Fish::Draw3D()
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
 }
 
+void Fish::TitleUpdate()
+{
+	FishVec = D3DXVECTOR3(0, 0, 1);
+	TransMat.CreateTrans(FishVec);
+}
+
+
+void Fish::TitleDraw3D()
+{
+	//KD3D.SetWorldMatrix(&m_world);
+
+	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, TRUE);
+	m_pModel->Draw();
+	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
+}
+
