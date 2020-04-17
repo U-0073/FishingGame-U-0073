@@ -24,7 +24,7 @@ void CTitleScene::Init()
 	
 }
 
-void CTitleScene::Update()
+int CTitleScene::Update()
 {
 	title->Update();
 	Sky->SetPos(mPos);
@@ -32,6 +32,9 @@ void CTitleScene::Update()
       Fishes->TitleUpdate();
 	  CAMERA.SetCameraVec(D3DXVECTOR3(0, 1, -5), D3DXVECTOR3(0, 0, 1));
 	}
+
+	return 0;
+	return 0;
 }
 
 void CTitleScene::Draw2D()
