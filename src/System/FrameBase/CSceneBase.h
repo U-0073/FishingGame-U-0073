@@ -11,16 +11,14 @@ public:
 	virtual int Update();
 	virtual void Draw2D();
 	virtual void Draw3D();
+	virtual int GetID() = 0;
+	virtual void End() {};
 
 private:
 
 
 protected:
-	enum Scene
-	{
-		TITLE,
-		GAME,
-	};
+
 
 
 };

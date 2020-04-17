@@ -42,7 +42,7 @@ private:
 	const D3DXVECTOR2       mWindowSize;
 	const std::string       mAppName;
 
-
+	int nextscene;
 
 
 public:
