@@ -108,26 +108,18 @@ void Fish::Draw3D()
 
 void Fish::TitleUpdate()
 {
-	BOOL MoveFlg;
-	if (GetAsyncKeyState(VK_RETURN) & 0x8000) {
-		MoveFlg = true;
-	}
-	if (MoveFlg) {
-		D3DXMATRIX RotMat;
-		D3DXMatrixRotationY(&RotMat, D3DXToRadian(0));
-		D3DXVECTOR3 Vec;
-		D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0.0f, 0.0f, 0.1f), &RotMat);
-		FishPos += Vec;
-	}
+
+	D3DXMATRIX RotMat;
+	D3DXMatrixRotationY(&RotMat, D3DXToRadian(0));
+	D3DXVECTOR3 Vec;
+	D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0.0f, 0.0f, -0.05f), &RotMat);
+	FishPos += Vec;
+	
+	TransMat.CreateTrans(FishPos);
+	m_world = ScaleMat * TransMat;
+
 }
 
 
-void Fish::TitleDraw3D()
-{
-	//KD3D.SetWorldMatrix(&m_world);
 
-	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, TRUE);
-	m_pModel->Draw();
-	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
-}
 

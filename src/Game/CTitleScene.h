@@ -34,6 +34,6 @@ private:
 	
 	D3DXVECTOR3 mPos=D3DXVECTOR3(0,0,0);
 
-
-
+	BOOL MoveFlg;
+	int Cnt;
 };
