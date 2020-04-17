@@ -166,5 +166,8 @@
     <ClInclude Include="src\Game\Title.h">
       <Filter>src\ゲーム</Filter>
     </ClInclude>
+    <ClInclude Include="src\Game\structList.h">
+      <Filter>src\ゲーム</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

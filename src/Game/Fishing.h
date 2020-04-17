@@ -17,18 +17,19 @@ public:
 	void Draw2D()override;
 	void Draw3D()override;
 
-	const void SetPlayerVec(const KdVec3& Vec) { PlayerVec = Vec; }
+	const void SetPlayerPos(const KdVec3& Vec) { PlayerPos = Vec; }
 	const void SetCamAngY(const float& f) { CamAngY = f; }
 	const void SetFishFlg(const bool& flg) { FishSceneFlg = flg; }
 	const void SetBuoiFlg(const bool& flg) { BuoiFlg = flg; }
 private:
 
+	void CameraProc();
 	void FishingProc();
 
 	std::shared_ptr<Fish> Fishes = nullptr;
 
 	KdVec3 BuoiPos;
-	KdVec3 PlayerVec;
+	KdVec3 PlayerPos;
 	KdVec3 Len;
 
 	KdMatrix ScileMat;

@@ -1,6 +1,7 @@
 #include"../System/KdLibrary/KdLibrary.h"
 #include"CGameScene.h"
 //―――――――――――――――――――――――――
+#include "structList.h"
 #include"C_Player.h"
 #include"Skysphere.h"
 #include"Sea.h"
@@ -44,11 +45,11 @@ void CGameScene::Init()
 int CGameScene::Update()
 {
 	m_Player->Update();
-	Sky->SetPos(m_Player->GetPlayerVec());
+	Sky->SetPos(m_Player->GetPlayerPos());
 	m_Port->Update();
 
 	m_Fishing->SetCamAngY(m_Player->GetCamAngY());
-	m_Fishing->SetPlayerVec(m_Player->GetPlayerVec());
+	m_Fishing->SetPlayerVec(m_Player->GetPlayerPos());
 	m_Fishing->SetFishFlg(m_Player->GetFeshFlg());
 	m_Fishing->SetBuoiFlg(m_Player->GetBuoiFlg());
 	m_Fishing->Update();
@@ -61,7 +62,7 @@ int CGameScene::Update()
 
 void CGameScene::Draw2D()
 {
-	//m_Player->Draw2D();
+	m_Player->Draw2D();
 	//m_Fishing->Draw2D();
 }
 

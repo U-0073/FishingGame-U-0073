@@ -35,7 +35,6 @@ private:
 	
 	LPDIRECT3DTEXTURE9 seaTex;
 
-	//—ÑƒvƒƒOƒ‰ƒ€
 	std::shared_ptr<C_Player> m_Player = nullptr;
 
 

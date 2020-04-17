@@ -54,7 +54,7 @@ void Fish::Update()
 		RotMat.CreateRotationY(D3DXToRadian(CamAngY));
 		D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, 1), &RotMat);
 
-		FishPos = PlayerVec + Vec * 20 - KdVec3(0.0f, 4.0f, 0.0f);
+		FishPos = PlayerPos + Vec * 20 - KdVec3(0.0f, 4.0f, 0.0f);
 		FishPosZCnt = 20.0f;
 		FishPosYCnt = 8.0f;
 	}
