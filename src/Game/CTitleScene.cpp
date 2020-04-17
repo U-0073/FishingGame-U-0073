@@ -28,10 +28,7 @@ int CTitleScene::Update()
 {
 	title->Update();
 	Sky->SetPos(mPos);
-	if (GetKey(VK_SPACE) & 0x8000) {
-      Fishes->TitleUpdate();
-	  CAMERA.SetCameraVec(D3DXVECTOR3(0, 1, -5), D3DXVECTOR3(0, 0, 1));
-	}
+
 	//ƒV[ƒ“Ø‚è‘Ö‚¦
 	if (GetKey(VK_RETURN) & 0x8000)
 	{
