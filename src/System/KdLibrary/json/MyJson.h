@@ -40,7 +40,7 @@ public:
 
 		auto Json = std::make_shared<json11::Json>();
 		//Json->parse(strJson, err);
-		(*Json).parse(strJson, err);
+		(*Json)=json11::Json::parse(strJson, err);
 		if (err.size() > 0) { return nullptr; }
 
 
@@ -48,10 +48,9 @@ public:
 		jsons[filename] = Json;
 		return Json;
 	}
-
-	bool checkValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const int& Value);
-	bool checkValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const bool Value);
 	bool checkValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const std::string& Value);
+	bool checkValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const int& Value);
+	bool checkValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const bool& Value);
 	bool checkValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const double& Value);
 };
 #define JSONS MyJson::GetInstance()
