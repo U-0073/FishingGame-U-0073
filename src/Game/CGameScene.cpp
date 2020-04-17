@@ -27,6 +27,7 @@ CGameScene::CGameScene()
 	//ƒvƒŒƒCƒ„[
 	m_Player = std::make_shared<C_Player>();
 	//’Ş‚èŠÖŒW
+
 	m_Fishing = std::make_shared<C_Fishing>();
 	m_Fishing->Init();
 
@@ -64,7 +65,7 @@ int CGameScene::Update()
 void CGameScene::Draw2D()
 {
 	m_Player->Draw2D();
-	//m_Fishing->Draw2D();
+	m_Fishing->Draw2D();
 }
 
 void CGameScene::Draw3D()
@@ -73,7 +74,7 @@ void CGameScene::Draw3D()
 	m_Port->Draw3D();
 	Seas->Draw();
 	m_Fishing->Draw3D();
-//	Fishes->Draw3D();
+	//Fishes->Draw3D();
 	//m_Player->Draw3D();
 }
 
