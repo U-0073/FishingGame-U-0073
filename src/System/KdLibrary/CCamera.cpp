@@ -43,10 +43,18 @@ void CCamera::Set(const D3DXVECTOR2& mWindowSize)
 }
 
 //カメラの位置と向いてほしい方向ベクトルを渡す
-void CCamera::SetCameraPos(const D3DXVECTOR3& _Pos, const D3DXVECTOR3& _LookVec)
+void CCamera::SetCameraPos(const D3DXVECTOR3& _Pos, const D3DXVECTOR3& _LookPos)
+{
+	Pos = _Pos;
+	LookVec = _LookPos-_Pos;
+	D3DXVec3Normalize(&LookVec, &LookVec);
+}
+
+void CCamera::SetCameraVec(const D3DXVECTOR3& _Pos, const D3DXVECTOR3& _LookVec)
 {
 	Pos = _Pos;
 	LookVec = _LookVec;
+	
 }
 
 

@@ -19,13 +19,14 @@ public:
 	const void SetPlayerVec(const KdVec3& Vec) { PlayerVec = Vec; }
 	const void SetCamAngY(const float& f) { CamAngY = f; }
 	const void SetFishFlg(const bool& flg) { FishFlg = flg; }
+	
+	const D3DXVECTOR3& GetFishPos() { return FishPos; }
 
 private:
-	void Start();
 	std::string m_Tag;//‰½‚Ì‹›‚©
 	
 	KdVec3 PlayerVec;
-	KdVec3 FishVec;
+	KdVec3 FishPos;
 	KdVec3 FishLen;
 	KdMatrix TransMat;
 	KdMatrix ScaleMat;

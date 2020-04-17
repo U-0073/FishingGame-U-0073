@@ -9,7 +9,9 @@ CTitleScene::CTitleScene()
 	Fishes->Init();
 	title = std::make_shared<Title>();
 	title->Init();
-	CAMERA.SetCameraPos(mPos+D3DXVECTOR3(3,1,-5), D3DXVECTOR3(0, -1, 1));
+	
+	CAMERA.SetCameraPos(D3DXVECTOR3(0,1,-5), Fishes->GetFishPos());
+
 }
 
 CTitleScene::~CTitleScene()
@@ -24,11 +26,11 @@ void CTitleScene::Init()
 
 void CTitleScene::Update()
 {
-	
 	title->Update();
 	Sky->SetPos(mPos);
-	if (GetAsyncKeyState(VK_RETURN)&0x8000) {
+	if (GetKey(VK_RETURN)&0x8000) {
       Fishes->TitleUpdate();
+	  CAMERA.SetCameraVec(D3DXVECTOR3(0, 1, -5), D3DXVECTOR3(0, 0, 1));
 	}
 }
 

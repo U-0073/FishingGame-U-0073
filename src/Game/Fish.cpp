@@ -3,19 +3,18 @@
 
 Fish::Fish()
 {
-	Start();
 }
 
 Fish::~Fish()
 {
 }
 
-void Fish::Start()
+void Fish::Init()
 {
 	GameObject::Init();
 
 	ScaleMat.CreateScale(0.1f, 0.1f, 0.1f);
-	TransMat.CreateTrans(3.0f, -3.0f, 0.0f);
+	TransMat.CreateTrans(0.0f, 0.0f, 0.0f);
 	m_world = ScaleMat * TransMat;
 //	int name = rand() % 3;
 	int name = 0;
@@ -35,29 +34,10 @@ void Fish::Start()
 		break;
 	}
 }
-void Fish::Init()
-{
-	int name = rand() % 3;
-	switch (name)
-	{
-	case 0:
-		m_Tag = "RedSnapper";
-		m_pModel = RESOURCE_MNG.GetModel("Resouce/3DModel/RedSnapper.x");
-		break;
-	case 1:
-		m_Tag = "Saury";
-		m_pModel = RESOURCE_MNG.GetModel("Resouce/3DModel/Saury.x");
-		break;
-	case 2:
-		m_Tag = "Tuna";
-		m_pModel = RESOURCE_MNG.GetModel("Resouce/3DModel/Tuna.x");
-		break;
-	}
-}
 
 void Fish::Update()
 {
-	FishLen = KdVec3(FishVec.x, FishVec.y, FishVec.z);
+	FishLen = KdVec3(FishPos.x, FishPos.y, FishPos.z);
 
 	if (GetKey('Q') & 0x8000)
 	{
@@ -74,7 +54,7 @@ void Fish::Update()
 		RotMat.CreateRotationY(D3DXToRadian(CamAngY));
 		D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, 1), &RotMat);
 
-		FishVec = PlayerVec + Vec * 20 - KdVec3(0.0f, 4.0f, 0.0f);
+		FishPos = PlayerVec + Vec * 20 - KdVec3(0.0f, 4.0f, 0.0f);
 		FishPosZCnt = 20.0f;
 		FishPosYCnt = 8.0f;
 	}
@@ -85,17 +65,17 @@ void Fish::Update()
 			RotMat.CreateRotationY(D3DXToRadian(CamAngY));
 			D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, 1), &RotMat);
 
-			FishVec -= Vec * 0.5;
+			FishPos -= Vec * 0.5;
 			FishPosZCnt -= 0.5f;
 		}
 
 		if (FishPosYCnt > 0) {
 			if (FishPosYCnt > 7) {
-				FishVec += KdVec3(0.0f, 0.2f, 0.0f);
+				FishPos += KdVec3(0.0f, 0.2f, 0.0f);
 				FishPosYCnt -= 0.2f;
 			}
 			else {
-			FishVec += KdVec3(0.0f, 0.2f, 0.0f);
+			FishPos += KdVec3(0.0f, 0.2f, 0.0f);
 			FishPosYCnt -= 0.4f;
 			}
 		}
@@ -104,7 +84,7 @@ void Fish::Update()
 	KdMatrix RotMatX;
 	RotMatX.CreateRotationX(D3DXToRadian(90));
 	RotMat.CreateRotationY(D3DXToRadian(CamAngY - 90));
-	TransMat.CreateTrans(FishVec);
+	TransMat.CreateTrans(FishPos);
 	m_world = ScaleMat * RotMatX * RotMat * TransMat;
 }
 
@@ -113,7 +93,7 @@ void Fish::Draw2D()
 {
 	RECT rcText = { 10,30 * 0,0,0 };
 	char Text[100];
-	sprintf_s(Text, sizeof(Text), "FishPos x %f y %f z %f", FishVec.x, FishVec.y, FishVec.z);
+	sprintf_s(Text, sizeof(Text), "FishPos x %f y %f z %f", FishPos.x, FishPos.y, FishPos.z);
 	KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 }
 
@@ -128,8 +108,17 @@ void Fish::Draw3D()
 
 void Fish::TitleUpdate()
 {
-	FishVec = D3DXVECTOR3(0, 0, 1);
-	TransMat.CreateTrans(FishVec);
+	BOOL MoveFlg;
+	if (GetAsyncKeyState(VK_RETURN) & 0x8000) {
+		MoveFlg = true;
+	}
+	if (MoveFlg) {
+		D3DXMATRIX RotMat;
+		D3DXMatrixRotationY(&RotMat, D3DXToRadian(0));
+		D3DXVECTOR3 Vec;
+		D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0.0f, 0.0f, 0.1f), &RotMat);
+		FishPos += Vec;
+	}
 }
 
 
