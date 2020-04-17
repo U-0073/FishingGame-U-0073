@@ -19,6 +19,8 @@ public:
 	const void SetPlayerPos(const KdVec3& Vec) { PlayerPos = Vec; }
 	const void SetCamAngY(const float& f) { CamAngY = f; }
 	const void SetFishFlg(const bool& flg) { FishFlg = flg; }
+	
+	const D3DXVECTOR3& GetFishPos() { return FishPos; }
 
 private:
 	std::string m_Tag;//‰½‚Ì‹›‚©

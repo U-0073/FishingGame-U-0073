@@ -14,7 +14,7 @@ void Fish::Init()
 	GameObject::Init();
 
 	ScaleMat.CreateScale(0.1f, 0.1f, 0.1f);
-	TransMat.CreateTrans(3.0f, -3.0f, 0.0f);
+	TransMat.CreateTrans(0.0f, 0.0f, 0.0f);
 	m_world = ScaleMat * TransMat;
 //	int name = rand() % 3;
 	int name = 0;
@@ -108,8 +108,17 @@ void Fish::Draw3D()
 
 void Fish::TitleUpdate()
 {
-	FishPos = D3DXVECTOR3(0, 0, 1);
-	TransMat.CreateTrans(FishPos);
+	BOOL MoveFlg;
+	if (GetAsyncKeyState(VK_RETURN) & 0x8000) {
+		MoveFlg = true;
+	}
+	if (MoveFlg) {
+		D3DXMATRIX RotMat;
+		D3DXMatrixRotationY(&RotMat, D3DXToRadian(0));
+		D3DXVECTOR3 Vec;
+		D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0.0f, 0.0f, 0.1f), &RotMat);
+		FishPos += Vec;
+	}
 }
 
 

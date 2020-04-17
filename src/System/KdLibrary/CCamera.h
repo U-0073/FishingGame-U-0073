@@ -11,7 +11,9 @@ public:
 	//CMasterCamera* GetCamera(void)override ;
 
 	 void Set( const D3DXVECTOR2& mWindowSize);
-	 void SetCameraPos(const D3DXVECTOR3& Pos, const D3DXVECTOR3& LookVec);
+	 void SetCameraPos(const D3DXVECTOR3& Pos, const D3DXVECTOR3& LookPos);
+	 
+	 void SetCameraVec(const D3DXVECTOR3& Pos, const D3DXVECTOR3& LookVec);
 
 public:
 	static CCamera& GetInstance()

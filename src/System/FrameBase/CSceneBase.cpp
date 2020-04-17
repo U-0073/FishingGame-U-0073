@@ -26,9 +26,9 @@ void CSceneBase::Init()
 {
 }
 
-void CSceneBase::Update()
+int CSceneBase::Update()
 {
-
+	return 0;
 
 }
 

@@ -1,5 +1,4 @@
 #include"../System/KdLibrary/KdLibrary.h"
-//#include<d3dx9.h>
 #include"CGameScene.h"
 //―――――――――――――――――――――――――
 #include "structList.h"
@@ -11,7 +10,6 @@
 #include "Fishing.h"
 
 
-//(__)???????????????????
 
 CGameScene::CGameScene()
 {
@@ -44,7 +42,7 @@ void CGameScene::Init()
 {
 }
 
-void CGameScene::Update()
+int CGameScene::Update()
 {
 	m_Player->Update();
 	Sky->SetPos(m_Player->GetPlayerPos());
@@ -57,6 +55,9 @@ void CGameScene::Update()
 	m_Fishing->Update();
 //	Fishes->Update();
 
+
+
+	return 0;
 }
 
 void CGameScene::Draw2D()
