@@ -120,8 +120,29 @@ void CGameFrame::GameLoop()
 	KD3D.GetDev()->Clear(0, nullptr, flags, D3DCOLOR_ARGB(255, 0, 0, 255), 1.0f, 0);
 
 
-	//シーンの更新.
-	nowScene->Update();
+	if (nowScene) {
+	//シーンの更新
+		nextscene = nowScene->Update();
+		
+		if (nextscene != nowScene->GetID()) 
+		{
+			nowScene->End();
+
+			switch (nextscene) 
+			{
+			case TITLE:
+				nowScene = std::make_shared<CTitleScene>();
+				nowScene->Init();
+				break;
+			case GAME:
+				nowScene = std::make_shared<CGameScene>();
+				nowScene->Init();
+				break;
+			}
+			nowScene->Update();
+		}
+
+	}
 
 	// 描画開始
 	KD3D.GetDev()->BeginScene();

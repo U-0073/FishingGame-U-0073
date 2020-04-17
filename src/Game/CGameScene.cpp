@@ -27,7 +27,7 @@ CGameScene::CGameScene()
 	m_Player = std::make_shared<C_Player>();
 	//’Þ‚èŠÖŒW
 	m_Fishing = std::make_shared<C_Fishing>();
-	m_Fishing->Start();
+	m_Fishing->Init();
 
 	m_PSound = RESOURCE_MNG.GetSound("Resouce/Sound/wave3.wav");
 	m_PSound->Playsound("Resouce/Sound/wave3.wav", true, false);
@@ -56,7 +56,7 @@ int CGameScene::Update()
 
 
 
-	return 0;
+	return GAME;
 }
 
 void CGameScene::Draw2D()
@@ -73,4 +73,8 @@ void CGameScene::Draw3D()
 	m_Fishing->Draw3D();
 //	Fishes->Draw3D();
 	//m_Player->Draw3D();
+}
+
+void CGameScene::End()
+{
 }

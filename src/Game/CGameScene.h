@@ -20,7 +20,11 @@ public:
 	int Update()override;
 	void Draw2D()override;
 	void Draw3D()override;
+
 	void CGameScene::LoadTexture(LPDIRECT3DTEXTURE9* lpTex, const std::string Path, int W, int H, const D3DCOLOR Color);
+
+	int GetID()override { return GAME; };
+	void End()override;
 
 private:
 	std::shared_ptr<Skysphere> Sky = nullptr;
