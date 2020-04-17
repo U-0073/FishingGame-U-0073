@@ -16,11 +16,7 @@ private:
 
 
 protected:
-	enum Scene
-	{
-		TITLE,
-		GAME,
-	};
+
 
 
 };

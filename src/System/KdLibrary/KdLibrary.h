@@ -88,3 +88,8 @@
 
 #define GetKey GetAsyncKeyState
 
+enum Scene
+{
+	TITLE,
+	GAME
+};
