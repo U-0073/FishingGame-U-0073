@@ -20,6 +20,19 @@ C_Player::~C_Player()
 void C_Player::Init()
 {
 	PlayerPos.Set(0.0f, 1.0f, 0.0f);
+	auto Json = std::make_shared<json11::Json>();
+	Json = JSONS.LoadJson("Default/Test.json");
+	bool test1 = JSONS.checkValue(Json, "Tag", "Player");
+	bool test2 = JSONS.checkValue(Json, "Tag", "Enemy");
+
+	bool test3 = JSONS.checkValue(Json, "value1", 111);
+	bool test4 = JSONS.checkValue(Json, "value1",333);
+	
+	bool test5 = JSONS.checkValue(Json, "value2", 2.2);
+	bool test6 = JSONS.checkValue(Json, "value2", 3.3);
+	
+
+
 }
 void C_Player::Begin()
 {
