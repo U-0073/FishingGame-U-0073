@@ -261,7 +261,7 @@ void C_Player::CameraSet()
 	}
 
 
-	CAMERA.SetCameraPos(CamPos, CamLook);
+	CAMERA.SetCameraVec(CamPos, CamLook);
 }
 
 
