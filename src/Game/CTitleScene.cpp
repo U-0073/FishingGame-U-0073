@@ -10,8 +10,9 @@ CTitleScene::CTitleScene()
 	title = std::make_shared<Title>();
 	title->Init();
 	
-	CAMERA.SetCameraPos(D3DXVECTOR3(0,1,-5), Fishes->GetFishPos());
-
+	CAMERA.SetCameraPos(D3DXVECTOR3(0,3,-5), Fishes->GetFishPos());
+	MoveFlg = false;
+	Cnt = 0;
 }
 
 CTitleScene::~CTitleScene()
@@ -32,6 +33,15 @@ int CTitleScene::Update()
 	//ƒV[ƒ“Ø‚è‘Ö‚¦
 	if (GetKey(VK_RETURN) & 0x8000)
 	{
+		MoveFlg = true;
+		//return GAME;
+	}
+	if (MoveFlg) {
+		Fishes->TitleUpdate();
+		CAMERA.SetCameraPos(D3DXVECTOR3(0, 3, -5), Fishes->GetFishPos());
+		Cnt++;
+	}
+	if (Cnt > 500) {
 		return GAME;
 	}
 	return TITLE;

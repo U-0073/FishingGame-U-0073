@@ -88,8 +88,6 @@ void C_Fishing::FishingProc()
 void C_Fishing::Draw2D()
 {
 	Fishes->Draw2D();
-
-
 }
 
 void C_Fishing::Draw3D() {

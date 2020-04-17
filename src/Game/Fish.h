@@ -14,7 +14,6 @@ public:
 	void Draw3D()override;
 
 	void TitleUpdate();
-	void TitleDraw3D();
 
 	const void SetPlayerPos(const KdVec3& Vec) { PlayerPos = Vec; }
 	const void SetCamAngY(const float& f) { CamAngY = f; }
