@@ -49,7 +49,7 @@ int CGameScene::Update()
 	m_Port->Update();
 
 	m_Fishing->SetCamAngY(m_Player->GetCamAngY());
-	m_Fishing->SetPlayerVec(m_Player->GetPlayerPos());
+	m_Fishing->SetPlayerPos(m_Player->GetPlayerPos());
 	m_Fishing->SetFishFlg(m_Player->GetFeshFlg());
 	m_Fishing->SetBuoiFlg(m_Player->GetBuoiFlg());
 	m_Fishing->Update();
