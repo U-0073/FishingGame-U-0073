@@ -9,6 +9,7 @@ CTitleScene::CTitleScene()
 	Fishes->Init();
 	title = std::make_shared<Title>();
 	title->Init();
+	CAMERA.SetCameraPos(mPos+D3DXVECTOR3(3,-3,-7), D3DXVECTOR3(0, 0, 1));
 }
 
 CTitleScene::~CTitleScene()
@@ -23,20 +24,22 @@ void CTitleScene::Init()
 
 void CTitleScene::Update()
 {
+	
 	title->Update();
 	Sky->SetPos(mPos);
 	if (GetAsyncKeyState(VK_RETURN)&0x8000) {
-      Fishes->Update();
+      Fishes->TitleUpdate();
 	}
 }
 
 void CTitleScene::Draw2D()
 {
+	Fishes->Draw2D();
 	title->Draw2D();
 }
 
 void CTitleScene::Draw3D()
 {
+	Sky->Draw3D();
 	Fishes->Draw3D();
-	Sky->Update();
 }
