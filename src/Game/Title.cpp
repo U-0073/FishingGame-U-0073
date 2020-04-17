@@ -26,9 +26,6 @@ void Title::Update()
 	mPos = D3DXVECTOR3(628, 150, 0);
 	mPos2 = D3DXVECTOR3(628, 600, 0);
 
-	D3DXMatrixTranslation(&mMat, mPos.x, mPos.y, mPos.z);
-	D3DXMatrixTranslation(&mMat2, mPos2.x, mPos2.y, mPos2.z);
-
 	if (alpha > 255) {
 		alpha -=1;
 		if (alpha == 0) {
@@ -43,6 +40,9 @@ void Title::Update()
 	
 	
 
+	D3DXMatrixTranslation(&mMat, mPos.x, mPos.y, mPos.z);
+	D3DXMatrixTranslation(&mMat2, mPos2.x, mPos2.y, mPos2.z);
+
 }
 
 void Title::Draw2D()
@@ -50,9 +50,9 @@ void Title::Draw2D()
 
 	SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
 
-	RECT rcTitle = { 0,0,1000,108 };
+	RECT rcTitle = { 0,0,1500,216 };
 	SPRITE->SetTransform(&mMat);
-	SPRITE->Draw(vTex, &rcTitle, &D3DXVECTOR3(500.0f, 54.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+	SPRITE->Draw(vTex, &rcTitle, &D3DXVECTOR3(500.0f,108.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
 	RECT rcENTER = { 0,0,432,88 };
 	SPRITE->SetTransform(&mMat2);

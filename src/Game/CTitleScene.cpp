@@ -9,7 +9,7 @@ CTitleScene::CTitleScene()
 	Fishes->Init();
 	title = std::make_shared<Title>();
 	title->Init();
-	CAMERA.SetCameraPos(mPos+D3DXVECTOR3(3,-3,-7), D3DXVECTOR3(0, 0, 1));
+	CAMERA.SetCameraPos(mPos+D3DXVECTOR3(3,1,-5), D3DXVECTOR3(0, -1, 1));
 }
 
 CTitleScene::~CTitleScene()
