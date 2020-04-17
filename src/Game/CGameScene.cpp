@@ -40,6 +40,7 @@ CGameScene::~CGameScene()
 
 void CGameScene::Init()
 {
+
 }
 
 int CGameScene::Update()
@@ -78,4 +79,5 @@ void CGameScene::Draw3D()
 
 void CGameScene::End()
 {
+	m_PSound->LDSB8->Stop();
 }
