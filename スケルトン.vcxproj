@@ -177,6 +177,7 @@
     <ClInclude Include="src\Game\Sea.h" />
     <ClInclude Include="src\Game\C_Player.h" />
     <ClInclude Include="src\Game\Skysphere.h" />
+    <ClInclude Include="src\Game\structList.h" />
     <ClInclude Include="src\Game\TestCharacter.h" />
     <ClInclude Include="src\Game\Title.h" />
     <ClInclude Include="src\System\2d\Board.h" />

@@ -21,45 +21,46 @@ public:
 	void Draw2D()override;
 
 	//プレイヤーの座標を外部に渡す関数
-	const KdVec3& GetPlayerVec()const { return PlayerVec; }
+	const KdVec3& GetPlayerPos()const { return PlayerPos; }
 	const float& GetCamAngY()const { return CamAngY; }
 	const bool& GetFeshFlg()const { return FishFlg; }
 	const bool& GetBuoiFlg()const { return BuoiFlg; }
 
 private:
 	//----------関数宣言-------------
-	void Start();		//ゲーム起動時の初期化関数
+	void Begin();		//ゲーム起動時の初期化関数
 	void End();
 
-	void PointUpdate();
+	void FlgProc();			//大本のフラグ管理用関数
+	void MouseUpdate();
 	void MoveProc();
 	void CameraProc();
 	void CameraSet();
 
 	void Draw3DWall();
 	//---------行列-------------
-	KdVec3			PlayerVec;
+	KdVec3			PlayerPos;
 	KdVec3			StartVec = KdVec3(0.0f, 0.0f, 0.0f);		//初期位置
 	KdVec3			FishScene_CamPos = KdVec3(0.0f, 2.0f, 0.0f);
 
 	KdMatrix		TransMat;
 	KdMatrix		PlayerRot;
 
-	VERTEX2				vWall[4];
-	KdMatrix			WallMat;
-	float				_WallDis;
-
 	//カメラ
 	POINT				BasePt;
 	KdVec3				CamLook;
 	//---------変数宣言----------
-	int					test = 0;
+	int					Cnt1 = 0;
+	int					Cnt2 = 0;
+
 	float				FishScene_StartPos = 4.0f;
 	float				CamAngY = 0.0f;
 	float				CamAngX = 0.0f;
 	float				MoveSpeed = 0.2f;
 	float				FishScene_CamAngX = 0.0f;
+
 	bool				FishFlg = false;
-	bool				CntFlg = false;
-	bool				BuoiFlg = false;
+	bool				RestoreFlg = false;
+	bool				BuoiFlg = false;		//浮きを動かすか否か
+	
 };
