@@ -9,7 +9,6 @@
 
 C_Player::C_Player()
 {
-	Begin();
 }
 
 C_Player::~C_Player()
@@ -18,13 +17,6 @@ C_Player::~C_Player()
 }
 
 void C_Player::Init()
-{
-	PlayerPos.Set(0.0f, 1.0f, 0.0f);
-
-
-
-}
-void C_Player::Begin()
 {
 	PlayerPos = StartVec;
 	GameObject::Init();
@@ -44,7 +36,7 @@ void C_Player::Begin()
 	int i = (*Json)["value1"].int_value();
 
 	std::string tag = "Player";//VisualStudioƒoƒO‘Îô‚Åstring‚Íˆê“xéŒ¾‚µ‚Ä‚©‚ç“ü‚ê‚Ä
-	bool test1 = JSONS.checkValue(Json, "Tag",tag);
+	bool test1 = JSONS.checkValue(Json, "Tag", tag);
 
 
 	bool test3 = JSONS.checkValue(Json, "value1", 111);
@@ -52,7 +44,9 @@ void C_Player::Begin()
 
 	bool test5 = JSONS.checkValue(Json, "value2", 2.2);
 	bool test6 = JSONS.checkValue(Json, "value2", 3.3);
-
+}
+void C_Player::Begin()
+{
 }
 void C_Player::End()
 {
@@ -298,7 +292,7 @@ void C_Player::Draw2D()
 	RECT rcText = { 10,30 * 1,0,0 };
 	sprintf_s(Text, sizeof(Text), "FishSceneLength %f", FishScene_CamPos.Length());
 	KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	RECT rcText1 = { 10,30 * 6,0,0 };
+	RECT rcText1 = { 10,30 * 7,0,0 };
 	sprintf_s(Text, sizeof(Text), "FishSceneCamAng x %f CamAng x %f  y%f", FishScene_CamAngX, CamAngX, CamAngY);
 	KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText1, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	RECT rcText2 = { 10,30 * 2,0,0 };
