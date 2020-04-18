@@ -162,6 +162,8 @@
     <ClCompile Include="src\System\FrameBase\main.cpp" />
     <ClCompile Include="src\System\FrameBase\wavread.cpp" />
     <ClCompile Include="src\System\KdLibrary\CCamera.cpp" />
+    <ClCompile Include="src\System\KdLibrary\json\json11.cpp" />
+    <ClCompile Include="src\System\KdLibrary\json\MyJson.cpp" />
     <ClCompile Include="src\System\KdLibrary\KdDirect3D.cpp" />
     <ClCompile Include="src\System\KdLibrary\KdHelper.cpp" />
     <ClCompile Include="src\System\KdLibrary\KdMath.cpp" />
@@ -187,6 +189,8 @@
     <ClInclude Include="src\System\FrameBase\GameObject.h" />
     <ClInclude Include="src\System\FrameBase\wavread.h" />
     <ClInclude Include="src\System\KdLibrary\CCamera.h" />
+    <ClInclude Include="src\System\KdLibrary\json\json11.hpp" />
+    <ClInclude Include="src\System\KdLibrary\json\MyJson.h" />
     <ClInclude Include="src\System\KdLibrary\KdDirect3D.h" />
     <ClInclude Include="src\System\KdLibrary\KdHelper.h" />
     <ClInclude Include="src\System\KdLibrary\KdLibrary.h" />

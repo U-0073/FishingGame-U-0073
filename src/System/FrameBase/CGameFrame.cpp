@@ -126,7 +126,7 @@ void CGameFrame::GameLoop()
 		
 		if (nextscene != nowScene->GetID()) 
 		{
-			nowScene->End();
+			nowScene=nullptr;
 
 			switch (nextscene) 
 			{

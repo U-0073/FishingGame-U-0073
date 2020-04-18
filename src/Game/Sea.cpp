@@ -12,7 +12,8 @@ Sea::Sea()
 			Height[i][k] = 0;
 		}
 	}
-	KD3D.LoadTexture(&vTex,"Resouce/Texture/ŠC–Ê.jpg",1024,1024,NULL);
+	//KD3D.LoadTexture(&vTex,"Resouce/Texture/ŠC–Ê.jpg",1024,1024,NULL);
+	vTex = RESOURCE_MNG.GetTexture("Resouce/Texture/ŠC–Ê.jpg",  1024, 1024, NULL);
 	//setTexParam("Resouce/Texture/HP_G.png", 3, 3,/*NULL*/ D3DCOLOR_ARGB(255, 255, 255, 255));
 	//RESOURCE_MNG.LoadTexture(&vTex, "Resouce/Texture/Ground.bmp", 1024, 1024, NULL);
 }
@@ -59,7 +60,7 @@ void Sea::Draw()
 
 			D3DXMatrixTranslation(&TransMat, (k * 5) - 150, -3.0f, (i * 5) - 50);
 			KD3D.GetDev()->SetTransform(D3DTS_WORLD, &TransMat);
-			KD3D.GetDev()->SetTexture(0, vTex);
+			KD3D.GetDev()->SetTexture(0, (*vTex));
 
 			//RESOURCE_MNG.GetTexture(vTex, mPath, mW, mH, mColor);
 			//KD3D.GetDev()->SetTexture(0, RESOURCE_MNG.GetTexture(mPath, mW, mH, NULL));

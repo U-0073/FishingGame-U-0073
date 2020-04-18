@@ -20,6 +20,9 @@ C_Player::~C_Player()
 void C_Player::Init()
 {
 	PlayerPos.Set(0.0f, 1.0f, 0.0f);
+
+
+
 }
 void C_Player::Begin()
 {
@@ -34,6 +37,22 @@ void C_Player::Begin()
 										//	　（クライアント座標）（スクリーン座標）
 	SetCursorPos(BasePt.x, BasePt.y);
 	ShowCursor(FALSE);
+
+	auto Json = std::make_shared<json11::Json>();
+	Json = JSONS.LoadJson("Default/Test.json");
+
+	int i = (*Json)["value1"].int_value();
+
+	std::string tag = "Player";//VisualStudioバグ対策でstringは一度宣言してから入れて
+	bool test1 = JSONS.checkValue(Json, "Tag",tag);
+
+
+	bool test3 = JSONS.checkValue(Json, "value1", 111);
+	bool test4 = JSONS.checkValue(Json, "value1", 333);
+
+	bool test5 = JSONS.checkValue(Json, "value2", 2.2);
+	bool test6 = JSONS.checkValue(Json, "value2", 3.3);
+
 }
 void C_Player::End()
 {
@@ -261,7 +280,7 @@ void C_Player::CameraSet()
 	}
 
 
-	CAMERA.SetCameraPos(CamPos, CamLook);
+	CAMERA.SetCameraVec(CamPos, CamLook);
 }
 
 
