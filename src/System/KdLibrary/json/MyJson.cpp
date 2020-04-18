@@ -29,3 +29,35 @@ bool MyJson::checkValue(const std::shared_ptr<json11::Json> Json,const std::stri
 	if ((*Json)[Tag].is_number() && (*Json)[Tag].number_value() == Value)return true;
 	return false;
 }
+
+void MyJson::AddKeyValue(const std::shared_ptr<json11::Json> Json, const std::string& Tag, const std::string& Value)
+{
+	json11::Json json = json11::Json::object{
+		{Tag,Value}
+	};
+
+	
+
+	//std::string stJson = (*Json).dump();
+	//json11::Json::object jo(stJson.begin(), stJson.end());
+	//jo.insert(std::make_pair(Tag, Value));
+	//(*Json) = jo;
+}
+
+void MyJson::AddKeyValue(const std::shared_ptr<json11::Json> Json, const std::string& Tag, const int& Value)
+{
+	//std::string stJson = (*Json).dump();
+	//json11::Json::object jo(stJson.begin(), stJson.end());
+	//jo.insert(std::make_pair(Tag,Value) );
+	//(*Json) = jo;
+}
+
+void MyJson::AddKeyValue(const std::shared_ptr<json11::Json> Json, const std::string& Tag, const bool& Value)
+{
+
+}
+
+void MyJson::AddKeyValue(const std::shared_ptr<json11::Json> Json, const std::string& Tag, const double& Value)
+{
+
+}
