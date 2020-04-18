@@ -3,7 +3,7 @@
 
 CTitleScene::CTitleScene()
 {
-	KD3D.LoadTexture(&vTex, "Resouce/Texture/white.png", 3,3, D3DCOLOR_ARGB(255, 255, 255, 255));
+	KD3D.LoadTexture(&vTex, "Resouce/Texture/white.png", 3,3, NULL);
 	D3DXMatrixTranslation(&mMat, 0.0f, 0.0f, 0.0f);
 	D3DXMatrixTranslation(&mScale, 0.0f, 0.0f, 0.0f);
 	
@@ -56,7 +56,7 @@ int CTitleScene::Update()
 	if (Fishes->GetFishPos().z < -100) {
 		return GAME;
 	}
-	D3DXMatrixScaling(&mMat, 1280.0f/2, 720.0f/2, 0.0f);
+	D3DXMatrixTranslation(&mMat, 1280.0f/2, 720.0f/2, 0.0f);
 	D3DXMatrixScaling(&mScale, 1290.0f, 730.0f, 0.0f);
 	mMat = mScale * mMat;
 	return TITLE;

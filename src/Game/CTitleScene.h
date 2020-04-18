@@ -39,5 +39,5 @@ private:
 
 	D3DXVECTOR3 mPos;
 	BOOL MoveFlg;
-	int Alpha;
+	float Alpha;
 };
