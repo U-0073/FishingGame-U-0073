@@ -33,7 +33,7 @@ private:
 	std::shared_ptr<Sea> sea = nullptr;
 	
 	D3DXMATRIX mMat;//ホワイトアウト
-	D3DXMATRIX mTrans;
+	D3DXMATRIX mScale;
 	LPDIRECT3DTEXTURE9 vTex;
 	
 

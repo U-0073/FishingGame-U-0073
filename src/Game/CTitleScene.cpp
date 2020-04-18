@@ -5,7 +5,7 @@ CTitleScene::CTitleScene()
 {
 	KD3D.LoadTexture(&vTex, "Resouce/Texture/white.png", 3,3, D3DCOLOR_ARGB(255, 255, 255, 255));
 	D3DXMatrixTranslation(&mMat, 0.0f, 0.0f, 0.0f);
-	D3DXMatrixTranslation(&mTrans, 0.0f, 0.0f, 0.0f);
+	D3DXMatrixTranslation(&mScale, 0.0f, 0.0f, 0.0f);
 	
 	Sky = std::make_shared<Skysphere>();
 	Sky->Init();
@@ -45,7 +45,7 @@ int CTitleScene::Update()
 	}
 	if (MoveFlg) {
 		if (Fishes->GetFishPos().z < -30) {
-			Alpha += 1;
+			Alpha += 100;
 		}
 		if (Alpha > 255) {
 			Alpha = 255;
@@ -56,8 +56,9 @@ int CTitleScene::Update()
 	if (Fishes->GetFishPos().z < -100) {
 		return GAME;
 	}
-	D3DXMatrixTranslation(&mTrans, 1290.0f, 730.0f, 0.0f);
-	mMat = mTrans * mMat;
+	D3DXMatrixScaling(&mMat, 1280.0f/2, 720.0f/2, 0.0f);
+	D3DXMatrixScaling(&mScale, 1290.0f, 730.0f, 0.0f);
+	mMat = mScale * mMat;
 	return TITLE;
 }
 
@@ -69,7 +70,7 @@ void CTitleScene::Draw2D()
 	SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
 	RECT rcTitle = { 1,1,2,2 };
 	SPRITE->SetTransform(&mMat);
-	SPRITE->Draw(vTex, &rcTitle, &D3DXVECTOR3(1.0f, 1.0f, 0.0f), NULL, D3DCOLOR_ARGB(Alpha, 255, 255, 255));
+	SPRITE->Draw(vTex, &rcTitle, &D3DXVECTOR3(1.0f, 1.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 	SPRITE->End();
 }
 
