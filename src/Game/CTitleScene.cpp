@@ -45,7 +45,7 @@ int CTitleScene::Update()
 	}
 	if (MoveFlg) {
 		if (Fishes->GetFishPos().z < -30) {
-			Alpha += 100;
+			Alpha += 1;
 		}
 		if (Alpha > 255) {
 			Alpha = 255;
@@ -70,7 +70,7 @@ void CTitleScene::Draw2D()
 	SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
 	RECT rcTitle = { 1,1,2,2 };
 	SPRITE->SetTransform(&mMat);
-	SPRITE->Draw(vTex, &rcTitle, &D3DXVECTOR3(1.0f, 1.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+	SPRITE->Draw(vTex, &rcTitle, &D3DXVECTOR3(0.5f, 0.5f, 0.0f), NULL, D3DCOLOR_ARGB((int)Alpha, 255, 255, 255));
 	SPRITE->End();
 }
 
