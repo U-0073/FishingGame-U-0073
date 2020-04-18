@@ -276,10 +276,10 @@ void C_Player::Draw3D() {
 void C_Player::Draw2D()
 {
 	char Text[100];
-	RECT rcText = { 10,30 * 0,0,0 };
+	RECT rcText = { 10,30 * 1,0,0 };
 	sprintf_s(Text, sizeof(Text), "FishSceneLength %f", FishScene_CamPos.Length());
 	KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	RECT rcText1 = { 10,30 * 1,0,0 };
+	RECT rcText1 = { 10,30 * 6,0,0 };
 	sprintf_s(Text, sizeof(Text), "FishSceneCamAng x %f CamAng x %f  y%f", FishScene_CamAngX, CamAngX, CamAngY);
 	KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText1, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	RECT rcText2 = { 10,30 * 2,0,0 };
