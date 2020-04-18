@@ -33,10 +33,11 @@ private:
 	std::shared_ptr<Sea> sea = nullptr;
 	
 	D3DXMATRIX mMat;//ホワイトアウト
+	D3DXMATRIX mTrans;
 	LPDIRECT3DTEXTURE9 vTex;
-	D3DXVECTOR3 mPos;
 	
 
+	D3DXVECTOR3 mPos;
 	BOOL MoveFlg;
-	float Alpha;
+	int Alpha;
 };
