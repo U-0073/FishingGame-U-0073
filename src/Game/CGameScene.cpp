@@ -26,6 +26,7 @@ CGameScene::CGameScene()
 //	Fishes = std::make_shared<Fish>();
 	//ƒvƒŒƒCƒ„[
 	m_Player = std::make_shared<C_Player>();
+	m_Player->Init();
 	//’Ş‚èŠÖŒW
 
 	m_Fishing = std::make_shared<C_Fishing>();
