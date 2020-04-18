@@ -32,8 +32,11 @@ private:
 	std::shared_ptr<Title> title = nullptr;
 	std::shared_ptr<Sea> sea = nullptr;
 	
-	D3DXVECTOR3 mPos=D3DXVECTOR3(0,0,0);
+	D3DXMATRIX mMat;//ホワイトアウト
+	LPDIRECT3DTEXTURE9 vTex;
+	D3DXVECTOR3 mPos;
+	
 
 	BOOL MoveFlg;
-	int Cnt;
+	float Alpha;
 };
