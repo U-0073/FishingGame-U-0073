@@ -44,6 +44,19 @@ void C_Player::Init()
 
 	bool test5 = JSONS.checkValue(Json, "value2", 2.2);
 	bool test6 = JSONS.checkValue(Json, "value2", 3.3);
+
+	//‚Ü‚¾Žg‚¦‚È‚¢
+	//JSONS.AddKeyValue(Json,"Value5", std::string("ABCD"));
+
+	JSONS.SaveJson(Json, "Save/Test.json");
+
+
+
+
+
+
+
+
 }
 void C_Player::Begin()
 {

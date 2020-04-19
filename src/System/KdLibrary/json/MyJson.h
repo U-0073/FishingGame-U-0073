@@ -9,6 +9,7 @@ private:
 
 	std::map<std::string, std::shared_ptr<json11::Json>>jsons;
 
+	std::string Directly = "Resouce/JsonData/";
 
 public:
 	static MyJson& GetInstance()
@@ -25,7 +26,7 @@ public:
 			return jsons[filename];
 		}
 
-		auto mfilename = "Resouce/JsonData/" + filename;
+		auto mfilename = Directly+ filename;
 
 		std::ifstream ifs(mfilename);
 		if (!ifs) { return nullptr; }
@@ -46,11 +47,26 @@ public:
 
 		
 		jsons[filename] = Json;
+		ifs.close();
 		return Json;
 	}
+	inline  void SaveJson(const std::shared_ptr < json11::Json>Json, std::string filename) {
+		std::string stJson = (*Json).dump();
+
+		std::ofstream outFile(Directly + filename);
+		outFile << stJson;
+		outFile.close();
+	}
+
 	bool checkValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const std::string& Value);
 	bool checkValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const int& Value);
 	bool checkValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const bool& Value);
 	bool checkValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const double& Value);
+
+	void AddKeyValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const std::string& Value);
+	void AddKeyValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const int& Value);
+	void AddKeyValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const bool& Value);
+	void AddKeyValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const double& Value);
+
 };
 #define JSONS MyJson::GetInstance()
