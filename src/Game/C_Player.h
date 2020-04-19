@@ -2,11 +2,22 @@
 
 #include"../System/FrameBase/GameObject.h"
 
+
+struct S_CoordVec {
+	KdVec3 Z = KdVec3(0.0f, 0.0f, 1.0f);
+	KdVec3 Y = KdVec3(0.0f, 1.0f, 0.0f);
+	KdVec3 Front = KdVec3(0.0f, 0.0f, 1.0f);
+	KdVec3 Back = KdVec3(0.0f, 0.0f, -1.0f);
+	KdVec3 Right = KdVec3(0.0f, 1.0f, 0.0f);
+	KdVec3 Left = KdVec3(0.0f, -1.0f, 0.0f);
+	
+};
+
 // 頂点情報の定義
 struct VERTEX2
 {
 	D3DXVECTOR3 Pos;
-	D3DCOLOR Color;
+	D3DCOLOR	Color;
 	D3DXVECTOR2 Tex;
 };
 
@@ -22,9 +33,9 @@ public:
 
 	//プレイヤーの座標を外部に渡す関数
 	const KdVec3& GetPlayerPos()const { return PlayerPos; }
-	const float& GetCamAngY()const { return CamAngY; }
-	const bool& GetFeshFlg()const { return FishFlg; }
-	const bool& GetBuoiFlg()const { return BuoiFlg; }
+	const float& GetCamAngY()	const { return CamAngY; }
+	const bool& GetFeshFlg()	const { return FishFlg; }
+	const bool& GetBuoiFlg()	const { return BuoiFlg; }
 
 private:
 	//----------関数宣言-------------
@@ -39,8 +50,22 @@ private:
 
 	void Draw3DWall();
 	//---------行列-------------
+	//固定変数
+	KdVec3			InitPos = KdVec3(0.0f, 0.0f, 0.0f);		//初期位置
+	KdVec3			InitCamPos = KdVec3(0.0f, 2.0f, 0.0f);
+	S_CoordVec		CoordVec;
+
+	float			CamAngX_LowLimit=-80;
+	float			CamAngX_MaxLimit=20;
+	float			CamAngY_LowLimit;
+	float			CamAngY_MaxLimit;
+
+	float			FSceneCamAngX_lowLimit = 0.0f;
+	float			FSceneCamAngX_MaxLimit = 40.0f;
+	float			FishScene_LenMax = 7.0f;
+	float			FishScene_LenMin = 2.0f;
+
 	KdVec3			PlayerPos;
-	KdVec3			StartVec = KdVec3(0.0f, 0.0f, 0.0f);		//初期位置
 	KdVec3			FishScene_CamPos = KdVec3(0.0f, 2.0f, 0.0f);
 
 	KdMatrix		TransMat;
@@ -50,9 +75,6 @@ private:
 	POINT				BasePt;
 	KdVec3				CamLook;
 	//---------変数宣言----------
-	int					Cnt1 = 0;
-	int					Cnt2 = 0;
-
 	float				FishScene_StartPos = 4.0f;
 	float				CamAngY = 0.0f;
 	float				CamAngX = 0.0f;
@@ -62,5 +84,5 @@ private:
 	bool				FishFlg = false;
 	bool				RestoreFlg = false;
 	bool				BuoiFlg = false;		//浮きを動かすか否か
-	
+
 };
