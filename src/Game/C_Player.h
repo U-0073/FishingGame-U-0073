@@ -8,8 +8,8 @@ struct S_CoordVec {
 	KdVec3 Y = KdVec3(0.0f, 1.0f, 0.0f);
 	KdVec3 Front = KdVec3(0.0f, 0.0f, 1.0f);
 	KdVec3 Back = KdVec3(0.0f, 0.0f, -1.0f);
-	KdVec3 Right = KdVec3(0.0f, 1.0f, 0.0f);
-	KdVec3 Left = KdVec3(0.0f, -1.0f, 0.0f);
+	KdVec3 Right = KdVec3(1.0f, 0.0f, 0.0f);
+	KdVec3 Left = KdVec3(-1.0f, 0.0f, 0.0f);
 	
 };
 
@@ -56,7 +56,7 @@ private:
 	S_CoordVec		CoordVec;
 
 	float			CamAngX_LowLimit=-80;
-	float			CamAngX_MaxLimit=20;
+	float			CamAngX_MaxLimit=40;
 	float			CamAngY_LowLimit;
 	float			CamAngY_MaxLimit;
 

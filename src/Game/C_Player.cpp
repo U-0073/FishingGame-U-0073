@@ -193,14 +193,14 @@ void C_Player::CameraSet()
 	if (!FishFlg) {
 		StopFlg = false;
 		//釣りモードが解除されたとき、カメラの回転をもとに戻す
-		if (FishScene_CamAngX > CamAngX_lowLimit) {
+		if (FishScene_CamAngX > 0) {
 			FishScene_CamAngX -= 0.6f;
 			if (RestoreFlg) {
 				CamAngX -= 0.6f;
 				flg1 = false;
 			}
 		}
-		else FishScene_CamAngX = CamAngX_lowLimit;
+		else FishScene_CamAngX = 0;
 
 		//同じく解除されたときにカメラの位置を戻す
 		if (FishScene_CamPos.Length() > PlayerPos.y + FishScene_LenMin) {
