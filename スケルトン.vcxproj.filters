@@ -104,6 +104,12 @@
     <ClCompile Include="src\System\KdLibrary\json\json11.cpp">
       <Filter>ライブラリ\Json</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Shop.cpp">
+      <Filter>src\ゲーム</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\CShopScene.cpp">
+      <Filter>src\ゲーム</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\System\Component\InputComponent.h">
@@ -183,6 +189,12 @@
     </ClInclude>
     <ClInclude Include="src\System\KdLibrary\json\MyJson.h">
       <Filter>ライブラリ\Json</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Shop.h">
+      <Filter>src\ゲーム</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\CShopScene.h">
+      <Filter>src\ゲーム</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,6 +3,7 @@
 #include "CSceneBase.h"
 #include"../../Game/CGameScene.h"
 #include"../../Game/CTitleScene.h"
+#include"../../Game/CShopScene.h"
 
 LRESULT APIENTRY WndFunc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -126,6 +127,7 @@ void CGameFrame::GameLoop()
 		
 		if (nextscene != nowScene->GetID()) 
 		{
+			nowScene->End();
 			nowScene=nullptr;
 
 			switch (nextscene) 
@@ -136,6 +138,10 @@ void CGameFrame::GameLoop()
 				break;
 			case GAME:
 				nowScene = std::make_shared<CGameScene>();
+				nowScene->Init();
+				break;
+			case SHOP:
+				nowScene = std::make_shared<CShopScene>();
 				nowScene->Init();
 				break;
 			}
