@@ -2,11 +2,16 @@
 
 class CFade
 {
+private:
+	CFade();
+	~CFade();
 public:
-	void Init();
-	void Update(float &speed);
+	void Update();
 	void Draw();
-	void Start() { startflg = true; };
+	void Start(const float& speed) {
+		startflg = true;
+		accel = speed * 60 / 255;
+	};
 
 private:
 	bool startflg;
@@ -21,4 +26,4 @@ public:
 		return instance;
 	}
 };
-#define FADE CFade::GetInstance();
+#define FADE CFade::GetInstance()

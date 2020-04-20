@@ -1,18 +1,23 @@
 #include"../KdLibrary/KdLibrary.h"
 #include"Fade.h"
 
-void CFade::Init()
+CFade::CFade()
 {
 	vTex = *RESOURCE_MNG.GetTexture("Resouce/Texture/white.png", 3, 3, NULL);
 	KdMatrix vScale;
 	vScale.CreateScale(1280, 720, 0);
 	vMat.CreateTrans(1280 / 2, 720 / 2, 0);
 	vMat = vScale * vMat;
+	alpha = 0;
+	accel = 0;
+}
+CFade::~CFade()
+{
 }
 
-void CFade::Update(float& speed)
+
+void CFade::Update()
 {
-	accel = 255 / speed * 60;
 	if (startflg) {
 		//”’‚ª”Z‚­‚È‚é
 		alpha += accel;
