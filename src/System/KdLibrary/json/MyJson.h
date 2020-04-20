@@ -12,12 +12,7 @@ private:
 	std::string Directly = "Resouce/JsonData/";
 
 public:
-	static MyJson& GetInstance()
-	{
-		static MyJson instance;
-		return instance;
 
-	}
 
 	inline 	std::shared_ptr <json11::Json> LoadJson(const std::string& filename) {
 		
@@ -58,15 +53,38 @@ public:
 		outFile.close();
 	}
 
-	bool checkValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const std::string& Value);
-	bool checkValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const int& Value);
-	bool checkValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const bool& Value);
-	bool checkValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const double& Value);
 
-	void AddKeyValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const std::string& Value);
-	void AddKeyValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const int& Value);
-	void AddKeyValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const bool& Value);
-	void AddKeyValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const double& Value);
+	bool checkValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const std::string & Value);
+	 bool checkValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const int & Value);
+	 bool checkValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const double & Value);
+	 bool checkValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const bool & Value);
+	
+	
 
+
+	void AddKeyValue( std::shared_ptr<json11::Json>Json, const std::string& Tag, const std::string Value);
+	void AddKeyValue( std::shared_ptr<json11::Json> Json, const std::string& Tag, const int Value);
+	void AddKeyValue( std::shared_ptr<json11::Json> Json, const std::string& Tag, const double Value);
+	void AddKeyValue( std::shared_ptr<json11::Json> Json, const std::string& Tag, const bool Value);
+	void AddKeyValue( std::shared_ptr<json11::Json> Json, const std::string& Tag, const json11::Json& Value);
+	
+
+
+
+
+
+	
+	
+	json11::Json& NomalJson(const std::shared_ptr < json11::Json>Json) {
+		return (*Json);
+	}
+
+	static MyJson& GetInstance()
+	{
+		static MyJson instance;
+		return instance;
+
+	}
 };
 #define JSONS MyJson::GetInstance()
+
