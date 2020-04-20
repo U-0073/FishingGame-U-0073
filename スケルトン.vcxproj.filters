@@ -24,6 +24,9 @@
     <Filter Include="src\システム">
       <UniqueIdentifier>{16077d8f-315b-46b1-b333-59f1ec57ccf3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ライブラリ\Json">
+      <UniqueIdentifier>{d67d3f68-d894-4fe8-879b-90cd68e7a8e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\System\Component\InputComponent.cpp">
@@ -95,6 +98,18 @@
     <ClCompile Include="src\Game\Title.cpp">
       <Filter>src\ゲーム</Filter>
     </ClCompile>
+    <ClCompile Include="src\System\KdLibrary\json\MyJson.cpp">
+      <Filter>ライブラリ\Json</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\KdLibrary\json\json11.cpp">
+      <Filter>ライブラリ\Json</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Shop.cpp">
+      <Filter>src\ゲーム</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\CShopScene.cpp">
+      <Filter>src\ゲーム</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\System\Component\InputComponent.h">
@@ -164,6 +179,21 @@
       <Filter>src\ゲーム</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\Title.h">
+      <Filter>src\ゲーム</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\structList.h">
+      <Filter>src\ゲーム</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\KdLibrary\json\json11.hpp">
+      <Filter>ライブラリ\Json</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\KdLibrary\json\MyJson.h">
+      <Filter>ライブラリ\Json</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Shop.h">
+      <Filter>src\ゲーム</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\CShopScene.h">
       <Filter>src\ゲーム</Filter>
     </ClInclude>
   </ItemGroup>

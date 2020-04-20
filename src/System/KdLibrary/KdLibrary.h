@@ -72,7 +72,7 @@
 
 // •Ö—˜”Ä—p‹@”\
 #include "KdHelper.h"
-
+#include"json/MyJson.h"
 // Direct3D
 #include "KdDirect3D.h"
 #include"KdResourceManager.h"
@@ -88,3 +88,9 @@
 
 #define GetKey GetAsyncKeyState
 
+enum Scene
+{
+	TITLE,
+	GAME,
+	SHOP
+};
