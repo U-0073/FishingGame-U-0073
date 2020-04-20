@@ -15,7 +15,8 @@ public:
 	int Update()override;
 	void Draw2D()override;
 	void Draw3D()override;
-
+	int GetID()override { return SHOP; };
+	void End()override {};
 
 private:
 	//std::shared_ptr<Shop> shop = nullptr;

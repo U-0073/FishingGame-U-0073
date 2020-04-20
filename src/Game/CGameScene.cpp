@@ -63,6 +63,9 @@ int CGameScene::Update()
 	{
 		return TITLE;
 	}
+	if (GetKey('I') & 0x8000) {
+		return SHOP;
+	}
 	return GAME;
 }
 

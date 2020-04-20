@@ -57,6 +57,9 @@ int CTitleScene::Update()
 	}
 	if (Fishes->GetFishPos().z < -100) {
 	}
+	if (GetKey('I') & 0x8000) {
+		return SHOP;
+	}
 	return TITLE;
 }
 
