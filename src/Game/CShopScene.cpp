@@ -7,7 +7,6 @@ CShopScene::CShopScene()
 	//shop = std::make_shared<Shop>();
 	//shop->Init();
 
-	//KD3D.LoadTexture(&vTex, "Resouce/Texture/white.png", 3, 3, NULL);
 	vTex = *RESOURCE_MNG.GetTexture("Resouce/Texture/white.png", 3, 3, NULL);
 	
 }
