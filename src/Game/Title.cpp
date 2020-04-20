@@ -11,8 +11,8 @@ Title::~Title()
 
 void Title::Init()
 {
-	KD3D.LoadTexture(&vTex, "Resouce/Texture/Title.png", 674, 108, D3DCOLOR_ARGB(255, 255, 255, 255));
-	KD3D.LoadTexture(&vTex2, "Resouce/Texture/PRESSENTER.png", 432, 88, D3DCOLOR_ARGB(255, 255, 255, 255));
+	vTex = *RESOURCE_MNG.GetTexture("Resouce/Texture/Title.png", 674, 108, D3DCOLOR_ARGB(255, 255, 255, 255));
+	vTex2 = *RESOURCE_MNG.GetTexture("Resouce/Texture/PRESSENTER.png", 432, 88, D3DCOLOR_ARGB(255, 255, 255, 255));
 
 	mPos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	mPos2 = D3DXVECTOR3(0.0f, 0.0f, 0.0f);

@@ -149,7 +149,11 @@ void CGameFrame::GameLoop()
 		}
 
 	}
+	if (GetKey('F') & 0x8000) {
+		FADE.Start(4.5f);
+	}
 
+	FADE.Update();
 	// 描画開始
 	KD3D.GetDev()->BeginScene();
 
@@ -159,11 +163,11 @@ void CGameFrame::GameLoop()
 
 	
 
-	
 	//2D描画.
 	nowScene->Draw2D();
 	//3D描画.
 	nowScene->Draw3D();
+	FADE.Draw();
 
 	// 描画終了
 	KD3D.GetDev()->EndScene();

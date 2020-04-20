@@ -1,9 +1,9 @@
 #pragma once
 #include"../System/FrameBase/CSceneBase.h"
 #define path "Resouce/Texture/"
-#include"Shop.h"
+#include"Shop2D.h"
 
-//class Shop;
+class Shop2D;
 
 class CShopScene : public CSceneBase
 {
@@ -19,7 +19,7 @@ public:
 	void End()override {};
 
 private:
-	//std::shared_ptr<Shop> shop = nullptr;
+	std::shared_ptr<Shop2D> shop = nullptr;
 
 	D3DXMATRIX mMat;
 	D3DXMATRIX mScale;
