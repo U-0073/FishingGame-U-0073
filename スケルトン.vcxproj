@@ -160,6 +160,7 @@
     <ClCompile Include="src\System\Component\InputComponent.cpp" />
     <ClCompile Include="src\System\FrameBase\CGameFrame.cpp" />
     <ClCompile Include="src\System\FrameBase\CSceneBase.cpp" />
+    <ClCompile Include="src\System\FrameBase\Fade.cpp" />
     <ClCompile Include="src\System\FrameBase\GameObject.cpp" />
     <ClCompile Include="src\System\FrameBase\main.cpp" />
     <ClCompile Include="src\System\FrameBase\wavread.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="src\System\Component\InputComponent.h" />
     <ClInclude Include="src\System\FrameBase\CGameFrame.h" />
     <ClInclude Include="src\System\FrameBase\CSceneBase.h" />
+    <ClInclude Include="src\System\FrameBase\Fade.h" />
     <ClInclude Include="src\System\FrameBase\GameObject.h" />
     <ClInclude Include="src\System\FrameBase\wavread.h" />
     <ClInclude Include="src\System\KdLibrary\CCamera.h" />

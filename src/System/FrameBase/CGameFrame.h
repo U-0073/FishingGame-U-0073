@@ -38,7 +38,6 @@ private:
 
 	std::shared_ptr<CSceneBase> nowScene = nullptr;
 	
-	
 	bool              mIsFullScreen;
 	const D3DXVECTOR2       mWindowSize;
 	const std::string       mAppName;

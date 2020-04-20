@@ -110,6 +110,9 @@
     <ClCompile Include="src\Game\CShopScene.cpp">
       <Filter>src\ゲーム</Filter>
     </ClCompile>
+    <ClCompile Include="src\System\FrameBase\Fade.cpp">
+      <Filter>src\システム</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\System\Component\InputComponent.h">
@@ -195,6 +198,9 @@
     </ClInclude>
     <ClInclude Include="src\Game\CShopScene.h">
       <Filter>src\ゲーム</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\FrameBase\Fade.h">
+      <Filter>src\システム</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
