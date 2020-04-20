@@ -30,14 +30,27 @@ void C_Player::Init()
 	SetCursorPos(BasePt.x, BasePt.y);
 	ShowCursor(FALSE);
 
+	//以下Json使用例
+	
 	auto Json = std::make_shared<json11::Json>();
 	Json = JSONS.LoadJson("Default/Test.json");
 
-	int i = (*Json)["value1"].int_value();
+
 
 	std::string tag = "Player";//VisualStudioバグ対策でstringは一度宣言してから入れて
 	bool test1 = JSONS.checkValue(Json, "Tag", tag);
 
+	std::string err;
+	json11::Json::object J{
+
+		{"Tag", "Enemy"},
+	{"value1" , 111},
+	{ "value2" , 2.2000000000000002},
+	{ "value3" , true}
+	};
+	
+	(*Json)["Tags"] = J;
+	(*Json)["Tags"]["Tag"] = "Player";
 
 	bool test3 = JSONS.checkValue(Json, "value1", 111);
 	bool test4 = JSONS.checkValue(Json, "value1", 333);

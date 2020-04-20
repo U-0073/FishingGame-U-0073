@@ -51,7 +51,7 @@ public:
 		return Json;
 	}
 	inline  void SaveJson(const std::shared_ptr < json11::Json>Json, std::string filename) {
-		std::string stJson = (*Json).dump();
+		std::string stJson = (*Json).dump(true);
 		
 		std::ofstream outFile(Directly + filename);
 		outFile << stJson;

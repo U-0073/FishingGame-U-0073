@@ -141,24 +141,34 @@ public:
     // Return the enclosed value if this is a boolean, false otherwise.
     bool bool_value() const;
     // Return the enclosed string if this is a string, "" otherwise.
-    const std::string &string_value() const;
+	const std::string& string_value() const;
+		  std::string& string_value();
     // Return the enclosed std::vector if this is an array, or an empty vector otherwise.
-    const array &array_items() const;
+	const array& array_items() const;
+		  array& array_items();
     // Return the enclosed std::map if this is an object, or an empty map otherwise.
-    const object &object_items() const;
+	const object& object_items() const;
+	      object& object_items();
 
     // Return a reference to arr[i] if this is an array, Json() otherwise.
     const Json & operator[](size_t i) const;
+    Json & operator[](size_t i);
     // Return a reference to obj[key] if this is an object, Json() otherwise.
     const Json & operator[](const std::string &key) const;
+    Json & operator[](const std::string &key);
 
     // Serialize.
-    void dump(std::string &out) const;
-    std::string dump() const {
+    void dump(std::string &out,bool debug, int indent = 0) const;
+    std::string dump(bool debug = false) const {
         std::string out;
-        dump(out);
+        dump(out,debug);
         return out;
     }
+	std::string dumpDebug() const
+	{
+
+		return dump(true);
+	}
 
     // Parse. If parse fails, return Json() and assign an error message to err.
     static Json parse(const std::string & in,
@@ -206,6 +216,7 @@ public:
 
 private:
     std::shared_ptr<JsonValue> m_ptr;
+	int						m_tabNum;
 };
 
 // Internal class hierarchy - JsonValue objects are not exposed to users of this API.
@@ -217,15 +228,20 @@ protected:
     virtual Json::Type type() const = 0;
     virtual bool equals(const JsonValue * other) const = 0;
     virtual bool less(const JsonValue * other) const = 0;
-    virtual void dump(std::string &out) const = 0;
+    virtual void dump(std::string &out,bool debug,int indent) const = 0;
     virtual double number_value() const;
     virtual int int_value() const;
     virtual bool bool_value() const;
-    virtual const std::string &string_value() const;
-    virtual const Json::array &array_items() const;
+	virtual const std::string &string_value() const;
+	virtual		  std::string &string_value();
+	virtual const Json::array &array_items() const;
+	virtual       Json::array &array_items();
     virtual const Json &operator[](size_t i) const;
-    virtual const Json::object &object_items() const;
-    virtual const Json &operator[](const std::string &key) const;
+    virtual       Json &operator[](size_t i);
+	virtual const Json::object& object_items() const;
+	virtual       Json::object& object_items();
+	virtual const Json &operator[](const std::string &key) const;
+	virtual       Json &operator[](const std::string &key);
     virtual ~JsonValue() {}
 };
 

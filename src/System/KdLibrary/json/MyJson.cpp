@@ -32,11 +32,7 @@ bool MyJson::checkValue(const std::shared_ptr<json11::Json> Json,const std::stri
 
 void MyJson::AddKeyValue(const std::shared_ptr<json11::Json> Json, const std::string& Tag, const std::string& Value)
 {
-	json11::Json json = json11::Json::object{
-		{Tag,Value}
-	};
 
-	
 
 	//std::string stJson = (*Json).dump();
 	//json11::Json::object jo(stJson.begin(), stJson.end());
