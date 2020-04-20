@@ -91,5 +91,6 @@
 enum Scene
 {
 	TITLE,
-	GAME
+	GAME,
+	SHOP
 };
