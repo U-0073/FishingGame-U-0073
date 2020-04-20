@@ -145,12 +145,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Game\CGameScene.cpp" />
+    <ClCompile Include="src\Game\CShopScene.cpp" />
     <ClCompile Include="src\Game\CTitleScene.cpp" />
     <ClCompile Include="src\Game\Fish.cpp" />
     <ClCompile Include="src\Game\Fishing.cpp" />
     <ClCompile Include="src\Game\Port.cpp" />
     <ClCompile Include="src\Game\Sea.cpp" />
     <ClCompile Include="src\Game\C_Player.cpp" />
+    <ClCompile Include="src\Game\Shop.cpp" />
     <ClCompile Include="src\Game\Skysphere.cpp" />
     <ClCompile Include="src\Game\TestCharacter.cpp" />
     <ClCompile Include="src\Game\Title.cpp" />
@@ -172,12 +174,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Game\CGameScene.h" />
+    <ClInclude Include="src\Game\CShopScene.h" />
     <ClInclude Include="src\Game\CTitleScene.h" />
     <ClInclude Include="src\Game\Fish.h" />
     <ClInclude Include="src\Game\Fishing.h" />
     <ClInclude Include="src\Game\Port.h" />
     <ClInclude Include="src\Game\Sea.h" />
     <ClInclude Include="src\Game\C_Player.h" />
+    <ClInclude Include="src\Game\Shop.h" />
     <ClInclude Include="src\Game\Skysphere.h" />
     <ClInclude Include="src\Game\structList.h" />
     <ClInclude Include="src\Game\TestCharacter.h" />
