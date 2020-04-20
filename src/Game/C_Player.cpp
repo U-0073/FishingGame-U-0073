@@ -18,7 +18,7 @@ C_Player::~C_Player()
 
 void C_Player::Init()
 {
-	PlayerPos = StartVec;
+	PlayerPos = InitPos;
 	GameObject::Init();
 	m_pModel = RESOURCE_MNG.GetModel("./Resouce/3DModel/body.x");
 
@@ -44,6 +44,19 @@ void C_Player::Init()
 
 	bool test5 = JSONS.checkValue(Json, "value2", 2.2);
 	bool test6 = JSONS.checkValue(Json, "value2", 3.3);
+
+	//まだ使えない
+	//JSONS.AddKeyValue(Json,"Value5", std::string("ABCD"));
+
+	JSONS.SaveJson(Json, "Save/Test.json");
+
+
+
+
+
+
+
+
 }
 void C_Player::Begin()
 {
@@ -93,38 +106,37 @@ void C_Player::MoveProc()
 	bool	MoveFlg = false;
 
 	if (!FishFlg) {
-		if (GetKey('W') & 0x8000) {
+		if (GetKey('W') & 0x8000) {//前へ
 			D3DXMATRIX RotMat;
 			D3DXMatrixRotationY(&RotMat, D3DXToRadian(CamAngY));
 			D3DXVECTOR3	Vec;
-			D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, 1), &RotMat);
+			D3DXVec3TransformCoord(&Vec, &CoordVec.Front, &RotMat);
 			PlayerPos += Vec * MoveSpeed;
 		}
-		if (GetKey('A') & 0x8000) {
+		if (GetKey('A') & 0x8000) {//左
 			D3DXMATRIX RotMat;
 			D3DXMatrixRotationY(&RotMat, D3DXToRadian(CamAngY));
 			D3DXVECTOR3	Vec;
-			D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(-1, 0, 0), &RotMat);
+			D3DXVec3TransformCoord(&Vec, &CoordVec.Left, &RotMat);
 			PlayerPos += Vec * MoveSpeed;
 		}
-		if (GetKey('S') & 0x8000) {
+		if (GetKey('S') & 0x8000) {//後ろへ
 			D3DXMATRIX RotMat;
 			D3DXMatrixRotationY(&RotMat, D3DXToRadian(CamAngY));
 			D3DXVECTOR3	Vec;
-			D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, -1), &RotMat);
+			D3DXVec3TransformCoord(&Vec, &CoordVec.Back, &RotMat);
 			PlayerPos += Vec * MoveSpeed;
 		}
-		if (GetKey('D') & 0x8000) {
+		if (GetKey('D') & 0x8000) {//右
 			D3DXMATRIX RotMat;
 			D3DXMatrixRotationY(&RotMat, D3DXToRadian(CamAngY));
 			D3DXVECTOR3	Vec;
-			D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(1, 0, 0), &RotMat);
+			D3DXVec3TransformCoord(&Vec, &CoordVec.Right, &RotMat);
 			PlayerPos += Vec * MoveSpeed;
 		}
 	}
 
 	TransMat.CreateTrans(PlayerPos);
-
 	D3DXMatrixRotationY(&PlayerRot, D3DXToRadian(CamAngY));
 	m_world = PlayerRot * TransMat;
 }
@@ -204,22 +216,22 @@ void C_Player::CameraSet()
 		else FishScene_CamAngX = 0;
 
 		//同じく解除されたときにカメラの位置を戻す
-		if (FishScene_CamPos.Length() > PlayerPos.y + 2.0f) {
+		if (FishScene_CamPos.Length() > PlayerPos.y + FishScene_LenMin) {
 			KdMatrix		CamRot;
 			KdVec3			TmpVec;
 
 			CamRot.CreateRotationY(D3DXToRadian(CamAngY));
-			D3DXVec3TransformCoord(&TmpVec, &D3DXVECTOR3(0.0f, 0.0f, 1.0f), &CamRot);
+			D3DXVec3TransformCoord(&TmpVec, &CoordVec.Z, &CamRot);
 			FishScene_CamPos -= TmpVec * 0.05f;
-			D3DXVec3TransformCoord(&TmpVec, &D3DXVECTOR3(0.0f, 1.0f, 0.0f), &CamRot);
+			D3DXVec3TransformCoord(&TmpVec, &CoordVec.Y, &CamRot);
 			FishScene_CamPos -= TmpVec * 0.1f;
 		}
 		else {
-			FishScene_CamPos.Set(0.0f, 2.0f, 0.0f);
+			FishScene_CamPos = InitCamPos;
 			flg2 = false;
 		}
 
-		if (FishScene_CamPos.Length() == 2.0f && FishScene_CamAngX == 0) {
+		if (FishScene_CamPos.Length() == FishScene_LenMin && FishScene_CamAngX == 0) {
 			RestoreFlg = false;
 		}
 
@@ -228,7 +240,7 @@ void C_Player::CameraSet()
 		D3DXVECTOR3			Vec;
 
 		CamRot.CreateRotation(D3DXToRadian(CamAngX), D3DXToRadian(CamAngY), 0);
-		D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, 1), &CamRot);
+		D3DXVec3TransformCoord(&Vec, &CoordVec.Z, &CamRot);
 
 		CamLook = Vec;
 		CamPos = PlayerPos + FishScene_CamPos;
@@ -241,21 +253,21 @@ void C_Player::CameraSet()
 			StopFlg = true;
 		}
 		//カメラのアングルを変更するプログラム
-		if (FishScene_CamAngX < 40)FishScene_CamAngX += 0.4f;
+		if (FishScene_CamAngX < CamAngX_MaxLimit)FishScene_CamAngX += 0.4f;
 		else {
-			FishScene_CamAngX = 40;
+			FishScene_CamAngX = CamAngX_MaxLimit;
 			flg1 = true;
 		}
 
 		//カメラの位置を変えるプログラム
-		if (FishScene_CamPos.Length() < 7.0f + PlayerPos.y) {
+		if (FishScene_CamPos.Length() < FishScene_LenMax + PlayerPos.y) {
 			KdMatrix CamRot;
 			KdVec3 TmpVec;
 
 			CamRot.CreateRotationY(D3DXToRadian(CamAngY));
-			D3DXVec3TransformCoord(&TmpVec, &D3DXVECTOR3(0.0f, 0.0f, 1.0f), &CamRot);
+			D3DXVec3TransformCoord(&TmpVec, &CoordVec.Z, &CamRot);
 			FishScene_CamPos += TmpVec * 0.025f;
-			D3DXVec3TransformCoord(&TmpVec, &D3DXVECTOR3(0.0f, 1.0f, 0.0f), &CamRot);
+			D3DXVec3TransformCoord(&TmpVec, &CoordVec.Y, &CamRot);
 			FishScene_CamPos += TmpVec * 0.05f;
 		}
 		else {
@@ -266,7 +278,7 @@ void C_Player::CameraSet()
 		D3DXVECTOR3			Vec;
 
 		CamRot.CreateRotation(D3DXToRadian(FishScene_CamAngX), D3DXToRadian(CamAngY), 0);
-		D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, 1), &CamRot);
+		D3DXVec3TransformCoord(&Vec, &CoordVec.Z, &CamRot);
 		CamLook = Vec;
 
 		CamPos = PlayerPos + FishScene_CamPos;

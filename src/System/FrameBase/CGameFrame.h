@@ -5,6 +5,7 @@
 class CSceneBase;
 class CGameScene;
 class CTitleScene;
+class CShopScene;
 
 class CCamera;
 
@@ -36,7 +37,6 @@ private:
 
 
 	std::shared_ptr<CSceneBase> nowScene = nullptr;
-	
 	
 	bool              mIsFullScreen;
 	const D3DXVECTOR2       mWindowSize;

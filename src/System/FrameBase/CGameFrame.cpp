@@ -3,6 +3,7 @@
 #include "CSceneBase.h"
 #include"../../Game/CGameScene.h"
 #include"../../Game/CTitleScene.h"
+#include"../../Game/CShopScene.h"
 
 LRESULT APIENTRY WndFunc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -126,6 +127,7 @@ void CGameFrame::GameLoop()
 		
 		if (nextscene != nowScene->GetID()) 
 		{
+			nowScene->End();
 			nowScene=nullptr;
 
 			switch (nextscene) 
@@ -138,12 +140,20 @@ void CGameFrame::GameLoop()
 				nowScene = std::make_shared<CGameScene>();
 				nowScene->Init();
 				break;
+			case SHOP:
+				nowScene = std::make_shared<CShopScene>();
+				nowScene->Init();
+				break;
 			}
 			nowScene->Update();
 		}
 
 	}
+	if (GetKey('F') & 0x8000) {
+		FADE.Start(4.5f);
+	}
 
+	FADE.Update();
 	// 描画開始
 	KD3D.GetDev()->BeginScene();
 
@@ -153,11 +163,11 @@ void CGameFrame::GameLoop()
 
 	
 
-	
 	//2D描画.
 	nowScene->Draw2D();
 	//3D描画.
 	nowScene->Draw3D();
+	FADE.Draw();
 
 	// 描画終了
 	KD3D.GetDev()->EndScene();

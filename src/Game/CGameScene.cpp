@@ -59,7 +59,13 @@ int CGameScene::Update()
 //	Fishes->Update();
 
 
-
+	if (GetKey(VK_SPACE) & 0x8000) 
+	{
+		return TITLE;
+	}
+	if (GetKey('I') & 0x8000) {
+		return SHOP;
+	}
 	return GAME;
 }
 

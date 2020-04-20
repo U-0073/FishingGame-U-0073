@@ -84,12 +84,13 @@
 
 #include "KdModel.h"
 #include "../FrameBase/wavread.h"
-
+#include"../FrameBase/Fade.h"
 
 #define GetKey GetAsyncKeyState
 
 enum Scene
 {
 	TITLE,
-	GAME
+	GAME,
+	SHOP
 };
