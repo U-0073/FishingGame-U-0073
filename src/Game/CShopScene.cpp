@@ -4,11 +4,12 @@
 CShopScene::CShopScene()
 {
 
-	shop = std::make_shared<Shop>();
-	shop->Init();
+	//shop = std::make_shared<Shop>();
+	//shop->Init();
 
-	KD3D.LoadTexture(&vTex, "Resouce/Texture/white.png", 3, 3, NULL);
-
+	//KD3D.LoadTexture(&vTex, "Resouce/Texture/white.png", 3, 3, NULL);
+	vTex = RESOURCE_MNG.GetTexture("Resouce/Texture/white.png", 3, 3, NULL);
+	
 }
 
 CShopScene::~CShopScene()
@@ -23,10 +24,10 @@ void CShopScene::Init()
 
 void CShopScene::Update()
 {
-	shop->Update();
+	//shop->Update();
 
 	//ƒV[ƒ“Ø‚è‘Ö‚¦
-	if (GetKey(VK_SPACE) & 0x8000)
+	if (GetKey('I') & 0x8000)
 	{
 		
 	}
@@ -34,7 +35,7 @@ void CShopScene::Update()
 
 void CShopScene::Draw2D()
 {
-	shop->Draw2D();
+	//shop->Draw2D();
 
 }
 
