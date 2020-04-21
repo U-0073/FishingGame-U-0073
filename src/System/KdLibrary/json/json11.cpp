@@ -1,4 +1,4 @@
-/* Copyright (c) 2013 Dropbox, Inc.
+﻿/* Copyright (c) 2013 Dropbox, Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -50,12 +50,27 @@ struct NullStruct {
  * Serialization
  */
 
-static void dump(NullStruct, string &out) {
-    out += "null";
+void AddIndent(string &out, const bool debug,const int indexNum)
+{
+	if (debug == false) { return; }
+	for (int index = 0; index < indexNum; index++)
+	{
+		out += "  ";
+	}
 }
 
-static void dump(double value, string &out) {
-    if (std::isfinite(value)) {
+void AddNewLine(string &out,const bool debug)
+{
+	if (debug == false) { return; }
+	out += "\n";
+}
+
+static void dump(NullStruct, string &out, bool debug, int indent = 0) {
+	out += "null";
+}
+
+static void dump(double value, string &out, bool debug, int indent = 0) {
+	if (std::isfinite(value)) {
         char buf[32];
         snprintf(buf, sizeof buf, "%.17g", value);
         out += buf;
@@ -64,18 +79,18 @@ static void dump(double value, string &out) {
     }
 }
 
-static void dump(int value, string &out) {
-    char buf[32];
+static void dump(int value, string &out, bool debug, int indent = 0) {
+	char buf[32];
     snprintf(buf, sizeof buf, "%d", value);
     out += buf;
 }
 
-static void dump(bool value, string &out) {
-    out += value ? "true" : "false";
+static void dump(bool value, string &out, bool debug, int indent = 0) {
+	out += value ? "true" : "false";
 }
 
-static void dump(const string &value, string &out) {
-    out += '"';
+static void dump(const string &value, string &out,bool debug, int indent = 0) {
+	out += '"';
     for (size_t i = 0; i < value.length(); i++) {
         const char ch = value[i];
         if (ch == '\\') {
@@ -111,34 +126,56 @@ static void dump(const string &value, string &out) {
     out += '"';
 }
 
-static void dump(const Json::array &values, string &out) {
+static void dump(const Json::array& values, string& out, bool debug, int indent = 0) {
     bool first = true;
-    out += "[";
+	bool isContentsArray = false;
+	if (values.empty() == false)
+	{
+		isContentsArray = values.begin()->is_array() || values.begin()->is_object() && debug;
+	}
+	out += "[";
+	indent++;
     for (const auto &value : values) {
         if (!first)
-            out += ", ";
-        value.dump(out);
+		{
+            out += ",";
+		}
+		AddNewLine(out, isContentsArray);
+		if (isContentsArray) { AddIndent(out, debug, indent); }
+        value.dump(out,debug,indent);
         first = false;
     }
+	AddNewLine(out, isContentsArray);
+	indent--;
+	if (isContentsArray) { AddIndent(out, debug, indent); }
     out += "]";
 }
 
-static void dump(const Json::object &values, string &out) {
+static void dump(const Json::object &values, string &out,bool debug,int indent = 0) {
     bool first = true;
     out += "{";
+	AddNewLine(out, debug);
+	indent++;
     for (const auto &kv : values) {
         if (!first)
-            out += ", ";
-        dump(kv.first, out);
+		{ 
+			out += ",";
+			AddNewLine(out, debug);
+		}
+		AddIndent(out, debug, indent);
+        dump(kv.first, out,debug, indent);
         out += ": ";
-        kv.second.dump(out);
-        first = false;
+        kv.second.dump(out,debug,indent);
+		first = false;
     }
+	AddNewLine(out, debug);
+	indent--;
+	AddIndent(out, debug, indent);
     out += "}";
 }
 
-void Json::dump(string &out) const {
-    m_ptr->dump(out);
+void Json::dump(string &out,bool debug,int indent) const {
+    m_ptr->dump(out,debug,indent);
 }
 
 /* * * * * * * * * * * * * * * * * * * *
@@ -166,8 +203,8 @@ protected:
         return m_value < static_cast<const Value<tag, T> *>(other)->m_value;
     }
 
-    const T m_value;
-    void dump(string &out) const override { json11::dump(m_value, out); }
+    T m_value;
+    void dump(string &out,bool debug,int indent = 0) const override { json11::dump(m_value, out,debug,indent); }
 };
 
 class JsonDouble final : public Value<Json::NUMBER, double> {
@@ -195,23 +232,28 @@ public:
 };
 
 class JsonString final : public Value<Json::STRING, string> {
-    const string &string_value() const override { return m_value; }
+	const string &string_value() const override { return m_value; }
+		  string &string_value() override { return m_value; }
 public:
     explicit JsonString(const string &value) : Value(value) {}
     explicit JsonString(string &&value)      : Value(move(value)) {}
 };
 
 class JsonArray final : public Value<Json::ARRAY, Json::array> {
-    const Json::array &array_items() const override { return m_value; }
+	const Json::array& array_items() const override { return m_value; }
+	      Json::array& array_items() override { return m_value; }
     const Json & operator[](size_t i) const override;
+          Json & operator[](size_t i)       override;
 public:
     explicit JsonArray(const Json::array &value) : Value(value) {}
     explicit JsonArray(Json::array &&value)      : Value(move(value)) {}
 };
 
 class JsonObject final : public Value<Json::OBJECT, Json::object> {
-    const Json::object &object_items() const override { return m_value; }
+	const Json::object& object_items() const override { return m_value; }
+	      Json::object& object_items() override { return m_value; }
     const Json & operator[](const string &key) const override;
+          Json & operator[](const string &key)       override;
 public:
     explicit JsonObject(const Json::object &value) : Value(value) {}
     explicit JsonObject(Json::object &&value)      : Value(move(value)) {}
@@ -235,6 +277,10 @@ struct Statics {
     Statics() {}
 };
 
+static string				g_empty_string;
+static vector<Json>			g_empty_vector;
+static map<string, Json>	g_empty_map;
+
 static const Statics & statics() {
     static const Statics s {};
     return s;
@@ -245,6 +291,13 @@ static const Json & static_null() {
     static const Json json_null;
     return json_null;
 }
+
+/*
+static Json& _static_null() {
+	static Json g_json_null;
+	return g_json_null;
+}
+*/
 
 /* * * * * * * * * * * * * * * * * * * *
  * Constructors
@@ -272,27 +325,51 @@ double Json::number_value()                       const { return m_ptr->number_v
 int Json::int_value()                             const { return m_ptr->int_value();    }
 bool Json::bool_value()                           const { return m_ptr->bool_value();   }
 const string & Json::string_value()               const { return m_ptr->string_value(); }
-const vector<Json> & Json::array_items()          const { return m_ptr->array_items();  }
+	  string & Json::string_value()						{ return m_ptr->string_value(); }
+const vector<Json> & Json::array_items()          const { return m_ptr->array_items(); }
+	  vector<Json> & Json::array_items()				{ return m_ptr->array_items();  }
 const map<string, Json> & Json::object_items()    const { return m_ptr->object_items(); }
+	  map<string, Json> & Json::object_items()          { return m_ptr->object_items(); }
 const Json & Json::operator[] (size_t i)          const { return (*m_ptr)[i];           }
+      Json & Json::operator[] (size_t i)                { return (*m_ptr)[i];           }
 const Json & Json::operator[] (const string &key) const { return (*m_ptr)[key];         }
+      Json & Json::operator[] (const string &key)       { return (*m_ptr)[key];         }
 
 double                    JsonValue::number_value()              const { return 0; }
 int                       JsonValue::int_value()                 const { return 0; }
 bool                      JsonValue::bool_value()                const { return false; }
 const string &            JsonValue::string_value()              const { return statics().empty_string; }
-const vector<Json> &      JsonValue::array_items()               const { return statics().empty_vector; }
+	  string &            JsonValue::string_value()                    { return g_empty_string; }
+const vector<Json> &	  JsonValue::array_items()               const { return statics().empty_vector; }
+	  vector<Json> &      JsonValue::array_items()                     { return g_empty_vector; }
 const map<string, Json> & JsonValue::object_items()              const { return statics().empty_map; }
+	  map<string, Json> & JsonValue::object_items()                    { return g_empty_map; }
 const Json &              JsonValue::operator[] (size_t)         const { return static_null(); }
+      Json &              JsonValue::operator[] (size_t)               { assert(0 && "この型では呼べませんよ"); return Json()/*_static_null()*/; }
 const Json &              JsonValue::operator[] (const string &) const { return static_null(); }
+      Json &              JsonValue::operator[] (const string &)       { assert(0 && "この型では呼べませんよ"); return Json()/*_static_null()*/; }
 
 const Json & JsonObject::operator[] (const string &key) const {
     auto iter = m_value.find(key);
     return (iter == m_value.end()) ? static_null() : iter->second;
 }
+Json & JsonObject::operator[] (const string &key) {
+//    auto iter = m_value.find(key);
+//    return (iter == m_value.end()) ? _static_null() : iter->second;
+    // 非constの場合は、キーがなくても生成する
+    return m_value[key];
+}
 const Json & JsonArray::operator[] (size_t i) const {
     if (i >= m_value.size()) return static_null();
     else return m_value[i];
+}
+
+Json & JsonArray::operator[] (size_t i) {
+//    if (i >= m_value.size()) return _static_null();
+//    else return m_value[i];
+    // 非donst時は拡張する
+    if (i >= m_value.size()) m_value.resize(i + 1);
+    return m_value[i];
 }
 
 /* * * * * * * * * * * * * * * * * * * *
