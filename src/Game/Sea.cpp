@@ -12,9 +12,9 @@ Sea::Sea()
 			Height[i][k] = 0;
 		}
 	}
-	vTex = RESOURCE_MNG.GetTexture("Resouce/Texture/ŠC–Ê.jpg",  1024, 1024, NULL);
-	//setTexParam("Resouce/Texture/HP_G.png", 3, 3,/*NULL*/ D3DCOLOR_ARGB(255, 255, 255, 255));
-	//RESOURCE_MNG.LoadTexture(&vTex, "Resouce/Texture/Ground.bmp", 1024, 1024, NULL);
+//	vTex = RESOURCE_MNG.GetTexture("Resouce/Texture/ŠC–Ê.jpg",  1024, 1024, NULL);
+	m_pModel = RESOURCE_MNG.GetModel("Resouce/3DModel/Sea.x");
+	D3DXMatrixTranslation(&m_world, 0, -3, 0);
 }
 
 Sea::~Sea()
@@ -69,6 +69,16 @@ void Sea::Draw()
 	}
 	//KD3D.GetDev()->SetTexture(0, NULL);
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, TRUE);
+
+}
+
+void Sea::DrawObject()
+{
+	KD3D.SetWorldMatrix(&m_world);
+
+	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, TRUE);
+	m_pModel->Draw();
+	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
 
 }
 

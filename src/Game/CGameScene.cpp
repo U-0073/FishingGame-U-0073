@@ -18,7 +18,6 @@ CGameScene::CGameScene()
 	Sky->Init();
 	//ŠC
 	Seas = std::make_shared<Sea>();
-
 	//`
 	m_Port = std::make_shared<Port>();
 	m_Port->Init();
@@ -79,7 +78,8 @@ void CGameScene::Draw3D()
 {
 	Sky->Draw3D();
 	m_Port->Draw3D();
-	Seas->Draw();
+	//Seas->Draw();
+	Seas->DrawObject();
 	m_Fishing->Draw3D();
 	//Fishes->Draw3D();
 	//m_Player->Draw3D();
