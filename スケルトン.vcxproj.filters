@@ -27,6 +27,9 @@
     <Filter Include="ライブラリ\Json">
       <UniqueIdentifier>{d67d3f68-d894-4fe8-879b-90cd68e7a8e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\シーン">
+      <UniqueIdentifier>{0639ab11-36fb-4a8d-9671-ac8d2929edff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\System\Component\InputComponent.cpp">
@@ -55,9 +58,6 @@
     </ClCompile>
     <ClCompile Include="src\System\FrameBase\main.cpp">
       <Filter>src\システム</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Game\CGameScene.cpp">
-      <Filter>src\ゲーム</Filter>
     </ClCompile>
     <ClCompile Include="src\System\FrameBase\GameObject.cpp">
       <Filter>ライブラリ</Filter>
@@ -92,9 +92,6 @@
     <ClCompile Include="src\System\FrameBase\wavread.cpp">
       <Filter>src\システム</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\CTitleScene.cpp">
-      <Filter>src\ゲーム</Filter>
-    </ClCompile>
     <ClCompile Include="src\Game\Title.cpp">
       <Filter>src\ゲーム</Filter>
     </ClCompile>
@@ -107,9 +104,6 @@
     <ClCompile Include="src\Game\Shop.cpp">
       <Filter>src\ゲーム</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\CShopScene.cpp">
-      <Filter>src\ゲーム</Filter>
-    </ClCompile>
     <ClCompile Include="src\System\FrameBase\Fade.cpp">
       <Filter>src\システム</Filter>
     </ClCompile>
@@ -118,6 +112,15 @@
     </ClCompile>
     <ClCompile Include="src\Game\ShopObject.cpp">
       <Filter>src\ゲーム</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\CGameScene.cpp">
+      <Filter>src\シーン</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\CShopScene.cpp">
+      <Filter>src\シーン</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\CTitleScene.cpp">
+      <Filter>src\シーン</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -151,9 +154,6 @@
     <ClInclude Include="src\System\FrameBase\CSceneBase.h">
       <Filter>src\システム</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\CGameScene.h">
-      <Filter>src\ゲーム</Filter>
-    </ClInclude>
     <ClInclude Include="src\Game\TestCharacter.h">
       <Filter>src\ゲーム</Filter>
     </ClInclude>
@@ -184,9 +184,6 @@
     <ClInclude Include="src\System\FrameBase\wavread.h">
       <Filter>src\システム</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\CTitleScene.h">
-      <Filter>src\ゲーム</Filter>
-    </ClInclude>
     <ClInclude Include="src\Game\Title.h">
       <Filter>src\ゲーム</Filter>
     </ClInclude>
@@ -202,9 +199,6 @@
     <ClInclude Include="src\Game\Shop.h">
       <Filter>src\ゲーム</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\CShopScene.h">
-      <Filter>src\ゲーム</Filter>
-    </ClInclude>
     <ClInclude Include="src\System\FrameBase\Fade.h">
       <Filter>src\システム</Filter>
     </ClInclude>
@@ -213,6 +207,15 @@
     </ClInclude>
     <ClInclude Include="src\Game\ShopObject.h">
       <Filter>src\ゲーム</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\CGameScene.h">
+      <Filter>src\シーン</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\CShopScene.h">
+      <Filter>src\シーン</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\CTitleScene.h">
+      <Filter>src\シーン</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
