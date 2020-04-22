@@ -3,7 +3,7 @@
 
 CFade::CFade()
 {
-	vTex = *RESOURCE_MNG.GetTexture("Resouce/Texture/white.png", 3, 3, NULL);
+	vTex = *RESOURCE_MNG.GetTexture("Resouce/Texture/white.png");
 	KdMatrix vScale;
 	vScale.CreateScale(1280, 720, 0);
 	vMat.CreateTrans(1280 / 2, 720 / 2, 0);
