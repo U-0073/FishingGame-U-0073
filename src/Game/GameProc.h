@@ -2,6 +2,7 @@
 
 class CGameProc
 {
+public:
 	CGameProc();
 	~CGameProc();
 	void Init();
@@ -10,9 +11,12 @@ class CGameProc
 	void End();
 
 private:
+	//å≈íËòg
 	LPDIRECT3DTEXTURE9 ringTex;
 	KdMatrix ringMat;
-	LPDIRECT3DTEXTURE9 notesTex;
-
+	float scale;
+	//ÉmÅ[Éc
+	KdMatrix notesMat;
+	//îªíËï∂éö
 	LPDIRECT3DTEXTURE9 JudgeTex;
 };
