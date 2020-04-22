@@ -7,6 +7,7 @@ class Port;
 class Fish;
 class C_Player;		//プレイヤー全般
 class C_Fishing;
+class CShopObject;
 
 class Sea;
 
