@@ -10,7 +10,7 @@ CGameProc::~CGameProc()
 
 void CGameProc::Init()
 {
-	ringTex = *RESOURCE_MNG.GetTexture("Resouce/Texture/Ring.png", NULL);
+	ringTex = *RESOURCE_MNG.GetTexture("Resouce/Texture/Ring.png");
 	ringMat.CreateTrans(KdVec3(1280 / 2, 720 / 2, 0));
 }
 
