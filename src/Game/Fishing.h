@@ -11,11 +11,11 @@ public:
 	~C_Fishing();
 
 	void Init()	override;
-	void Start();
 	void End();
 	void Update()override;
 	void Draw2D()override;
 	void Draw3D()override;
+
 
 	const void SetPlayerPos(const KdVec3& Vec) { PlayerPos = Vec; }
 	const void SetCamAngY(const float& f) { CamAngY = f; }

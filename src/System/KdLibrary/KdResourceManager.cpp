@@ -65,6 +65,33 @@ std::shared_ptr < LPDIRECT3DTEXTURE9 >KdResourcemanager::GetTexture(const std::s
 
 
 }
+std::shared_ptr < KdTexture >KdResourcemanager::GetTexture(const std::string& Path)
+{
+	//既に読み込んだかどうかを調べる
+	if (K_texture.find(Path) != K_texture.end()) {
+		//既にあった
+		return K_texture[Path];
+		//↑指定したキーにつながっている要素にアクセス
+		//存在しないキーを使った場合、自動追加してしまう
+	}
+
+
+	//まだなかった
+	auto nTexture=std::make_shared<KdTexture>();
+
+	if (nTexture->Load(Path) == false) {
+
+		//読み込めなかった
+	
+		return nullptr;
+	}
+	//リストに追加
+	K_texture[Path] = nTexture;
+
+	return nTexture;
+
+
+}
 
 
 

@@ -122,6 +122,9 @@
     <ClCompile Include="src\Game\CTitleScene.cpp">
       <Filter>src\シーン</Filter>
     </ClCompile>
+    <ClCompile Include="src\System\KdLibrary\KdTexture.cpp">
+      <Filter>ライブラリ</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\System\Component\InputComponent.h">
@@ -216,6 +219,9 @@
     </ClInclude>
     <ClInclude Include="src\Game\CTitleScene.h">
       <Filter>src\シーン</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\KdLibrary\KdTexture.h">
+      <Filter>ライブラリ</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

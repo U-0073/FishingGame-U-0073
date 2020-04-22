@@ -4,7 +4,6 @@ class GameObject
 {
 public:
 	GameObject();
-
 	~GameObject();
 	virtual void Init();		//‰¼‘zŠÖ”
 	virtual void Update() = 0;	//ƒˆ‰¼‘zŠÖ”
@@ -14,6 +13,5 @@ public:
 protected:
 	KdMatrix m_world;
 	std::shared_ptr<KdModel> m_pModel = nullptr;
-	std::shared_ptr<KdModel> m_pModel2 = nullptr;
 
 };

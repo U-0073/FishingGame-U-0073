@@ -82,6 +82,7 @@
 
 
 #include "KdModel.h"
+#include"KdTexture.h"
 #include "../FrameBase/wavread.h"
 #include"../FrameBase/Fade.h"
 

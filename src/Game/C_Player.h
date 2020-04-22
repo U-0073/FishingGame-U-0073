@@ -13,13 +13,6 @@ struct S_CoordVec {
 	
 };
 
-// ’¸“_î•ñ‚Ì’è‹`
-struct VERTEX2
-{
-	D3DXVECTOR3 Pos;
-	D3DCOLOR	Color;
-	D3DXVECTOR2 Tex;
-};
 
 class C_Player :public GameObject {
 public:
