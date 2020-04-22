@@ -11,8 +11,8 @@ class CGameProc
 
 private:
 	LPDIRECT3DTEXTURE9 ringTex;
+	KdMatrix ringMat;
 	LPDIRECT3DTEXTURE9 notesTex;
 
 	LPDIRECT3DTEXTURE9 JudgeTex;
-
 };
