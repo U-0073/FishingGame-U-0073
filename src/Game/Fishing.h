@@ -11,7 +11,6 @@ public:
 	~C_Fishing();
 
 	void Init()	override;
-	void Start();
 	void End();
 	void Update()override;
 	void Draw2D()override;

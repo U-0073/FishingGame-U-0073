@@ -40,16 +40,17 @@ void C_Fishing::Update() {
 }
 void C_Fishing::FishingProc()
 {
-	static bool flg = false;
+	static bool StopFlg = false;
 	static bool HitFlg = false;
 	KdMatrix RotMat;
 	D3DXVECTOR3	Vec;
 
 	if (FishSceneFlg) {
-		if (!flg) {
+		if (!StopFlg) {
+			
 			RotMat.CreateRotationY(D3DXToRadian(CamAngY));
 			D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, 1), &RotMat);
-			flg = true;
+			StopFlg = true;
 			BuoiPos = PlayerPos + (Vec * 20.0f) + KdVec3(0.0f, -3.7f, 0.0f);
 		}
 		if (BuoiFlg && !HitFlg) {
@@ -62,7 +63,7 @@ void C_Fishing::FishingProc()
 		}
 	}
 	else {
-		flg = false;
+		StopFlg = false;
 		HitFlg = false;
 		GetFish = false;
 	}

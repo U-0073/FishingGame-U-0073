@@ -81,7 +81,7 @@ void CMapScene::Draw3D()
 	Seas->DrawObject();
 	m_Fishing->Draw3D();
 	//Fishes->Draw3D();
-	//m_Player->Draw3D();
+	m_Player->Draw3D();
 }
 
 void CMapScene::End()
