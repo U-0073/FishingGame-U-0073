@@ -10,6 +10,7 @@ public:
 
 
 	void Draw();
+	void DrawObject();
 
 	float Ray_Judge(D3DXVECTOR3 Pos);
 
@@ -17,9 +18,9 @@ public:
 private:
 
 
-	std::shared_ptr< LPDIRECT3DTEXTURE9> vTex;
-
-
+	std::shared_ptr<LPDIRECT3DTEXTURE9> vTex;
+	std::shared_ptr<KdModel>m_pModel;
+	D3DXMATRIX m_world;
 
 const int SIDE = 100;
 const int VIRTICAL = 100;

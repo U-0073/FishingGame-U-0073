@@ -36,6 +36,8 @@ public:
 	LPDIRECTSOUND8& GetlpDSound() { return lpDSound; }
 
 	void LoadTexture(LPDIRECT3DTEXTURE9* lpTex, const std::string &Path, int W, int H, const D3DCOLOR Color);
+	void LoadTexture(LPDIRECT3DTEXTURE9* lpTex, const std::string &Path, const D3DCOLOR Color);
+	void LoadTexture(LPDIRECT3DTEXTURE9* lpTex, const std::string &Path);
 
 	//=============================================
 	// èâä˙âª

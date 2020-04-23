@@ -7,16 +7,11 @@ public:
 	std::shared_ptr<KdModel>GetModel(const std::string&Filename);//ÉäÉ\Å[ÉXÇÃä«óù
 	void clear(void) { m_models.clear(); m_texture.clear(); }
 
-	//void LoadTexture(LPDIRECT3DTEXTURE9* lpTex, const std::string& Path, int W, int H, const D3DCOLOR Color)
-	//{
-	//	if (W == 0)W = D3DX_DEFAULT;
-	//	if (H == 0)H = D3DX_DEFAULT;
-	//	D3DXCreateTextureFromFileEx(KD3D.GetDev(), Path.c_str(), W, H, 1, 0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED, D3DX_FILTER_NONE, D3DX_DEFAULT, Color, NULL, NULL, lpTex);
 
-	//}
 
-	std::shared_ptr < LPDIRECT3DTEXTURE9> GetTexture( const std::string& Path,  int W,  int H, const D3DCOLOR Color);
-	//void GetTexture(LPDIRECT3DTEXTURE9& lpTex, const std::string& Path, const int W, const int H, const D3DCOLOR Color);
+	std::shared_ptr <LPDIRECT3DTEXTURE9> GetTexture(const std::string& Path, int W, int H, const D3DCOLOR Color);
+	std::shared_ptr <LPDIRECT3DTEXTURE9> GetTexture(const std::string& Path, const D3DCOLOR Color);
+	std::shared_ptr <LPDIRECT3DTEXTURE9> GetTexture(const std::string& Path);
 	std::shared_ptr<SoundBase>GetSound(const char* Path);
 private:
 

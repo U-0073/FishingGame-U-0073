@@ -56,24 +56,26 @@ bool KdModel::LoadXFile(const std::string& filename)
 		if (d3dxMaterials[i].pTextureFilename) { strTexFile += d3dxMaterials[i].pTextureFilename; }
 
 		// テクスチャ読み込み
-		D3DXIMAGE_INFO		m_Info;					// 情報(ここで必要かは不明)
+		/*
+		D3DXIMAGE_INFO		m_Info;			
 		HRESULT hr = D3DXCreateTextureFromFileEx(
 			KD3D.GetDev(),
 			strTexFile.c_str(),
-			D3DX_DEFAULT_NONPOW2,			// Width
-			D3DX_DEFAULT_NONPOW2,			// Height
-			D3DX_DEFAULT,					// MipLevels
-			0,								// Usage
-			D3DFMT_UNKNOWN,					// Format
-			D3DPOOL_DEFAULT,				// Pool
-			D3DX_DEFAULT,					// Filter
-			D3DX_DEFAULT,					// MipFilter
-			0,								// ColorKey	 カラーキー ARGBで指定。0で無し。 
-			&m_Info,						// 画像情報取得
-			nullptr,						// 
-			&m_materials[i].pTex);			// 読み込んだテクスチャを受け取る
+			D3DX_DEFAULT_NONPOW2,			
+			D3DX_DEFAULT_NONPOW2,			
+			D3DX_DEFAULT,					
+			0,								
+			D3DFMT_UNKNOWN,					
+			D3DPOOL_DEFAULT,				
+			D3DX_DEFAULT,					
+			D3DX_DEFAULT,					
+			0,								 
+			&m_Info,						
+			nullptr,						
+			&m_materials[i].pTex);			
+		*/
 
-
+		m_materials[i].pTex = *RESOURCE_MNG.GetTexture(strTexFile.c_str());
 	}
 
 	// 作業用マテリアル バッファ開放

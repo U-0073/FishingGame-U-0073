@@ -12,7 +12,7 @@ CTitleScene::CTitleScene()
 	title->Init();
 	
 	CAMERA.SetCameraPos(D3DXVECTOR3(0,3,-5), Fishes->GetFishPos());
-	vTex = *RESOURCE_MNG.GetTexture("Resouce/Texture/white.png", 3, 3, NULL);
+	vTex = *RESOURCE_MNG.GetTexture("Resouce/Texture/white.png");
 	D3DXMatrixTranslation(&mMat, 1280.0f / 2, 720.0f / 2, 0.0f);
 	D3DXMatrixScaling(&mScale, 1290.0f, 730.0f, 0.0f);
 	mMat = mScale * mMat;
@@ -42,7 +42,7 @@ int CTitleScene::Update()
 	if (GetKey(VK_RETURN) & 0x8000)
 	{
 		MoveFlg = true;
-		//return GAME;
+		//return MAP;
 	}
 	if (MoveFlg) {
 		if (Fishes->GetFishPos().z < -30) {
@@ -50,7 +50,7 @@ int CTitleScene::Update()
 		}
 		if (Alpha > 255) {
 			Alpha = 255;
-			return GAME;
+			return MAP;
 		}
 		Fishes->TitleUpdate();
 		CAMERA.SetCameraPos(D3DXVECTOR3(0, 3, -5), Fishes->GetFishPos());
