@@ -29,7 +29,7 @@ int CShopScene::Update()
 	//ƒV[ƒ“Ø‚è‘Ö‚¦
 	if (GetKey('O') & 0x8000)
 	{
-		return GAME;
+		return MAP;
 	}
 	return SHOP;
 }

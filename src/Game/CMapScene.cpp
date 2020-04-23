@@ -1,5 +1,5 @@
 #include"../System/KdLibrary/KdLibrary.h"
-#include"CGameScene.h"
+#include"CMapScene.h"
 //―――――――――――――――――――――――――
 #include "structList.h"
 #include"C_Player.h"
@@ -12,7 +12,7 @@
 
 
 
-CGameScene::CGameScene()
+CMapScene::CMapScene()
 {
 	//スカイスフィア
 	Sky = std::make_shared<Skysphere>();
@@ -34,16 +34,16 @@ CGameScene::CGameScene()
 	m_PSound->Playsound("Resouce/Sound/wave3.wav", true, false);
 }
 
-CGameScene::~CGameScene()
+CMapScene::~CMapScene()
 {
 }
 
-void CGameScene::Init()
+void CMapScene::Init()
 {
 
 }
 
-int CGameScene::Update()
+int CMapScene::Update()
 {
 	m_Player->Update();
 	Sky->SetPos(m_Player->GetPlayerPos());
@@ -64,16 +64,16 @@ int CGameScene::Update()
 	if (GetKey('I') & 0x8000) {
 		return SHOP;
 	}
-	return GAME;
+	return MAP;
 }
 
-void CGameScene::Draw2D()
+void CMapScene::Draw2D()
 {
 	m_Player->Draw2D();
 	m_Fishing->Draw2D();
 }
 
-void CGameScene::Draw3D()
+void CMapScene::Draw3D()
 {
 	Sky->Draw3D();
 	m_Port->Draw3D();
@@ -84,7 +84,7 @@ void CGameScene::Draw3D()
 	//m_Player->Draw3D();
 }
 
-void CGameScene::End()
+void CMapScene::End()
 {
 	m_PSound->LDSB8->Stop();
 }
