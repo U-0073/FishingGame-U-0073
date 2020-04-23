@@ -11,7 +11,7 @@ Shop2D::~Shop2D()
 
 void Shop2D::Init()
 {
-	vTex = *RESOURCE_MNG.GetTexture("Resouce/Texture/Title.png", 674, 108, D3DCOLOR_ARGB(255, 255, 255, 255));
+	vTex = *RESOURCE_MNG.GetTexture("Resouce/Texture/Title.png", D3DCOLOR_ARGB(255, 255, 255, 255));
 
 	D3DXMatrixTranslation(&mMat, 0.0f, 0.0f, 0.0f);
 }

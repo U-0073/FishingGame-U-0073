@@ -14,6 +14,5 @@ public:
 protected:
 	KdMatrix m_world;
 	std::shared_ptr<KdModel> m_pModel = nullptr;
-	std::shared_ptr<KdModel> m_pModel2 = nullptr;
 
 };

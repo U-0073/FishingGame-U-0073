@@ -321,3 +321,19 @@ void KdDirect3D::LoadTexture(LPDIRECT3DTEXTURE9* lpTex, const std::string &Path,
 	//‰½ŒÌ‚©“®‚¢‚¿‚á‚Á‚½•û
 	//D3DXCreateTextureFromFile(KD3D.GetDev(), Path.c_str(), lpTex);
 }
+void KdDirect3D::LoadTexture(LPDIRECT3DTEXTURE9* lpTex, const std::string &Path, const D3DCOLOR Color)
+{
+	
+	//‰½ŒÌ‚©“®‚©‚È‚¢‚Ù‚¤
+	D3DXCreateTextureFromFileEx(m_lpD3DDev,Path.c_str(), D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, 1, 0, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_DEFAULT, Color, nullptr, nullptr, lpTex);
+	//‰½ŒÌ‚©“®‚¢‚¿‚á‚Á‚½•û
+	//D3DXCreateTextureFromFile(KD3D.GetDev(), Path.c_str(), lpTex);
+}
+void KdDirect3D::LoadTexture(LPDIRECT3DTEXTURE9* lpTex, const std::string &Path)
+{
+	
+	//‰½ŒÌ‚©“®‚©‚È‚¢‚Ù‚¤
+	D3DXCreateTextureFromFileEx(m_lpD3DDev,Path.c_str(), D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, 1, 0, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_DEFAULT, 0, nullptr, nullptr, lpTex);
+	//‰½ŒÌ‚©“®‚¢‚¿‚á‚Á‚½•û
+	//D3DXCreateTextureFromFile(KD3D.GetDev(), Path.c_str(), lpTex);
+}
