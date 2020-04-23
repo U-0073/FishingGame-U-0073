@@ -1,8 +1,9 @@
 ﻿#include"../KdLibrary/KdLibrary.h"
 #include "CGameFrame.h"
 #include "CSceneBase.h"
-#include"../../Game/CMapScene.h"
 #include"../../Game/CTitleScene.h"
+#include"../../Game/CMapScene.h"
+#include"../../Game/CGameScene.h"
 #include"../../Game/CShopScene.h"
 
 LRESULT APIENTRY WndFunc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -137,7 +138,8 @@ void CGameFrame::GameLoop()
 				nowScene->Init();
 				break;
 			case GAME:
-
+				nowScene = std::make_shared<CGameScene>();
+				nowScene->Init();
 				break;
 			case MAP:
 				nowScene = std::make_shared<CMapScene>();

@@ -21,7 +21,6 @@ public:
 	int Update()override;
 	void Draw2D()override;
 	void Draw3D()override;
-	void CTitleScene::LoadTexture(LPDIRECT3DTEXTURE9* lpTex, const std::string Path, int W, int H, const D3DCOLOR Color);
 
 	int GetID()override { return TITLE; };
 

@@ -125,6 +125,9 @@
     <ClCompile Include="src\Game\CMapScene.cpp">
       <Filter>src\シーン</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\CGameScene.cpp">
+      <Filter>src\シーン</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\System\Component\InputComponent.h">
@@ -221,6 +224,9 @@
       <Filter>src\ゲーム</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\CMapScene.h">
+      <Filter>src\シーン</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\CGameScene.h">
       <Filter>src\シーン</Filter>
     </ClInclude>
   </ItemGroup>
