@@ -144,7 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Game\CGameScene.cpp" />
+    <ClCompile Include="src\Game\CMapScene.cpp" />
     <ClCompile Include="src\Game\CShopScene.cpp" />
     <ClCompile Include="src\Game\CTitleScene.cpp" />
     <ClCompile Include="src\Game\Fish.cpp" />
@@ -177,7 +177,7 @@
     <ClCompile Include="src\System\KdLibrary\KdResourceManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Game\CGameScene.h" />
+    <ClInclude Include="src\Game\CMapScene.h" />
     <ClInclude Include="src\Game\CShopScene.h" />
     <ClInclude Include="src\Game\CTitleScene.h" />
     <ClInclude Include="src\Game\Fish.h" />

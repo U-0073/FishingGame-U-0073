@@ -42,7 +42,7 @@ int CTitleScene::Update()
 	if (GetKey(VK_RETURN) & 0x8000)
 	{
 		MoveFlg = true;
-		//return GAME;
+		//return MAP;
 	}
 	if (MoveFlg) {
 		if (Fishes->GetFishPos().z < -30) {
@@ -50,7 +50,7 @@ int CTitleScene::Update()
 		}
 		if (Alpha > 255) {
 			Alpha = 255;
-			return GAME;
+			return MAP;
 		}
 		Fishes->TitleUpdate();
 		CAMERA.SetCameraPos(D3DXVECTOR3(0, 3, -5), Fishes->GetFishPos());

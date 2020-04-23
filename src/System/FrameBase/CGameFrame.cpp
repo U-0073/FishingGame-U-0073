@@ -1,7 +1,7 @@
 ﻿#include"../KdLibrary/KdLibrary.h"
 #include "CGameFrame.h"
 #include "CSceneBase.h"
-#include"../../Game/CGameScene.h"
+#include"../../Game/CMapScene.h"
 #include"../../Game/CTitleScene.h"
 #include"../../Game/CShopScene.h"
 
@@ -137,7 +137,10 @@ void CGameFrame::GameLoop()
 				nowScene->Init();
 				break;
 			case GAME:
-				nowScene = std::make_shared<CGameScene>();
+
+				break;
+			case MAP:
+				nowScene = std::make_shared<CMapScene>();
 				nowScene->Init();
 				break;
 			case SHOP:

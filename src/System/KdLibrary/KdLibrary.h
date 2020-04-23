@@ -90,6 +90,7 @@
 enum Scene
 {
 	TITLE,
+	MAP,
 	GAME,
 	SHOP
 };
