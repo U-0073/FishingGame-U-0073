@@ -18,12 +18,17 @@ void CGameProc::Init()
 
 void CGameProc::Update()
 {
+	if (GetKey(VK_LBUTTON) & 0x8000) {
+		if (scale > 0.9 && scale < 1.1) {
 
-	scale -= 0.005f;
+		}
+	}
+
+	scale -= 0.01f;
 	if (scale < 0.0f) {
 		scale = 2.0f;
 	}
-
+	
 }
 
 void CGameProc::Draw()
