@@ -60,6 +60,9 @@ int CTitleScene::Update()
 	if (GetKey('I') & 0x8000) {
 		return SHOP;
 	}
+	if (GetKey('G') & 0x8000) {
+		return GAME;
+	}
 	return TITLE;
 }
 

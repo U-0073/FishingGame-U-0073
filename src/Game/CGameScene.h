@@ -21,7 +21,7 @@ private:
 	std::shared_ptr<CGameProc> gameProc = nullptr;
 
 
-	D3DXMATRIX mMat;
-	LPDIRECT3DTEXTURE9 vTex;
+	KdMatrix BackMat;
+	LPDIRECT3DTEXTURE9 BackTex;
 
 };
