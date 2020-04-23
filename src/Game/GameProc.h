@@ -21,5 +21,6 @@ private:
 	LPDIRECT3DTEXTURE9 JudgeTex;
 	//‹›‚ª’Þ‚ê‚é‚Ü‚Å‚Ì‹——£
 	float dist;
-
+	int level;
+	int size;
 };
