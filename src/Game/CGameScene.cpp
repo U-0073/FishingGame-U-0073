@@ -16,7 +16,7 @@ CGameScene::~CGameScene()
 
 void CGameScene::Init()
 {
-
+	BackTex = *RESOURCE_MNG.GetTexture("Resouce/Texture/SeaBack001.png");
 }
 
 int CGameScene::Update()
