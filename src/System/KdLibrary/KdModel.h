@@ -17,6 +17,7 @@ public:
 	~KdModel(){
 		Release();
 	}
+	LPD3DXMESH& GetMesh(void) { return m_pMesh; }
 
 private:
 	// ƒƒbƒVƒ…
