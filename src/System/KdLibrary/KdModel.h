@@ -1,6 +1,6 @@
 #pragma once
 
-class KdModel{
+class KdModel {
 public:
 	// Xファイル読み込み
 	// ・filename	: ファイル名
@@ -14,7 +14,7 @@ public:
 	void Draw();
 
 	// デストラクタ(このクラスが消えるときに、自動で実行される関数です)
-	~KdModel(){
+	~KdModel() {
 		Release();
 	}
 	LPD3DXMESH& GetMesh(void) { return m_pMesh; }
@@ -24,7 +24,7 @@ private:
 	LPD3DXMESH	m_pMesh = nullptr;
 
 	// マテリアル構造体
-	struct Material{
+	struct Material {
 		D3DMATERIAL9 matD3D;		// 材質
 		LPDIRECT3DTEXTURE9 pTex;	// 画像
 	};
