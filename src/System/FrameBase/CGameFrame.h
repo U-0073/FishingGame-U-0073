@@ -3,18 +3,16 @@
 
 
 class CSceneBase;
-class CMapScene;
 class CTitleScene;
+class CMapScene;
+class CGameScene;
 class CShopScene;
 
 class CCamera;
 
-
 class CGameFrame
 {
 public:
-
-
 
 	const bool Initialize(HINSTANCE aHInst, const int aCmdShow);
 	void GameLoop();

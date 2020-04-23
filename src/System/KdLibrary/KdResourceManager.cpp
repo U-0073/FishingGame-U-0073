@@ -62,7 +62,7 @@ std::shared_ptr < LPDIRECT3DTEXTURE9 >KdResourcemanager::GetTexture(const std::s
 
 
 
-
+	//
 
 }
 std::shared_ptr < LPDIRECT3DTEXTURE9 >KdResourcemanager::GetTexture(const std::string& Path, const D3DCOLOR Color)
