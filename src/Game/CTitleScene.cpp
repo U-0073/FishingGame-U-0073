@@ -40,7 +40,8 @@ int CTitleScene::Update()
 
 	//ƒV[ƒ“Ø‚è‘Ö‚¦
 	if (GetKey(VK_RETURN) & 0x8000)
-	{
+	{		
+	FADE.Start(50);
 		MoveFlg = true;
 		//return MAP;
 	}
@@ -50,6 +51,7 @@ int CTitleScene::Update()
 		}
 		if (Alpha > 255) {
 			Alpha = 255;
+
 			return MAP;
 		}
 		Fishes->TitleUpdate();
@@ -58,7 +60,12 @@ int CTitleScene::Update()
 	if (Fishes->GetFishPos().z < -100) {
 	}
 	if (GetKey('I') & 0x8000) {
+		FADE.Start(50);
 		return SHOP;
+	}
+	if (GetKey('G') & 0x8000) {
+		FADE.Start(50);
+		return GAME;
 	}
 	return TITLE;
 }
@@ -75,11 +82,11 @@ void CTitleScene::Draw3D()
 	Sky->Draw3D();
 	Fishes->Draw3D();
 
-	SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
-	RECT rcTitle = { 1,1,2,2 };
-	SPRITE->SetTransform(&mMat);
-	SPRITE->Draw(vTex, &rcTitle, &D3DXVECTOR3(0.5f, 0.5f, 0.0f), NULL, D3DCOLOR_ARGB((int)Alpha, 255, 255, 255));
-	SPRITE->End();
+	//SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
+	//RECT rcTitle = { 1,1,2,2 };
+	//SPRITE->SetTransform(&mMat);
+	//SPRITE->Draw(vTex, &rcTitle, &D3DXVECTOR3(0.5f, 0.5f, 0.0f), NULL, D3DCOLOR_ARGB((int)Alpha, 255, 255, 255));
+	//SPRITE->End();
 
 }
 

@@ -17,6 +17,8 @@ CMapScene::CMapScene()
 	//スカイスフィア
 	Sky = std::make_shared<Skysphere>();
 	Sky->Init();
+
+	
 	//海
 	Seas = std::make_shared<Sea>();
 	//港
@@ -29,10 +31,9 @@ CMapScene::CMapScene()
 
 	m_Fishing = std::make_shared<C_Fishing>();
 	m_Fishing->Init();
-
 	m_PSound = RESOURCE_MNG.GetSound("Resouce/Sound/wave3.wav");
 	m_PSound->Playsound("Resouce/Sound/wave3.wav", true, false);
-}
+	}
 
 CMapScene::~CMapScene()
 {
@@ -59,11 +60,18 @@ int CMapScene::Update()
 
 	if (GetKey(VK_SPACE) & 0x8000) 
 	{
+		FADE.Start(5);
 		return TITLE;
 	}
 	if (GetKey('I') & 0x8000) {
+		FADE.Start(5);
 		return SHOP;
 	}
+	if (GetKey('G') & 0x8000) {
+		FADE.Start(5);
+		return GAME;
+	}
+
 	return MAP;
 }
 

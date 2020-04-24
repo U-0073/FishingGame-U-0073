@@ -99,7 +99,7 @@ const bool CGameFrame::Initialize(HINSTANCE aHInst, const int aCmdShow)
 	
 
 	nowScene = std::make_shared<CTitleScene>();
-	//nowScene = std::make_shared<CGameScene>();
+	nowscene = nowScene->GetID();
 	CAMERA.Set(mWindowSize);
 
 
@@ -119,46 +119,66 @@ void CGameFrame::GameLoop()
 		D3DCLEAR_TARGET | // ARGB情報
 		D3DCLEAR_ZBUFFER | // 奥行情報
 		D3DCLEAR_STENCIL;	// マスク用情報
-	KD3D.GetDev()->Clear(0, nullptr, flags, D3DCOLOR_ARGB(255, 0, 0, 255), 1.0f, 0);
 
 
-	if (nowScene) {
-	//シーンの更新
-		nextscene = nowScene->Update();
-		
-		if (nextscene != nowScene->GetID()) 
-		{
-			nowScene->End();
-			nowScene=nullptr;
 
-			switch (nextscene) 
+
+
+
+
+	if (nextscene != nowscene)//シーンIDの比較
+	{
+
+
+		if (FADE.GetLoadOKFlg()) {
+			
+			SceneClear();
+			switch (nextscene)
 			{
 			case TITLE:
+
 				nowScene = std::make_shared<CTitleScene>();
 				nowScene->Init();
+				nowscene = nowScene->GetID();//シーンIDの保存
 				break;
 			case GAME:
+
 				nowScene = std::make_shared<CGameScene>();
 				nowScene->Init();
+				nowscene = nowScene->GetID();//シーンIDの保存
 				break;
 			case MAP:
 				nowScene = std::make_shared<CMapScene>();
 				nowScene->Init();
+				nowscene = nowScene->GetID();//シーンIDの保存
 				break;
 			case SHOP:
 				nowScene = std::make_shared<CShopScene>();
 				nowScene->Init();
+				nowscene = nowScene->GetID();//シーンIDの保存
 				break;
 			}
-			nowScene->Update();
+
+
+			//nowScene->Update();
 		}
+	}
+	
+		KD3D.GetDev()->Clear(0, nullptr, flags, D3DCOLOR_ARGB(255, 0, 0, 255), 1.0f, 0);
+
+
+
+	if (nowScene&&nextscene==nowscene) {
+		//シーンの更新
+		nextscene = nowScene->Update();
 
 	}
-	if (GetKey('F') & 0x8000) {
-		FADE.Start(4.5f);
-	}
+
+
+
 
 	FADE.Update();
+
 	// 描画開始
 	KD3D.GetDev()->BeginScene();
 
@@ -166,12 +186,15 @@ void CGameFrame::GameLoop()
 	
 	CAMERA.Set(mWindowSize);
 
-	
+	if (nowScene) {
 
-	//2D描画.
-	nowScene->Draw2D();
-	//3D描画.
-	nowScene->Draw3D();
+
+		//2D描画.
+		nowScene->Draw2D();
+		//3D描画.
+		nowScene->Draw3D();
+
+	}
 	FADE.Draw();
 
 	// 描画終了
@@ -210,6 +233,13 @@ const bool CGameFrame::CreateDirectX9() {
 		return false;
 	}
 	return true;
+}
+void CGameFrame::SceneClear()
+{
+	if (nowScene) {
+		nowScene->End();
+		nowScene = nullptr;
+	}
 }
 //
 //const bool CGameFrame::CreateDirectX9()

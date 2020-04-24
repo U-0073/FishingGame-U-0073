@@ -4,7 +4,6 @@
 #include"Shop2D.h"
 
 class Shop2D;
-class CGameProc;
 
 class CShopScene : public CSceneBase
 {
@@ -21,7 +20,6 @@ public:
 
 private:
 	std::shared_ptr<Shop2D> shop = nullptr;
-	std::shared_ptr<CGameProc> gameProc = nullptr;
 
 
 	D3DXMATRIX mMat;
