@@ -22,6 +22,7 @@ void C_Player::Init()
 	GameObject::Init();
 	CollisionMat.CreateTrans(0.0f, -1.5f, 0.0f);
 	CollisionModel = RESOURCE_MNG.GetModel("./Resouce/3DModel/PortWall_Collision.x");
+	m_pModel = RESOURCE_MNG.GetModel("./Resouce/3DModel/Port.x");
 
 	//ポインター関係
 	BasePt.x = SCRW / 2;
@@ -58,6 +59,17 @@ void C_Player::End()
 
 void C_Player::Update()
 {
+	if (GetKey('Z') & 0x8000) {//前へ
+		KdVec3 Vec(0.0f, 0.1f, 0.0f);
+		if (PlayerPos.y > 0)PlayerPos -= Vec;
+		else PlayerPos.y = 0;
+	}
+	if (GetKey('X') & 0x8000) {//前へ
+		KdVec3 Vec(0.0f, 0.1f, 0.0f);
+		PlayerPos += Vec;
+	}
+
+
 	FlgProc();
 	MoveProc();
 	CameraProc();
@@ -92,7 +104,12 @@ void C_Player::FlgProc()
 
 void C_Player::MoveProc()
 {
-	static bool KeyCheck = false;
+	Earth();
+	Move();
+}
+
+void C_Player::Move()
+{
 	bool	MoveFlg = false;
 
 	if (!FishFlg) {
@@ -132,16 +149,37 @@ void C_Player::MoveProc()
 	m_world = PlayerRot * TransMat;
 }
 
+void C_Player::Earth()
+{
+	KdVec3 Vec(0.0f, -1.0f, 0.0f);
+	KdVec3 TmpPos(0.0f, 1.0f, 0.0f);
+
+	static bool Stop = false;
+	static float TmpDis;
+	//かべずり判定（メッシュ）
+	D3DXMATRIX	InvMat;
+	D3DXMatrixInverse(&InvMat, NULL, &CollisionMat);
+	D3DXVECTOR3	LocalPos, LocalVec;
+	D3DXVec3TransformCoord(&LocalPos, &(PlayerPos + TmpPos), &InvMat);
+	D3DXVec3TransformNormal(&LocalVec, &Vec, &InvMat);
+
+	BOOL Hit;
+	DWORD PolyNo;	//ポリゴン番号
+	D3DXIntersect(m_pModel->GetMesh(), &LocalPos, &LocalVec, &Hit,
+		&PolyNo, NULL, NULL, &TextMeshDis, NULL, NULL);
+
+
+	if (!Stop) {
+		TmpDis = TextMeshDis;
+		Stop = true;
+	}
+	//PlayerPos.y = TextMeshDis -TmpDis;
+}
+
 
 void C_Player::CameraProc()
 {
 	if (!FishFlg && !RestoreFlg) {
-		if (GetKey('Q') & 0x8000) {
-			CamAngY += 1.0f;
-		}
-		if (GetKey('R') & 0x8000) {
-			CamAngY -= 1.0f;
-		}
 		if (GetKey(VK_RIGHT) & 0x8000) {
 			CamAngY += 1.0f;
 		}
@@ -156,11 +194,11 @@ void C_Player::CameraProc()
 		}
 	}
 
-	//マウス関係の計算
-	MouseUpdate();
-
 	//釣り状態移行時のカメラの動き
 	CameraSet();
+
+	//マウス関係の計算
+	MouseUpdate();
 }
 void C_Player::MouseUpdate() {
 	POINT Pt;
@@ -169,10 +207,13 @@ void C_Player::MouseUpdate() {
 	//釣りモードじゃないときにマウスでカメラの回転をできるように移動させる
 	if (!FishFlg && !RestoreFlg)
 	{
-		long Move = (Pt.x - BasePt.x);
-		if ((Move >= 3) || (Move <= -3))
-		{
+		long MoveX = (Pt.x - BasePt.x);
+		if ((MoveX >= 3) || (MoveX <= -3)){
 			CamAngY += (Pt.x - BasePt.x) / 4.0f;
+		}
+
+		long MoveY = (Pt.y - BasePt.y);
+		if ((MoveY >= 3) || (MoveY <= -3)){
 			CamAngX += (Pt.y - BasePt.y) / 4.0f;
 		}
 	}
@@ -182,7 +223,7 @@ void C_Player::MouseUpdate() {
 	if (CamAngY > 180)	CamAngY = -180;
 
 	if (CamAngX < -80.0f) CamAngX = -80.0f;
-	if (CamAngX > 20.0f && !RestoreFlg) CamAngX = 20.0f;
+	if (CamAngX > 40.0f && !RestoreFlg) CamAngX = 40.0f;
 
 	if (!FishFlg) SetCursorPos(BasePt.x, BasePt.y);
 }
@@ -315,8 +356,8 @@ void C_Player::Draw2D()
 	if (!FishFlg)KD3D.GetFont()->DrawText(NULL, "FishFlg=false", -1, &rcText4, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	else KD3D.GetFont()->DrawText(NULL, "FishFlg=true", -1, &rcText4, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	RECT rcText5 = { 10,30 * 5,0,0 };
-	if (!BuoiFlg)KD3D.GetFont()->DrawText(NULL, "BuoiFlg=false", -1, &rcText5, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	else KD3D.GetFont()->DrawText(NULL, "BuoiFlg=true", -1, &rcText5, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	sprintf_s(Text, sizeof(Text), "MeshDisY %f ", TextMeshDis);
+	KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText5, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	RECT rcText6 = { 10,30 * 6,0,0 };
 	sprintf_s(Text, sizeof(Text), "FishingScene_CamPos  x %f  y%f z %f ", FishScene_CamPos.x, FishScene_CamPos.y, FishScene_CamPos.z);
 	KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText6, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
@@ -360,6 +401,7 @@ void C_Player::MoveRay(D3DXVECTOR3 Vec)
 
 		CollisionModel->GetMesh()->UnlockVertexBuffer();
 
+
 		//壁ずりプログラム	三角形の底面と斜面のベクトルを入手    →△
 		//法線の取得										こいつら↑
 		D3DXVECTOR3 Vec1, Vec2;
@@ -375,12 +417,14 @@ void C_Player::MoveRay(D3DXVECTOR3 Vec)
 		D3DXVec3Normalize(&WallVec, &WallVec);//正規化
 		//法線の取得完了
 
+
 		float Dot;
 		Dot = D3DXVec3Dot(&WallVec, &-Vec);//カメラの進行方向
 		float Limit;
 		Limit = 2 / Dot;
 		if (Limit < 0)Limit *= -1;
 		if (MeshDis < Limit) {
+
 			KdVec3 TmpVec = WallVec * ((Limit - MeshDis) * Dot);
 			TmpVec.Set(TmpVec.x, 0.0f, TmpVec.z);
 			PlayerPos += TmpVec;//法線方向に押し出す

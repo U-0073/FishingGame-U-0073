@@ -49,10 +49,12 @@ private:
 	void End();
 
 	void FlgProc();			//大本のフラグ管理用関数
-	void MouseUpdate();
 	void MoveProc();
+	void Move();
+	void Earth();
 	void CameraProc();
 	void CameraSet();
+	void MouseUpdate();
 
 	void MoveRay(D3DXVECTOR3 Vec);	//当たり判定を含めた移動
 	//---------行列-------------
@@ -90,6 +92,7 @@ private:
 	float				CamAngX = 0.0f;
 	float				MoveSpeed = 0.1f;
 	float				FishScene_CamAngX = 0.0f;
+	float TextMeshDis;
 
 	bool				FishFlg = false;
 	bool				RestoreFlg = false;
