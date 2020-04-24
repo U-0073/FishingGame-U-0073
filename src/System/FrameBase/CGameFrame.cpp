@@ -119,51 +119,60 @@ void CGameFrame::GameLoop()
 		D3DCLEAR_TARGET | // ARGB情報
 		D3DCLEAR_ZBUFFER | // 奥行情報
 		D3DCLEAR_STENCIL;	// マスク用情報
-	KD3D.GetDev()->Clear(0, nullptr, flags, D3DCOLOR_ARGB(255, 0, 0, 255), 1.0f, 0);
 
 
 
 
-	if (nowScene) {
-		//シーンの更新
-		nextscene = nowScene->Update();
 
-	}
+
+
 	if (nextscene != nowscene)//シーンIDの比較
 	{
 
 
 		if (FADE.GetLoadOKFlg()) {
+			
+			SceneClear();
 			switch (nextscene)
 			{
 			case TITLE:
-				SceneClear();
+
 				nowScene = std::make_shared<CTitleScene>();
 				nowScene->Init();
+				nowscene = nowScene->GetID();//シーンIDの保存
 				break;
 			case GAME:
-				SceneClear(); 
+
 				nowScene = std::make_shared<CGameScene>();
 				nowScene->Init();
-
+				nowscene = nowScene->GetID();//シーンIDの保存
 				break;
 			case MAP:
-				SceneClear();
 				nowScene = std::make_shared<CMapScene>();
 				nowScene->Init();
+				nowscene = nowScene->GetID();//シーンIDの保存
 				break;
 			case SHOP:
-				SceneClear();
 				nowScene = std::make_shared<CShopScene>();
 				nowScene->Init();
+				nowscene = nowScene->GetID();//シーンIDの保存
 				break;
 			}
 
-			nowscene = nowScene->GetID();//シーンIDの保存
+
 			//nowScene->Update();
 		}
 	}
+	
+		KD3D.GetDev()->Clear(0, nullptr, flags, D3DCOLOR_ARGB(255, 0, 0, 255), 1.0f, 0);
 
+
+
+	if (nowScene&&nextscene==nowscene) {
+		//シーンの更新
+		nextscene = nowScene->Update();
+
+	}
 
 
 
