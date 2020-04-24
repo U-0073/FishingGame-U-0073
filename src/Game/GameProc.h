@@ -16,6 +16,7 @@ private:
 	KdMatrix ringMat;
 	float scale;
 	//ƒm[ƒc
+	LPDIRECT3DTEXTURE9 notesTex;
 	KdMatrix notesMat;
 	//”»’è•¶š
 	LPDIRECT3DTEXTURE9 JudgeTex;
