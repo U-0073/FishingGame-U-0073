@@ -20,11 +20,11 @@ bool KdModel::LoadXFile(const std::string& filename)
 	// ファイル名記憶
 	m_fileName = szFname;
 	m_fileName += szExt;
-
-	// Xファイル読み込み
-	HRESULT hr;
 	LPD3DXBUFFER	pD3DXMtrlBuffer;
 	DWORD mateNum;
+	// Xファイル読み込み
+	HRESULT hr;
+
 	hr = D3DXLoadMeshFromX(filename.c_str(),
 		D3DXMESH_SYSTEMMEM,
 		KD3D.GetDev(),
@@ -55,25 +55,7 @@ bool KdModel::LoadXFile(const std::string& filename)
 		strTexFile = Path;
 		if (d3dxMaterials[i].pTextureFilename) { strTexFile += d3dxMaterials[i].pTextureFilename; }
 
-		// テクスチャ読み込み
-		/*
-		D3DXIMAGE_INFO		m_Info;			
-		HRESULT hr = D3DXCreateTextureFromFileEx(
-			KD3D.GetDev(),
-			strTexFile.c_str(),
-			D3DX_DEFAULT_NONPOW2,			
-			D3DX_DEFAULT_NONPOW2,			
-			D3DX_DEFAULT,					
-			0,								
-			D3DFMT_UNKNOWN,					
-			D3DPOOL_DEFAULT,				
-			D3DX_DEFAULT,					
-			D3DX_DEFAULT,					
-			0,								 
-			&m_Info,						
-			nullptr,						
-			&m_materials[i].pTex);			
-		*/
+
 
 		m_materials[i].pTex = *RESOURCE_MNG.GetTexture(strTexFile.c_str());
 	}

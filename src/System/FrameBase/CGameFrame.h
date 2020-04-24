@@ -24,6 +24,7 @@ private:
 	const bool CreateWNDCLASS(HINSTANCE aHInst);
 	const bool CreateHWND(HINSTANCE aHInst, const int aCmdShow);
 	const bool CreateDirectX9();
+	void SceneClear();
 
 	HWND					mpHwnd;
 	
@@ -37,7 +38,8 @@ private:
 	const D3DXVECTOR2       mWindowSize;
 	const std::string       mAppName;
 
-	int nextscene;
+	int nextscene,nowscene;
+
 
 
 public:

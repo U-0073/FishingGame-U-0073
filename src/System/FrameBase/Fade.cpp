@@ -24,9 +24,10 @@ void CFade::Update()
 		if (alpha > 255) {
 			alpha = 255;
 			accel *= -1;
+			ok = true;
 		}
 		//白が薄くなる
-		alpha += accel;
+		//alpha += accel;
 		if (alpha < 0) {
 			alpha = 0;
 			startflg = 0;
@@ -41,5 +42,16 @@ void CFade::Draw()
 	SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
 	SPRITE->SetTransform(&vMat);
 	SPRITE->Draw(vTex, &rc, &D3DXVECTOR3(0.5f, 0.5f, 0.0f), NULL, D3DCOLOR_ARGB((int)alpha, 255, 255, 255));
+
+
+	//ロードバー
+	/*KdMatrix LoadMat,LoadScal;
+	LoadMat.CreateTrans((1280 / 2) - 500, 690, 0);
+	LoadScal.CreateScale((1000 / mAllLoadCheck) * mLoadCheck, 20, 0);
+	LoadMat = LoadMat * LoadScal;
+	SPRITE->SetTransform(&LoadMat);
+	SPRITE->Draw(vTex, &rc, &D3DXVECTOR3(0.5f, 0.5f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 0, 0));*/
+
+
 	SPRITE->End();
 }
