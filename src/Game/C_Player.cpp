@@ -20,7 +20,8 @@ void C_Player::Init()
 {
 	PlayerPos = InitPos;
 	GameObject::Init();
-	m_pModel = RESOURCE_MNG.GetModel("./Resouce/3DModel/body.x");
+	CollisionMat.CreateTrans(0.0f, -1.5f, 0.0f);
+	CollisionModel = RESOURCE_MNG.GetModel("./Resouce/3DModel/PortWall_Collision.x");
 
 	//ポインター関係
 	BasePt.x = SCRW / 2;
@@ -30,33 +31,28 @@ void C_Player::Init()
 	SetCursorPos(BasePt.x, BasePt.y);
 	ShowCursor(FALSE);
 
-	//以下Json使用例
-	
+
+
+
+	//―――――――――――――以下Json使用例――――――――――――//
 	auto Json = std::make_shared<json11::Json>();
 	Json = JSONS.LoadJson("Default/Test.json");//読み込み
 	std::string tag = "Player";//VisualStudioバグ対策でstringは一度宣言してから入れて
 
-	bool test1 = JSONS.checkValue(Json, "Tag",tag);//文字列比較
+	bool test1 = JSONS.checkValue(Json, "Tag", tag);//文字列比較
 	test1 = JSONS.checkValue(Json, "Tag", 111);//数字と比較
 	//まだ使えない
-	JSONS.AddKeyValue(Json,"Value5", std::string("ABCD"));//要素の変更、追加
+	JSONS.AddKeyValue(Json, "Value5", std::string("ABCD"));//要素の変更、追加
 
 	JSONS.SaveJson(Json, "Save/Test.json");//セーブ
-
-
-
-
-
-
-
-
+	//――――――――――――――――――――――――――――――――//
 }
 void C_Player::Begin()
 {
 }
 void C_Player::End()
 {
-	m_pModel = nullptr;
+	CollisionModel = nullptr;
 }
 
 
@@ -66,6 +62,7 @@ void C_Player::Update()
 	MoveProc();
 	CameraProc();
 }
+
 
 void C_Player::FlgProc()
 {
@@ -104,28 +101,29 @@ void C_Player::MoveProc()
 			D3DXMatrixRotationY(&RotMat, D3DXToRadian(CamAngY));
 			D3DXVECTOR3	Vec;
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Front, &RotMat);
-			PlayerPos += Vec * MoveSpeed;
+
+			MoveRay(Vec);
 		}
 		if (GetKey('A') & 0x8000) {//左
 			D3DXMATRIX RotMat;
 			D3DXMatrixRotationY(&RotMat, D3DXToRadian(CamAngY));
 			D3DXVECTOR3	Vec;
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Left, &RotMat);
-			PlayerPos += Vec * MoveSpeed;
+			MoveRay(Vec);
 		}
 		if (GetKey('S') & 0x8000) {//後ろへ
 			D3DXMATRIX RotMat;
 			D3DXMatrixRotationY(&RotMat, D3DXToRadian(CamAngY));
 			D3DXVECTOR3	Vec;
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Back, &RotMat);
-			PlayerPos += Vec * MoveSpeed;
+			MoveRay(Vec);
 		}
 		if (GetKey('D') & 0x8000) {//右
 			D3DXMATRIX RotMat;
 			D3DXMatrixRotationY(&RotMat, D3DXToRadian(CamAngY));
 			D3DXVECTOR3	Vec;
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Right, &RotMat);
-			PlayerPos += Vec * MoveSpeed;
+			MoveRay(Vec);
 		}
 	}
 
@@ -138,17 +136,23 @@ void C_Player::MoveProc()
 void C_Player::CameraProc()
 {
 	if (!FishFlg && !RestoreFlg) {
+		if (GetKey('Q') & 0x8000) {
+			CamAngY += 1.0f;
+		}
+		if (GetKey('R') & 0x8000) {
+			CamAngY -= 1.0f;
+		}
 		if (GetKey(VK_RIGHT) & 0x8000) {
-			CamAngY += 2;
+			CamAngY += 1.0f;
 		}
 		if (GetKey(VK_LEFT) & 0x8000) {
-			CamAngY -= 2;
+			CamAngY -= 1.0f;
 		}
 		if (GetKey(VK_UP) & 0x8000) {
-			CamAngX -= 2;
+			CamAngX -= 1.0f;
 		}
 		if (GetKey(VK_DOWN) & 0x8000) {
-			CamAngX += 2;
+			CamAngX += 1.0f;
 		}
 	}
 
@@ -200,9 +204,9 @@ void C_Player::CameraSet()
 		StopFlg = false;
 		//釣りモードが解除されたとき、カメラの回転をもとに戻す
 		if (FishScene_CamAngX > 0) {
-			FishScene_CamAngX -= 0.6f;
+			FishScene_CamAngX -= 0.2f;
 			if (RestoreFlg) {
-				CamAngX -= 0.6f;
+				CamAngX -= 0.2f;
 				flg1 = false;
 			}
 		}
@@ -215,9 +219,9 @@ void C_Player::CameraSet()
 
 			CamRot.CreateRotationY(D3DXToRadian(CamAngY));
 			D3DXVec3TransformCoord(&TmpVec, &CoordVec.Z, &CamRot);
-			FishScene_CamPos -= TmpVec * 0.05f;
+			FishScene_CamPos -= TmpVec * 0.025f;
 			D3DXVec3TransformCoord(&TmpVec, &CoordVec.Y, &CamRot);
-			FishScene_CamPos -= TmpVec * 0.1f;
+			FishScene_CamPos -= TmpVec * 0.05f;
 		}
 		else {
 			FishScene_CamPos = InitCamPos;
@@ -246,7 +250,7 @@ void C_Player::CameraSet()
 			StopFlg = true;
 		}
 		//カメラのアングルを変更するプログラム
-		if (FishScene_CamAngX < CamAngX_MaxLimit)FishScene_CamAngX += 0.4f;
+		if (FishScene_CamAngX < CamAngX_MaxLimit)FishScene_CamAngX += 0.2f;
 		else {
 			FishScene_CamAngX = CamAngX_MaxLimit;
 			flg1 = true;
@@ -284,10 +288,11 @@ void C_Player::CameraSet()
 
 
 void C_Player::Draw3D() {
-	KD3D.SetWorldMatrix(&m_world);
+
+	KD3D.SetWorldMatrix(&CollisionMat);
 
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, TRUE);
-	m_pModel->Draw();
+	//CollisionModel->Draw();
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
 	//	Draw3DWall();
 }
@@ -296,28 +301,90 @@ void C_Player::Draw2D()
 	char Text[100];
 	RECT rcText = { 10,30 * 1,0,0 };
 	sprintf_s(Text, sizeof(Text), "FishSceneLength %f", FishScene_CamPos.Length());
-	KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	FONT->DrawText(NULL, Text, -1, &rcText, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	RECT rcText1 = { 10,30 * 7,0,0 };
 	sprintf_s(Text, sizeof(Text), "FishSceneCamAng x %f CamAng x %f  y%f", FishScene_CamAngX, CamAngX, CamAngY);
-	KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText1, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	FONT->DrawText(NULL, Text, -1, &rcText1, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	RECT rcText2 = { 10,30 * 2,0,0 };
 	sprintf_s(Text, sizeof(Text), "PlayerPos  x %f  y%f z %f ", PlayerPos.x, PlayerPos.y, PlayerPos.z);
-	KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText2, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	FONT->DrawText(NULL, Text, -1, &rcText2, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	RECT rcText3 = { 10,30 * 3,0,0 };
-	if (!RestoreFlg)KD3D.GetFont()->DrawText(NULL, "RestoreFlg=false", -1, &rcText3, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	else KD3D.GetFont()->DrawText(NULL, "RestoreFlg=true", -1, &rcText3, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	if (!RestoreFlg)FONT->DrawText(NULL, "RestoreFlg=false", -1, &rcText3, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	else FONT->DrawText(NULL, "RestoreFlg=true", -1, &rcText3, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	RECT rcText4 = { 10,30 * 4,0,0 };
-	if (!FishFlg)KD3D.GetFont()->DrawText(NULL, "FishFlg=false", -1, &rcText4, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	else KD3D.GetFont()->DrawText(NULL, "FishFlg=true", -1, &rcText4, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	if (!FishFlg)FONT->DrawText(NULL, "FishFlg=false", -1, &rcText4, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	else FONT->DrawText(NULL, "FishFlg=true", -1, &rcText4, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	RECT rcText5 = { 10,30 * 5,0,0 };
-	if (!BuoiFlg)KD3D.GetFont()->DrawText(NULL, "BuoiFlg=false", -1, &rcText5, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	else KD3D.GetFont()->DrawText(NULL, "BuoiFlg=true", -1, &rcText5, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	if (!BuoiFlg)FONT->DrawText(NULL, "BuoiFlg=false", -1, &rcText5, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	else FONT->DrawText(NULL, "BuoiFlg=true", -1, &rcText5, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	RECT rcText6 = { 10,30 * 6,0,0 };
 	sprintf_s(Text, sizeof(Text), "FishingScene_CamPos  x %f  y%f z %f ", FishScene_CamPos.x, FishScene_CamPos.y, FishScene_CamPos.z);
-	KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText6, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	FONT->DrawText(NULL, Text, -1, &rcText6, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 }
 
 
+void C_Player::MoveRay(D3DXVECTOR3 Vec)
+{
+	//かべずり判定（メッシュ）
+	D3DXMATRIX	InvMat;
+	D3DXMatrixInverse(&InvMat, NULL, &CollisionMat);
+	D3DXVECTOR3	LocalPos, LocalVec;
+	D3DXVec3TransformCoord(&LocalPos, &PlayerPos, &InvMat);
+	D3DXVec3TransformNormal(&LocalVec, &Vec, &InvMat);
+
+	BOOL Hit;
+	float MeshDis;
+	DWORD PolyNo;	//ポリゴン番号
+	D3DXIntersect(CollisionModel->GetMesh(), &LocalPos, &LocalVec, &Hit,
+		&PolyNo, NULL, NULL, &MeshDis, NULL, NULL);
 
 
+	if (Hit) {
+		//レイ判定で当たっているポリゴンの識別
+		WORD* pI;
+		CollisionModel->GetMesh()->LockIndexBuffer(0, (LPVOID*)&pI);
+		DWORD VertexNo[3];
+		VertexNo[0] = *(pI + PolyNo * 3 + 0);
+		VertexNo[1] = *(pI + PolyNo * 3 + 1);
+		VertexNo[2] = *(pI + PolyNo * 3 + 2);
 
+		CollisionModel->GetMesh()->UnlockIndexBuffer();
+
+
+		CLONEVERTEX* pV;
+		CollisionModel->GetMesh()->LockVertexBuffer(0, (LPVOID*)&pV);
+		D3DXVECTOR3		VPos[3];
+		VPos[0] = (pV + VertexNo[0])->Pos;
+		VPos[1] = (pV + VertexNo[1])->Pos;
+		VPos[2] = (pV + VertexNo[2])->Pos;
+
+		CollisionModel->GetMesh()->UnlockVertexBuffer();
+
+		//壁ずりプログラム	三角形の底面と斜面のベクトルを入手    →△
+		//法線の取得										こいつら↑
+		D3DXVECTOR3 Vec1, Vec2;
+		Vec1 = VPos[1] - VPos[0];
+		Vec2 = VPos[2] - VPos[0];
+		D3DXVECTOR3 WallVec;
+		D3DXVec3Cross(&WallVec, &Vec1, &Vec2);
+
+		D3DXVec3TransformNormal(&WallVec, &WallVec, &CollisionMat);//長さを1に
+		//						　①		 ②		　 ③		　 1:3D空間上での法線の向き　
+		//														   2:メッシュ作成用の法線の向き
+		//														   3:建物用メッシュの行列
+		D3DXVec3Normalize(&WallVec, &WallVec);//正規化
+		//法線の取得完了
+
+		float Dot;
+		Dot = D3DXVec3Dot(&WallVec, &-Vec);//カメラの進行方向
+		float Limit;
+		Limit = 2 / Dot;
+		if (Limit < 0)Limit *= -1;
+		if (MeshDis < Limit) {
+			KdVec3 TmpVec = WallVec * ((Limit - MeshDis) * Dot);
+			TmpVec.Set(TmpVec.x, 0.0f, TmpVec.z);
+			PlayerPos += TmpVec;//法線方向に押し出す
+		}
+	}
+	PlayerPos += Vec * MoveSpeed;
+}

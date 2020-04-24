@@ -2,6 +2,12 @@
 
 #include"../System/FrameBase/GameObject.h"
 
+struct CLONEVERTEX
+{
+	D3DXVECTOR3 Pos;
+	D3DXVECTOR3 Normal;
+	D3DXVECTOR2 Tex;
+};
 
 struct S_CoordVec {
 	KdVec3 Z = KdVec3(0.0f, 0.0f, 1.0f);
@@ -10,7 +16,7 @@ struct S_CoordVec {
 	KdVec3 Back = KdVec3(0.0f, 0.0f, -1.0f);
 	KdVec3 Right = KdVec3(1.0f, 0.0f, 0.0f);
 	KdVec3 Left = KdVec3(-1.0f, 0.0f, 0.0f);
-	
+
 };
 
 // 頂点情報の定義
@@ -48,15 +54,15 @@ private:
 	void CameraProc();
 	void CameraSet();
 
-	void Draw3DWall();
+	void MoveRay(D3DXVECTOR3 Vec);	//当たり判定を含めた移動
 	//---------行列-------------
 	//固定変数
 	KdVec3			InitPos = KdVec3(0.0f, 0.0f, 0.0f);		//初期位置
 	KdVec3			InitCamPos = KdVec3(0.0f, 2.0f, 0.0f);
 	S_CoordVec		CoordVec;
 
-	float			CamAngX_LowLimit=-80;
-	float			CamAngX_MaxLimit=40;
+	float			CamAngX_LowLimit = -80;
+	float			CamAngX_MaxLimit = 40;
 	float			CamAngY_LowLimit;
 	float			CamAngY_MaxLimit;
 
@@ -65,11 +71,15 @@ private:
 	float			FishScene_LenMax = 7.0f;
 	float			FishScene_LenMin = 2.0f;
 
+	std::shared_ptr<KdModel> CollisionModel = nullptr;
+
 	KdVec3			PlayerPos;
 	KdVec3			FishScene_CamPos = KdVec3(0.0f, 2.0f, 0.0f);
+	KdVec3			GravityVec = KdVec3(0.0f, 0.4f, 0.0f);
 
 	KdMatrix		TransMat;
 	KdMatrix		PlayerRot;
+	KdMatrix		CollisionMat;
 
 	//カメラ
 	POINT				BasePt;
@@ -78,7 +88,7 @@ private:
 	float				FishScene_StartPos = 4.0f;
 	float				CamAngY = 0.0f;
 	float				CamAngX = 0.0f;
-	float				MoveSpeed = 0.2f;
+	float				MoveSpeed = 0.1f;
 	float				FishScene_CamAngX = 0.0f;
 
 	bool				FishFlg = false;

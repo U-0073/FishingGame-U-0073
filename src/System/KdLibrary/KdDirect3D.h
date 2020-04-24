@@ -116,5 +116,6 @@ public:
 
 // 簡単にアクセスできるようにするためのマクロ
 #define KD3D KdDirect3D::GetInstance()
+#define D3DEV  KdDirect3D::GetInstance().GetDev()
 #define FONT KdDirect3D::GetInstance().GetFont()
 #define SPRITE KdDirect3D::GetInstance().GetSprite()
