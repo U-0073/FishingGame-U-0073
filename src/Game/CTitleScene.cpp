@@ -60,9 +60,11 @@ int CTitleScene::Update()
 	if (Fishes->GetFishPos().z < -100) {
 	}
 	if (GetKey('I') & 0x8000) {
+		FADE.Start(50);
 		return SHOP;
 	}
 	if (GetKey('G') & 0x8000) {
+		FADE.Start(50);
 		return GAME;
 	}
 	return TITLE;
