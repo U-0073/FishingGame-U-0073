@@ -47,9 +47,6 @@ void Title::Update()
 
 void Title::Draw2D()
 {
-
-	SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
-
 	RECT rcTitle = { 0,0,674,108 };
 	SPRITE->SetTransform(&mMat);
 	SPRITE->Draw(vTex, &rcTitle, &D3DXVECTOR3(337.0f,54.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
@@ -57,8 +54,6 @@ void Title::Draw2D()
 	RECT rcENTER = { 0,0,432,88 };
 	SPRITE->SetTransform(&mMat2);
 	SPRITE->Draw(vTex2, &rcTitle, &D3DXVECTOR3(216.0f, 44.0f, 0.0f), NULL, D3DCOLOR_ARGB(alpha, 255, 255, 255));
-
-	SPRITE->End();
 }
 
 void Title::Draw3D()

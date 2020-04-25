@@ -81,13 +81,6 @@ void CTitleScene::Draw3D()
 {
 	Sky->Draw3D();
 	Fishes->Draw3D();
-
-	//SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
-	//RECT rcTitle = { 1,1,2,2 };
-	//SPRITE->SetTransform(&mMat);
-	//SPRITE->Draw(vTex, &rcTitle, &D3DXVECTOR3(0.5f, 0.5f, 0.0f), NULL, D3DCOLOR_ARGB((int)Alpha, 255, 255, 255));
-	//SPRITE->End();
-
 }
 
 void CTitleScene::End()

@@ -42,8 +42,6 @@ void CGameProc::Update()
 
 void CGameProc::Draw()
 {
-	SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
-
 	//固定枠
 	RECT rc = { 0,0,500,500 };
 	SPRITE->SetTransform(&ringMat);
@@ -61,7 +59,6 @@ void CGameProc::Draw()
 		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(250.0f, 250.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 	}
 
-
 	SPRITE->End();
 	//デバッグ文字
 	rc = { 0,0,0,0 };
@@ -72,6 +69,7 @@ void CGameProc::Draw()
 	rc = { 0,650,0,0 };
 	sprintf_s(buf, sizeof(buf), "残りクリック回数：%d", 10-clickNum);
 	FONT->DrawText(NULL, buf, -1, &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
+	SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
 
 }
 

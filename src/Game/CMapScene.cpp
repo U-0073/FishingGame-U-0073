@@ -32,7 +32,7 @@ CMapScene::CMapScene()
 	m_Fishing = std::make_shared<C_Fishing>();
 	m_Fishing->Init();
 	m_PSound = RESOURCE_MNG.GetSound("Resouce/Sound/wave3.wav");
-	m_PSound->Playsound("Resouce/Sound/wave3.wav", true, false);
+	m_PSound->Playsound("Resouce/Sound/wave3.wav", true, true);
 	}
 
 CMapScene::~CMapScene()
