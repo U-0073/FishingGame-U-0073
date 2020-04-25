@@ -23,5 +23,8 @@ private:
 	//‹›‚ª’Þ‚ê‚é‚Ü‚Å‚Ì‹——£
 	float dist;
 	int level;
+	float speed;
 	int size;
+	int clickNum;
+	bool keyFlg;
 };
