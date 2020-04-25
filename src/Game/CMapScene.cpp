@@ -49,13 +49,13 @@ int CMapScene::Update()
 	m_Player->Update();
 	Sky->SetPos(m_Player->GetPlayerPos());
 	m_Port->Update();
+	Seas->Update();
 
 	m_Fishing->SetCamAngY(m_Player->GetCamAngY());
 	m_Fishing->SetPlayerPos(m_Player->GetPlayerPos());
 	m_Fishing->SetFishFlg(m_Player->GetFeshFlg());
 	m_Fishing->SetBuoiFlg(m_Player->GetBuoiFlg());
 	m_Fishing->Update();
-//	Fishes->Update();
 
 
 	if (GetKey(VK_SPACE) & 0x8000) 
@@ -85,8 +85,7 @@ void CMapScene::Draw3D()
 {
 	Sky->Draw3D();
 	m_Port->Draw3D();
-	//Seas->Draw();
-	Seas->DrawObject();
+	Seas->Draw3D();
 	m_Fishing->Draw3D();
 	//Fishes->Draw3D();
 	m_Player->Draw3D();

@@ -2,12 +2,7 @@
 
 #include"../System/FrameBase/GameObject.h"
 
-struct CLONEVERTEX
-{
-	D3DXVECTOR3 Pos;
-	D3DXVECTOR3 Normal;
-	D3DXVECTOR2 Tex;
-};
+
 
 struct S_CoordVec {
 	KdVec3 Z = KdVec3(0.0f, 0.0f, 1.0f);
