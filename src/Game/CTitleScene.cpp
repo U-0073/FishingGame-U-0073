@@ -20,6 +20,8 @@ CTitleScene::CTitleScene()
 	Alpha = 0;
 
 	mPos = D3DXVECTOR3(0, 20, 0);
+	m_PSound = RESOURCE_MNG.GetSound("Resouce/Sound/TitleBGM.wav");
+	m_PSound->Playsound("Resouce/Sound/TitleBGM.wav", true, true);
 
 }
 
@@ -30,7 +32,6 @@ CTitleScene::~CTitleScene()
 
 void CTitleScene::Init()
 {
-	
 }
 
 int CTitleScene::Update()
@@ -85,4 +86,5 @@ void CTitleScene::Draw3D()
 
 void CTitleScene::End()
 {
+	m_PSound->LDSB8->Stop();
 }
