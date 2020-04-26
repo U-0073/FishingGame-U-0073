@@ -33,3 +33,8 @@ void Port::Draw3D()
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
 
 }
+
+void Port::End()
+{
+	testsound->LDSB8->Stop();
+}

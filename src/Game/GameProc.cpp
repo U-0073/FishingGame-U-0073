@@ -25,7 +25,7 @@ void CGameProc::Update()
 {
 	if (clickNum < 10) {
 		if (GetKey(VK_LBUTTON) & 0x8000) {
-			clickNum++;
+			//clickNum++;
 			if (scale > 0.7 && scale < 1.0) {
 				dist -= 1 - (level * 0.2);
 				speed += 0.0015;
@@ -60,6 +60,7 @@ void CGameProc::Draw()
 	}
 
 	SPRITE->End();
+	/*
 	//デバッグ文字
 	rc = { 0,0,0,0 };
 	char buf[100];
@@ -70,7 +71,7 @@ void CGameProc::Draw()
 	sprintf_s(buf, sizeof(buf), "残りクリック回数：%d", 10-clickNum);
 	FONT->DrawText(NULL, buf, -1, &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
 	SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
-
+	*/
 }
 
 void CGameProc::End()

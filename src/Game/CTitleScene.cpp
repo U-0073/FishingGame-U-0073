@@ -64,7 +64,7 @@ int CTitleScene::Update()
 		FADE.Start(50);
 		return SHOP;
 	}
-	if (GetKey('G') & 0x8000) {
+	if (GetKey('F') & 0x8000) {
 		FADE.Start(50);
 		return GAME;
 	}
@@ -73,7 +73,7 @@ int CTitleScene::Update()
 
 void CTitleScene::Draw2D()
 {
-	Fishes->Draw2D();
+	//Fishes->Draw2D();
 	title->Draw2D();
 	
 }

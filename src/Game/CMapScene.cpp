@@ -78,8 +78,8 @@ int CMapScene::Update()
 
 void CMapScene::Draw2D()
 {
-	m_Player->Draw2D();
-	m_Fishing->Draw2D();
+	//m_Player->Draw2D();
+	//m_Fishing->Draw2D();
 }
 
 void CMapScene::Draw3D()
@@ -94,5 +94,6 @@ void CMapScene::Draw3D()
 
 void CMapScene::End()
 {
+	m_Port->End();
 	m_PSound->LDSB8->Stop();
 }
