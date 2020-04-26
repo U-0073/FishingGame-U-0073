@@ -73,6 +73,7 @@ void C_Player::Update()
 	FlgProc();
 	MoveProc();
 	CameraProc();
+
 }
 
 

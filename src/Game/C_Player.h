@@ -93,4 +93,6 @@ private:
 	bool				RestoreFlg = false;
 	bool				BuoiFlg = false;		//•‚‚«‚ð“®‚©‚·‚©”Û‚©
 
+
+
 };

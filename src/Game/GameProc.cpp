@@ -76,3 +76,14 @@ void CGameProc::Draw()
 void CGameProc::End()
 {
 }
+/*
+	lpSPrimary->QueryInterface(IID_IDirectSound3DListener8, (LPVOID*)&lpSListener);
+
+secondTest3D->SetPosition(10, 10, 10, DS3D_IMMEDIATE);//‰¹Œ¹‚ÌˆÊ’u
+lpSListener->SetPosition(playerPos.x, playerPos.y, playerPos.z, DS3D_IMMEDIATE);//•·‚«Žè‚ÌˆÊ’u
+
+D3DXVECTOR3 camLookVec = playerLookPos - playerPos;
+D3DXVec3Normalize(&camLookVec, &camLookVec);
+
+lpSListener->SetOrientation(camLookVec.x, camLookVec.y, camLookVec.z, 0, 1, 0, DS3D_IMMEDIATE);
+*/

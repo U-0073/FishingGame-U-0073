@@ -18,7 +18,7 @@ CMapScene::CMapScene()
 	Sky = std::make_shared<Skysphere>();
 	Sky->Init();
 
-	
+
 	//ŠC
 	Seas = std::make_shared<Sea>();
 	//`
@@ -33,7 +33,8 @@ CMapScene::CMapScene()
 	m_Fishing->Init();
 	m_PSound = RESOURCE_MNG.GetSound("Resource/Sound/wave3.wav");
 	m_PSound->Playsound("Resource/Sound/wave3.wav", true, true);
-	}
+
+}
 
 CMapScene::~CMapScene()
 {
@@ -58,7 +59,7 @@ int CMapScene::Update()
 	m_Fishing->Update();
 
 
-	if (GetKey(VK_SPACE) & 0x8000) 
+	if (GetKey(VK_SPACE) & 0x8000)
 	{
 		FADE.Start(5);
 		return TITLE;

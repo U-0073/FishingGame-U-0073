@@ -104,7 +104,6 @@ const bool CGameFrame::Initialize(HINSTANCE aHInst, const int aCmdShow)
 
 
 
-
 	return true;
 }
 
