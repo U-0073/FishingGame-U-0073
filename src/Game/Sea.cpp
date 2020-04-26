@@ -16,8 +16,7 @@ Sea::Sea()
 		MESH->LockVertexBuffer(0, (LPVOID*)&pV);
 		//クローン			頂点バッファ				先頭アドレスが入る(0番目の頂点の内容)
 
-
-
+		
 	}
 	MESH->UnlockVertexBuffer();
 
