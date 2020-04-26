@@ -12,7 +12,7 @@ CTitleScene::CTitleScene()
 	title->Init();
 	
 	CAMERA.SetCameraPos(D3DXVECTOR3(0,3,-5), Fishes->GetFishPos());
-	vTex = *RESOURCE_MNG.GetTexture("Resouce/Texture/white.png");
+	vTex = *RESOURCE_MNG.GetTexture("Resource/Texture/white.png");
 	D3DXMatrixTranslation(&mMat, 1280.0f / 2, 720.0f / 2, 0.0f);
 	D3DXMatrixScaling(&mScale, 1290.0f, 730.0f, 0.0f);
 	mMat = mScale * mMat;
@@ -20,8 +20,8 @@ CTitleScene::CTitleScene()
 	Alpha = 0;
 
 	mPos = D3DXVECTOR3(0, 20, 0);
-	m_PSound = RESOURCE_MNG.GetSound("Resouce/Sound/TitleBGM.wav");
-	m_PSound->Playsound("Resouce/Sound/TitleBGM.wav", true, true);
+	m_PSound = RESOURCE_MNG.GetSound("Resource/Sound/TitleBGM.wav");
+	m_PSound->Playsound("Resource/Sound/TitleBGM.wav", true, true);
 
 }
 

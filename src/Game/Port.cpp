@@ -12,7 +12,7 @@ Port::~Port()
 void Port::Init()
 {
 	D3DXMatrixTranslation(&m_world, 0, -1.5, 0);
-m_pModel = RESOURCE_MNG.GetModel("Resouce/3DModel/Port2.x");
+m_pModel = RESOURCE_MNG.GetModel("Resource/3DModel/Port2.x");
 
 }
 

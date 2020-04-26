@@ -1,6 +1,6 @@
 #pragma once
 #include"../System/FrameBase/CSceneBase.h"
-#define path "Resouce/Texture/"
+#define path "Resource/Texture/"
 #include"Shop2D.h"
 
 class Shop2D;

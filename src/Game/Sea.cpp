@@ -6,7 +6,7 @@ Sea::Sea()
 	
 
 	srand(timeGetTime());
-	m_pModel = RESOURCE_MNG.GetModel("Resouce/3DModel/Sea.x");
+	m_pModel = RESOURCE_MNG.GetModel("Resource/3DModel/Sea.x");
 
 	verNum = MESH->GetNumVertices();
 

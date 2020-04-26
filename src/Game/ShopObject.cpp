@@ -12,7 +12,7 @@ CShopObject::~CShopObject()
 void CShopObject::Init()
 {
 	GameObject::Init();
-	m_pModel = RESOURCE_MNG.GetModel("./Resouce/3DModel/Shop.x");
+	m_pModel = RESOURCE_MNG.GetModel("./Resource/3DModel/Shop.x");
 }
 
 void CShopObject::Update()

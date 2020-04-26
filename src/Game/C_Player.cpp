@@ -21,8 +21,8 @@ void C_Player::Init()
 	PlayerPos = InitPos;
 	GameObject::Init();
 	CollisionMat.CreateTrans(0.0f, -1.5f, 0.0f);
-	CollisionModel = RESOURCE_MNG.GetModel("./Resouce/3DModel/PortWall_Collision.x");
-	m_pModel = RESOURCE_MNG.GetModel("./Resouce/3DModel/Port.x");
+	CollisionModel = RESOURCE_MNG.GetModel("./Resource/3DModel/PortWall_Collision.x");
+	m_pModel = RESOURCE_MNG.GetModel("./Resource/3DModel/Port.x");
 
 	//ポインター関係
 	BasePt.x = SCRW / 2;

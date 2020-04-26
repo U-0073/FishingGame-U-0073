@@ -2,7 +2,7 @@
 
 #include"../System/FrameBase/GameObject.h"
 
-#define path "Resouce/3DModel/"
+#define path "Resource/3DModel/"
 class Fish;
 
 class C_Fishing : GameObject {

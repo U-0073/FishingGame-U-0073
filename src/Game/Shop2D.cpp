@@ -12,19 +12,19 @@ Shop2D::~Shop2D()
 void Shop2D::Init()
 {
 	//枠
-	FrameTex = *RESOURCE_MNG.GetTexture("Resouce/Texture/Shop/ShopFrame.png");
+	FrameTex = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/ShopFrame.png");
 	D3DXMatrixTranslation(&FrameMat, 100.0f, 50.0f, 0.0f);
 
 	//タブ
-	TabLeftTex   = *RESOURCE_MNG.GetTexture("Resouce/Texture/Shop/ShopFrameTab1.png");
-	TabCenterTex = *RESOURCE_MNG.GetTexture("Resouce/Texture/Shop/ShopFrameTab2.png");
-	TabRightTex  = *RESOURCE_MNG.GetTexture("Resouce/Texture/Shop/ShopFrameTab3.png");
+	TabLeftTex   = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/ShopFrameTab1.png");
+	TabCenterTex = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/ShopFrameTab2.png");
+	TabRightTex  = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/ShopFrameTab3.png");
 	D3DXMatrixTranslation(&TabLeftMat, 100.0f, 100.0f, 0.0f);
 	D3DXMatrixTranslation(&TabCenterMat, 100.0f, 100.0f, 0.0f);
 	D3DXMatrixTranslation(&TabRightMat, 100.0f, 100.0f, 0.0f);
 
 	//選択
-	ListSelectTex = *RESOURCE_MNG.GetTexture("Resouce/Texture/Shop/ListSelect.png");
+	ListSelectTex = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/ListSelect.png");
 	D3DXMatrixTranslation(&ListSelectMat, 100.0f, select[0], 0.0f);
 
 	for (int i = 0; i < 6; i++) {
@@ -32,12 +32,12 @@ void Shop2D::Init()
 	}
 	
 	//リスト
-	ListTex[0] = *RESOURCE_MNG.GetTexture("Resouce/Texture/Shop/ShopList1.png");
-	ListTex[1] = *RESOURCE_MNG.GetTexture("Resouce/Texture/Shop/ShopList2.png");
-	ListTex[2] = *RESOURCE_MNG.GetTexture("Resouce/Texture/Shop/ShopList3.png");
-	ListTex[3] = *RESOURCE_MNG.GetTexture("Resouce/Texture/Shop/ShopList4.png");
-	ListTex[4] = *RESOURCE_MNG.GetTexture("Resouce/Texture/Shop/ShopList5.png");
-	ListTex[5] = *RESOURCE_MNG.GetTexture("Resouce/Texture/Shop/ShopList6.png");	
+	ListTex[0] = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/ShopList1.png");
+	ListTex[1] = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/ShopList2.png");
+	ListTex[2] = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/ShopList3.png");
+	ListTex[3] = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/ShopList4.png");
+	ListTex[4] = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/ShopList5.png");
+	ListTex[5] = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/ShopList6.png");	
 	for (int i = 0; i < 6; i++) {
 		D3DXMatrixTranslation(&ListMat[i], 100.0f, 150.0f, 0.0f);
 	}

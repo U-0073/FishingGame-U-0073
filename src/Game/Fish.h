@@ -1,7 +1,7 @@
 #pragma once
 #include"../System/FrameBase/GameObject.h"
 
-#define path "Resouce/3DModel/"
+#define path "Resource/3DModel/"
 
 class Fish : GameObject
 {

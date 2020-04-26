@@ -16,7 +16,7 @@ CShopScene::~CShopScene()
 
 void CShopScene::Init()
 {
-	vTex = *RESOURCE_MNG.GetTexture("Resouce/Texture/Shop/ShopBack.png", D3DCOLOR_ARGB(255, 255, 255, 255));
+	vTex = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/ShopBack.png", D3DCOLOR_ARGB(255, 255, 255, 255));
 
 
 }
