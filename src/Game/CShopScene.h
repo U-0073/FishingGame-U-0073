@@ -22,8 +22,8 @@ private:
 	std::shared_ptr<Shop2D> shop = nullptr;
 
 
-	D3DXMATRIX mMat;
-	D3DXMATRIX mScale;
+	KdMatrix mMat;
+	KdMatrix mScale;
 	LPDIRECT3DTEXTURE9 vTex;
 
 };

@@ -86,11 +86,18 @@
 #include"../FrameBase/Fade.h"
 
 #define GetKey GetAsyncKeyState
-
+#define MESH m_pModel->GetMesh()
 enum Scene
 {
 	TITLE,
 	MAP,
 	GAME,
 	SHOP
+};
+
+struct CLONEVERTEX
+{
+	D3DXVECTOR3 Pos;
+	D3DXVECTOR3 Normal;
+	D3DXVECTOR2 Tex;
 };

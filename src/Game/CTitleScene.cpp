@@ -20,6 +20,8 @@ CTitleScene::CTitleScene()
 	Alpha = 0;
 
 	mPos = D3DXVECTOR3(0, 20, 0);
+	m_PSound = RESOURCE_MNG.GetSound("Resouce/Sound/TitleBGM.wav");
+	m_PSound->Playsound("Resouce/Sound/TitleBGM.wav", true, true);
 
 }
 
@@ -30,7 +32,6 @@ CTitleScene::~CTitleScene()
 
 void CTitleScene::Init()
 {
-	
 }
 
 int CTitleScene::Update()
@@ -81,15 +82,9 @@ void CTitleScene::Draw3D()
 {
 	Sky->Draw3D();
 	Fishes->Draw3D();
-
-	//SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
-	//RECT rcTitle = { 1,1,2,2 };
-	//SPRITE->SetTransform(&mMat);
-	//SPRITE->Draw(vTex, &rcTitle, &D3DXVECTOR3(0.5f, 0.5f, 0.0f), NULL, D3DCOLOR_ARGB((int)Alpha, 255, 255, 255));
-	//SPRITE->End();
-
 }
 
 void CTitleScene::End()
 {
+	m_PSound->LDSB8->Stop();
 }

@@ -16,7 +16,7 @@ CGameScene::~CGameScene()
 
 void CGameScene::Init()
 {
-	BackTex = *RESOURCE_MNG.GetTexture("Resouce/Texture/SeaBack001.png");
+	BackTex = *RESOURCE_MNG.GetTexture("Resouce/Texture/SeaBack002.png");
 }
 
 int CGameScene::Update()
@@ -29,11 +29,9 @@ int CGameScene::Update()
 void CGameScene::Draw2D()
 {
 	//”wŒi
-	SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
 	RECT rc = { 0,0,1280,720 };
 	SPRITE->SetTransform(&BackMat);
 	SPRITE->Draw(BackTex, &rc, &D3DXVECTOR3(0.0f,  0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-	SPRITE->End();
 
 	gameProc->Draw();
 }

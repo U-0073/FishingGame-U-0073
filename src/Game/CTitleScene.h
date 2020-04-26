@@ -39,4 +39,7 @@ private:
 	D3DXVECTOR3 mPos;
 	BOOL MoveFlg;
 	float Alpha;
+
+	std::shared_ptr<SoundBase> m_PSound = nullptr;
+
 };
