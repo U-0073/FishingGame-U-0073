@@ -22,6 +22,7 @@ void CGameProc::Init()
 	dist = level;
 	speed = 0.005f;
 	clickNum = 0;
+	frame = 60;
 }
 
 void CGameProc::Update()
