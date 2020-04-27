@@ -16,10 +16,11 @@ void CGameProc::Init()
 	notesMat.CreateTrans(KdVec3(1280 / 2, 720 / 2, 0));
 	//拡縮サイズ
 	scale = 2.0f;
-	dist = 1.0f;
-	//Lv1～10
-	level = rand() % 11 + 1;
-	speed =  0.005f;
+	//Lv1～5
+	//level = rand() % 6 + 1;
+	level = 5;
+	dist = level;
+	speed = 0.005f;
 	clickNum = 0;
 }
 
@@ -29,11 +30,17 @@ void CGameProc::Update()
 		if (!keyFlg) {
 			keyFlg = true;
 			clickNum++;
+			//ナイス（外側）の時の処理
 			if (scale > 0.7 && scale < 1.0) {
-				dist -= (11 - level) * 0.1;
+				dist -= 1.0f;
 				speed += 0.0015;
-			scale = 2.0f;
 			}
+			//エクセレント（内側）の時の処理
+			if (scale > 0.0 && scale < 0.35) {
+				dist -= 0.5f;
+				speed += 0.0015 * level;
+			}
+			scale = 2.0f;
 		}
 	}
 	else { keyFlg = false; }
@@ -42,7 +49,7 @@ void CGameProc::Update()
 	if (scale < 0.0f) {
 		scale = 2.0f;
 	}
-	
+
 }
 
 void CGameProc::Draw()
@@ -67,6 +74,11 @@ void CGameProc::Draw()
 		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(250.0f, 250.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 	}
 
+	//釣れた時
+	if (dist <= 0)
+	{
+	}
+
 	SPRITE->End();
 
 	//デバッグ文字
@@ -85,14 +97,3 @@ void CGameProc::Draw()
 void CGameProc::End()
 {
 }
-/*
-	lpSPrimary->QueryInterface(IID_IDirectSound3DListener8, (LPVOID*)&lpSListener);
-
-secondTest3D->SetPosition(10, 10, 10, DS3D_IMMEDIATE);//音源の位置
-lpSListener->SetPosition(playerPos.x, playerPos.y, playerPos.z, DS3D_IMMEDIATE);//聞き手の位置
-
-D3DXVECTOR3 camLookVec = playerLookPos - playerPos;
-D3DXVec3Normalize(&camLookVec, &camLookVec);
-
-lpSListener->SetOrientation(camLookVec.x, camLookVec.y, camLookVec.z, 0, 1, 0, DS3D_IMMEDIATE);
-*/

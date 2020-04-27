@@ -27,4 +27,5 @@ private:
 	int size;
 	int clickNum;
 	bool keyFlg;
+	int frame;
 };
