@@ -68,7 +68,7 @@ int CMapScene::Update()
 		FADE.Start(5);
 		return SHOP;
 	}
-	if (GetKey('G') & 0x8000) {
+	if (GetKey('F') & 0x8000) {
 		FADE.Start(5);
 		return GAME;
 	}

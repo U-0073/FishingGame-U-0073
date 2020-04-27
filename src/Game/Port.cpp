@@ -16,7 +16,7 @@ void Port::Init()
 
 	testsound = RESOURCE_MNG.GetSound("Resource/Sound/umineko.wav");
 	testsound->LDS3B8->SetMode(DS3DMODE_NORMAL, DS3D_IMMEDIATE);
-	testsound->LDS3B8->SetPosition(0, 0, 0, DS3D_IMMEDIATE);
+	testsound->LDS3B8->SetPosition(0, 30, 0, DS3D_IMMEDIATE);
 	testsound->Playsound("Resource/Sound/umineko.wav", true, true);
 }
 
