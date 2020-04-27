@@ -29,18 +29,24 @@ void CGameProc::Update()
 {
 	if (GetKey(VK_LBUTTON) & 0x8000) {
 		if (!keyFlg) {
-			keyFlg = true;
-			clickNum++;
-			//ナイス（外側）の時の処理
+			//グレート（外側）の時の処理
 			if (scale > 0.7 && scale < 1.0) {
+				judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/great.png");
 				dist -= 1.0f;
 				speed += 0.0015;
 			}
 			//エクセレント（内側）の時の処理
-			if (scale > 0.0 && scale < 0.35) {
+			else if (scale > 0.0 && scale < 0.35) {
+				judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/excellent1.png");
 				dist -= 0.5f;
 				speed += 0.0015 * level;
 			}
+			else {
+				judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/miss.png");
+			}
+			keyFlg = true;
+			clickNum++;
+			frame--;
 			scale = 2.0f;
 		}
 	}
@@ -51,6 +57,11 @@ void CGameProc::Update()
 		scale = 2.0f;
 	}
 
+	if (frame < 60)
+	{
+		frame--;
+		if (frame < 0)frame = 60;
+	}
 }
 
 void CGameProc::Draw()
@@ -73,6 +84,18 @@ void CGameProc::Draw()
 	}
 	else {
 		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(250.0f, 250.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+	}
+
+	if (frame < 60) {
+		SPRITE->SetTransform(&ringMat);
+		if (scale > 0.7) {
+			rc = { 0,0,210,179 };
+			SPRITE->Draw(judgeTex, &rc, &D3DXVECTOR3(210 / 2, 179 / 2, 0.0f), NULL, D3DCOLOR_ARGB(150, 255, 255, 255));
+		}
+		else {
+			rc = { 0,0,335,200 };
+			SPRITE->Draw(judgeTex, &rc, &D3DXVECTOR3(335 / 2, 200 / 2, 0.0f), NULL, D3DCOLOR_ARGB(150, 255, 255, 255));
+		}
 	}
 
 	//釣れた時
