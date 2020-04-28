@@ -153,6 +153,7 @@
     <ClCompile Include="src\Game\Port.cpp" />
     <ClCompile Include="src\Game\Sea.cpp" />
     <ClCompile Include="src\Game\C_Player.cpp" />
+    <ClCompile Include="src\Game\Seagull.cpp" />
     <ClCompile Include="src\Game\Shop.cpp" />
     <ClCompile Include="src\Game\Shop2D.cpp" />
     <ClCompile Include="src\Game\ShopObject.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="src\Game\Port.h" />
     <ClInclude Include="src\Game\Sea.h" />
     <ClInclude Include="src\Game\C_Player.h" />
+    <ClInclude Include="src\Game\Seagull.h" />
     <ClInclude Include="src\Game\Shop.h" />
     <ClInclude Include="src\Game\Shop2D.h" />
     <ClInclude Include="src\Game\ShopObject.h" />

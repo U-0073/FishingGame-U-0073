@@ -128,6 +128,9 @@
     <ClCompile Include="src\Game\CGameScene.cpp">
       <Filter>src\シーン</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Seagull.cpp">
+      <Filter>src\ゲーム</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\System\Component\InputComponent.h">
@@ -228,6 +231,9 @@
     </ClInclude>
     <ClInclude Include="src\Game\CGameScene.h">
       <Filter>src\シーン</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Seagull.h">
+      <Filter>src\ゲーム</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
