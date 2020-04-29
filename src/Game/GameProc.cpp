@@ -22,7 +22,7 @@ void CGameProc::Init()
 	dist = level;
 	speed = 0.005f;
 	clickNum = 0;
-	frame = 60;
+	frame = 120;
 }
 
 void CGameProc::Update()
@@ -41,6 +41,7 @@ void CGameProc::Update()
 				dist -= 0.5f;
 				speed += 0.0015 * level;
 			}
+			//É~ÉXÇÃéûÇÃèàóù
 			else {
 				judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/miss.png");
 			}
@@ -57,10 +58,10 @@ void CGameProc::Update()
 		scale = 2.0f;
 	}
 
-	if (frame < 60)
+	if (frame < 120)
 	{
 		frame--;
-		if (frame < 0)frame = 60;
+		if (frame < 0)frame = 120;
 	}
 }
 
@@ -86,15 +87,23 @@ void CGameProc::Draw()
 		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(250.0f, 250.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 	}
 
-	if (frame < 60) {
-		SPRITE->SetTransform(&ringMat);
-		if (scale > 0.7) {
+	if (frame < 120) {
+		judgeMat.CreateTrans(KdVec3(1280 / 2, 720 / 2, 0));
+		scaleMat.CreateScale(2.0f, 2.0f, 0);
+		judgeMat = scaleMat * judgeMat;
+		SPRITE->SetTransform(&judgeMat);
+		if (scale > 0.7f && scale < 1.0f) {
 			rc = { 0,0,210,179 };
-			SPRITE->Draw(judgeTex, &rc, &D3DXVECTOR3(210 / 2, 179 / 2, 0.0f), NULL, D3DCOLOR_ARGB(150, 255, 255, 255));
+			SPRITE->Draw(judgeTex, &rc, &D3DXVECTOR3(210 / 2, 179 / 2, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+		}
+		else if (scale > 0.0f && scale < 0.35f) {
+			rc = { 0,0,335,200 };
+			SPRITE->Draw(judgeTex, &rc, &D3DXVECTOR3(335 / 2, 200 / 2, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 		}
 		else {
-			rc = { 0,0,335,200 };
-			SPRITE->Draw(judgeTex, &rc, &D3DXVECTOR3(335 / 2, 200 / 2, 0.0f), NULL, D3DCOLOR_ARGB(150, 255, 255, 255));
+			rc = { 0,0,243,200 };
+			SPRITE->Draw(judgeTex, &rc, &D3DXVECTOR3(243 / 2, 200 / 2, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+
 		}
 	}
 
