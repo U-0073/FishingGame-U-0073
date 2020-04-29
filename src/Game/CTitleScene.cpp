@@ -21,7 +21,7 @@ CTitleScene::CTitleScene()
 
 	mPos = D3DXVECTOR3(0, 20, 0);
 	m_PSound = RESOURCE_MNG.GetSound("Resource/Sound/TitleBGM.wav");
-	m_PSound->Playsound("Resource/Sound/TitleBGM.wav", true, true);
+	//m_PSound->Playsound("Resource/Sound/TitleBGM.wav", true, true);
 
 }
 
@@ -61,11 +61,11 @@ int CTitleScene::Update()
 	if (Fishes->GetFishPos().z < -100) {
 	}
 	if (GetKey('I') & 0x8000) {
-		FADE.Start(50);
+		FADE.Start(5);
 		return SHOP;
 	}
 	if (GetKey('F') & 0x8000) {
-		FADE.Start(50);
+		FADE.Start(5);
 		return GAME;
 	}
 	return TITLE;

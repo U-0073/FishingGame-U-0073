@@ -20,6 +20,7 @@ private:
 	KdMatrix notesMat;
 	//”»’è•¶Žš
 	LPDIRECT3DTEXTURE9 judgeTex;
+	KdMatrix judgeMat;
 	//‹›‚ª’Þ‚ê‚é‚Ü‚Å‚Ì‹——£
 	float dist;
 	int level;
@@ -28,4 +29,6 @@ private:
 	int clickNum;
 	bool keyFlg;
 	int frame;
+
+	std::vector<std::shared_ptr<SoundBase>> m_pSound;
 };
