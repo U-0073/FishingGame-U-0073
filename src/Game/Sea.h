@@ -1,5 +1,6 @@
 #pragma once
 #include"../System/FrameBase/GameObject.h"
+#define WaveHeight 10
 
 class GameObject;
 
@@ -16,4 +17,6 @@ public:
 
 private:
 	DWORD verNum;
+	bool HeightCtrl;
+	D3DXVECTOR3* pV;
 };
