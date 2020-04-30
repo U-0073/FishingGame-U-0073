@@ -103,7 +103,6 @@ void CGameProc::Draw()
 		else {
 			rc = { 0,0,243,200 };
 			SPRITE->Draw(judgeTex, &rc, &D3DXVECTOR3(243 / 2, 200 / 2, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-
 		}
 	}
 
