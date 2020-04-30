@@ -12,6 +12,8 @@ void CGameProc::Init()
 {
 	ringTex = *RESOURCE_MNG.GetTexture("Resource/Texture/Ring3.png");
 	notesTex = *RESOURCE_MNG.GetTexture("Resource/Texture/ScaleRing.png");
+	judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/excellent1.png");
+
 	ringMat.CreateTrans(KdVec3(1280 / 2, 720 / 2, 0));
 	notesMat.CreateTrans(KdVec3(1280 / 2, 720 / 2, 0));
 	//ŠgkƒTƒCƒY
@@ -87,23 +89,14 @@ void CGameProc::Draw()
 		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(250.0f, 250.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 	}
 
+	//”»’è‰æ‘œ
 	if (frame < 120) {
 		judgeMat.CreateTrans(KdVec3(1280 / 2, 720 / 2, 0));
 		scaleMat.CreateScale(2.0f, 2.0f, 0);
 		judgeMat = scaleMat * judgeMat;
 		SPRITE->SetTransform(&judgeMat);
-		if (scale > 0.7f && scale < 1.0f) {
-			rc = { 0,0,210,179 };
-			SPRITE->Draw(judgeTex, &rc, &D3DXVECTOR3(210 / 2, 179 / 2, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-		}
-		else if (scale > 0.0f && scale < 0.35f) {
-			rc = { 0,0,335,200 };
-			SPRITE->Draw(judgeTex, &rc, &D3DXVECTOR3(335 / 2, 200 / 2, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-		}
-		else {
-			rc = { 0,0,243,200 };
-			SPRITE->Draw(judgeTex, &rc, &D3DXVECTOR3(243 / 2, 200 / 2, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-		}
+		rc = { 0,0,335,200 };
+		SPRITE->Draw(judgeTex, &rc, &D3DXVECTOR3(335 / 2, 200 / 2, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 	}
 
 	//’Þ‚ê‚½Žž
