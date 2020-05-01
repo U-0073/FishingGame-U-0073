@@ -30,6 +30,8 @@ private:
 	LPDIRECT3DTEXTURE9 resultTex = nullptr;
 	KdMatrix judgeMat;
 
+	LPDIRECT3DTEXTURE9 backTex;
+
 	float dist;
 	int level;
 	float speed;

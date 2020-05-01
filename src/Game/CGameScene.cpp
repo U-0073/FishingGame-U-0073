@@ -17,6 +17,7 @@ void CGameScene::Init()
 	ringTex = *RESOURCE_MNG.GetTexture("Resource/Texture/Ring3.png");
 	notesTex = *RESOURCE_MNG.GetTexture("Resource/Texture/ScaleRing.png");
 	judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/excellent1.png");
+	backTex = *RESOURCE_MNG.GetTexture("Resource/Texture/SeaBack002.png");
 
 	ringMat.CreateTrans(KdVec3(1280 / 2, 720 / 2, 0));
 	notesMat.CreateTrans(KdVec3(1280 / 2, 720 / 2, 0));
@@ -103,8 +104,13 @@ int CGameScene::Update()
 
 void CGameScene::Draw2D()
 {
+	//îwåi
+	RECT rc = { 0,0,1280,720 };
+	SPRITE->SetTransform(&ringMat);
+	SPRITE->Draw(backTex, &rc, &D3DXVECTOR3(1280 / 2, 720 / 2, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+
 	//å≈íËòg
-	RECT rc = { 0,0,500,500 };
+	rc = { 0,0,500,500 };
 	SPRITE->SetTransform(&ringMat);
 	SPRITE->Draw(ringTex, &rc, &D3DXVECTOR3(250.0f, 250.0f, 0.0f), NULL, D3DCOLOR_ARGB(150, 255, 255, 255));
 	//ÉmÅ[Éc
@@ -163,4 +169,5 @@ void CGameScene::End()
 	KdSafeRelease(notesTex);
 	KdSafeRelease(judgeTex);
 	KdSafeRelease(resultTex);
+	KdSafeRelease(backTex);
 }
