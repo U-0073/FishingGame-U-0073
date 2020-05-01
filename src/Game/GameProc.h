@@ -29,6 +29,7 @@ private:
 	int clickNum;
 	bool keyFlg;
 	int frame;
+	int wait;
 
 	std::vector<std::shared_ptr<SoundBase>> m_pSound;
 };

@@ -24,46 +24,58 @@ void CGameProc::Init()
 	dist = level;
 	speed = 0.005f;
 	clickNum = 0;
-	frame = 120;
+	frame = wait = 120;
 }
 
 void CGameProc::Update()
 {
 	if (GetKey(VK_LBUTTON) & 0x8000) {
 		if (!keyFlg) {
-			//グレート（外側）の時の処理
-			if (scale > 0.7 && scale < 1.0) {
-				judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/great.png");
-				dist -= 1.0f;
-				speed += 0.0015;
+			//判定表示中はクリックできない
+			if (frame == wait) {
+				//グレート（外側）の時の処理
+				if (scale > 0.7 && scale < 1.0) {
+					judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/great.png");
+					dist -= 1.0f;
+					speed += 0.002;
+				}
+				//エクセレント（内側）の時の処理
+				else if (scale > 0.0 && scale < 0.35) {
+					judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/excellent1.png");
+					dist -= 0.5f;
+					speed += 0.002 * level;
+				}
+				//ミスの時の処理
+				else {
+					judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/miss.png");
+				}
+				keyFlg = true;
+				clickNum++;
+				frame--;
+				scale = 2.0f;
 			}
-			//エクセレント（内側）の時の処理
-			else if (scale > 0.0 && scale < 0.35) {
-				judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/excellent1.png");
-				dist -= 0.5f;
-				speed += 0.0015 * level;
-			}
-			//ミスの時の処理
-			else {
-				judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/miss.png");
-			}
-			keyFlg = true;
-			clickNum++;
-			frame--;
-			scale = 2.0f;
 		}
 	}
 	else { keyFlg = false; }
+
 
 	scale -= speed;
 	if (scale < 0.0f) {
 		scale = 2.0f;
 	}
 
-	if (frame < 120)
+	if (frame < wait)
 	{
 		frame--;
-		if (frame < 0)frame = 120;
+		if (frame < 0) {
+			frame = wait;
+			//判定画像が消えて釣り切っていたら釣れた。の画像を表示
+			if (dist <= 0)
+			{
+				judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/clear.png");
+				frame--;
+			}
+		}
 	}
 }
 
@@ -90,7 +102,7 @@ void CGameProc::Draw()
 	}
 
 	//判定画像
-	if (frame < 120) {
+	if (frame < wait) {
 		judgeMat.CreateTrans(KdVec3(1280 / 2, 720 / 2, 0));
 		scaleMat.CreateScale(2.0f, 2.0f, 0);
 		judgeMat = scaleMat * judgeMat;
