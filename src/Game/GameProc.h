@@ -11,25 +11,4 @@ public:
 	void End();
 
 private:
-	//ŒÅ’è˜g
-	LPDIRECT3DTEXTURE9 ringTex;
-	KdMatrix ringMat;
-	float scale;
-	//ƒm[ƒc
-	LPDIRECT3DTEXTURE9 notesTex;
-	KdMatrix notesMat;
-	//”»’è•¶š
-	LPDIRECT3DTEXTURE9 judgeTex;
-	KdMatrix judgeMat;
-	//‹›‚ª’Ş‚ê‚é‚Ü‚Å‚Ì‹——£
-	float dist;
-	int level;
-	float speed;
-	int size;
-	int clickNum;
-	bool keyFlg;
-	int frame;
-	int wait;
-
-	std::vector<std::shared_ptr<SoundBase>> m_pSound;
 };

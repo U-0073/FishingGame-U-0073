@@ -15,13 +15,30 @@ public:
 	void Draw2D()override;
 	void Draw3D()override;
 	int GetID()override { return GAME; };
-	void End()override {};
+	void End()override;
 
 private:
-	std::shared_ptr<CGameProc> gameProc = nullptr;
+	//å≈íËòg
+	LPDIRECT3DTEXTURE9 ringTex;
+	KdMatrix ringMat;
+	float scale;
+	//ÉmÅ[Éc
+	LPDIRECT3DTEXTURE9 notesTex;
+	KdMatrix notesMat;
+	//îªíËï∂éö
+	LPDIRECT3DTEXTURE9 judgeTex;
+	LPDIRECT3DTEXTURE9 resultTex = nullptr;
+	KdMatrix judgeMat;
 
+	float dist;
+	int level;
+	float speed;
+	int size;
+	int clickNum;
+	bool keyFlg;
+	int frame;
+	int wait;
 
-	KdMatrix BackMat;
-	LPDIRECT3DTEXTURE9 BackTex;
+	std::vector<std::shared_ptr<SoundBase>> m_pSound;
 
 };
