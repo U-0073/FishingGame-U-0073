@@ -152,15 +152,13 @@ void C_Player::Move()
 void C_Player::Earth()
 {
 	KdVec3 Vec(0.0f, -1.0f, 0.0f);
-	KdVec3 TmpPos(0.0f, 1.0f, 0.0f);
 
 	static bool Stop = false;
-	static float TmpDis;
 	//かべずり判定（メッシュ）
 	D3DXMATRIX	InvMat;
 	D3DXMatrixInverse(&InvMat, NULL, &CollisionMat);
 	D3DXVECTOR3	LocalPos, LocalVec;
-	D3DXVec3TransformCoord(&LocalPos, &(PlayerPos + TmpPos), &InvMat);
+	D3DXVec3TransformCoord(&LocalPos, &(PlayerPos), &InvMat);
 	D3DXVec3TransformNormal(&LocalVec, &Vec, &InvMat);
 
 	BOOL Hit;
@@ -168,12 +166,60 @@ void C_Player::Earth()
 	D3DXIntersect(m_pModel->GetMesh(), &LocalPos, &LocalVec, &Hit,
 		&PolyNo, NULL, NULL, &TextMeshDis, NULL, NULL);
 
+	if (Hit) {
+		//レイ判定で当たっているポリゴンの識別
+		WORD* pI;
+		m_pModel->GetMesh()->LockIndexBuffer(0, (LPVOID*)&pI);
+		DWORD VertexNo[3];
+		VertexNo[0] = *(pI + PolyNo * 3 + 0);
+		VertexNo[1] = *(pI + PolyNo * 3 + 1);
+		VertexNo[2] = *(pI + PolyNo * 3 + 2);
 
-	if (!Stop) {
-		TmpDis = TextMeshDis;
-		Stop = true;
+		CollisionModel->GetMesh()->UnlockIndexBuffer();
+
+
+		CLONEVERTEX* pV;
+		m_pModel->GetMesh()->LockVertexBuffer(0, (LPVOID*)&pV);
+		D3DXVECTOR3		VPos[3];
+		VPos[0] = (pV + VertexNo[0])->Pos;
+		VPos[1] = (pV + VertexNo[1])->Pos;
+		VPos[2] = (pV + VertexNo[2])->Pos;
+
+		m_pModel->GetMesh()->UnlockVertexBuffer();
+
+
+		//壁ずりプログラム	三角形の底面と斜面のベクトルを入手    →△
+		//法線の取得										こいつら↑
+		D3DXVECTOR3 Vec1, Vec2;
+		Vec1 = VPos[1] - VPos[0];
+		Vec2 = VPos[2] - VPos[0];
+		D3DXVECTOR3 WallVec;
+		D3DXVec3Cross(&WallVec, &Vec1, &Vec2);
+
+		D3DXVec3TransformNormal(&WallVec, &WallVec, &CollisionMat);//長さを1に
+		//						　①		 ②		　 ③		　 1:3D空間上での法線の向き　
+		//														   2:メッシュ作成用の法線の向き
+		//														   3:建物用メッシュの行列
+		D3DXVec3Normalize(&WallVec, &WallVec);//正規化
+		//法線の取得完了
+
+
+		float Dot;
+		Dot = D3DXVec3Dot(&WallVec, &-Vec);//カメラの進行方向
+		float Limit;
+		Limit = 1.0f / Dot;
+		if (Limit < 0)Limit *= -1;
+		if (TextMeshDis < Limit) {
+
+			KdVec3 TmpVec = WallVec * ((Limit - TextMeshDis) * Dot);
+			TmpVec.Set(0.0f, TmpVec.y, 0.0f);
+			//PlayerPos += TmpVec;//法線方向に押し出す
+		}
+		if (GetKey('5') & 0x8000) {
+			int i;
+		}
 	}
-	//PlayerPos.y = TextMeshDis -TmpDis;
+//	PlayerPos += Vec * MoveSpeed;
 }
 
 
