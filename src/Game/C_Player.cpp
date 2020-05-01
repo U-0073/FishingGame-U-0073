@@ -21,8 +21,8 @@ void C_Player::Init()
 	PlayerPos = InitPos;
 	GameObject::Init();
 	CollisionMat.CreateTrans(0.0f, -1.5f, 0.0f);
-	CollisionModel = RESOURCE_MNG.GetModel("./Resouce/3DModel/PortWall_Collision.x");
-	m_pModel = RESOURCE_MNG.GetModel("./Resouce/3DModel/Port.x");
+	CollisionModel = RESOURCE_MNG.GetModel("./Resource/3DModel/PortWall_Collision.x");
+	m_pModel = RESOURCE_MNG.GetModel("./Resource/3DModel/Port.x");
 
 	//ポインター関係
 	BasePt.x = SCRW / 2;
@@ -73,6 +73,7 @@ void C_Player::Update()
 	FlgProc();
 	MoveProc();
 	CameraProc();
+
 }
 
 
@@ -385,6 +386,7 @@ void C_Player::Draw3D() {
 }
 void C_Player::Draw2D()
 {
+	SPRITE->End();
 	char Text[100];
 	RECT rcText = { 10,30 * 1,0,0 };
 	sprintf_s(Text, sizeof(Text), "FishSceneLength %f", FishScene_CamPos.Length());
@@ -407,6 +409,8 @@ void C_Player::Draw2D()
 	RECT rcText6 = { 10,30 * 6,0,0 };
 	sprintf_s(Text, sizeof(Text), "FishingScene_CamPos  x %f  y%f z %f ", FishScene_CamPos.x, FishScene_CamPos.y, FishScene_CamPos.z);
 	FONT->DrawText(NULL, Text, -1, &rcText6, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
+
 }
 
 

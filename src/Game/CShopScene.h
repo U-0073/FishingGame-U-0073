@@ -1,6 +1,6 @@
 #pragma once
 #include"../System/FrameBase/CSceneBase.h"
-#define path "Resouce/Texture/"
+#define path "Resource/Texture/"
 #include"Shop2D.h"
 
 class Shop2D;
@@ -22,8 +22,8 @@ private:
 	std::shared_ptr<Shop2D> shop = nullptr;
 
 
-	D3DXMATRIX mMat;
-	D3DXMATRIX mScale;
+	KdMatrix mMat;
+	KdMatrix mScale;
 	LPDIRECT3DTEXTURE9 vTex;
 
 };

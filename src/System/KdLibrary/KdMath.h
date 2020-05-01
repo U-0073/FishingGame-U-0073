@@ -20,6 +20,12 @@ public:
 		x = v.x; y = v.y; z = v.z;
 		return *this;//=‚Ì”ì‚Â‚È‚¬‚Ég‚¦‚é
 	}
+	//const KdVec3& operator=(const D3DXVECTOR3& v) {
+	//	x = v.x; y = v.y; z = v.z;
+	//	return *this;//=‚Ì”ì‚Â‚È‚¬‚Ég‚¦‚é
+	//}
+
+
 	//İ’è
 	void Set(float ix, float iy, float iz) {
 		x = ix; y = iy; z = iz;

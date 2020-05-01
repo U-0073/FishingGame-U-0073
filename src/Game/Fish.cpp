@@ -22,15 +22,15 @@ void Fish::Init()
 	{
 	case 0:
 		m_Tag = "RedSnapper";
-		m_pModel = RESOURCE_MNG.GetModel("Resouce/3DModel/RedSnapper.x");
+		m_pModel = RESOURCE_MNG.GetModel("Resource/3DModel/F-15.x");
 		break;
 	case 1:
 		m_Tag = "Saury";
-		m_pModel = RESOURCE_MNG.GetModel("Resouce/3DModel/Saury.x");
+		m_pModel = RESOURCE_MNG.GetModel("Resource/3DModel/Saury.x");
 		break;
 	case 2:
 		m_Tag = "Tuna";
-		m_pModel = RESOURCE_MNG.GetModel("Resouce/3DModel/Tuna.x");
+		m_pModel = RESOURCE_MNG.GetModel("Resource/3DModel/Tuna.x");
 		break;
 	}
 }
@@ -91,10 +91,12 @@ void Fish::Update()
 
 void Fish::Draw2D()
 {
+	SPRITE->End();
 	RECT rcText = { 10,30 * 0,0,0 };
 	char Text[100];
 	sprintf_s(Text, sizeof(Text), "FishPos x %f y %f z %f", FishPos.x, FishPos.y, FishPos.z);
-	KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	FONT->DrawText(NULL, Text, -1, &rcText, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
 }
 
 void Fish::Draw3D()

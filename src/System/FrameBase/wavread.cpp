@@ -280,8 +280,6 @@ void SoundBase::SetPos(D3DXVECTOR3& Pos)
 
 bool SoundBase::Loadsound(const char* fname)
 {
-	//LPDIRECTSOUND3DBUFFER8 pDSData3D;
-	//LPDIRECTSOUNDBUFFER8 pDSData;
 	HRESULT hr;
 
 

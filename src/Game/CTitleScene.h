@@ -1,6 +1,6 @@
 #pragma once
 #include"../System/FrameBase/CSceneBase.h"
-#define path "Resouce/Texture/"
+#define path "Resource/Texture/"
 #include"Title.h"
 #include"Skysphere.h"
 #include"Fish.h"
@@ -39,4 +39,7 @@ private:
 	D3DXVECTOR3 mPos;
 	BOOL MoveFlg;
 	float Alpha;
+
+	std::shared_ptr<SoundBase> m_PSound = nullptr;
+
 };

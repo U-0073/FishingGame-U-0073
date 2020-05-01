@@ -9,7 +9,7 @@ private:
 
 	std::map<std::string, std::shared_ptr<json11::Json>>jsons;
 
-	std::string Directly = "Resouce/JsonData/";
+	std::string Directly = "Resource/JsonData/";
 
 public:
 

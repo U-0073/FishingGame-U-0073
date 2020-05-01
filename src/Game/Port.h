@@ -10,4 +10,8 @@ public:
 	void Init()override;
 	void Update()override;
 	void Draw3D()override;
+	void End();
+private:
+	std::shared_ptr<SoundBase> testsound = nullptr;
+
 };

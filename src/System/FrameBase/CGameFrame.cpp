@@ -104,7 +104,6 @@ const bool CGameFrame::Initialize(HINSTANCE aHInst, const int aCmdShow)
 
 
 
-
 	return true;
 }
 
@@ -190,7 +189,10 @@ void CGameFrame::GameLoop()
 
 
 		//2D描画.
+		SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
 		nowScene->Draw2D();
+		SPRITE->End();
+
 		//3D描画.
 		nowScene->Draw3D();
 

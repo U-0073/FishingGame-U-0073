@@ -18,7 +18,7 @@ CMapScene::CMapScene()
 	Sky = std::make_shared<Skysphere>();
 	Sky->Init();
 
-	
+
 	//ŠC
 	Seas = std::make_shared<Sea>();
 	//`
@@ -31,9 +31,10 @@ CMapScene::CMapScene()
 
 	m_Fishing = std::make_shared<C_Fishing>();
 	m_Fishing->Init();
-	m_PSound = RESOURCE_MNG.GetSound("Resouce/Sound/wave3.wav");
-	m_PSound->Playsound("Resouce/Sound/wave3.wav", true, false);
-	}
+	m_PSound = RESOURCE_MNG.GetSound("Resource/Sound/wave3.wav");
+	m_PSound->Playsound("Resource/Sound/wave3.wav", true, true);
+
+}
 
 CMapScene::~CMapScene()
 {
@@ -49,16 +50,16 @@ int CMapScene::Update()
 	m_Player->Update();
 	Sky->SetPos(m_Player->GetPlayerPos());
 	m_Port->Update();
+	Seas->Update();
 
 	m_Fishing->SetCamAngY(m_Player->GetCamAngY());
 	m_Fishing->SetPlayerPos(m_Player->GetPlayerPos());
 	m_Fishing->SetFishFlg(m_Player->GetFeshFlg());
 	m_Fishing->SetBuoiFlg(m_Player->GetBuoiFlg());
 	m_Fishing->Update();
-//	Fishes->Update();
 
 
-	if (GetKey(VK_SPACE) & 0x8000) 
+	if (GetKey(VK_SPACE) & 0x8000)
 	{
 		FADE.Start(5);
 		return TITLE;
@@ -67,7 +68,7 @@ int CMapScene::Update()
 		FADE.Start(5);
 		return SHOP;
 	}
-	if (GetKey('G') & 0x8000) {
+	if (GetKey('F') & 0x8000) {
 		FADE.Start(5);
 		return GAME;
 	}
@@ -77,16 +78,15 @@ int CMapScene::Update()
 
 void CMapScene::Draw2D()
 {
-	m_Player->Draw2D();
-	m_Fishing->Draw2D();
+	//m_Player->Draw2D();
+	//m_Fishing->Draw2D();
 }
 
 void CMapScene::Draw3D()
 {
 	Sky->Draw3D();
 	m_Port->Draw3D();
-	//Seas->Draw();
-	Seas->DrawObject();
+	Seas->Draw3D();
 	m_Fishing->Draw3D();
 	//Fishes->Draw3D();
 	m_Player->Draw3D();
@@ -94,5 +94,6 @@ void CMapScene::Draw3D()
 
 void CMapScene::End()
 {
+	m_Port->End();
 	m_PSound->LDSB8->Stop();
 }
