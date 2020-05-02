@@ -92,7 +92,7 @@ private:
 	bool				FishFlg = false;
 	bool				RestoreFlg = false;
 	bool				BuoiFlg = false;		//•‚‚«‚ð“®‚©‚·‚©”Û‚©
-
+	bool				WallFlg = false;
 
 
 };
