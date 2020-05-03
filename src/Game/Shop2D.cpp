@@ -22,6 +22,9 @@ void Shop2D::Init()
 	D3DXMatrixTranslation(&TabLeftMat, 100.0f, 100.0f, 0.0f);
 	D3DXMatrixTranslation(&TabCenterMat, 100.0f, 100.0f, 0.0f);
 	D3DXMatrixTranslation(&TabRightMat, 100.0f, 100.0f, 0.0f);
+	tabL = 30;
+	tabC = 0;
+	tabR = 0;
 
 	//選択
 	ListSelectTex = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/ListSelect.png");
@@ -43,14 +46,13 @@ void Shop2D::Init()
 	}
 }
 
-int is = 0;
-
 void Shop2D::Update()
 {
+	//上下キーでカーソル移動
 	if (GetKey(VK_DOWN) & 0x8000) {
 		if (KeyDownFlg == false) {
-			is++;
-			if (is >= 5)is = 5;
+			cursor++;
+			if (cursor >= 5)cursor = 5;
 			KeyDownFlg = true;
 		}
 	}
@@ -60,8 +62,8 @@ void Shop2D::Update()
 
 	if (GetKey(VK_UP) & 0x8000) {
 		if (KeyUpFlg == false) {
-			is--;
-			if (is <= 0)is = 0;
+			cursor--;
+			if (cursor <= 0)cursor = 0;
 			KeyUpFlg = true;
 		}
 	}
@@ -69,7 +71,38 @@ void Shop2D::Update()
 		KeyUpFlg = false;
 	}
 
-	D3DXMatrixTranslation(&ListSelectMat, 100.0f, select[is], 0.0f);
+	//左右キーでタブ移動
+	if (GetKey(VK_LEFT) & 0x8000) {
+		if (KeyLeftFlg == false) {
+			tabPattern--;
+			if (tabPattern <= 0)tabPattern = 0;
+			KeyLeftFlg = true;
+		}
+	}
+	else {
+		KeyLeftFlg = false;
+	}
+
+	if (GetKey(VK_RIGHT) & 0x8000) {
+		if (KeyRightFlg == false) {
+			tabPattern++;
+			if (tabPattern >= 2)tabPattern = 2;
+			KeyRightFlg = true;
+		}
+	}
+	else {
+		KeyRightFlg = false;
+	}
+
+	//選択カーソル
+	D3DXMatrixTranslation(&ListSelectMat, 100.0f, select[cursor], 0.0f);
+	//タブ
+	if (tabPattern == 0) { tabL = 30; tabC = 0; tabR = 0; }
+	if (tabPattern == 1) { tabL = 0; tabC = 30; tabR = 0; }
+	if (tabPattern == 2) { tabL = 0; tabC = 0; tabR = 30; }
+	D3DXMatrixTranslation(&TabLeftMat,   100.0f, 100.0f - tabL, 0.0f);
+	D3DXMatrixTranslation(&TabCenterMat, 100.0f, 100.0f - tabC, 0.0f);
+	D3DXMatrixTranslation(&TabRightMat,  100.0f, 100.0f - tabR, 0.0f);
 }
 
 void Shop2D::Draw2D()

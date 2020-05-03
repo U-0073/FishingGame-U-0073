@@ -21,8 +21,13 @@ private:
 	LPDIRECT3DTEXTURE9 ListTex[6];
 	D3DXVECTOR3 mPos;
 
+	int cursor = 0;
+	int tabPattern = 0;
+
 	float select[6];
+	float tabL, tabC, tabR;
 
 	bool KeyDownFlg = false, KeyUpFlg = false;
+	bool KeyLeftFlg = false, KeyRightFlg = false;
 };
 
