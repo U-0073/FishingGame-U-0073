@@ -1,30 +1,36 @@
 #include"../System/KdLibrary/KdLibrary.h"
 #include"ShopObject.h"
 
-CShopObject::CShopObject()
+ShopObject::ShopObject()
 {
 }
 
-CShopObject::~CShopObject()
+ShopObject::~ShopObject()
 {
 }
 
-void CShopObject::Init()
+void ShopObject::Init()
 {
 	GameObject::Init();
-	m_pModel = RESOURCE_MNG.GetModel("./Resource/3DModel/Shop.x");
+	m_pNormalRod1 = RESOURCE_MNG.GetModel("./Resource/3DModel/Tuna.x");
+	//m_pNormalRod2 = RESOURCE_MNG.GetModel("./Resource/3DModel/Tuna.x");
+	//m_pNormalRod3 = RESOURCE_MNG.GetModel("./Resource/3DModel/Tuna.x");
 }
 
-void CShopObject::Update()
+void ShopObject::Update()
 {
+
 }
 
-void CShopObject::Draw3D()
+void ShopObject::Draw3D()
 {
 	KD3D.SetWorldMatrix(&m_world);
 
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, TRUE);
-	m_pModel->Draw();
-	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
+	
+	m_pNormalRod1->Draw();
+	//m_pNormalRod2->Draw();
+	//m_pNormalRod3->Draw();
 
+	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
 }

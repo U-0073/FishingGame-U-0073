@@ -1,8 +1,6 @@
 #pragma once
 #include"../System/FrameBase/GameObject.h"
 
-
-
 class Shop2D : GameObject
 {
 public:

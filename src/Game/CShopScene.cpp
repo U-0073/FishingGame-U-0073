@@ -5,8 +5,11 @@
 CShopScene::CShopScene()
 	:mMat()
 {
-	shop = std::make_shared<Shop2D>();
-	shop->Init();
+	shop2d = std::make_shared<Shop2D>();
+	shop2d->Init();
+
+	shopObj = std::make_shared<ShopObject>();
+	shopObj->Init();
 }
 
 CShopScene::~CShopScene()
@@ -23,7 +26,11 @@ void CShopScene::Init()
 
 int CShopScene::Update()
 {
-	shop->Update();
+	shop2d->Update();
+	shopObj->Update();
+	
+	//”wŒi‚ÌZ’l’²®
+	D3DXMatrixTranslation(&mMat, 0, 0, 1);
 
 	//ƒV[ƒ“Ø‚è‘Ö‚¦
 	if (GetKey('O') & 0x8000)
@@ -45,10 +52,10 @@ void CShopScene::Draw2D()
 
 	SPRITE->End();
 
-	shop->Draw2D();
+	shop2d->Draw2D();
 }
 
 void CShopScene::Draw3D()
 {
-
+	shopObj->Draw3D();
 }
