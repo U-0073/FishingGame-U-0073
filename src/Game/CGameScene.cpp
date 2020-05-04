@@ -14,9 +14,8 @@ CGameScene::~CGameScene()
 
 void CGameScene::Init()
 {
-	ringTex = *RESOURCE_MNG.GetTexture("Resource/Texture/Ring3.png");
-	notesTex = *RESOURCE_MNG.GetTexture("Resource/Texture/ScaleRing.png");
-	judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/excellent1.png");
+	ringTex = *RESOURCE_MNG.GetTexture("Resource/Texture/Ring4.png");
+	notesTex = *RESOURCE_MNG.GetTexture("Resource/Texture/ScaleRin2.png");
 	backTex = *RESOURCE_MNG.GetTexture("Resource/Texture/SeaBack002.png");
 
 	ringMat.CreateTrans(KdVec3(1280 / 2, 720 / 2, 0));
@@ -110,9 +109,9 @@ void CGameScene::Draw2D()
 	SPRITE->Draw(backTex, &rc, &D3DXVECTOR3(1280 / 2, 720 / 2, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
 	//ŒÅ’è˜g
-	rc = { 0,0,500,500 };
+	rc = { 0,0,250,250 };
 	SPRITE->SetTransform(&ringMat);
-	SPRITE->Draw(ringTex, &rc, &D3DXVECTOR3(250.0f, 250.0f, 0.0f), NULL, D3DCOLOR_ARGB(150, 255, 255, 255));
+	SPRITE->Draw(ringTex, &rc, &D3DXVECTOR3(125, 125, 0.0f), NULL, D3DCOLOR_ARGB(150, 255, 255, 255));
 	//ƒm[ƒc
 	KdMatrix scaleMat;
 	notesMat.CreateTrans(KdVec3(1280 / 2, 720 / 2, 0));
@@ -120,13 +119,13 @@ void CGameScene::Draw2D()
 	notesMat = scaleMat * notesMat;
 	SPRITE->SetTransform(&notesMat);
 	if (scale > 0.7f && scale < 1.0f) {
-		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(250.0f, 250.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 0, 0));
+		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(250, 250, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 0, 0));
 	}
 	else if (scale > 0.0f && scale < 0.35f) {
-		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(250.0f, 250.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 0, 0));
+		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(250, 250, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 0, 0));
 	}
 	else {
-		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(250.0f, 250.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(250, 250, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 	}
 
 	//”»’è‰æ‘œ
