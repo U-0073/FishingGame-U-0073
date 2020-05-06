@@ -15,16 +15,17 @@ CGameScene::~CGameScene()
 void CGameScene::Init()
 {
 	ringTex = *RESOURCE_MNG.GetTexture("Resource/Texture/Ring4.png");
-	notesTex = *RESOURCE_MNG.GetTexture("Resource/Texture/ScaleRin2.png");
+	notesTex = *RESOURCE_MNG.GetTexture("Resource/Texture/ScaleRing2.png");
 	backTex = *RESOURCE_MNG.GetTexture("Resource/Texture/SeaBack002.png");
 
-	ringMat.CreateTrans(KdVec3(1280 / 2, 720 / 2, 0));
-	notesMat.CreateTrans(KdVec3(1280 / 2, 720 / 2, 0));
+	ringMat.CreateTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
+	notesMat=ringMat;
+	backMat.CreateTrans(1280 / 2, 720/ 2, 0);
 	//ŠgkƒTƒCƒY
 	scale = 2.0f;
 	//Lv1`5
 	//level = rand() % 6 + 1;
-	level = 1;
+	level = 5;
 	dist = level;
 	speed = 0.005f;
 	clickNum = 10;
@@ -57,6 +58,9 @@ int CGameScene::Update()
 				clickNum--;
 				frame--;
 				scale = 2.0f;
+				ringMat.CreateTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
+				notesMat = ringMat;
+
 			}
 		}
 	}
@@ -105,27 +109,27 @@ void CGameScene::Draw2D()
 {
 	//”wŒi
 	RECT rc = { 0,0,1280,720 };
-	SPRITE->SetTransform(&ringMat);
+	SPRITE->SetTransform(&backMat);
 	SPRITE->Draw(backTex, &rc, &D3DXVECTOR3(1280 / 2, 720 / 2, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
 	//ŒÅ’è˜g
-	rc = { 0,0,250,250 };
+	rc = { 0,0,200,200 };
 	SPRITE->SetTransform(&ringMat);
-	SPRITE->Draw(ringTex, &rc, &D3DXVECTOR3(125, 125, 0.0f), NULL, D3DCOLOR_ARGB(150, 255, 255, 255));
+	SPRITE->Draw(ringTex, &rc, &D3DXVECTOR3(100, 100, 0.0f), NULL, D3DCOLOR_ARGB(150, 255, 255, 255));
 	//ƒm[ƒc
 	KdMatrix scaleMat;
-	notesMat.CreateTrans(KdVec3(1280 / 2, 720 / 2, 0));
+	notesMat = ringMat;
 	scaleMat.CreateScale(scale, scale, 0);
 	notesMat = scaleMat * notesMat;
 	SPRITE->SetTransform(&notesMat);
 	if (scale > 0.7f && scale < 1.0f) {
-		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(250, 250, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 0, 0));
-	}
-	else if (scale > 0.0f && scale < 0.35f) {
-		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(250, 250, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 0, 0));
-	}
-	else {
-		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(250, 250, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(100, 100, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 0, 0));
+	}											  	   
+	else if (scale > 0.0f && scale < 0.35f) {	  	   
+		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(100, 100, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 0, 0));
+	}											  	   
+	else {										  	   
+		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(100, 100, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 	}
 
 	//”»’è‰æ‘œ
