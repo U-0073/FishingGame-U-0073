@@ -21,16 +21,17 @@ private:
 	//å≈íËòg
 	LPDIRECT3DTEXTURE9 ringTex;
 	KdMatrix ringMat;
-	float scale;
 	//ÉmÅ[Éc
 	LPDIRECT3DTEXTURE9 notesTex;
 	KdMatrix notesMat;
+	float scale;
 	//îªíËï∂éö
 	LPDIRECT3DTEXTURE9 judgeTex;
 	LPDIRECT3DTEXTURE9 resultTex = nullptr;
 	KdMatrix judgeMat;
 
 	LPDIRECT3DTEXTURE9 backTex;
+	KdMatrix backMat;
 
 	float dist;
 	int level;
