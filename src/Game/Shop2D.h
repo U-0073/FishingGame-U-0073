@@ -18,13 +18,15 @@ public:
 
 private:
 	D3DXMATRIX FrameMat,fTextMat,TabLeftMat, TabCenterMat, TabRightMat,ListSelectMat;
-	D3DXMATRIX FrameSecMat,fTextSecMat, FrameSrdMat, fTextSrdMat;
-	D3DXMATRIX ListMat[6];
-
 	LPDIRECT3DTEXTURE9 FrameTex,fTextTex, TabLeftTex, TabCenterTex, TabRightTex, ListSelectTex;
+
+	D3DXMATRIX FrameSecMat,fTextSecMat, FrameSrdMat, fTextSrdMat;
 	LPDIRECT3DTEXTURE9 FrameSecTex,fTextSecTex, FrameSrdTex, fTextSrdTex;
-	LPDIRECT3DTEXTURE9 ListTex[6];
 	
+	D3DXMATRIX BaitMat[LISTNUMBER];
+	LPDIRECT3DTEXTURE9 BaitTex[LISTNUMBER];
+	RECT rcBait[8];
+
 	D3DXVECTOR3 mPos;
 
 	int cursor = 0;

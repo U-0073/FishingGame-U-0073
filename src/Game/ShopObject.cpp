@@ -34,14 +34,16 @@ void ShopObject::Draw3D()
 
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, TRUE);
 	
-	m_pNormalRod1->Draw();
-	//m_pNormalRod2->Draw();
-	//m_pNormalRod3->Draw();
+	if (tPattern == 0) {
+		m_pNormalRod1->Draw();
+		//m_pNormalRod2->Draw();
+		//m_pNormalRod3->Draw();
+	}
 
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
 }
 
-void ShopObject::GetListChange()
+void ShopObject::GetListChange(int tPat)
 {
-	
+	tPattern = tPat;
 }
