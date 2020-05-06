@@ -10,6 +10,9 @@ public:
 	void Init()override;
 	void Update()override;
 	void Draw3D()override;
+
+	void GetListChange();
+
 private:
 
 	std::shared_ptr<KdModel> m_pNormalRod1 = nullptr;
