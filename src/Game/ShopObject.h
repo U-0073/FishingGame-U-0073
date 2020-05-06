@@ -11,11 +11,13 @@ public:
 	void Update()override;
 	void Draw3D()override;
 
-	void GetListChange();
+	void GetListChange(int);
 
 private:
 
 	std::shared_ptr<KdModel> m_pNormalRod1 = nullptr;
 	std::shared_ptr<KdModel> m_pNormalRod2 = nullptr;
 	std::shared_ptr<KdModel> m_pNormalRod3 = nullptr;
+
+	int tPattern;
 };
