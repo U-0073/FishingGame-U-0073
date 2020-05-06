@@ -42,13 +42,13 @@ int CGameScene::Update()
 				if (scale > 0.7 && scale < 1.0) {
 					judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/great.png");
 					dist -= 1.0f;
-					speed += 0.002;
+					//speed += 0.002;
 				}
 				//エクセレント（内側）の時の処理
 				else if (scale > 0.0 && scale < 0.35) {
 					judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/excellent1.png");
 					dist -= 0.5f;
-					speed += 0.002 * level;
+					//speed += 0.002 * level;
 				}
 				//ミスの時の処理
 				else {
