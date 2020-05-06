@@ -1,6 +1,8 @@
 #pragma once
 #include"../System/FrameBase/GameObject.h"
 
+#define LISTNUMBER 8
+
 class Shop2D : GameObject
 {
 public:
@@ -12,20 +14,27 @@ public:
 	void Draw2D()override;
 	void Draw3D()override;
 
+	int SetListChange();
+
 private:
-	D3DXMATRIX FrameMat,TabLeftMat, TabCenterMat, TabRightMat,ListSelectMat;
+	D3DXMATRIX FrameMat,fTextMat,TabLeftMat, TabCenterMat, TabRightMat,ListSelectMat;
+	D3DXMATRIX FrameSecMat,fTextSecMat, FrameSrdMat, fTextSrdMat;
 	D3DXMATRIX ListMat[6];
-	LPDIRECT3DTEXTURE9 FrameTex, TabLeftTex, TabCenterTex, TabRightTex, ListSelectTex;
+
+	LPDIRECT3DTEXTURE9 FrameTex,fTextTex, TabLeftTex, TabCenterTex, TabRightTex, ListSelectTex;
+	LPDIRECT3DTEXTURE9 FrameSecTex,fTextSecTex, FrameSrdTex, fTextSrdTex;
 	LPDIRECT3DTEXTURE9 ListTex[6];
+	
 	D3DXVECTOR3 mPos;
 
 	int cursor = 0;
 	int tabPattern = 0;
 
-	float select[6];
+	float select[LISTNUMBER];
 	float tabL, tabC, tabR;
 
 	bool KeyDownFlg = false, KeyUpFlg = false;
 	bool KeyLeftFlg = false, KeyRightFlg = false;
+	bool RodTextFlg = false, BaitTextFlg = false, ReelTextFlg = false;
 };
 
