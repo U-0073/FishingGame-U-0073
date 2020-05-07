@@ -252,6 +252,7 @@ const bool CGameFrame::CreateDirectX9() {
 		MessageBox(mpHwnd, errorMsg.c_str(), "Direct3D初期化失敗", MB_OK | MB_ICONSTOP);
 		return false;
 	}
+	KD3D.SetDefaultState();
 	return true;
 }
 void CGameFrame::SceneClear()

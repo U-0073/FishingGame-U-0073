@@ -22,7 +22,7 @@ void Fish::Init()
 	{
 	case 0:
 		m_Tag = "RedSnapper";
-		m_pModel = RESOURCE_MNG.GetModel("Resource/3DModel/F-15.x");
+		m_pModel = RESOURCE_MNG.GetModel("Resource/3DModel/RedSnapper.x");
 		break;
 	case 1:
 		m_Tag = "Saury";
