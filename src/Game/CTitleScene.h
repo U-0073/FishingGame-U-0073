@@ -31,14 +31,9 @@ private:
 	std::shared_ptr<Title> title = nullptr;
 	std::shared_ptr<Sea> sea = nullptr;
 	
-	D3DXMATRIX mMat;//ホワイトアウト
-	D3DXMATRIX mScale;
-	LPDIRECT3DTEXTURE9 vTex;
-	
 
 	D3DXVECTOR3 mPos;
 	BOOL MoveFlg;
-	float Alpha;
 
 	std::shared_ptr<SoundBase> m_PSound = nullptr;
 

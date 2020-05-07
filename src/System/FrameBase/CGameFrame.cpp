@@ -214,7 +214,7 @@ void CGameFrame::GameLoop()
 	RECT rc = { 0,0,0,0 };
 	char buf[100];
 	sprintf_s(buf, sizeof(buf), "%dFPS", FPS);
-	FONT->DrawText(NULL, buf, -1, &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 155, 155, 155));
+	FONT->DrawText(NULL, buf, -1, &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 0, 0));
 
 
 	// 描画終了
