@@ -40,6 +40,10 @@ private:
 
 	int nextscene,nowscene;
 
+	DWORD NowTime, NT;
+	DWORD PrevTime, PT;
+	int cnt;
+	int FPS;
 
 
 public:

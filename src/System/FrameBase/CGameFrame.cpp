@@ -109,7 +109,20 @@ const bool CGameFrame::Initialize(HINSTANCE aHInst, const int aCmdShow)
 
 void CGameFrame::GameLoop()
 {
-
+	NT = timeGetTime();
+	if (NT - PT < 1000 / 60) {
+		return;
+	}
+	else {
+		PT = NT;
+	}
+	NowTime = timeGetTime();
+	if (NowTime - PrevTime >= 1000) {
+		PrevTime = NowTime;
+		FPS = cnt;
+		cnt = 0;
+	}
+	cnt++;
 
 
 
@@ -198,6 +211,11 @@ void CGameFrame::GameLoop()
 
 	}
 	FADE.Draw();
+	RECT rc = { 0,0,0,0 };
+	char buf[100];
+	sprintf_s(buf, sizeof(buf), "%dFPS", FPS);
+	FONT->DrawText(NULL, buf, -1, &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 155, 155, 155));
+
 
 	// 描画終了
 	KD3D.GetDev()->EndScene();
