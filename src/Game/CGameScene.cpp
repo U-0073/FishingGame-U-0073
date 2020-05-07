@@ -39,7 +39,7 @@ int CGameScene::Update()
 			//判定表示中はクリックできない
 			if (frame == wait) {
 				//グレート（外側）の時の処理
-				if (scale > 0.7 && scale < 1.0) {
+				if (scale > 0.35 && scale < 0.7) {
 					judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/great.png");
 					dist -= 1.0f;
 					//speed += 0.002;

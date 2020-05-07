@@ -72,6 +72,10 @@ int CMapScene::Update()
 		FADE.Start(5);
 		return GAME;
 	}
+	if (GetKey('Z') & 0x8000) {
+		FADE.Start(5);
+		return TITLE;
+	}
 
 	return MAP;
 }
