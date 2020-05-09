@@ -99,7 +99,7 @@ void CMapScene::Draw3D()
 	Seas->Draw3D();
 	m_Fishing->Draw3D();
 	//Fishes->Draw3D();
-	m_Player->Draw3D();
+	//m_Player->Draw3D();
 }
 
 void CMapScene::End()

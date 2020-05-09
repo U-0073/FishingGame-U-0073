@@ -12,6 +12,8 @@ public:
 
 	// 描画
 	void Draw();
+	//テクスチャの変更
+	void ChangeTexture(int& matNum, const std::string& filename);
 
 	// デストラクタ(このクラスが消えるときに、自動で実行される関数です)
 	~KdModel() {

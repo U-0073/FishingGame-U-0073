@@ -32,6 +32,10 @@ void CGameScene::Init()
 	speed = 0.005f;
 	clickNum = 10;
 	frame = wait = 120;
+
+	m_pSound = RESOURCE_MNG.GetSound("Resource/Sound/wave3.wav");
+	m_pSound->Playsound("Resource/Sound/wave3.wav", true, true);
+
 }
 
 int CGameScene::Update()
