@@ -42,6 +42,6 @@ private:
 	int frame;
 	int wait;
 
-	std::vector<std::shared_ptr<SoundBase>> m_pSound;
+	std::shared_ptr<SoundBase> m_pSound;
 
 };

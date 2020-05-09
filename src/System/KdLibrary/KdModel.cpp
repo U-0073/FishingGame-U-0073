@@ -97,3 +97,8 @@ void KdModel::Draw()
 		m_pMesh->DrawSubset(i);
 	}
 }
+
+void KdModel::ChangeTexture(int &matNum, const std::string& filename)
+{
+	m_materials[matNum].pTex = *RESOURCE_MNG.GetTexture(filename);
+}
