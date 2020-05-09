@@ -3,9 +3,6 @@
 
 #define LISTNUMBER 8
 
-void SafeReleaseTex(LPDIRECT3DTEXTURE9 tex) {
-	if (tex != nullptr) tex->Release();
-}
 
 
 class Shop2D : GameObject
@@ -26,7 +23,6 @@ private:
 	KdMatrix TabLeftMat;
 	KdMatrix FrameMat;
 	KdMatrix fTextMat;
-	KdMatrix TabLeftMat;
 	KdMatrix TabCenterMat;
 	KdMatrix TabRightMat;
 	KdMatrix ListSelectMat;

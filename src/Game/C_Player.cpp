@@ -9,6 +9,7 @@
 
 C_Player::C_Player()
 {
+	Init();
 }
 
 C_Player::~C_Player()
@@ -53,8 +54,8 @@ void C_Player::Begin()
 }
 void C_Player::End()
 {
-	if (m_pModel != nullptr)m_pModel->Release();
-	if (CollisionModel != nullptr)CollisionModel->Release();
+	if (m_pModel != nullptr)m_pModel=nullptr;
+	if (CollisionModel != nullptr)CollisionModel = nullptr;
 }
 
 

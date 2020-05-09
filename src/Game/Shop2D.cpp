@@ -1,6 +1,12 @@
 #include"../System/KdLibrary/KdLibrary.h"
 #include"Shop2D.h"
 
+void SafeReleaseTex(LPDIRECT3DTEXTURE9 tex) {
+	if (tex != nullptr) tex->Release();
+}
+
+
+
 Shop2D::Shop2D()
 {
 }

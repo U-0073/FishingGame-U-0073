@@ -3,7 +3,7 @@
 
 
 
-class Title: GameObject
+class Title : GameObject
 {
 public:
 	Title();
@@ -15,15 +15,15 @@ public:
 	void Draw3D()override;
 
 private:
+	std::shared_ptr<LPDIRECT3DTEXTURE9> vTex = nullptr;
 	D3DXMATRIX mMat;//タイトル
-	LPDIRECT3DTEXTURE9 vTex;
 	D3DXVECTOR3 mPos;
 
 	D3DXMATRIX mMat2;//エンターキー
 	D3DXVECTOR3 mPos2;
-	LPDIRECT3DTEXTURE9 vTex2;
+	std::shared_ptr<LPDIRECT3DTEXTURE9> vTex2 = nullptr;
 
 	int alpha;
-	
+
 };
 
