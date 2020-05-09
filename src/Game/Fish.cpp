@@ -7,6 +7,7 @@ Fish::Fish()
 
 Fish::~Fish()
 {
+	m_pModel = nullptr;
 }
 
 void Fish::Init()

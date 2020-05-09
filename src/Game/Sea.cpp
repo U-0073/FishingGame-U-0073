@@ -28,6 +28,7 @@ Sea::Sea()
 
 Sea::~Sea()
 {
+	m_pModel = nullptr;
 }
 
 

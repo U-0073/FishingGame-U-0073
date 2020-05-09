@@ -7,6 +7,9 @@ Title::Title()
 
 Title::~Title()
 {
+	m_pModel = nullptr;
+	if (vTex != nullptr)vTex->Release();
+	if (vTex2 != nullptr)vTex2->Release();
 }
 
 void Title::Init()
@@ -27,18 +30,19 @@ void Title::Update()
 	mPos2 = D3DXVECTOR3(628, 600, 0);
 
 	if (alpha > 255) {
-		alpha -=1;
+		alpha -= 1;
 		if (alpha == 0) {
 			alpha = 0;
 		}
-	}else if (alpha < 0) {
-		alpha +=1;
+	}
+	else if (alpha < 0) {
+		alpha += 1;
 		if (alpha == 255) {
 			alpha = 255;
 		}
 	}
-	
-	
+
+
 
 	D3DXMatrixTranslation(&mMat, mPos.x, mPos.y, mPos.z);
 	D3DXMatrixTranslation(&mMat2, mPos2.x, mPos2.y, mPos2.z);
@@ -49,7 +53,7 @@ void Title::Draw2D()
 {
 	RECT rcTitle = { 0,0,674,108 };
 	SPRITE->SetTransform(&mMat);
-	SPRITE->Draw(vTex, &rcTitle, &D3DXVECTOR3(337.0f,54.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+	SPRITE->Draw(vTex, &rcTitle, &D3DXVECTOR3(337.0f, 54.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
 	RECT rcENTER = { 0,0,432,88 };
 	SPRITE->SetTransform(&mMat2);

@@ -7,6 +7,10 @@ ShopObject::ShopObject()
 
 ShopObject::~ShopObject()
 {
+	m_pModel = nullptr;
+	m_pNormalRod1 = nullptr;
+	m_pNormalRod2 = nullptr;
+	m_pNormalRod3 = nullptr;
 }
 
 void ShopObject::Init()
@@ -33,7 +37,7 @@ void ShopObject::Draw3D()
 	KD3D.SetWorldMatrix(&m_world);
 
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, TRUE);
-	
+
 	if (tPattern == 0) {
 		m_pNormalRod1->Draw();
 		//m_pNormalRod2->Draw();

@@ -26,10 +26,10 @@ public:
 
 	void End()override;
 private:
-	std::shared_ptr<Skysphere> Sky = nullptr;
-	std::shared_ptr<Fish> Fishes = nullptr;
-	std::shared_ptr<Title> title = nullptr;
-	std::shared_ptr<Sea> sea = nullptr;
+	std::shared_ptr<Skysphere>	Sky		= nullptr;
+	std::shared_ptr<Fish>		Fishes	= nullptr;
+	std::shared_ptr<Title>		title	= nullptr;
+	std::shared_ptr<Sea>		sea		= nullptr;
 	
 
 	D3DXVECTOR3 mPos;

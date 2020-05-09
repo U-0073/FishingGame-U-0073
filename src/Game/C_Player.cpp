@@ -53,7 +53,8 @@ void C_Player::Begin()
 }
 void C_Player::End()
 {
-	CollisionModel = nullptr;
+	if (m_pModel != nullptr)m_pModel->Release();
+	if (CollisionModel != nullptr)CollisionModel->Release();
 }
 
 

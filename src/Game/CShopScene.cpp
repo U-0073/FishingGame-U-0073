@@ -14,7 +14,7 @@ CShopScene::CShopScene()
 
 CShopScene::~CShopScene()
 {
-
+	if (vTex != nullptr)vTex->Release();
 }
 
 void CShopScene::Init()
@@ -28,9 +28,9 @@ int CShopScene::Update()
 {
 	shop2d->Update();
 	shopObj->Update();
-	
+
 	shopObj->GetListChange(shop2d->SetListChange());
-	
+
 	//ФwМiВ╠ZТlТ▓Ро
 	D3DXMatrixTranslation(&mMat, 0, 0, 1);
 

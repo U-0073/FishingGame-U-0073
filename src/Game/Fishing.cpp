@@ -8,6 +8,7 @@ C_Fishing::C_Fishing()
 }
 
 C_Fishing::~C_Fishing() {
+	Fishes = nullptr;
 	m_pModel = nullptr;
 }
 

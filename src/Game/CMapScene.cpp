@@ -38,6 +38,12 @@ CMapScene::CMapScene()
 
 CMapScene::~CMapScene()
 {
+	Sky = nullptr;
+	Seas = nullptr;
+	m_Port = nullptr;
+	m_Player = nullptr;
+	m_Fishing = nullptr;
+	m_PSound = nullptr;
 }
 
 void CMapScene::Init()

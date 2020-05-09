@@ -7,6 +7,8 @@ Port::Port()
 
 Port::~Port()
 {
+	m_pModel = nullptr;
+	testsound = nullptr;
 }
 
 void Port::Init()
