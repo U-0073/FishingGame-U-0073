@@ -28,15 +28,15 @@ LRESULT APIENTRY WndFunc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 //コンストラクタ(インスタンス化(作られたとき)時に呼び出される関数)
 CGameFrame::CGameFrame()
 	: mpHwnd(nullptr)
-	 //, mpD3D( nullptr )
-	 //, mpD3DDevice( nullptr )
-	 //, mD3Dpp()
+	//, mpD3D( nullptr )
+	//, mpD3DDevice( nullptr )
+	//, mD3Dpp()
 	, mWndClass()
 	, nowScene(nullptr)
 	, mIsFullScreen(false)
 	, mWindowSize(1280, 720)
 	, mAppName("KDFrame")
-	
+
 {
 
 
@@ -45,8 +45,7 @@ CGameFrame::CGameFrame()
 //デストラクタ(破棄した時(メモリから解放)に呼び出される関数)
 CGameFrame::~CGameFrame()
 {
-
-
+	nowScene = nullptr;
 }
 
 const bool CGameFrame::CreateHWND(HINSTANCE aHInst, const int aCmdShow)
@@ -84,7 +83,7 @@ const bool CGameFrame::CreateHWND(HINSTANCE aHInst, const int aCmdShow)
 	}
 
 
-	
+
 
 	return true;
 }
@@ -94,14 +93,13 @@ const bool CGameFrame::Initialize(HINSTANCE aHInst, const int aCmdShow)
 	if (CreateWNDCLASS(aHInst) == false) { return false; }
 
 	if (CreateHWND(aHInst, aCmdShow) == false) { return false; }
-	
+
 	if (CreateDirectX9() == false) { return false; }
-	
+
 
 	nowScene = std::make_shared<CTitleScene>();
 	nowscene = nowScene->GetID();
 	CAMERA.Set(mWindowSize);
-
 
 
 
@@ -110,7 +108,20 @@ const bool CGameFrame::Initialize(HINSTANCE aHInst, const int aCmdShow)
 
 void CGameFrame::GameLoop()
 {
-
+	NT = timeGetTime();
+	if (NT - PT < 1000 / 60) {
+		return;
+	}
+	else {
+		PT = NT;
+	}
+	NowTime = timeGetTime();
+	if (NowTime - PrevTime >= 1000) {
+		PrevTime = NowTime;
+		FPS = cnt;
+		cnt = 0;
+	}
+	cnt++;
 
 
 
@@ -131,7 +142,7 @@ void CGameFrame::GameLoop()
 
 
 		if (FADE.GetLoadOKFlg()) {
-			
+
 			SceneClear();
 			switch (nextscene)
 			{
@@ -163,12 +174,12 @@ void CGameFrame::GameLoop()
 			//nowScene->Update();
 		}
 	}
-	
-		KD3D.GetDev()->Clear(0, nullptr, flags, D3DCOLOR_ARGB(255, 0, 0, 255), 1.0f, 0);
+
+	KD3D.GetDev()->Clear(0, nullptr, flags, D3DCOLOR_ARGB(255, 0, 0, 255), 1.0f, 0);
 
 
 
-	if (nowScene&&nextscene==nowscene) {
+	if (nowScene && nextscene == nowscene) {
 		//シーンの更新
 		nextscene = nowScene->Update();
 
@@ -183,7 +194,7 @@ void CGameFrame::GameLoop()
 	KD3D.GetDev()->BeginScene();
 
 	//CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -0.5), D3DXVECTOR3(0, 0, 1));
-	
+
 	CAMERA.Set(mWindowSize);
 
 	if (nowScene) {
@@ -199,6 +210,11 @@ void CGameFrame::GameLoop()
 
 	}
 	FADE.Draw();
+	RECT rc = { 0,0,0,0 };
+	char buf[100];
+	sprintf_s(buf, sizeof(buf), "%dFPS", FPS);
+	FONT->DrawText(NULL, buf, -1, &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 0, 0));
+
 
 	// 描画終了
 	KD3D.GetDev()->EndScene();
@@ -227,14 +243,15 @@ const bool CGameFrame::CreateWNDCLASS(HINSTANCE aHInst)
 
 
 const bool CGameFrame::CreateDirectX9() {
-//	//===================================================================
-//	// Direct3D初期化
-//	//===================================================================
+	//	//===================================================================
+	//	// Direct3D初期化
+	//	//===================================================================
 	std::string errorMsg;
 	if (KD3D.Init(mpHwnd, mWindowSize.x, mWindowSize.y, mIsFullScreen, errorMsg) == false) {
 		MessageBox(mpHwnd, errorMsg.c_str(), "Direct3D初期化失敗", MB_OK | MB_ICONSTOP);
 		return false;
 	}
+	KD3D.SetDefaultState();
 	return true;
 }
 void CGameFrame::SceneClear()

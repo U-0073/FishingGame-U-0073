@@ -1,30 +1,54 @@
 #include"../System/KdLibrary/KdLibrary.h"
 #include"ShopObject.h"
 
-CShopObject::CShopObject()
+ShopObject::ShopObject()
 {
 }
 
-CShopObject::~CShopObject()
+ShopObject::~ShopObject()
 {
+	m_pModel = nullptr;
+	m_pNormalRod1 = nullptr;
+	m_pNormalRod2 = nullptr;
+	m_pNormalRod3 = nullptr;
 }
 
-void CShopObject::Init()
+void ShopObject::Init()
 {
 	GameObject::Init();
-	m_pModel = RESOURCE_MNG.GetModel("./Resouce/3DModel/Shop.x");
+	m_pNormalRod1 = RESOURCE_MNG.GetModel("./Resource/3DModel/WoodRod.x");
+	//m_pNormalRod2 = RESOURCE_MNG.GetModel("./Resource/3DModel/FishingLod.x");
+	//m_pNormalRod3 = RESOURCE_MNG.GetModel("./Resource/3DModel/FishingLod.x");
+	//ƒJƒƒ‰‚ÌÝ’è
+	CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 0, 1));
+	D3DXMatrixTranslation(&m_world, 2, 0, 2);
 }
 
-void CShopObject::Update()
+void ShopObject::Update()
 {
+	static D3DXMATRIX m_rot;
+	static float rot = 0;
+	rot = 1.0f;
+	D3DXMatrixRotationY(&m_rot, D3DXToRadian(rot));
+	m_world = m_rot * m_world;
 }
 
-void CShopObject::Draw3D()
+void ShopObject::Draw3D()
 {
 	KD3D.SetWorldMatrix(&m_world);
 
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, TRUE);
-	m_pModel->Draw();
-	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
 
+	if (tPattern == 0) {
+		m_pNormalRod1->Draw();
+		//m_pNormalRod2->Draw();
+		//m_pNormalRod3->Draw();
+	}
+
+	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
+}
+
+void ShopObject::GetListChange(int tPat)
+{
+	tPattern = tPat;
 }

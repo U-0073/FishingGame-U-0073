@@ -1,6 +1,6 @@
 #pragma once
 #include"../System/FrameBase/CSceneBase.h"
-#define path "Resouce/Texture/"
+#define path "Resource/Texture/"
 #include"Title.h"
 #include"Skysphere.h"
 #include"Fish.h"
@@ -26,19 +26,14 @@ public:
 
 	void End()override;
 private:
-	std::shared_ptr<Skysphere> Sky = nullptr;
-	std::shared_ptr<Fish> Fishes = nullptr;
-	std::shared_ptr<Title> title = nullptr;
-	std::shared_ptr<Sea> sea = nullptr;
-	
-	D3DXMATRIX mMat;//ホワイトアウト
-	D3DXMATRIX mScale;
-	LPDIRECT3DTEXTURE9 vTex;
+	std::shared_ptr<Skysphere>	Sky		= nullptr;
+	std::shared_ptr<Fish>		Fishes	= nullptr;
+	std::shared_ptr<Title>		title	= nullptr;
+	std::shared_ptr<Sea>		sea		= nullptr;
 	
 
 	D3DXVECTOR3 mPos;
 	BOOL MoveFlg;
-	float Alpha;
 
 	std::shared_ptr<SoundBase> m_PSound = nullptr;
 

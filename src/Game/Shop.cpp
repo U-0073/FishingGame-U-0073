@@ -7,6 +7,7 @@ Shop::Shop()
 
 Shop::~Shop()
 {
+	m_pModel = nullptr;
 }
 
 void Shop::Init()

@@ -3,36 +3,53 @@
 
 Sea::Sea()
 {
-	
+
 
 	srand(timeGetTime());
-	m_pModel = RESOURCE_MNG.GetModel("Resouce/3DModel/Sea.x");
+	m_pModel = RESOURCE_MNG.GetModel("Resource/3DModel/Sea.x");
 
-	auto verNum = (*m_pModel).GetMesh()->GetNumVertices();	
-	CLONEVERTEX* pV;
-(*m_pModel).GetMesh()->LockVertexBuffer(0, (LPVOID*)&pV);
+	verNum = MESH->GetNumVertices();
+	//移動量の設定
+	D3DXMatrixTranslation(&m_world, 0, -3, 0);
+
+
+	//CLONEVERTEX* pV;
+	pV = nullptr;
+
+	MESH->LockVertexBuffer(0, (VOID**)&pV);
+	//クローン			頂点バッファ				先頭アドレスが入る(0番目の頂点の内容)
 	for (DWORD i = 0; i < verNum; i++) {
-
-
-		
-		//クローン			頂点バッファ				先頭アドレスが入る(0番目の頂点の内容)
-	//	auto ad = *(pV + i);
-		(pV + i)->Pos = D3DXVECTOR3(0, 0, 0);
-
+		(pV + i)->y = (rand() % WaveHeight - WaveHeight / 2) * 0.01;
 	}
 		(*m_pModel).GetMesh()->UnlockVertexBuffer();
 
-	D3DXMatrixTranslation(&m_world, 0, -3, 0);
-
+	HeightCtrl = false;
 }
 
 Sea::~Sea()
 {
+	m_pModel = nullptr;
 }
 
 
 void Sea::Update()
 {
+
+	MESH->LockVertexBuffer(0, (VOID**)&pV);
+	//クローン			頂点バッファ				先頭アドレスが入る(0番目の頂点の内容)
+
+
+	for (DWORD i = 0; i < verNum; i++) {
+		if (HeightCtrl == false) {
+			(pV + i)->y += 0.002;
+			if ((pV + i)->y > 1) { HeightCtrl = true; }
+		}
+		else {
+			(pV + i)->y -= 0.002;
+			if ((pV + i)->y < -1) { HeightCtrl = false; }
+		}
+	}
+	MESH->UnlockVertexBuffer();
 
 }
 

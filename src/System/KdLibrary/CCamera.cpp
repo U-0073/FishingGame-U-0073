@@ -4,12 +4,18 @@
 
 
 CCamera::CCamera()
+
 {
+	KD3D.lpSPrimary->QueryInterface(IID_IDirectSound3DListener8, (LPVOID*)&lpSListener);
+
+	lpSListener->SetRolloffFactor(0.5f/*‰¹‚ÌŽã‚Ü‚è‹ï‡ 0`1*/, DS3D_IMMEDIATE);
 }
 
 
 CCamera::~CCamera()
 {
+	if(lpSListener!=nullptr)lpSListener->Release();
+
 }
 
 /*CMasterCamera * CGameCamera::GetCamera(void)
@@ -39,6 +45,9 @@ void CCamera::Set(const D3DXVECTOR2& mWindowSize)
 	//s—ñÝ’è
 	 KD3D.GetDev()->SetTransform(D3DTS_VIEW, &mView);
 	 KD3D.GetDev()->SetTransform(D3DTS_PROJECTION, &mProj);
+
+	 lpSListener->SetPosition(Pos.x, Pos.y, Pos.z, DS3D_IMMEDIATE);
+	 lpSListener->SetOrientation(LookVec.x, LookVec.y, LookVec.z, 0, 1, 0, DS3D_IMMEDIATE);
 
 }
 

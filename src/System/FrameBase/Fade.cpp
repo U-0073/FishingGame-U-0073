@@ -3,7 +3,7 @@
 
 CFade::CFade()
 {
-	vTex = *RESOURCE_MNG.GetTexture("Resouce/Texture/white.png");
+	vTex = *RESOURCE_MNG.GetTexture("Resource/Texture/white.png");
 	KdMatrix vScale;
 	vScale.CreateScale(1280, 720, 0);
 	vMat.CreateTrans(1280 / 2, 720 / 2, 0);
@@ -13,6 +13,7 @@ CFade::CFade()
 }
 CFade::~CFade()
 {
+	if (vTex != nullptr)vTex->Release();
 }
 
 

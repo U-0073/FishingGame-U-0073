@@ -7,12 +7,13 @@ TestCharacter::TestCharacter()
 
 TestCharacter::~TestCharacter()
 {
+	m_pModel = nullptr;
 }
 
 void TestCharacter::Init()
 {
 	GameObject::Init();
-	m_pModel = RESOURCE_MNG.GetModel("./Resouce/3DModel/body.x");
+	m_pModel = RESOURCE_MNG.GetModel("./Resource/3DModel/body.x");
 }
 
 void TestCharacter::Update()

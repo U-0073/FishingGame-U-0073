@@ -23,6 +23,7 @@ public:
 
 	}
 
+	LPDIRECTSOUND3DLISTENER8 lpSListener;
 
 private:
 
@@ -42,6 +43,8 @@ private:
 
 
 	bool type;
+
+
 };
 #define CAMERA CCamera::GetInstance()
 

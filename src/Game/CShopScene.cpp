@@ -5,25 +5,34 @@
 CShopScene::CShopScene()
 	:mMat()
 {
-	shop = std::make_shared<Shop2D>();
-	shop->Init();
+	shop2d = std::make_shared<Shop2D>();
+	shop2d->Init();
+
+	shopObj = std::make_shared<ShopObject>();
+	shopObj->Init();
 }
 
 CShopScene::~CShopScene()
 {
-
+	if (vTex != nullptr)vTex->Release();
 }
 
 void CShopScene::Init()
 {
-	vTex = *RESOURCE_MNG.GetTexture("Resouce/Texture/Shop/ShopBack.png", D3DCOLOR_ARGB(255, 255, 255, 255));
+	vTex = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/ShopBack001.png", D3DCOLOR_ARGB(255, 255, 255, 255));
 
 
 }
 
 int CShopScene::Update()
 {
-	shop->Update();
+	shop2d->Update();
+	shopObj->Update();
+
+	shopObj->GetListChange(shop2d->SetListChange());
+
+	//”wŒi‚ÌZ’l’²®
+	D3DXMatrixTranslation(&mMat, 0, 0, 1);
 
 	//ƒV[ƒ“Ø‚è‘Ö‚¦
 	if (GetKey('O') & 0x8000)
@@ -45,10 +54,10 @@ void CShopScene::Draw2D()
 
 	SPRITE->End();
 
-	shop->Draw2D();
+	shop2d->Draw2D();
 }
 
 void CShopScene::Draw3D()
 {
-
+	shopObj->Draw3D();
 }
