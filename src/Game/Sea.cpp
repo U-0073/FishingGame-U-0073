@@ -8,18 +8,19 @@ Sea::Sea()
 	srand(timeGetTime());
 	m_pModel = RESOURCE_MNG.GetModel("Resouce/3DModel/Sea.x");
 
-	verNum = MESH->GetNumVertices();
-
+	auto verNum = (*m_pModel).GetMesh()->GetNumVertices();	
+	CLONEVERTEX* pV;
+(*m_pModel).GetMesh()->LockVertexBuffer(0, (LPVOID*)&pV);
 	for (DWORD i = 0; i < verNum; i++) {
-		CLONEVERTEX* pV;
 
-		MESH->LockVertexBuffer(0, (LPVOID*)&pV);
+
+		
 		//クローン			頂点バッファ				先頭アドレスが入る(0番目の頂点の内容)
-
-
+	//	auto ad = *(pV + i);
+		(pV + i)->Pos = D3DXVECTOR3(0, 0, 0);
 
 	}
-	MESH->UnlockVertexBuffer();
+		(*m_pModel).GetMesh()->UnlockVertexBuffer();
 
 	D3DXMatrixTranslation(&m_world, 0, -3, 0);
 
