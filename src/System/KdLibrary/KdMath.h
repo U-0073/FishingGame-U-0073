@@ -20,10 +20,7 @@ public:
 		x = v.x; y = v.y; z = v.z;
 		return *this;//=の数珠つなぎに使える
 	}
-	//const KdVec3& operator=(const D3DXVECTOR3& v) {
-	//	x = v.x; y = v.y; z = v.z;
-	//	return *this;//=の数珠つなぎに使える
-	//}
+
 
 
 	//設定
@@ -45,6 +42,11 @@ public:
 
 	//ベクトルの長さを取得
 	float Length()const { return D3DXVec3Length(this); }
+
+	float LengthToTarget(const KdVec3& v) const{
+		KdVec3 vv = v- (*this) ;
+		return D3DXVec3Length(&vv);
+	}
 
 	//自分を書き換えず逆行列化
 	void  Inverse(KdVec3& v) const{v= (*this)*-1; }
