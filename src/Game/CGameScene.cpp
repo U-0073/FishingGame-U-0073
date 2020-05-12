@@ -30,7 +30,7 @@ void CGameScene::Init()
 	level = 5;
 	speed = 0.01f;
 	clickNum = 10;
-	frame = wait = 120;
+	frame = 120;
 
 	m_pSound = RESOURCE_MNG.GetSound("Resource/Sound/wave3.wav");
 	m_pSound->Playsound("Resource/Sound/wave3.wav", true, true);
@@ -76,37 +76,6 @@ int CGameScene::Update()
 	if (scale < 0.0f) {
 		scale = 2.0f;
 	}
-	//frame‚ªŒ¸‚Á‚Ä‚½‚çˆ—Œp‘±
-	if (frame < wait)
-	{
-		frame--;
-		//•`‰æI—¹Žž
-		if (frame < 0) {
-			frame = wait;
-			//’Þ‚èØ‚Á‚Ä‚¢‚½‚ç
-			if (dist <= 0)
-			{
-				if (resultTex) {
-					FADE.Start(5);
-					return MAP;
-				}
-				//’Þ‚ê‚½‚Ì‰æ‘œ‚ð•\Ž¦
-				resultTex = *RESOURCE_MNG.GetTexture("Resource/Texture/clear.png");
-				frame--;
-			}
-			//’Þ‚èØ‚ê‚È‚©‚Á‚½‚ç
-			else if (clickNum <= 0) {
-				if (resultTex) {
-					FADE.Start(5);
-					return MAP;
-				}
-				resultTex = *RESOURCE_MNG.GetTexture("Resource/Texture/escape.png");
-				frame--;
-			}
-
-		}
-	}
-
 	return GAME;
 }
 
