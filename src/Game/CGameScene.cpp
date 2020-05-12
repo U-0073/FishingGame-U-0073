@@ -1,4 +1,6 @@
 #include"../System/KdLibrary/KdLibrary.h"
+#include "../System/FrameBase/CGameFrame.h"
+
 #include "CGameScene.h"
 #include"GameProc.h"
 
@@ -22,9 +24,6 @@ void CGameScene::Init()
 	backMat.CreateTrans(1280 / 2, 720 / 2, 0);
 	//拡縮サイズ
 	scale = 2.0f;
-	//Lv1～5
-	//level = rand() % 6 + 1;
-	level = 5;
 	speed = 0.01f;
 	clickNum = 10;
 	frame = 120;
@@ -36,43 +35,67 @@ void CGameScene::Init()
 
 int CGameScene::Update()
 {
+	GetCursorPos(&Mouse);
+	ScreenToClient(GETHWND, &Mouse);
+
 	frame--;
 
 	if (GetKey(VK_LBUTTON) & 0x8000) {
 		if (!keyFlg) {
 			SetPos(KdVec3(ringMat._41, ringMat._42, ringMat._43));
+			clickPos = { (float)Mouse.x,(float)Mouse.y,0.0f };
+			KdVec3 ringPos = { ringMat._41, ringMat._42, ringMat._43 };
+			len = ringMat.GetPos().LengthToTarget(clickPos);
 
-				//グレート（外側）の時の処理
-				if (scale > 0.35 && scale < 0.7) {
-					judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/great.png");
-				}
-				//エクセレント（内側）の時の処理
-				else if (scale > 0.0 && scale < 0.35) {
-					judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/excellent1.png");
-				}
-				//ミスの時の処理
-				else {
-					judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/miss.png");
-				}
-				keyFlg = true;
-				clickNum--;
-				scale = 2.0f;
-				ringMat.CreateTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
-				notesMat = ringMat;
 
-			}
+			keyFlg = true;
+			clickNum--;
+			scale = 2.0f;
+			ringMat.CreateTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
+			notesMat = ringMat;
+
+
+		}
 		judgeFlg = true;
 	}
-	else { 
-		keyFlg = false; 
-		judgeFlg = false;
-	}
-
-
-	scale -= speed;
-	if (scale < 0.0f) {
+	else if (scale < 0.0f) {
+		judgeFlg = true;
+		judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/miss.png");
+		clickNum--;
+		ringMat.CreateTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
 		scale = 2.0f;
 	}
+	else {
+		keyFlg = false;
+		judgeFlg = false;
+		len = NULL;
+		clickPos = { 0,0,0 };
+	}
+
+
+	//ノーツ判定処理
+	//グレート（外側）の時の処理
+	if (len < 100 && len >= 50) {//scale > 0.35 && scale < 0.7
+		judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/great.png");
+	}
+	//エクセレント（内側）の時の処理
+	else if (len < 50) {//scale > 0.0 && scale < 0.35
+		judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/excellent1.png");
+	}
+	//ミスの時の処理
+	else {
+		judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/miss.png");
+	}
+
+
+	//scale縮小
+	scale -= speed;
+	/*if (scale < 0.0f) {
+		judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/miss.png");
+		clickNum--;
+		ringMat.CreateTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
+		scale = 2.0f;
+	}*/
 
 	//デバッグ用回避手段
 	if (clickNum <= 0) {
@@ -100,14 +123,14 @@ void CGameScene::Draw2D()
 	scaleMat.CreateScale(scale, scale, 0);
 	notesMat = scaleMat * notesMat;
 	SPRITE->SetTransform(&notesMat);
-	if (scale > 0.35f && scale < 0.7f) {
-		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(100, 100, 0.0f), NULL, D3DCOLOR_ARGB(125, 255, 0, 0));
+	if (scale > 0.7f && scale < 1.0f) {
+		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(100, 100, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 0, 0));
 	}
 	else if (scale > 0.0f && scale < 0.35f) {
-		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(100, 100, 0.0f), NULL, D3DCOLOR_ARGB(125, 255, 0, 0));
+		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(100, 100, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 0, 0));
 	}
 	else {
-		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(100, 100, 0.0f), NULL, D3DCOLOR_ARGB(125, 255, 255, 255));
+		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(100, 100, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 	}
 
 	//判定画像

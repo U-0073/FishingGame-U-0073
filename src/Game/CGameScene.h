@@ -21,10 +21,12 @@ private:
 	//固定枠
 	LPDIRECT3DTEXTURE9 ringTex;
 	KdMatrix ringMat;
+
 	//ノーツ
 	LPDIRECT3DTEXTURE9 notesTex;
 	KdMatrix notesMat;
 	float scale;
+
 	//判定文字
 	LPDIRECT3DTEXTURE9 judgeTex;
 	LPDIRECT3DTEXTURE9 resultTex = nullptr;
@@ -34,13 +36,18 @@ private:
 	KdMatrix backMat;
 
 	float speed;
-	int level;
 	int size;
 	int clickNum;
 	bool keyFlg;
 	int frame;
 	bool judgeFlg;
 
+	//マウス関連
+	POINT Mouse;
+	KdVec3 clickPos;
+	float len;
+
+	//判定用画像のポジション設定用関数
 	const void SetPos(const KdVec3& Vec){
 		judgeMat._41 = Vec.x;
 		judgeMat._42 = Vec.y;
