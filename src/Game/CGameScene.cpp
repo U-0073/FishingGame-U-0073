@@ -29,8 +29,8 @@ void CGameScene::Init()
 	clickNum = 10;
 	frame = 120;
 
-	m_pSound = RESOURCE_MNG.GetSound("Resource/Sound/wave3.wav");
-	m_pSound->Playsound("Resource/Sound/wave3.wav", true, true);
+	m_pSound = RESOURCE_MNG.GetSound("Resource/Sound/Phantom_Apartment_2.wav");
+	m_pSound->Playsound("Resource/Sound/Phantom_Apartment_2.wav", true, true);
 
 }
 
