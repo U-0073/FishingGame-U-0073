@@ -33,15 +33,20 @@ private:
 	LPDIRECT3DTEXTURE9 backTex;
 	KdMatrix backMat;
 
-	float dist;
-	int level;
 	float speed;
+	int level;
 	int size;
 	int clickNum;
 	bool keyFlg;
 	int frame;
-	int wait;
+	bool judgeFlg;
 
-	std::vector<std::shared_ptr<SoundBase>> m_pSound;
+	const void SetPos(const KdVec3& Vec){
+		judgeMat._41 = Vec.x;
+		judgeMat._42 = Vec.y;
+		judgeMat._43 = Vec.z;
+	}
+
+	std::shared_ptr<SoundBase> m_pSound = nullptr;
 
 };
