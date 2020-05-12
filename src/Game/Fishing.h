@@ -3,7 +3,7 @@
 #include"../System/FrameBase/GameObject.h"
 
 #define path "Resource/3DModel/"
-class Fish;
+class Fishes;
 
 class C_Fishing : GameObject {
 public:
@@ -25,7 +25,7 @@ private:
 	void CameraProc();
 	void FishingProc();
 
-	std::shared_ptr<Fish> Fishes = nullptr;
+	std::shared_ptr<Fishes> m_Fishes = nullptr;
 
 	KdVec3 BuoiPos;
 	KdVec3 PlayerPos;

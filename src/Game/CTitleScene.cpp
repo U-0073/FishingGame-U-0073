@@ -4,18 +4,7 @@
 CTitleScene::CTitleScene()
 {
 
-	Sky = std::make_shared<Skysphere>();
-	Sky->Init();
-	Fishes = std::make_shared<Fish>();
-	Fishes->Init();
-	title = std::make_shared<Title>();
-	title->Init();
-
-	CAMERA.SetCameraPos(D3DXVECTOR3(0, 3, -5), Fishes->GetFishPos());
-	MoveFlg = false;
-	mPos = D3DXVECTOR3(0, 20, 0);
-	m_PSound = RESOURCE_MNG.GetSound("Resource/Sound/TitleBGM.wav");
-	//m_PSound->Playsound("Resource/Sound/TitleBGM.wav", true, true);
+//m_PSound->Playsound("Resource/Sound/TitleBGM.wav", true, true);
 
 }
 
@@ -31,6 +20,19 @@ CTitleScene::~CTitleScene()
 
 void CTitleScene::Init()
 {
+	Sky = std::make_shared<Skysphere>();
+	Sky->Init();
+	Fishes = std::make_shared<Fish>();
+	Fishes->SetTagType(0);
+	Fishes->Init();
+	title = std::make_shared<Title>();
+	title->Init();
+
+	CAMERA.SetCameraPos(D3DXVECTOR3(0, 3, -5), Fishes->GetFishPos());
+	MoveFlg = false;
+	mPos = D3DXVECTOR3(0, 20, 0);
+	m_PSound = RESOURCE_MNG.GetSound("Resource/Sound/TitleBGM.wav");
+
 }
 
 int CTitleScene::Update()

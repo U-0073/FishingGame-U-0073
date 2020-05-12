@@ -98,6 +98,7 @@ const bool CGameFrame::Initialize(HINSTANCE aHInst, const int aCmdShow)
 
 
 	nowScene = std::make_shared<CTitleScene>();
+	nowScene->Init();
 	nowscene = nowScene->GetID();
 	CAMERA.Set(mWindowSize);
 
@@ -178,10 +179,11 @@ void CGameFrame::GameLoop()
 	KD3D.GetDev()->Clear(0, nullptr, flags, D3DCOLOR_ARGB(255, 0, 0, 255), 1.0f, 0);
 
 
-
+	//nowSceneが存在してnextsceneとnowsceneが同じかどうか
 	if (nowScene && nextscene == nowscene) {
 		//シーンの更新
 		nextscene = nowScene->Update();
+		
 
 	}
 

@@ -8,6 +8,7 @@ class Fish : GameObject
 public:
 	Fish();
 	~Fish();
+	void SetTagType(int No);
 	void Init()override;
 	void Update()override;
 	void Draw2D()override;
@@ -33,4 +34,16 @@ private:
 	float Count = 0.0f;
 	float CamAngY;
 	bool  FishFlg;
+};
+
+class Fishes {
+public:
+	void Init();
+	void Update();
+	void Draw2D();
+	void Draw3D();
+	~Fishes() { m_Fishs.clear(); }
+private:
+	
+	std::vector<std::shared_ptr<Fish>>m_Fishs;
 };

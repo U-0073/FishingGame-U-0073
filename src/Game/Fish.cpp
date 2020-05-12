@@ -10,6 +10,22 @@ Fish::~Fish()
 	m_pModel = nullptr;
 }
 
+void Fish::SetTagType(int No)
+{
+	switch (No)
+	{
+	case 0:
+		m_Tag = "RedSnapper";
+		break;
+	case 1:
+		m_Tag = "Saury";	
+		break;
+	case 2:
+		m_Tag = "Tuna";
+		break;
+	}
+}
+
 void Fish::Init()
 {
 	GameObject::Init();
@@ -18,22 +34,23 @@ void Fish::Init()
 	TransMat.CreateTrans(0.0f, 0.0f, 0.0f);
 	m_world = ScaleMat * TransMat;
 //	int name = rand() % 3;
-	int name = 0;
-	switch (name)
-	{
-	case 0:
-		m_Tag = "RedSnapper";
-		m_pModel = RESOURCE_MNG.GetModel("Resource/3DModel/RedSnapper.x");
-		break;
-	case 1:
-		m_Tag = "Saury";
-		m_pModel = RESOURCE_MNG.GetModel("Resource/3DModel/Saury.x");
-		break;
-	case 2:
-		m_Tag = "Tuna";
-		m_pModel = RESOURCE_MNG.GetModel("Resource/3DModel/Tuna.x");
-		break;
-	}
+	m_pModel= RESOURCE_MNG.GetModel(("Resource/3DModel/")+m_Tag+(".x"));
+	//int name = 0;
+	//switch (name)
+	//{
+	//case 0:
+	//	m_Tag = "RedSnapper";
+	//	m_pModel = RESOURCE_MNG.GetModel("Resource/3DModel/RedSnapper.x");
+	//	break;
+	//case 1:
+	//	m_Tag = "Saury";
+	//	m_pModel = RESOURCE_MNG.GetModel("Resource/3DModel/Saury.x");
+	//	break;
+	//case 2:
+	//	m_Tag = "Tuna";
+	//	m_pModel = RESOURCE_MNG.GetModel("Resource/3DModel/Tuna.x");
+	//	break;
+	//}
 }
 
 void Fish::Update()
@@ -84,9 +101,7 @@ void Fish::Update()
 
 	KdMatrix RotMatX;
 	//RotMatX.CreateRotationX(D3DXToRadian(90));
-	//RotMat.CreateRotationY(D3DXToRadian(CamAngY - 90));
-	//TransMat.CreateTrans(FishPos);
-	//m_world = ScaleMat * RotMatX * RotMat * TransMat;
+
 	m_world.MoveLocal(0, 0, -1);
 
 	
@@ -128,6 +143,37 @@ void Fish::TitleUpdate()
 
 }
 
+void Fishes::Init()
+{
+	for (int i = 0; i < 40; i++) {
+		int name = rand() % 3;
+		auto l_Fish = std::make_shared<Fish>();
+		l_Fish->SetTagType(name);
+		l_Fish->Init();
+		m_Fishs.push_back(l_Fish);
+	}
+}
 
+void Fishes::Update()
+{
+	for (auto&& p_Obj : m_Fishs) {
 
+		p_Obj->Update();
+	}
+}
 
+void Fishes::Draw2D()
+{
+	for (auto&& p_Obj : m_Fishs) {
+
+		p_Obj->Draw2D();
+	}
+}
+
+void Fishes::Draw3D()
+{
+	for (auto&& p_Obj : m_Fishs) {
+
+		p_Obj->Draw3D();
+	}
+}

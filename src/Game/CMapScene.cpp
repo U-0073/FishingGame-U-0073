@@ -29,8 +29,12 @@ CMapScene::CMapScene()
 	m_Player->Init();
 	//’Þ‚èŠÖŒW
 
+	//‹›
 	m_Fishing = std::make_shared<C_Fishing>();
 	m_Fishing->Init();
+
+
+
 	m_PSound = RESOURCE_MNG.GetSound("Resource/Sound/wave3.wav");
 	m_PSound->Playsound("Resource/Sound/wave3.wav", true, true);
 

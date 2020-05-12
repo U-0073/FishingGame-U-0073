@@ -8,7 +8,7 @@ C_Fishing::C_Fishing()
 }
 
 C_Fishing::~C_Fishing() {
-	Fishes = nullptr;
+	m_Fishes = nullptr;
 	m_pModel = nullptr;
 }
 
@@ -22,8 +22,9 @@ void C_Fishing::Init() {
 
 	m_world = ScileMat * TransMat;
 
-	Fishes = std::make_shared<Fish>();
-	Fishes->Init();
+	m_Fishes = std::make_shared<Fishes>();
+	m_Fishes->Init();
+
 }
 
 void C_Fishing::End() {
@@ -34,10 +35,10 @@ void C_Fishing::Update() {
 
 	FishingProc();
 
-	Fishes->SetPlayerPos(PlayerPos);
-	Fishes->SetFishFlg(GetFish);
-	Fishes->SetCamAngY(CamAngY);
-	Fishes->Update();
+	//m_Fishes->SetPlayerPos(PlayerPos);
+	//m_Fishes->SetFishFlg(GetFish);
+	//m_Fishes->SetCamAngY(CamAngY);
+	(*m_Fishes).Update();
 }
 void C_Fishing::FishingProc()
 {
@@ -89,7 +90,7 @@ void C_Fishing::FishingProc()
 
 void C_Fishing::Draw2D()
 {
-	Fishes->Draw2D();
+	m_Fishes->Draw2D();
 }
 
 void C_Fishing::Draw3D() {
@@ -97,7 +98,7 @@ void C_Fishing::Draw3D() {
 
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, TRUE);
 	m_pModel->Draw();
-	Fishes->Draw3D();
+	m_Fishes->Draw3D();
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
 }
 
