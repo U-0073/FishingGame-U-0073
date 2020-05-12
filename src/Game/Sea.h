@@ -14,6 +14,7 @@ public:
 	void Update()override;
 	void Draw2D()override {};
 	void Draw3D()override;
+	void End()override;
 
 private:
 	DWORD verNum;

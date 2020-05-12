@@ -38,10 +38,9 @@ public:
 	const bool& GetFeshFlg()	const { return FishFlg; }
 	const bool& GetBuoiFlg()	const { return BuoiFlg; }
 
+	void End();
 private:
 	//----------関数宣言-------------
-	void Begin();		//ゲーム起動時の初期化関数
-	void End();
 
 	void FlgProc();			//大本のフラグ管理用関数
 	void MoveProc();

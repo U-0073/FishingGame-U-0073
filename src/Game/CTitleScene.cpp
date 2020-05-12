@@ -21,12 +21,6 @@ CTitleScene::CTitleScene()
 
 CTitleScene::~CTitleScene()
 {
-	Sky = nullptr;
-	Fishes = nullptr;
-	title = nullptr;
-	sea = nullptr;
-
-	m_PSound = nullptr;
 }
 
 void CTitleScene::Init()
@@ -80,5 +74,15 @@ void CTitleScene::Draw3D()
 
 void CTitleScene::End()
 {
+	Sky->End();
+	Sky = nullptr;
+	Fishes->End();
+	Fishes = nullptr;
+	title->End();
+	title = nullptr;
+	//sea->End();
+	//sea = nullptr;
+
 	m_PSound->LDSB8->Stop();
+	m_PSound = nullptr;
 }

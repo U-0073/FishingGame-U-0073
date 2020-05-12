@@ -7,13 +7,6 @@ Title::Title()
 
 Title::~Title()
 {
-	m_pModel = nullptr;
-	vTex = nullptr;
-	vTex2 = nullptr;
-	/*
-	if (vTex != nullptr)vTex->Release();
-	if (vTex2 != nullptr)vTex2->Release();
-	*/
 }
 
 void Title::Init()
@@ -66,5 +59,16 @@ void Title::Draw2D()
 
 void Title::Draw3D()
 {
+}
+
+void Title::End()
+{
+	m_pModel = nullptr;
+	vTex = nullptr;
+	vTex2 = nullptr;
+	/*
+	if (vTex != nullptr)vTex->Release();
+	if (vTex2 != nullptr)vTex2->Release();
+	*/
 }
 

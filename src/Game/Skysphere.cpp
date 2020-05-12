@@ -7,8 +7,6 @@ Skysphere::Skysphere()
 
 Skysphere::~Skysphere()
 {
-	m_pModel = nullptr;
-	m_pModel2 = nullptr;
 }
 
 void Skysphere::Init()
@@ -35,4 +33,10 @@ void Skysphere::Draw3D()
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
 	m_pModel->Draw();
 	m_pModel2->Draw();
+}
+
+void Skysphere::End()
+{
+	m_pModel = nullptr;
+	m_pModel2 = nullptr;
 }
