@@ -76,6 +76,13 @@ int CGameScene::Update()
 	if (scale < 0.0f) {
 		scale = 2.0f;
 	}
+
+	//デバッグ用回避手段
+	if (clickNum <= 0) {
+		FADE.Start(5);
+		return TITLE;
+	}
+
 	return GAME;
 }
 
@@ -96,14 +103,14 @@ void CGameScene::Draw2D()
 	scaleMat.CreateScale(scale, scale, 0);
 	notesMat = scaleMat * notesMat;
 	SPRITE->SetTransform(&notesMat);
-	if (scale > 0.7f && scale < 1.0f) {
-		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(100, 100, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 0, 0));
+	if (scale > 0.35f && scale < 0.7f) {
+		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(100, 100, 0.0f), NULL, D3DCOLOR_ARGB(125, 255, 0, 0));
 	}
 	else if (scale > 0.0f && scale < 0.35f) {
-		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(100, 100, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 0, 0));
+		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(100, 100, 0.0f), NULL, D3DCOLOR_ARGB(125, 255, 0, 0));
 	}
 	else {
-		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(100, 100, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(100, 100, 0.0f), NULL, D3DCOLOR_ARGB(125, 255, 255, 255));
 	}
 
 	//判定画像
@@ -114,7 +121,7 @@ void CGameScene::Draw2D()
 		SPRITE->SetTransform(&judgeMat);
 		rc = { 0,0,335,200 };
 		if (resultTex)		SPRITE->Draw(resultTex, &rc, &D3DXVECTOR3(335 / 2, 200 / 2, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-		else SPRITE->Draw(judgeTex, &rc, &D3DXVECTOR3(335 / 2, 200 / 2, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+		else SPRITE->Draw(judgeTex, &rc, &D3DXVECTOR3(335 / 2, 200 / 2, 0.0f), NULL, D3DCOLOR_ARGB(125, 255, 255, 255));
 
 	}
 
