@@ -9,12 +9,10 @@
 
 C_Player::C_Player()
 {
-	Init();
 }
 
 C_Player::~C_Player()
 {
-	End();
 }
 
 void C_Player::Init()
@@ -49,9 +47,7 @@ void C_Player::Init()
 	JSONS.SaveJson(Json, "Save/Test.json");//セーブ
 	//――――――――――――――――――――――――――――――――//
 }
-void C_Player::Begin()
-{
-}
+
 void C_Player::End()
 {
 	if (m_pModel != nullptr)m_pModel=nullptr;

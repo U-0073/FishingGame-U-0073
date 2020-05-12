@@ -8,8 +8,6 @@ C_Fishing::C_Fishing()
 }
 
 C_Fishing::~C_Fishing() {
-	m_Fishes = nullptr;
-	m_pModel = nullptr;
 }
 
 void C_Fishing::Init() {
@@ -102,3 +100,9 @@ void C_Fishing::Draw3D() {
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
 }
 
+void C_Fishing::End() {
+	Fishes->End();
+	Fishes = nullptr;
+	m_pModel = nullptr;
+
+}

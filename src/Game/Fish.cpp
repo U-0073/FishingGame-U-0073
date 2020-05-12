@@ -7,7 +7,6 @@ Fish::Fish()
 
 Fish::~Fish()
 {
-	m_pModel = nullptr;
 }
 
 void Fish::SetTagType(int No)
@@ -127,6 +126,11 @@ void Fish::Draw3D()
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, TRUE);
 	m_pModel->Draw();
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
+}
+
+void Fish::End()
+{
+	m_pModel = nullptr;
 }
 
 void Fish::TitleUpdate()

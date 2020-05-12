@@ -19,7 +19,7 @@ public:
 	void Draw2D()override;
 	void Draw3D()override;
 	int GetID()override { return SHOP; };
-	void End()override {};
+	void End()override;
 
 private:
 	std::shared_ptr<Shop2D> shop2d = nullptr;

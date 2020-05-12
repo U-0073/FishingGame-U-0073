@@ -13,21 +13,6 @@ Shop2D::Shop2D()
 
 Shop2D::~Shop2D()
 {
-	m_pModel = nullptr;
-	SafeReleaseTex(FrameTex);
-	SafeReleaseTex(fTextTex);
-	SafeReleaseTex(fTextSecTex);
-	SafeReleaseTex(fTextSrdTex);
-
-	for (int i = 0; i < LISTNUMBER; i++) {
-		BaitTex[i]->Release();
-	}
-
-	SafeReleaseTex(TabLeftTex);
-	SafeReleaseTex(TabCenterTex);
-	SafeReleaseTex(TabRightTex);
-
-	SafeReleaseTex(ListSelectTex);
 }
 
 void Shop2D::Init()
@@ -225,6 +210,26 @@ void Shop2D::Draw2D()
 
 void Shop2D::Draw3D()
 {
+}
+
+void Shop2D::End()
+{
+	m_pModel = nullptr;
+	SafeReleaseTex(FrameTex);
+	SafeReleaseTex(fTextTex);
+	SafeReleaseTex(fTextSecTex);
+	SafeReleaseTex(fTextSrdTex);
+
+	for (int i = 0; i < LISTNUMBER; i++) {
+		BaitTex[i]->Release();
+	}
+
+	SafeReleaseTex(TabLeftTex);
+	SafeReleaseTex(TabCenterTex);
+	SafeReleaseTex(TabRightTex);
+
+	SafeReleaseTex(ListSelectTex);
+
 }
 
 int Shop2D::SetListChange()
