@@ -14,6 +14,8 @@ CCamera::CCamera()
 
 CCamera::~CCamera()
 {
+	if(lpSListener!=nullptr)lpSListener->Release();
+
 }
 
 /*CMasterCamera * CGameCamera::GetCamera(void)

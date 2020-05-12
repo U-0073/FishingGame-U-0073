@@ -7,6 +7,7 @@ Fish::Fish()
 
 Fish::~Fish()
 {
+	m_pModel = nullptr;
 }
 
 void Fish::Init()
@@ -82,10 +83,15 @@ void Fish::Update()
 	}
 
 	KdMatrix RotMatX;
-	RotMatX.CreateRotationX(D3DXToRadian(90));
-	RotMat.CreateRotationY(D3DXToRadian(CamAngY - 90));
-	TransMat.CreateTrans(FishPos);
-	m_world = ScaleMat * RotMatX * RotMat * TransMat;
+	//RotMatX.CreateRotationX(D3DXToRadian(90));
+	//RotMat.CreateRotationY(D3DXToRadian(CamAngY - 90));
+	//TransMat.CreateTrans(FishPos);
+	//m_world = ScaleMat * RotMatX * RotMat * TransMat;
+	m_world.MoveLocal(0, 0, -1);
+
+	
+	m_world.RotateYLocal(D3DXToRadian((rand()%10)-5));
+
 }
 
 

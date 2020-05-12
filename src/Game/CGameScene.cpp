@@ -9,7 +9,9 @@ CGameScene::CGameScene()
 
 CGameScene::~CGameScene()
 {
-
+	if (ringTex != nullptr)ringTex->Release();
+	if (notesTex != nullptr)notesTex->Release();
+	if (backTex != nullptr) backTex->Release();
 }
 
 void CGameScene::Init()
@@ -19,8 +21,8 @@ void CGameScene::Init()
 	backTex = *RESOURCE_MNG.GetTexture("Resource/Texture/SeaBack002.png");
 
 	ringMat.CreateTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
-	notesMat=ringMat;
-	backMat.CreateTrans(1280 / 2, 720/ 2, 0);
+	notesMat = ringMat;
+	backMat.CreateTrans(1280 / 2, 720 / 2, 0);
 	//ŠgkƒTƒCƒY
 	scale = 2.0f;
 	//Lv1`5
@@ -28,7 +30,10 @@ void CGameScene::Init()
 	level = 5;
 	speed = 0.01f;
 	clickNum = 10;
-	frame = 120;
+	frame = wait = 120;
+
+	m_pSound = RESOURCE_MNG.GetSound("Resource/Sound/wave3.wav");
+	m_pSound->Playsound("Resource/Sound/wave3.wav", true, true);
 
 }
 
@@ -71,6 +76,37 @@ int CGameScene::Update()
 	if (scale < 0.0f) {
 		scale = 2.0f;
 	}
+	//frame‚ªŒ¸‚Á‚Ä‚½‚çˆ—Œp‘±
+	if (frame < wait)
+	{
+		frame--;
+		//•`‰æI—¹Žž
+		if (frame < 0) {
+			frame = wait;
+			//’Þ‚èØ‚Á‚Ä‚¢‚½‚ç
+			if (dist <= 0)
+			{
+				if (resultTex) {
+					FADE.Start(5);
+					return MAP;
+				}
+				//’Þ‚ê‚½‚Ì‰æ‘œ‚ð•\Ž¦
+				resultTex = *RESOURCE_MNG.GetTexture("Resource/Texture/clear.png");
+				frame--;
+			}
+			//’Þ‚èØ‚ê‚È‚©‚Á‚½‚ç
+			else if (clickNum <= 0) {
+				if (resultTex) {
+					FADE.Start(5);
+					return MAP;
+				}
+				resultTex = *RESOURCE_MNG.GetTexture("Resource/Texture/escape.png");
+				frame--;
+			}
+
+		}
+	}
+
 	return GAME;
 }
 
@@ -93,11 +129,11 @@ void CGameScene::Draw2D()
 	SPRITE->SetTransform(&notesMat);
 	if (scale > 0.7f && scale < 1.0f) {
 		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(100, 100, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 0, 0));
-	}											  	   
-	else if (scale > 0.0f && scale < 0.35f) {	  	   
+	}
+	else if (scale > 0.0f && scale < 0.35f) {
 		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(100, 100, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 0, 0));
-	}											  	   
-	else {										  	   
+	}
+	else {
 		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(100, 100, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 	}
 

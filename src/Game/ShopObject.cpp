@@ -7,16 +7,21 @@ ShopObject::ShopObject()
 
 ShopObject::~ShopObject()
 {
+	m_pModel = nullptr;
+	m_pNormalRod1 = nullptr;
+	m_pNormalRod2 = nullptr;
+	m_pNormalRod3 = nullptr;
 }
 
 void ShopObject::Init()
 {
 	GameObject::Init();
-	m_pNormalRod1 = RESOURCE_MNG.GetModel("./Resource/3DModel/FishingLod.x");
+	m_pNormalRod1 = RESOURCE_MNG.GetModel("./Resource/3DModel/WoodRod.x");
 	//m_pNormalRod2 = RESOURCE_MNG.GetModel("./Resource/3DModel/FishingLod.x");
 	//m_pNormalRod3 = RESOURCE_MNG.GetModel("./Resource/3DModel/FishingLod.x");
-
-	D3DXMatrixTranslation(&m_world, 3, -3, 0);
+	//ƒJƒƒ‰‚ÌÝ’è
+	CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 0, 1));
+	D3DXMatrixTranslation(&m_world, 2, 0, 2);
 }
 
 void ShopObject::Update()
@@ -33,7 +38,7 @@ void ShopObject::Draw3D()
 	KD3D.SetWorldMatrix(&m_world);
 
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, TRUE);
-	
+
 	if (tPattern == 0) {
 		m_pNormalRod1->Draw();
 		//m_pNormalRod2->Draw();

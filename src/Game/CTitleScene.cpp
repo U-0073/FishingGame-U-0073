@@ -21,7 +21,12 @@ CTitleScene::CTitleScene()
 
 CTitleScene::~CTitleScene()
 {
+	Sky = nullptr;
+	Fishes = nullptr;
+	title = nullptr;
+	sea = nullptr;
 
+	m_PSound = nullptr;
 }
 
 void CTitleScene::Init()

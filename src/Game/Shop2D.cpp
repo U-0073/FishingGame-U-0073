@@ -1,12 +1,33 @@
 #include"../System/KdLibrary/KdLibrary.h"
 #include"Shop2D.h"
 
+void SafeReleaseTex(LPDIRECT3DTEXTURE9 tex) {
+	if (tex != nullptr) tex->Release();
+}
+
+
+
 Shop2D::Shop2D()
 {
 }
 
 Shop2D::~Shop2D()
 {
+	m_pModel = nullptr;
+	SafeReleaseTex(FrameTex);
+	SafeReleaseTex(fTextTex);
+	SafeReleaseTex(fTextSecTex);
+	SafeReleaseTex(fTextSrdTex);
+
+	for (int i = 0; i < LISTNUMBER; i++) {
+		BaitTex[i]->Release();
+	}
+
+	SafeReleaseTex(TabLeftTex);
+	SafeReleaseTex(TabCenterTex);
+	SafeReleaseTex(TabRightTex);
+
+	SafeReleaseTex(ListSelectTex);
 }
 
 void Shop2D::Init()
@@ -35,9 +56,9 @@ void Shop2D::Init()
 	}
 
 	//タブ
-	TabLeftTex   = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/ShopFrameTab1.png");
+	TabLeftTex = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/ShopFrameTab1.png");
 	TabCenterTex = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/ShopFrameTab2.png");
-	TabRightTex  = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/ShopFrameTab3.png");
+	TabRightTex = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/ShopFrameTab3.png");
 	D3DXMatrixTranslation(&TabLeftMat, 50.0f, 0.0f, 0.0f);
 	D3DXMatrixTranslation(&TabCenterMat, 50.0f, 0.0f, 0.0f);
 	D3DXMatrixTranslation(&TabRightMat, 50.0f, 0.0f, 0.0f);
@@ -78,7 +99,7 @@ void Shop2D::Update()
 	//左右キーでタブ移動
 	if (GetKey(VK_LEFT) & 0x8000) {
 		if (KeyLeftFlg == false) {
-			
+
 			tabPattern--;
 			if (tabPattern <= 0)tabPattern = 0;
 			KeyLeftFlg = true;
@@ -90,7 +111,7 @@ void Shop2D::Update()
 
 	if (GetKey(VK_RIGHT) & 0x8000) {
 		if (KeyRightFlg == false) {
-			
+
 			tabPattern++;
 			if (tabPattern >= 2)tabPattern = 2;
 			KeyRightFlg = true;
@@ -106,7 +127,7 @@ void Shop2D::Update()
 	}
 	D3DXMatrixTranslation(&ListSelectMat, 50.0f, select[cursor], 0.0f);
 	//タブ
-	if (tabPattern == 0) { 
+	if (tabPattern == 0) {
 		tabL = 40; tabC = 0; tabR = 0;
 		RodTextFlg = true;
 		BaitTextFlg = false;
@@ -118,15 +139,15 @@ void Shop2D::Update()
 		BaitTextFlg = true;
 		ReelTextFlg = false;
 	}
-	if (tabPattern == 2) { 
+	if (tabPattern == 2) {
 		tabL = 0; tabC = 0; tabR = 40;
 		RodTextFlg = false;
 		BaitTextFlg = false;
 		ReelTextFlg = true;
-	}	
-	D3DXMatrixTranslation(&TabLeftMat,   50.0f, 0.0f - tabL, 0.0f);
+	}
+	D3DXMatrixTranslation(&TabLeftMat, 50.0f, 0.0f - tabL, 0.0f);
 	D3DXMatrixTranslation(&TabCenterMat, 50.0f, 0.0f - tabC, 0.0f);
-	D3DXMatrixTranslation(&TabRightMat,  50.0f, 0.0f - tabR, 0.0f);
+	D3DXMatrixTranslation(&TabRightMat, 50.0f, 0.0f - tabR, 0.0f);
 }
 
 void Shop2D::Draw2D()

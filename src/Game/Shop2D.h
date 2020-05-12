@@ -3,6 +3,8 @@
 
 #define LISTNUMBER 8
 
+
+
 class Shop2D : GameObject
 {
 public:
@@ -17,13 +19,31 @@ public:
 	int SetListChange();
 
 private:
-	D3DXMATRIX FrameMat,fTextMat,TabLeftMat, TabCenterMat, TabRightMat,ListSelectMat;
-	LPDIRECT3DTEXTURE9 FrameTex,fTextTex, TabLeftTex, TabCenterTex, TabRightTex, ListSelectTex;
 
-	D3DXMATRIX FrameSecMat,fTextSecMat, FrameSrdMat, fTextSrdMat;
-	LPDIRECT3DTEXTURE9 FrameSecTex,fTextSecTex, FrameSrdTex, fTextSrdTex;
-	
-	D3DXMATRIX BaitMat[LISTNUMBER];
+	KdMatrix TabLeftMat;
+	KdMatrix FrameMat;
+	KdMatrix fTextMat;
+	KdMatrix TabCenterMat;
+	KdMatrix TabRightMat;
+	KdMatrix ListSelectMat;
+
+	LPDIRECT3DTEXTURE9 FrameTex;
+	LPDIRECT3DTEXTURE9 fTextTex;
+	LPDIRECT3DTEXTURE9 TabLeftTex;
+	LPDIRECT3DTEXTURE9 TabCenterTex;
+	LPDIRECT3DTEXTURE9 TabRightTex;
+	LPDIRECT3DTEXTURE9 ListSelectTex;
+
+	KdMatrix FrameSecMat;
+	KdMatrix fTextSecMat;
+	KdMatrix FrameSrdMat;
+	KdMatrix fTextSrdMat;
+	LPDIRECT3DTEXTURE9 FrameSecTex;
+	LPDIRECT3DTEXTURE9 fTextSecTex;
+	LPDIRECT3DTEXTURE9 FrameSrdTex;
+	LPDIRECT3DTEXTURE9 fTextSrdTex;
+
+	KdMatrix BaitMat[LISTNUMBER];
 	LPDIRECT3DTEXTURE9 BaitTex[LISTNUMBER];
 	RECT rcBait[8];
 
@@ -35,8 +55,12 @@ private:
 	float select[LISTNUMBER];
 	float tabL, tabC, tabR;
 
-	bool KeyDownFlg = false, KeyUpFlg = false;
-	bool KeyLeftFlg = false, KeyRightFlg = false;
-	bool RodTextFlg = false, BaitTextFlg = false, ReelTextFlg = false;
+	bool KeyDownFlg = false;
+	bool KeyUpFlg = false;
+	bool KeyRightFlg = false;
+	bool KeyLeftFlg = false;
+	bool RodTextFlg = false;
+	bool BaitTextFlg = false;
+	bool ReelTextFlg = false;
 };
 

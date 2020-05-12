@@ -7,6 +7,7 @@ TestCharacter::TestCharacter()
 
 TestCharacter::~TestCharacter()
 {
+	m_pModel = nullptr;
 }
 
 void TestCharacter::Init()

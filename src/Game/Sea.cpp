@@ -21,13 +21,14 @@ Sea::Sea()
 	for (DWORD i = 0; i < verNum; i++) {
 		(pV + i)->y = (rand() % WaveHeight - WaveHeight / 2) * 0.01;
 	}
-	MESH->UnlockVertexBuffer();
+		(*m_pModel).GetMesh()->UnlockVertexBuffer();
 
 	HeightCtrl = false;
 }
 
 Sea::~Sea()
 {
+	m_pModel = nullptr;
 }
 
 

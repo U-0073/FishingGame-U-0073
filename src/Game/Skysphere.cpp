@@ -7,6 +7,8 @@ Skysphere::Skysphere()
 
 Skysphere::~Skysphere()
 {
+	m_pModel = nullptr;
+	m_pModel2 = nullptr;
 }
 
 void Skysphere::Init()

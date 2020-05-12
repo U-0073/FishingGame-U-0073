@@ -13,6 +13,7 @@ CFade::CFade()
 }
 CFade::~CFade()
 {
+	if (vTex != nullptr)vTex->Release();
 }
 
 
