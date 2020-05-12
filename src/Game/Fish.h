@@ -43,7 +43,13 @@ public:
 	void Update();
 	void Draw2D();
 	void Draw3D();
-	~Fishes() { m_Fishs.clear(); }
+	void End() {
+		for (auto&& p_Obj : m_Fishs) {
+
+			p_Obj->End();
+		}
+		m_Fishs.clear(); }
+
 private:
 	
 	std::vector<std::shared_ptr<Fish>>m_Fishs;

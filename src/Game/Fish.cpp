@@ -55,9 +55,9 @@ void Fish::Init()
 void Fish::Update()
 {
 	FishLen = KdVec3(FishPos.x, FishPos.y, FishPos.z);
-	KdVec3 m;
+	KdVec3 m,n;
 
-	float len =m_world.GetPos().LengthToTarget(m);
+	float len =m.LengthToTarget(n);
 
 
 
@@ -151,6 +151,8 @@ void Fish::TitleUpdate()
 	m_world = ScaleMat * TransMat;
 
 }
+
+
 
 void Fishes::Init()
 {

@@ -25,8 +25,7 @@ void C_Fishing::Init() {
 
 }
 
-void C_Fishing::End() {
-}
+
 
 void C_Fishing::Update() {
 
@@ -101,8 +100,8 @@ void C_Fishing::Draw3D() {
 }
 
 void C_Fishing::End() {
-	Fishes->End();
-	Fishes = nullptr;
+	m_Fishes->End();
+	m_Fishes = nullptr;
 	m_pModel = nullptr;
 
 }
