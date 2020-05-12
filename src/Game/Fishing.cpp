@@ -8,8 +8,6 @@ C_Fishing::C_Fishing()
 }
 
 C_Fishing::~C_Fishing() {
-	Fishes = nullptr;
-	m_pModel = nullptr;
 }
 
 void C_Fishing::Init() {
@@ -24,9 +22,6 @@ void C_Fishing::Init() {
 
 	Fishes = std::make_shared<Fish>();
 	Fishes->Init();
-}
-
-void C_Fishing::End() {
 }
 
 void C_Fishing::Update() {
@@ -101,3 +96,9 @@ void C_Fishing::Draw3D() {
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
 }
 
+void C_Fishing::End() {
+	Fishes->End();
+	Fishes = nullptr;
+	m_pModel = nullptr;
+
+}

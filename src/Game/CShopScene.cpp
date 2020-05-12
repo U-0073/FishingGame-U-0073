@@ -14,7 +14,6 @@ CShopScene::CShopScene()
 
 CShopScene::~CShopScene()
 {
-	if (vTex != nullptr)vTex->Release();
 }
 
 void CShopScene::Init()
@@ -61,3 +60,12 @@ void CShopScene::Draw3D()
 {
 	shopObj->Draw3D();
 }
+
+void CShopScene::End()
+{
+	shop2d->End();
+	shopObj->End();
+	if (vTex != nullptr)vTex->Release();
+}
+
+

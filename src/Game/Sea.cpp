@@ -28,7 +28,6 @@ Sea::Sea()
 
 Sea::~Sea()
 {
-	m_pModel = nullptr;
 }
 
 
@@ -61,4 +60,9 @@ void Sea::Draw3D()
 	m_pModel->Draw();
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
 
+}
+
+void Sea::End()
+{
+	//m_pModel = nullptr;
 }

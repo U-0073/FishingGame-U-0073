@@ -7,10 +7,6 @@ ShopObject::ShopObject()
 
 ShopObject::~ShopObject()
 {
-	m_pModel = nullptr;
-	m_pNormalRod1 = nullptr;
-	m_pNormalRod2 = nullptr;
-	m_pNormalRod3 = nullptr;
 }
 
 void ShopObject::Init()
@@ -46,6 +42,14 @@ void ShopObject::Draw3D()
 	}
 
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
+}
+
+void ShopObject::End()
+{
+	m_pModel = nullptr;
+	m_pNormalRod1 = nullptr;
+	m_pNormalRod2 = nullptr;
+	m_pNormalRod3 = nullptr;
 }
 
 void ShopObject::GetListChange(int tPat)

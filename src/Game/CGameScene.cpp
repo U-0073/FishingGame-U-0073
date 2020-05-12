@@ -9,9 +9,6 @@ CGameScene::CGameScene()
 
 CGameScene::~CGameScene()
 {
-	if (ringTex != nullptr)ringTex->Release();
-	if (notesTex != nullptr)notesTex->Release();
-	if (backTex != nullptr) backTex->Release();
 }
 
 void CGameScene::Init()
@@ -137,6 +134,10 @@ void CGameScene::Draw3D()
 
 void CGameScene::End()
 {
+	if (ringTex != nullptr)ringTex->Release();
+	if (notesTex != nullptr)notesTex->Release();
+	if (backTex != nullptr) backTex->Release();
+
 	KdSafeRelease(ringTex);
 	KdSafeRelease(notesTex);
 	KdSafeRelease(judgeTex);
