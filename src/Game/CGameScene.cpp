@@ -15,7 +15,7 @@ CGameScene::~CGameScene()
 
 void CGameScene::Init()
 {
-	ringTex = *RESOURCE_MNG.GetTexture("Resource/Texture/Ring4.png");
+	ringTex = *RESOURCE_MNG.GetTexture("Resource/Texture/Ring5.png");
 	notesTex = *RESOURCE_MNG.GetTexture("Resource/Texture/ScaleRing2.png");
 	backTex = *RESOURCE_MNG.GetTexture("Resource/Texture/SeaBack002.png");
 
@@ -124,9 +124,6 @@ void CGameScene::Draw2D()
 	notesMat = scaleMat * notesMat;
 	SPRITE->SetTransform(&notesMat);
 	if (scale > 0.7f && scale < 1.0f) {
-		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(100, 100, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 0, 0));
-	}
-	else if (scale > 0.0f && scale < 0.35f) {
 		SPRITE->Draw(notesTex, &rc, &D3DXVECTOR3(100, 100, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 0, 0));
 	}
 	else {
