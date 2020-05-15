@@ -15,9 +15,9 @@ CGameScene::~CGameScene()
 
 void CGameScene::Init()
 {
-	ringTex = *RESOURCE_MNG.GetTexture("Resource/Texture/Ring5.png");
-	notesTex = *RESOURCE_MNG.GetTexture("Resource/Texture/ScaleRing2.png");
-	backTex = *RESOURCE_MNG.GetTexture("Resource/Texture/SeaBack002.png");
+	ringTex = *RESOURCE_MNG.GetTexture("Ring5.png");
+	notesTex = *RESOURCE_MNG.GetTexture("ScaleRing2.png");
+	backTex = *RESOURCE_MNG.GetTexture("SeaBack002.png");
 
 	ringMat.CreateTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
 	notesMat = ringMat;
@@ -28,8 +28,8 @@ void CGameScene::Init()
 	clickNum = 10;
 	frame = 120;
 
-	m_pSound = RESOURCE_MNG.GetSound("Resource/Sound/Phantom_Apartment_2.wav");
-	m_pSound->Playsound("Resource/Sound/Phantom_Apartment_2.wav", true, true);
+	m_pSound = RESOURCE_MNG.GetSound("Phantom_Apartment_2");
+	m_pSound->Playsound("Phantom_Apartment_2", true, true);
 
 }
 
@@ -60,7 +60,7 @@ int CGameScene::Update()
 	}
 	else if (scale < 0.0f) {
 		judgeFlg = true;
-		judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/miss.png");
+		judgeTex = *RESOURCE_MNG.GetTexture("miss.png");
 		clickNum--;
 		ringMat.CreateTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
 		scale = 2.0f;
@@ -76,22 +76,22 @@ int CGameScene::Update()
 	//ノーツ判定処理
 	//グレート（外側）の時の処理
 	if (len < 100 && len >= 50) {//scale > 0.35 && scale < 0.7
-		judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/great.png");
+		judgeTex = *RESOURCE_MNG.GetTexture("great.png");
 	}
 	//エクセレント（内側）の時の処理
 	else if (len < 50) {//scale > 0.0 && scale < 0.35
-		judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/excellent1.png");
+		judgeTex = *RESOURCE_MNG.GetTexture("excellent1.png");
 	}
 	//ミスの時の処理
 	else {
-		judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/miss.png");
+		judgeTex = *RESOURCE_MNG.GetTexture("miss.png");
 	}
 
 
 	//scale縮小
 	scale -= speed;
 	/*if (scale < 0.0f) {
-		judgeTex = *RESOURCE_MNG.GetTexture("Resource/Texture/miss.png");
+		judgeTex = *RESOURCE_MNG.GetTexture("miss.png");
 		clickNum--;
 		ringMat.CreateTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
 		scale = 2.0f;

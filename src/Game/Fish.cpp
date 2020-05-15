@@ -33,7 +33,7 @@ void Fish::Init()
 	TransMat.CreateTrans(0.0f, 0.0f, 0.0f);
 	m_world = ScaleMat * TransMat;
 //	int name = rand() % 3;
-	m_pModel= RESOURCE_MNG.GetModel(("Resource/3DModel/")+m_Tag+(".x"));
+	m_pModel= RESOURCE_MNG.GetModel(m_Tag);
 	//int name = 0;
 	//switch (name)
 	//{

@@ -35,8 +35,8 @@ CMapScene::CMapScene()
 
 
 
-	m_PSound = RESOURCE_MNG.GetSound("Resource/Sound/wave3.wav");
-	m_PSound->Playsound("Resource/Sound/wave3.wav", true, true);
+	m_PSound = RESOURCE_MNG.GetSound("wave3");
+	m_PSound->Playsound("wave3", true, true);
 
 }
 

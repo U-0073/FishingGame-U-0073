@@ -57,7 +57,7 @@ bool KdModel::LoadXFile(const std::string& filename)
 
 
 
-		m_materials[i].pTex = *RESOURCE_MNG.GetTexture(strTexFile.c_str());
+		m_materials[i].pTex = *RESOURCE_MNG.GetModelTexture(strTexFile.c_str());
 	}
 
 	// 作業用マテリアル バッファ開放
