@@ -149,6 +149,7 @@
     <ClCompile Include="src\Game\Port.cpp" />
     <ClCompile Include="src\Game\Scene\CGameScene.cpp" />
     <ClCompile Include="src\Game\Scene\CMapScene.cpp" />
+    <ClCompile Include="src\Game\Scene\CResultScene.cpp" />
     <ClCompile Include="src\Game\Scene\CShopScene.cpp" />
     <ClCompile Include="src\Game\Scene\CTitleScene.cpp" />
     <ClCompile Include="src\Game\Sea.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="src\Game\Port.h" />
     <ClInclude Include="src\Game\Scene\CGameScene.h" />
     <ClInclude Include="src\Game\Scene\CMapScene.h" />
+    <ClInclude Include="src\Game\Scene\CResultScene.h" />
     <ClInclude Include="src\Game\Scene\CShopScene.h" />
     <ClInclude Include="src\Game\Scene\CTitleScene.h" />
     <ClInclude Include="src\Game\Sea.h" />

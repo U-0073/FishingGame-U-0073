@@ -1,6 +1,6 @@
 #pragma once
 #include"../../System/FrameBase/CSceneBase.h"
-#define path "Resource/Texture/"
+
 #include"../Title.h"
 #include"../Skysphere.h"
 #include"../Fish.h"

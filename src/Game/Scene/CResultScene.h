@@ -3,17 +3,17 @@
 
 class CGameProc;
 
-class CGameScene : public CSceneBase
+class CResultScene : public CSceneBase
 {
 public:
-	CGameScene();
-	~CGameScene();
+	CResultScene();
+	~CResultScene();
 
 	void Init()override;
 	int Update()override;
 	void Draw2D()override;
 	void Draw3D()override;
-	int GetID()override { return GAME; };
+	int GetID()override { return RESULT; };
 	void End()override;
 
 private:
@@ -47,7 +47,7 @@ private:
 	float len;
 
 	//判定用画像のポジション設定用関数
-	const void SetPos(const KdVec3& Vec){
+	const void SetPos(const KdVec3& Vec) {
 		judgeMat._41 = Vec.x;
 		judgeMat._42 = Vec.y;
 		judgeMat._43 = Vec.z;
