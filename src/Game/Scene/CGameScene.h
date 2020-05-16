@@ -18,20 +18,20 @@ public:
 
 private:
 	//固定枠
-	LPDIRECT3DTEXTURE9 ringTex;
+	std::shared_ptr<LPDIRECT3DTEXTURE9> ringTex = nullptr;
 	KdMatrix ringMat;
 
 	//ノーツ
-	LPDIRECT3DTEXTURE9 notesTex;
+	std::shared_ptr<LPDIRECT3DTEXTURE9> notesTex = nullptr;
 	KdMatrix notesMat;
 	float scale;
 
 	//判定文字
-	LPDIRECT3DTEXTURE9 judgeTex;
-	LPDIRECT3DTEXTURE9 resultTex = nullptr;
+	std::shared_ptr<LPDIRECT3DTEXTURE9> judgeTex = nullptr;
+	std::shared_ptr<LPDIRECT3DTEXTURE9> resultTex = nullptr;
 	KdMatrix judgeMat;
 
-	LPDIRECT3DTEXTURE9 backTex;
+	std::shared_ptr<LPDIRECT3DTEXTURE9> backTex = nullptr;
 	KdMatrix backMat;
 
 	float speed;
@@ -47,7 +47,7 @@ private:
 	float len;
 
 	//判定用画像のポジション設定用関数
-	const void SetPos(const KdVec3& Vec){
+	const void SetPos(const KdVec3& Vec) {
 		judgeMat._41 = Vec.x;
 		judgeMat._42 = Vec.y;
 		judgeMat._43 = Vec.z;
