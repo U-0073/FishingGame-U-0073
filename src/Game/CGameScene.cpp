@@ -20,6 +20,7 @@ void CGameScene::Init()
 	backTex = *RESOURCE_MNG.GetTexture("SeaBack002.png");
 
 	ringMat.CreateTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
+	SetPos(KdVec3(ringMat._41, ringMat._42, ringMat._43));
 	notesMat = ringMat;
 	backMat.CreateTrans(1280 / 2, 720 / 2, 0);
 	//拡縮サイズ
@@ -31,6 +32,7 @@ void CGameScene::Init()
 	m_pSound = RESOURCE_MNG.GetSound("Phantom_Apartment_2");
 	m_pSound->Playsound("Phantom_Apartment_2", true, true);
 
+	judgeFlg = 0;
 }
 
 int CGameScene::Update()
@@ -42,60 +44,63 @@ int CGameScene::Update()
 
 	if (GetKey(VK_LBUTTON) & 0x8000) {
 		if (!keyFlg) {
-			SetPos(KdVec3(ringMat._41, ringMat._42, ringMat._43));
+			//SetPos(KdVec3(ringMat._41, ringMat._42, ringMat._43));
 			clickPos = { (float)Mouse.x,(float)Mouse.y,0.0f };
 			KdVec3 ringPos = { ringMat._41, ringMat._42, ringMat._43 };
 			len = ringMat.GetPos().LengthToTarget(clickPos);
 
 
 			keyFlg = true;
-			clickNum--;
-			scale = 2.0f;
-			ringMat.CreateTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
-			notesMat = ringMat;
-
-
+			//clickNum--;
+			//ringMat.CreateTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
+			//notesMat = ringMat;
 		}
-		judgeFlg = true;
-	}
-	else if (scale < 0.0f) {
-		judgeFlg = true;
-		judgeTex = *RESOURCE_MNG.GetTexture("miss.png");
-		clickNum--;
-		ringMat.CreateTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
-		scale = 2.0f;
+		//judgeFlg = true;
 	}
 	else {
 		keyFlg = false;
-		judgeFlg = false;
-		len = NULL;
+		//judgeFlg = false;
+		//len = NULL;
 		clickPos = { 0,0,0 };
 	}
 
 
 	//ノーツ判定処理
-	//グレート（外側）の時の処理
-	if (len < 100 && len >= 50) {//scale > 0.35 && scale < 0.7
-		judgeTex = *RESOURCE_MNG.GetTexture("great.png");
-	}
 	//エクセレント（内側）の時の処理
-	else if (len < 50) {//scale > 0.0 && scale < 0.35
-		judgeTex = *RESOURCE_MNG.GetTexture("excellent1.png");
+	if (len < 100 && scale > 0.75 && scale < 1.0) {//scale > 0.0 && scale < 0.35
+		if (judgeFlg == 0) {
+			judgeTex = *RESOURCE_MNG.GetTexture("excellent1.png");
+			judgeFlg = 1;//	成功
+		}
 	}
 	//ミスの時の処理
 	else {
-		judgeTex = *RESOURCE_MNG.GetTexture("miss.png");
+		if (judgeFlg == 0) {
+			if (scale < 0.7) {
+				judgeTex = *RESOURCE_MNG.GetTexture("miss.png");
+				judgeFlg = 2;//失敗
+			}
+			if (keyFlg == true && scale > 1.0) {
+				judgeTex = *RESOURCE_MNG.GetTexture("miss.png");
+				judgeFlg = 2;//失敗
+
+			}
+		}
 	}
 
 
 	//scale縮小
 	scale -= speed;
-	/*if (scale < 0.0f) {
-		judgeTex = *RESOURCE_MNG.GetTexture("miss.png");
-		clickNum--;
-		ringMat.CreateTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
-		scale = 2.0f;
-	}*/
+	if (scale < 0.0f) {
+	ringMat.CreateTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
+	SetPos(KdVec3(ringMat._41, ringMat._42, ringMat._43));
+	notesMat = ringMat;
+	len = 1280;
+	clickPos = { 0,0,0 };
+	clickNum--;
+	judgeFlg = 0;
+	scale = 2.0f;
+	}
 
 	//デバッグ用回避手段
 	if (clickNum <= 0) {
@@ -131,7 +136,7 @@ void CGameScene::Draw2D()
 	}
 
 	//判定画像
-	if (judgeFlg) {
+	if (judgeFlg != 0) {
 		//judgeMat.CreateTrans();
 		scaleMat.CreateScale(1.0f, 1.0f, 0);
 		judgeMat = scaleMat * judgeMat;

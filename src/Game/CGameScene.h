@@ -40,7 +40,7 @@ private:
 	int clickNum;
 	bool keyFlg;
 	int frame;
-	bool judgeFlg;
+	int judgeFlg;
 
 	//マウス関連
 	POINT Mouse;
