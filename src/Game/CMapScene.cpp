@@ -86,12 +86,13 @@ int CMapScene::Update()
 
 void CMapScene::Draw2D()
 {
-	//m_Player->Draw2D();
+	m_Player->Draw2D();
 	//m_Fishing->Draw2D();
 }
 
 void CMapScene::Draw3D()
 {
+	//m_Player->Draw3D();
 	Sky->Draw3D();
 	m_Port->Draw3D();
 	Seas->Draw3D();

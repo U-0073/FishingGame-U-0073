@@ -110,7 +110,6 @@ void C_Player::MoveProc()
 void C_Player::Move()
 {
 	bool	MoveFlg = false;
-	WallFlg = false;
 	if (!FishFlg) {
 		if (GetKey('W') & 0x8000) {//‘O‚Ö
 			D3DXMATRIX RotMat;
@@ -404,28 +403,7 @@ void C_Player::Draw3D() {
 void C_Player::Draw2D()
 {
 	SPRITE->End();
-	char Text[100];
-	RECT rcText = { 10,30 * 1,0,0 };
-	sprintf_s(Text, sizeof(Text), "FishSceneLength %f", FishScene_CamPos.Length());
-	FONT->DrawText(NULL, Text, -1, &rcText, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	RECT rcText1 = { 10,30 * 7,0,0 };
-	sprintf_s(Text, sizeof(Text), "FishSceneCamAng x %f CamAng x %f  y%f", FishScene_CamAngX, CamAngX, CamAngY);
-	FONT->DrawText(NULL, Text, -1, &rcText1, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	RECT rcText2 = { 10,30 * 2,0,0 };
-	sprintf_s(Text, sizeof(Text), "PlayerPos  x %f  y%f z %f ", PlayerPos.x, PlayerPos.y, PlayerPos.z);
-	FONT->DrawText(NULL, Text, -1, &rcText2, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	RECT rcText3 = { 10,30 * 3,0,0 };
-	if (!RestoreFlg)FONT->DrawText(NULL, "RestoreFlg=false", -1, &rcText3, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	else FONT->DrawText(NULL, "RestoreFlg=true", -1, &rcText3, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	RECT rcText4 = { 10,30 * 4,0,0 };
-	if (!WallFlg)FONT->DrawText(NULL, "FishFlg=false", -1, &rcText4, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	else FONT->DrawText(NULL, "FishFlg=true", -1, &rcText4, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	RECT rcText5 = { 10,30 * 5,0,0 };
-	sprintf_s(Text, sizeof(Text), "MeshDisY %f ", TextMeshDis);
-	KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText5, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	RECT rcText6 = { 10,30 * 6,0,0 };
-	sprintf_s(Text, sizeof(Text), "FishingScene_CamPos  x %f  y%f z %f ", FishScene_CamPos.x, FishScene_CamPos.y, FishScene_CamPos.z);
-	FONT->DrawText(NULL, Text, -1, &rcText6, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+
 	SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
 
 }
@@ -496,7 +474,7 @@ void C_Player::MoveRay(D3DXVECTOR3 Vec)
 			KdVec3 TmpVec = WallVec * ((Limit - MeshDis) * Dot);
 			TmpVec.Set(TmpVec.x, 0.0f, TmpVec.z);
 			PlayerPos += TmpVec;//–@ü•ûŒü‚É‰Ÿ‚µo‚·
-		}
+		}else 	WallFlg = false;
 	}
 	PlayerPos += Vec * MoveSpeed;
 }
