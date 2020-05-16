@@ -1,10 +1,10 @@
 ﻿#include"../KdLibrary/KdLibrary.h"
 #include "CGameFrame.h"
 #include "CSceneBase.h"
-#include"../../Game/CTitleScene.h"
-#include"../../Game/CMapScene.h"
-#include"../../Game/CGameScene.h"
-#include"../../Game/CShopScene.h"
+#include"../../Game/Scene/CTitleScene.h"
+#include"../../Game/Scene/CMapScene.h"
+#include"../../Game/Scene/CGameScene.h"
+#include"../../Game/Scene/CShopScene.h"
 
 LRESULT APIENTRY WndFunc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {

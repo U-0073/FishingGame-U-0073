@@ -1,8 +1,8 @@
-#include"../System/KdLibrary/KdLibrary.h"
-#include "../System/FrameBase/CGameFrame.h"
+#include"../../System/KdLibrary/KdLibrary.h"
+#include"../../System/FrameBase/CGameFrame.h"
 
 #include "CGameScene.h"
-#include"GameProc.h"
+#include"../GameProc.h"
 
 CGameScene::CGameScene()
 {
@@ -98,21 +98,21 @@ int CGameScene::Update()
 	//scale縮小
 	scale -= speed;
 	if (scale < 0.0f) {
-	len = 10000;
-	clickPos = { 0,0,0 };
-	clickNum--;
-	//デバッグ用回避手段
-	if (clickNum <= 0) {
-		FADE.Start(5);
-		return TITLE;
-	}
+		len = 10000;
+		clickPos = { 0,0,0 };
+		clickNum--;
+		//デバッグ用回避手段
+		if (clickNum <= 0) {
+			FADE.Start(5);
+			return TITLE;
+		}
 
-	judgeFlg = 0;
-	ringMat.CreateTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
-	SetPos(KdVec3(ringMat._41, ringMat._42, ringMat._43));
-	notesMat = ringMat;
+		judgeFlg = 0;
+		ringMat.CreateTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
+		SetPos(KdVec3(ringMat._41, ringMat._42, ringMat._43));
+		notesMat = ringMat;
 
-	scale = 2.0f;
+		scale = 2.0f;
 	}
 
 

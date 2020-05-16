@@ -1,5 +1,5 @@
 #pragma once
-#include"../System/FrameBase/CSceneBase.h"
+#include"../../System/FrameBase/CSceneBase.h"
 #define path "Resource/Texture/"
 
 class CGameProc;

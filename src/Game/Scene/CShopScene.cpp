@@ -1,6 +1,6 @@
-#include"../System/KdLibrary/KdLibrary.h"
-#include "CShopScene.h"
-#include"GameProc.h"
+#include"../../System/KdLibrary/KdLibrary.h"
+#include"CShopScene.h"
+#include"../GameProc.h"
 
 CShopScene::CShopScene()
 	:mMat()

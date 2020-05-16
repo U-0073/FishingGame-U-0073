@@ -1,5 +1,5 @@
 #pragma once
-#include"../System/FrameBase/CSceneBase.h"
+#include"../../System/FrameBase/CSceneBase.h"
 
 //ƒNƒ‰ƒX‚Ì‘O•ûéŒ¾
 class Skysphere;
