@@ -33,6 +33,7 @@ void CGameScene::Init()
 	m_pSound->Playsound("Phantom_Apartment_2", true, true);
 
 	judgeFlg = 0;
+	len = 10000;
 }
 
 int CGameScene::Update()
@@ -67,7 +68,7 @@ int CGameScene::Update()
 
 	//ノーツ判定処理
 	//エクセレント（内側）の時の処理
-	if (len < 100 && scale > 0.75 && scale < 1.0) {//scale > 0.0 && scale < 0.35
+	if (len <= 100 && scale > 0.75 && scale < 1.0) {//scale > 0.0 && scale < 0.35
 		if (judgeFlg == 0) {
 			judgeTex = *RESOURCE_MNG.GetTexture("excellent1.png");
 			judgeFlg = 1;//	成功
@@ -85,6 +86,11 @@ int CGameScene::Update()
 				judgeFlg = 2;//失敗
 
 			}
+			if (keyFlg == true && len > 100 && scale > 0.75 && scale < 1.0) {//scale > 0.0 && scale < 0.35
+				judgeTex = *RESOURCE_MNG.GetTexture("miss.png");
+				judgeFlg = 2;//失敗
+
+			}
 		}
 	}
 
@@ -92,21 +98,23 @@ int CGameScene::Update()
 	//scale縮小
 	scale -= speed;
 	if (scale < 0.0f) {
-	ringMat.CreateTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
-	SetPos(KdVec3(ringMat._41, ringMat._42, ringMat._43));
-	notesMat = ringMat;
-	len = 1280;
+	len = 10000;
 	clickPos = { 0,0,0 };
 	clickNum--;
-	judgeFlg = 0;
-	scale = 2.0f;
-	}
-
 	//デバッグ用回避手段
 	if (clickNum <= 0) {
 		FADE.Start(5);
 		return TITLE;
 	}
+
+	judgeFlg = 0;
+	ringMat.CreateTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
+	SetPos(KdVec3(ringMat._41, ringMat._42, ringMat._43));
+	notesMat = ringMat;
+
+	scale = 2.0f;
+	}
+
 
 	return GAME;
 }
