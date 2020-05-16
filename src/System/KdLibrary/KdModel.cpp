@@ -55,8 +55,6 @@ bool KdModel::LoadXFile(const std::string& filename)
 		strTexFile = Path;
 		if (d3dxMaterials[i].pTextureFilename) { strTexFile += d3dxMaterials[i].pTextureFilename; }
 
-
-
 		m_materials[i].pTex = *RESOURCE_MNG.GetModelTexture(strTexFile.c_str());
 	}
 
