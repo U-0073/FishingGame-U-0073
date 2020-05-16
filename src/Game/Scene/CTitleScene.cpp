@@ -1,10 +1,10 @@
-#include"../System/KdLibrary/KdLibrary.h"
+#include"../../System/KdLibrary/KdLibrary.h"
 #include "CTitleScene.h"
 
 CTitleScene::CTitleScene()
 {
 
-//m_PSound->Playsound("Resource/Sound/TitleBGM.wav", true, true);
+//m_PSound->Playsound("TitleBGM", true, true);
 
 }
 
@@ -25,7 +25,7 @@ void CTitleScene::Init()
 	CAMERA.SetCameraPos(D3DXVECTOR3(0, 3, -5), Fishes->GetFishPos());
 	MoveFlg = false;
 	mPos = D3DXVECTOR3(0, 20, 0);
-	m_PSound = RESOURCE_MNG.GetSound("Resource/Sound/TitleBGM.wav");
+	m_PSound = RESOURCE_MNG.GetSound("TitleBGM");
 
 }
 

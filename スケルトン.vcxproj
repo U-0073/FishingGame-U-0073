@@ -144,13 +144,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Game\CGameScene.cpp" />
-    <ClCompile Include="src\Game\CMapScene.cpp" />
-    <ClCompile Include="src\Game\CShopScene.cpp" />
-    <ClCompile Include="src\Game\CTitleScene.cpp" />
     <ClCompile Include="src\Game\Fish.cpp" />
     <ClCompile Include="src\Game\Fishing.cpp" />
     <ClCompile Include="src\Game\Port.cpp" />
+    <ClCompile Include="src\Game\Scene\CGameScene.cpp" />
+    <ClCompile Include="src\Game\Scene\CMapScene.cpp" />
+    <ClCompile Include="src\Game\Scene\CShopScene.cpp" />
+    <ClCompile Include="src\Game\Scene\CTitleScene.cpp" />
     <ClCompile Include="src\Game\Sea.cpp" />
     <ClCompile Include="src\Game\C_Player.cpp" />
     <ClCompile Include="src\Game\Shop.cpp" />
@@ -178,13 +178,13 @@
     <ClCompile Include="src\System\KdLibrary\KdResourceManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Game\CGameScene.h" />
-    <ClInclude Include="src\Game\CMapScene.h" />
-    <ClInclude Include="src\Game\CShopScene.h" />
-    <ClInclude Include="src\Game\CTitleScene.h" />
     <ClInclude Include="src\Game\Fish.h" />
     <ClInclude Include="src\Game\Fishing.h" />
     <ClInclude Include="src\Game\Port.h" />
+    <ClInclude Include="src\Game\Scene\CGameScene.h" />
+    <ClInclude Include="src\Game\Scene\CMapScene.h" />
+    <ClInclude Include="src\Game\Scene\CShopScene.h" />
+    <ClInclude Include="src\Game\Scene\CTitleScene.h" />
     <ClInclude Include="src\Game\Sea.h" />
     <ClInclude Include="src\Game\C_Player.h" />
     <ClInclude Include="src\Game\Shop.h" />

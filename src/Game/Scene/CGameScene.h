@@ -1,5 +1,5 @@
 #pragma once
-#include"../System/FrameBase/CSceneBase.h"
+#include"../../System/FrameBase/CSceneBase.h"
 #define path "Resource/Texture/"
 
 class CGameProc;
@@ -40,7 +40,7 @@ private:
 	int clickNum;
 	bool keyFlg;
 	int frame;
-	bool judgeFlg;
+	int judgeFlg;
 
 	//マウス関連
 	POINT Mouse;

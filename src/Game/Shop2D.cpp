@@ -18,32 +18,32 @@ Shop2D::~Shop2D()
 void Shop2D::Init()
 {
 	//リスト
-	FrameTex = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/ShopFrame.png");
+	FrameTex = *RESOURCE_MNG.GetTexture("Shop/ShopFrame.png");
 	D3DXMatrixTranslation(&FrameMat, 50.0f, 0.0f, 0.0f);
-	fTextTex = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/ShopFrameText.png");
+	fTextTex = *RESOURCE_MNG.GetTexture("Shop/ShopFrameText.png");
 	D3DXMatrixTranslation(&fTextMat, 50.0f, 0.0f, 0.0f);
-	fTextSecTex = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/ShopFrameText2.png");
+	fTextSecTex = *RESOURCE_MNG.GetTexture("Shop/ShopFrameText2.png");
 	D3DXMatrixTranslation(&fTextSecMat, 50.0f, 0.0f, 0.0f);
-	fTextSrdTex = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/ShopFrameText3.png");
+	fTextSrdTex = *RESOURCE_MNG.GetTexture("Shop/ShopFrameText3.png");
 	D3DXMatrixTranslation(&fTextSrdMat, 50.0f, 0.0f, 0.0f);
 
 	//エサ
-	BaitTex[0] = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/Bait1.png");
-	BaitTex[1] = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/Bait2.png");
-	BaitTex[2] = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/Bait3.png");
-	BaitTex[3] = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/Bait4.png");
-	BaitTex[4] = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/Bait5.png");
-	BaitTex[5] = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/Bait6.png");
-	BaitTex[6] = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/Bait7.png");
-	BaitTex[7] = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/Bait8.png");
+	BaitTex[0] = *RESOURCE_MNG.GetTexture("Shop/Bait1.png");
+	BaitTex[1] = *RESOURCE_MNG.GetTexture("Shop/Bait2.png");
+	BaitTex[2] = *RESOURCE_MNG.GetTexture("Shop/Bait3.png");
+	BaitTex[3] = *RESOURCE_MNG.GetTexture("Shop/Bait4.png");
+	BaitTex[4] = *RESOURCE_MNG.GetTexture("Shop/Bait5.png");
+	BaitTex[5] = *RESOURCE_MNG.GetTexture("Shop/Bait6.png");
+	BaitTex[6] = *RESOURCE_MNG.GetTexture("Shop/Bait7.png");
+	BaitTex[7] = *RESOURCE_MNG.GetTexture("Shop/Bait8.png");
 	for (int i = 0; i < LISTNUMBER; i++) {
 		D3DXMatrixTranslation(&BaitMat[i], 725.0f, 125.0f, 0.0f);
 	}
 
 	//タブ
-	TabLeftTex = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/ShopFrameTab1.png");
-	TabCenterTex = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/ShopFrameTab2.png");
-	TabRightTex = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/ShopFrameTab3.png");
+	TabLeftTex = *RESOURCE_MNG.GetTexture("Shop/ShopFrameTab1.png");
+	TabCenterTex = *RESOURCE_MNG.GetTexture("Shop/ShopFrameTab2.png");
+	TabRightTex = *RESOURCE_MNG.GetTexture("Shop/ShopFrameTab3.png");
 	D3DXMatrixTranslation(&TabLeftMat, 50.0f, 0.0f, 0.0f);
 	D3DXMatrixTranslation(&TabCenterMat, 50.0f, 0.0f, 0.0f);
 	D3DXMatrixTranslation(&TabRightMat, 50.0f, 0.0f, 0.0f);
@@ -52,7 +52,7 @@ void Shop2D::Init()
 	tabR = 0;
 
 	//選択カーソル
-	ListSelectTex = *RESOURCE_MNG.GetTexture("Resource/Texture/Shop/ListSelect.png");
+	ListSelectTex = *RESOURCE_MNG.GetTexture("Shop/ListSelect.png");
 	D3DXMatrixTranslation(&ListSelectMat, 50.0f, select[0], 0.0f);
 }
 

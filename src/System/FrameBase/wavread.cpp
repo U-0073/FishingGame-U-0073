@@ -387,6 +387,7 @@ void SoundBase::Update()
 
 void SoundBase::Playsound(const char* Key, bool Init, bool Loop)
 {
+
 	if (Init)
 	{
 		RESOURCE_MNG.GetSound(Key)->LDSB8->SetCurrentPosition(0);

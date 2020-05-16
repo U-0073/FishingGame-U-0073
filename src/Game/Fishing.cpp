@@ -13,7 +13,7 @@ C_Fishing::~C_Fishing() {
 void C_Fishing::Init() {
 
 	GameObject::Init();
-	m_pModel = RESOURCE_MNG.GetModel("Resource/3DModel/Buoy.x");
+	m_pModel = RESOURCE_MNG.GetModel("Buoy");
 	ScileMat.CreateScale(4.0f, 4.0f, 4.0f);
 	BuoiPos = PlayerPos + KdVec3(0.0f, -1.0f, 0.0f);
 	TransMat.CreateTrans(BuoiPos);

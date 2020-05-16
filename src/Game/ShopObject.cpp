@@ -12,7 +12,7 @@ ShopObject::~ShopObject()
 void ShopObject::Init()
 {
 	GameObject::Init();
-	m_pNormalRod1 = RESOURCE_MNG.GetModel("./Resource/3DModel/WoodRod.x");
+	m_pNormalRod1 = RESOURCE_MNG.GetModel("WoodRod");
 	//m_pNormalRod2 = RESOURCE_MNG.GetModel("./Resource/3DModel/FishingLod.x");
 	//m_pNormalRod3 = RESOURCE_MNG.GetModel("./Resource/3DModel/FishingLod.x");
 	//ÉJÉÅÉâÇÃê›íË
