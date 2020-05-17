@@ -22,7 +22,9 @@ public:
 private:
 
 	KdMatrix FrameMat;
-	KdMatrix fTextMat;
+	//KdMatrix FrameSecMat;
+	//KdMatrix FrameSrdMat;
+	KdMatrix ItemNameTextMat;
 	KdMatrix ItemDesFrameMat;
 	KdMatrix TabLeftMat;
 	KdMatrix TabCenterMat;
@@ -30,26 +32,19 @@ private:
 	KdMatrix ListSelectMat;
 
 	LPDIRECT3DTEXTURE9 FrameTex;
-	LPDIRECT3DTEXTURE9 fTextTex;
+	LPDIRECT3DTEXTURE9 FrameSecTex;
+	LPDIRECT3DTEXTURE9 FrameSrdTex;
+	LPDIRECT3DTEXTURE9 ItemNameTextTex;
 	LPDIRECT3DTEXTURE9 ItemDesFrameTex;
 	LPDIRECT3DTEXTURE9 TabLeftTex;
 	LPDIRECT3DTEXTURE9 TabCenterTex;
 	LPDIRECT3DTEXTURE9 TabRightTex;
 	LPDIRECT3DTEXTURE9 ListSelectTex;
 
-	KdMatrix FrameSecMat;
-	KdMatrix fTextSecMat;
-	KdMatrix FrameSrdMat;
-	KdMatrix fTextSrdMat;
-	LPDIRECT3DTEXTURE9 FrameSecTex;
-	LPDIRECT3DTEXTURE9 fTextSecTex;
-	LPDIRECT3DTEXTURE9 FrameSrdTex;
-	LPDIRECT3DTEXTURE9 fTextSrdTex;
 
-	KdMatrix BaitMat[LISTNUMBER];
-	LPDIRECT3DTEXTURE9 BaitTex[LISTNUMBER];
-	RECT rcBait[8];
-
+	KdMatrix BaitMat;
+	LPDIRECT3DTEXTURE9 BaitTex;
+	
 	D3DXVECTOR3 mPos;
 
 	int cursor = 0;
