@@ -27,6 +27,10 @@ void Shop2D::Init()
 	fTextSrdTex = *RESOURCE_MNG.GetTexture("Shop/ShopFrameText3.png");
 	D3DXMatrixTranslation(&fTextSrdMat, 50.0f, 0.0f, 0.0f);
 
+	//アイテム説明枠
+	ItemDesFrameTex = *RESOURCE_MNG.GetTexture("Shop/ItemDescriptionFrame.png");
+	D3DXMatrixTranslation(&ItemDesFrameMat, 575.0f, 465.0f, 0.0f);
+	
 	//エサ
 	BaitTex[0] = *RESOURCE_MNG.GetTexture("Shop/Bait1.png");
 	BaitTex[1] = *RESOURCE_MNG.GetTexture("Shop/Bait2.png");
@@ -37,7 +41,7 @@ void Shop2D::Init()
 	BaitTex[6] = *RESOURCE_MNG.GetTexture("Shop/Bait7.png");
 	BaitTex[7] = *RESOURCE_MNG.GetTexture("Shop/Bait8.png");
 	for (int i = 0; i < LISTNUMBER; i++) {
-		D3DXMatrixTranslation(&BaitMat[i], 725.0f, 125.0f, 0.0f);
+		D3DXMatrixTranslation(&BaitMat[i], 735.0f, 125.0f, 0.0f);
 	}
 
 	//タブ
@@ -155,6 +159,11 @@ void Shop2D::Draw2D()
 	SPRITE->SetTransform(&FrameMat);
 	SPRITE->Draw(FrameTex, &rcFrame, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
+	//アイテム説明枠
+	RECT rcItemDesFrame = { 0,0,650,200 };
+	SPRITE->SetTransform(&ItemDesFrameMat);
+	SPRITE->Draw(ItemDesFrameTex, &rcItemDesFrame, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+
 	//選択カーソル
 	RECT rcSelect = { 0,0,500,720 };
 	SPRITE->SetTransform(&ListSelectMat);
@@ -229,7 +238,7 @@ void Shop2D::End()
 	SafeReleaseTex(TabRightTex);
 
 	SafeReleaseTex(ListSelectTex);
-
+	SafeReleaseTex(ItemDesFrameTex);
 }
 
 int Shop2D::SetListChange()
