@@ -17,16 +17,16 @@ void ShopObject::Init()
 	//m_pNormalRod3 = RESOURCE_MNG.GetModel("./Resource/3DModel/FishingLod.x");
 	//ÉJÉÅÉâÇÃê›íË
 	CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 0, 1));
-	D3DXMatrixTranslation(&m_world, 2, 0, 2);
+	D3DXMatrixTranslation(&m_world, 0, 0, 0);
+
+	m_world.RotateYLocal(D3DXToRadian(90));
+	m_world.RotateXLocal(D3DXToRadian(-45));
+	m_world.MoveWorld(2.0f, 0.0f, 7.0f);
 }
 
 void ShopObject::Update()
 {
-	static D3DXMATRIX m_rot;
-	static float rot = 0;
-	rot = 1.0f;
-	D3DXMatrixRotationY(&m_rot, D3DXToRadian(rot));
-	m_world = m_rot * m_world;
+	//m_world.RotateYWorld(D3DXToRadian(1));
 }
 
 void ShopObject::Draw3D()

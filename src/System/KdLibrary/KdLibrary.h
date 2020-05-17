@@ -92,7 +92,8 @@ enum Scene
 	TITLE,
 	MAP,
 	GAME,
-	SHOP
+	SHOP,
+	RESULT
 };
 
 struct CLONEVERTEX
