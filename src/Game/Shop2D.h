@@ -21,15 +21,17 @@ public:
 
 private:
 
-	KdMatrix TabLeftMat;
 	KdMatrix FrameMat;
 	KdMatrix fTextMat;
+	KdMatrix ItemDesFrameMat;
+	KdMatrix TabLeftMat;
 	KdMatrix TabCenterMat;
 	KdMatrix TabRightMat;
 	KdMatrix ListSelectMat;
 
 	LPDIRECT3DTEXTURE9 FrameTex;
 	LPDIRECT3DTEXTURE9 fTextTex;
+	LPDIRECT3DTEXTURE9 ItemDesFrameTex;
 	LPDIRECT3DTEXTURE9 TabLeftTex;
 	LPDIRECT3DTEXTURE9 TabCenterTex;
 	LPDIRECT3DTEXTURE9 TabRightTex;
