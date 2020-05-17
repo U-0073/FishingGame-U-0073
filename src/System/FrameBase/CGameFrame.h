@@ -6,6 +6,7 @@ class CSceneBase;
 class CTitleScene;
 class CMapScene;
 class CGameScene;
+class CResultScene;
 class CShopScene;
 
 class CCamera;

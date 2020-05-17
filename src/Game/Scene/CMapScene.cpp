@@ -1,14 +1,14 @@
-#include"../System/KdLibrary/KdLibrary.h"
+#include"../../System/KdLibrary/KdLibrary.h"
 #include"CMapScene.h"
 //―――――――――――――――――――――――――
-#include "structList.h"
-#include"C_Player.h"
-#include"Skysphere.h"
-#include"Sea.h"
-#include"Port.h"
-#include"Fish.h"
-#include "Fishing.h"
-#include"ShopObject.h"
+#include"../structList.h"
+#include"../C_Player.h"
+#include"../Skysphere.h"
+#include"../Sea.h"
+#include"../Port.h"
+#include"../Fish.h"
+#include"../Fishing.h"
+#include"../ShopObject.h"
 
 
 

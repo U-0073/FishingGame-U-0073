@@ -1,20 +1,19 @@
 #pragma once
-#include"../System/FrameBase/CSceneBase.h"
-#define path "Resource/Texture/"
+#include"../../System/FrameBase/CSceneBase.h"
 
 class CGameProc;
 
-class CGameScene : public CSceneBase
+class CResultScene : public CSceneBase
 {
 public:
-	CGameScene();
-	~CGameScene();
+	CResultScene();
+	~CResultScene();
 
 	void Init()override;
 	int Update()override;
 	void Draw2D()override;
 	void Draw3D()override;
-	int GetID()override { return GAME; };
+	int GetID()override { return RESULT; };
 	void End()override;
 
 private:
@@ -40,7 +39,7 @@ private:
 	int clickNum;
 	bool keyFlg;
 	int frame;
-	bool judgeFlg;
+	int judgeFlg;
 
 	//マウス関連
 	POINT Mouse;
@@ -48,7 +47,7 @@ private:
 	float len;
 
 	//判定用画像のポジション設定用関数
-	const void SetPos(const KdVec3& Vec){
+	const void SetPos(const KdVec3& Vec) {
 		judgeMat._41 = Vec.x;
 		judgeMat._42 = Vec.y;
 		judgeMat._43 = Vec.z;

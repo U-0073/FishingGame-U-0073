@@ -1,4 +1,4 @@
-#include"../System/KdLibrary/KdLibrary.h"
+#include"../../System/KdLibrary/KdLibrary.h"
 #include "CTitleScene.h"
 
 CTitleScene::CTitleScene()

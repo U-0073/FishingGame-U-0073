@@ -1,10 +1,11 @@
 ﻿#include"../KdLibrary/KdLibrary.h"
 #include "CGameFrame.h"
 #include "CSceneBase.h"
-#include"../../Game/CTitleScene.h"
-#include"../../Game/CMapScene.h"
-#include"../../Game/CGameScene.h"
-#include"../../Game/CShopScene.h"
+#include"../../Game/Scene/CTitleScene.h"
+#include"../../Game/Scene/CMapScene.h"
+#include"../../Game/Scene/CGameScene.h"
+#include"../../Game/Scene/CResultScene.h"
+#include"../../Game/Scene/CShopScene.h"
 
 LRESULT APIENTRY WndFunc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -148,13 +149,11 @@ void CGameFrame::GameLoop()
 			switch (nextscene)
 			{
 			case TITLE:
-
 				nowScene = std::make_shared<CTitleScene>();
 				nowScene->Init();
 				nowscene = nowScene->GetID();//シーンIDの保存
 				break;
 			case GAME:
-
 				nowScene = std::make_shared<CGameScene>();
 				nowScene->Init();
 				nowscene = nowScene->GetID();//シーンIDの保存
@@ -166,6 +165,11 @@ void CGameFrame::GameLoop()
 				break;
 			case SHOP:
 				nowScene = std::make_shared<CShopScene>();
+				nowScene->Init();
+				nowscene = nowScene->GetID();//シーンIDの保存
+				break;
+			case RESULT:
+				nowScene = std::make_shared<CResultScene>();
 				nowScene->Init();
 				nowscene = nowScene->GetID();//シーンIDの保存
 				break;
@@ -183,7 +187,7 @@ void CGameFrame::GameLoop()
 	if (nowScene && nextscene == nowscene) {
 		//シーンの更新
 		nextscene = nowScene->Update();
-		
+
 
 	}
 
