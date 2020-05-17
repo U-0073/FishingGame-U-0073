@@ -20,29 +20,17 @@ void Shop2D::Init()
 	//リスト
 	FrameTex = *RESOURCE_MNG.GetTexture("Shop/ShopFrame.png");
 	D3DXMatrixTranslation(&FrameMat, 50.0f, 0.0f, 0.0f);
-	fTextTex = *RESOURCE_MNG.GetTexture("Shop/ShopFrameText.png");
-	D3DXMatrixTranslation(&fTextMat, 50.0f, 0.0f, 0.0f);
-	fTextSecTex = *RESOURCE_MNG.GetTexture("Shop/ShopFrameText2.png");
-	D3DXMatrixTranslation(&fTextSecMat, 50.0f, 0.0f, 0.0f);
-	fTextSrdTex = *RESOURCE_MNG.GetTexture("Shop/ShopFrameText3.png");
-	D3DXMatrixTranslation(&fTextSrdMat, 50.0f, 0.0f, 0.0f);
+
+	ItemNameTextTex = *RESOURCE_MNG.GetTexture("Shop/ShopFrameText0.png");
+	D3DXMatrixTranslation(&ItemNameTextMat, 50.0f, 0.0f, 0.0f);
 
 	//アイテム説明枠
 	ItemDesFrameTex = *RESOURCE_MNG.GetTexture("Shop/ItemDescriptionFrame.png");
 	D3DXMatrixTranslation(&ItemDesFrameMat, 575.0f, 465.0f, 0.0f);
 	
 	//エサ
-	BaitTex[0] = *RESOURCE_MNG.GetTexture("Shop/Bait1.png");
-	BaitTex[1] = *RESOURCE_MNG.GetTexture("Shop/Bait2.png");
-	BaitTex[2] = *RESOURCE_MNG.GetTexture("Shop/Bait3.png");
-	BaitTex[3] = *RESOURCE_MNG.GetTexture("Shop/Bait4.png");
-	BaitTex[4] = *RESOURCE_MNG.GetTexture("Shop/Bait5.png");
-	BaitTex[5] = *RESOURCE_MNG.GetTexture("Shop/Bait6.png");
-	BaitTex[6] = *RESOURCE_MNG.GetTexture("Shop/Bait7.png");
-	BaitTex[7] = *RESOURCE_MNG.GetTexture("Shop/Bait8.png");
-	for (int i = 0; i < LISTNUMBER; i++) {
-		D3DXMatrixTranslation(&BaitMat[i], 735.0f, 125.0f, 0.0f);
-	}
+	BaitTex = *RESOURCE_MNG.GetTexture("Shop/Bait.png");
+	D3DXMatrixTranslation(&BaitMat, 735.0f, 125.0f, 0.0f);
 
 	//タブ
 	TabLeftTex = *RESOURCE_MNG.GetTexture("Shop/ShopFrameTab1.png");
@@ -170,49 +158,55 @@ void Shop2D::Draw2D()
 	SPRITE->Draw(ListSelectTex, &rcSelect, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
 	//リスト文字
-	RECT rcText = { 0,0,500,720 };
-	SPRITE->SetTransform(&fTextMat);
-	if (RodTextFlg)	SPRITE->Draw(fTextTex, &rcText, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-	RECT rcTextSec = { 0,0,500,720 };
-	SPRITE->SetTransform(&fTextSecMat);
-	if (BaitTextFlg) SPRITE->Draw(fTextSecTex, &rcTextSec, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-	RECT rcTextSrd = { 0,0,500,720 };
-	SPRITE->SetTransform(&fTextSrdMat);
-	if (ReelTextFlg) SPRITE->Draw(fTextSrdTex, &rcTextSec, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+	RECT rcItemNameText;
+	if (RodTextFlg) {
+		rcItemNameText = { 0,0,500,720 };
+	}
+	if (BaitTextFlg) {
+		rcItemNameText = { 500,0,1000,720 };
+	}
+	if (ReelTextFlg){
+		rcItemNameText = { 1000,0,1500,720 };
+	}
+	SPRITE->SetTransform(&ItemNameTextMat);
+	SPRITE->Draw(ItemNameTextTex, &rcItemNameText, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+
+	
 
 	//エサ
-	for (int i = 0; i < LISTNUMBER; i++) {
-		rcBait[i] = { 0,0,300,328 };
-		SPRITE->SetTransform(&BaitMat[i]);
+	RECT rcBait;
+	if (BaitTextFlg) {
+		switch (cursor)
+		{
+		case 0:
+			rcBait = { 0,0,300,328 };
+			break;
+		case 1:
+			rcBait = { 300,0,600,328 };
+			break;
+		case 2:
+			rcBait = { 600,0,900,328 };
+			break;
+		case 3:
+			rcBait = { 900,0,1200,328 };
+			break;
+		case 4:
+			rcBait = { 1200,0,1500,328 };
+			break;
+		case 5:
+			rcBait = { 1500,0,1800,328 };
+			break;
+		case 6:
+			rcBait = { 1800,0,2100,328 };
+			break;
+		case 7:
+			rcBait = { 2100,0,2400,328 };
+			break;
+		}
+		SPRITE->SetTransform(&BaitMat);
+		SPRITE->Draw(BaitTex, &rcBait, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 	}
 
-	switch (cursor)
-	{
-	case 0:
-		if (BaitTextFlg) SPRITE->Draw(BaitTex[0], &rcBait[0], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-		break;
-	case 1:
-		if (BaitTextFlg) SPRITE->Draw(BaitTex[1], &rcBait[1], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-		break;
-	case 2:
-		if (BaitTextFlg) SPRITE->Draw(BaitTex[2], &rcBait[2], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-		break;
-	case 3:
-		if (BaitTextFlg) SPRITE->Draw(BaitTex[3], &rcBait[3], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-		break;
-	case 4:
-		if (BaitTextFlg) SPRITE->Draw(BaitTex[4], &rcBait[4], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-		break;
-	case 5:
-		if (BaitTextFlg) SPRITE->Draw(BaitTex[5], &rcBait[5], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-		break;
-	case 6:
-		if (BaitTextFlg) SPRITE->Draw(BaitTex[6], &rcBait[6], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-		break;
-	case 7:
-		if (BaitTextFlg) SPRITE->Draw(BaitTex[7], &rcBait[7], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-		break;
-	}
 
 	SPRITE->End();
 }
@@ -225,13 +219,9 @@ void Shop2D::End()
 {
 	m_pModel = nullptr;
 	SafeReleaseTex(FrameTex);
-	SafeReleaseTex(fTextTex);
-	SafeReleaseTex(fTextSecTex);
-	SafeReleaseTex(fTextSrdTex);
+	SafeReleaseTex(ItemNameTextTex);
 
-	for (int i = 0; i < LISTNUMBER; i++) {
-		BaitTex[i]->Release();
-	}
+	BaitTex->Release();
 
 	SafeReleaseTex(TabLeftTex);
 	SafeReleaseTex(TabCenterTex);
