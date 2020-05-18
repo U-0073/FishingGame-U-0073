@@ -91,7 +91,7 @@ void Fish::Update()
 	KdMatrix RotMatX;
 	//RotMatX.CreateRotationX(D3DXToRadian(90));
 
-	m_world.MoveLocal(0, 0, -1);
+	m_world.MoveLocal(0, 0, -0.5);
 
 	
 	m_world.RotateYLocal(D3DXToRadian((rand()%10)-5));
@@ -150,9 +150,10 @@ void Fishes::Init()
 		l_Fish->SetTagType(name);
 		l_Fish->Init();
 		m_Fishs.push_back(l_Fish);
-		m_Fihes.push_back(m_Fishs);//“ñŽŸŒ³”z—ñ‰»
+
 	
 	}
+	m_Fihes.push_back(m_Fishs);//“ñŽŸŒ³”z—ñ‰»
 }
 
 void Fishes::Update()
