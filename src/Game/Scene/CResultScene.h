@@ -3,35 +3,35 @@
 
 class CGameProc;
 
-class CGameScene : public CSceneBase
+class CResultScene : public CSceneBase
 {
 public:
-	CGameScene();
-	~CGameScene();
+	CResultScene();
+	~CResultScene();
 
 	void Init()override;
 	int Update()override;
 	void Draw2D()override;
 	void Draw3D()override;
-	int GetID()override { return GAME; };
+	int GetID()override { return RESULT; };
 	void End()override;
 
 private:
 	//å≈íËòg
-	std::shared_ptr<LPDIRECT3DTEXTURE9> ringTex = nullptr;
+	LPDIRECT3DTEXTURE9 ringTex;
 	KdMatrix ringMat;
 
 	//ÉmÅ[Éc
-	std::shared_ptr<LPDIRECT3DTEXTURE9> notesTex = nullptr;
+	LPDIRECT3DTEXTURE9 notesTex;
 	KdMatrix notesMat;
 	float scale;
 
 	//îªíËï∂éö
-	std::shared_ptr<LPDIRECT3DTEXTURE9> judgeTex = nullptr;
-	std::shared_ptr<LPDIRECT3DTEXTURE9> resultTex = nullptr;
+	LPDIRECT3DTEXTURE9 judgeTex;
+	LPDIRECT3DTEXTURE9 resultTex = nullptr;
 	KdMatrix judgeMat;
 
-	std::shared_ptr<LPDIRECT3DTEXTURE9> backTex = nullptr;
+	LPDIRECT3DTEXTURE9 backTex;
 	KdMatrix backMat;
 
 	float speed;

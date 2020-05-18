@@ -43,7 +43,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -74,11 +74,13 @@
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>c:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x86;$(LibraryPath)</LibraryPath>
     <IncludePath>c:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include;$(IncludePath)</IncludePath>
+    <ReferencePath>$(VC_ReferencesPath_x86)</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>c:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>c:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x64;$(LibraryPath)</LibraryPath>
+    <LibraryPath>c:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x64;$(LibraryPath);c:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x86;$(LibraryPath);C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86$(VC_LibraryPath_x86)</LibraryPath>
+    <ReferencePath>$(VC_ReferencesPath_x86)</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -149,6 +151,7 @@
     <ClCompile Include="src\Game\Port.cpp" />
     <ClCompile Include="src\Game\Scene\CGameScene.cpp" />
     <ClCompile Include="src\Game\Scene\CMapScene.cpp" />
+    <ClCompile Include="src\Game\Scene\CResultScene.cpp" />
     <ClCompile Include="src\Game\Scene\CShopScene.cpp" />
     <ClCompile Include="src\Game\Scene\CTitleScene.cpp" />
     <ClCompile Include="src\Game\Sea.cpp" />
@@ -183,6 +186,7 @@
     <ClInclude Include="src\Game\Port.h" />
     <ClInclude Include="src\Game\Scene\CGameScene.h" />
     <ClInclude Include="src\Game\Scene\CMapScene.h" />
+    <ClInclude Include="src\Game\Scene\CResultScene.h" />
     <ClInclude Include="src\Game\Scene\CShopScene.h" />
     <ClInclude Include="src\Game\Scene\CTitleScene.h" />
     <ClInclude Include="src\Game\Sea.h" />
