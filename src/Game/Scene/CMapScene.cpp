@@ -8,6 +8,7 @@
 #include"../Port.h"
 #include"../Fish.h"
 #include"../Fishing.h"
+#include"../Seagull.h"
 #include"../ShopObject.h"
 
 
@@ -32,6 +33,10 @@ CMapScene::CMapScene()
 	//ãõ
 	m_Fishing = std::make_shared<C_Fishing>();
 	m_Fishing->Init();
+
+	//ÉJÉÇÉÅ
+	m_Seagull = std::make_shared<Seagull>();
+	m_Seagull->Init();
 
 
 
@@ -96,6 +101,7 @@ void CMapScene::Draw3D()
 	m_Port->Draw3D();
 	Seas->Draw3D();
 	m_Fishing->Draw3D();
+	m_Seagull->Draw3D();
 }
 
 void CMapScene::End()
@@ -110,6 +116,8 @@ void CMapScene::End()
 	m_Player = nullptr;
 	m_Fishing->End();
 	m_Fishing = nullptr;
+	m_Seagull->End();
+	m_Seagull = nullptr;
 
 	m_PSound->LDSB8->Stop();
 	m_PSound = nullptr;

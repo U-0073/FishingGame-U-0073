@@ -54,6 +54,7 @@ void Sea::Update()
 			if (pos->y < -1) { HeightCtrl = false; }
 		}
 	}
+
 	MESH->UnlockVertexBuffer();
 
 }
