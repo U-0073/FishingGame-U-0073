@@ -293,7 +293,7 @@ Frame Root {
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"./tex/Shop_Colored.png";}
+          TextureFilename {"Shop_Colored.png";}
         }
       } // End of Door material list
     } // End of Door mesh
