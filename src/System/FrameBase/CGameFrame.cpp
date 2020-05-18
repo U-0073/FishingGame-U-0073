@@ -190,6 +190,9 @@ void CGameFrame::GameLoop()
 
 
 	}
+	else {
+		nowScene->Update();
+	}
 
 
 
