@@ -101,6 +101,7 @@ void CMapScene::Draw3D()
 	m_Port->Draw3D();
 	Seas->Draw3D();
 	m_Fishing->Draw3D();
+	m_Seagull->Draw3D();
 }
 
 void CMapScene::End()
@@ -115,6 +116,8 @@ void CMapScene::End()
 	m_Player = nullptr;
 	m_Fishing->End();
 	m_Fishing = nullptr;
+	m_Seagull->End();
+	m_Seagull = nullptr;
 
 	m_PSound->LDSB8->Stop();
 	m_PSound = nullptr;
