@@ -47,6 +47,8 @@ private:
 	float len;
 	bool Check;
 
+	int MusicChoise;
+
 	//判定用画像のポジション設定用関数
 	const void SetPos(const KdVec3& Vec) {
 		judgeMat._41 = Vec.x;

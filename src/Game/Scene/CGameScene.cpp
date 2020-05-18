@@ -26,11 +26,35 @@ void CGameScene::Init()
 	//拡縮サイズ
 	scale = 2.0f;
 	speed = 0.02f;
-	clickNum = 10;
+	clickNum = 1;
 	frame = 120;
 
-	m_pSound = RESOURCE_MNG.GetSound("Phantom_Apartment_2");
-	m_pSound->Playsound("Phantom_Apartment_2", true, true);
+
+	//曲選択
+	MusicChoise = 3;// rand() % 5;
+	switch (MusicChoise)
+	{
+	case 0:
+		m_pSound = RESOURCE_MNG.GetSound("Phantom_Apartment_2");
+		m_pSound->Playsound("Phantom_Apartment_2", true, true);
+		break;
+	case 1:
+		m_pSound = RESOURCE_MNG.GetSound("Dance_Dance_Cats");
+		m_pSound->Playsound("Dance_Dance_Cats", true, true);
+		break;
+	case 2:
+		m_pSound = RESOURCE_MNG.GetSound("Green_Stage_2");
+		m_pSound->Playsound("Green_Stage_2", true, true);
+		break;
+	case 3:
+		m_pSound = RESOURCE_MNG.GetSound("Ride_On_The_Wind_2");
+		m_pSound->Playsound("Ride_On_The_Wind_2", true, true);
+		break;
+	case 4:
+		m_pSound = RESOURCE_MNG.GetSound("START!!");
+		m_pSound->Playsound("START!!", true, true);
+		break;
+	}
 
 	judgeFlg = 0;
 	len = 10000;
@@ -107,7 +131,13 @@ int CGameScene::Update()
 			//デバッグ用回避手段
 			if (clickNum <= 0) {
 				Check = false;
-				FADE.Start(5);
+
+				//曲変更
+				m_pSound->LDSB8->Stop();
+				m_pSound = RESOURCE_MNG.GetSound("レベルが上がったり何かをクリアした時の短いジングル");
+				m_pSound->Playsound("レベルが上がったり何かをクリアした時の短いジングル", true, false);
+
+				FADE.Start(6.5);
 				return TITLE;
 			}
 
