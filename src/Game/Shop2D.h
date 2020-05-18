@@ -23,7 +23,7 @@ private:
 
 	KdMatrix FrameMat;
 	KdMatrix ItemNameTextMat;
-	KdMatrix ItemDesFrameMat;
+	KdMatrix ItemDesMat;
 	KdMatrix TabLeftMat;
 	KdMatrix TabCenterMat;
 	KdMatrix TabRightMat;
@@ -33,7 +33,7 @@ private:
 	LPDIRECT3DTEXTURE9 FrameSecTex;
 	LPDIRECT3DTEXTURE9 FrameSrdTex;
 	LPDIRECT3DTEXTURE9 ItemNameTextTex;
-	LPDIRECT3DTEXTURE9 ItemDesFrameTex;
+	LPDIRECT3DTEXTURE9 ItemDesTex;
 	LPDIRECT3DTEXTURE9 TabLeftTex;
 	LPDIRECT3DTEXTURE9 TabCenterTex;
 	LPDIRECT3DTEXTURE9 TabRightTex;
