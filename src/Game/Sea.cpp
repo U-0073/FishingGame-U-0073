@@ -24,7 +24,7 @@ Sea::Sea()
 		D3DXVECTOR3* pos = (D3DXVECTOR3*)(pV + i * vSize);
 		pos->y = (rand() % WaveHeight - WaveHeight / 2) * 0.01;
 	}
-		(*m_pModel).GetMesh()->UnlockVertexBuffer();
+	(*m_pModel).GetMesh()->UnlockVertexBuffer();
 
 	HeightCtrl = false;
 }
@@ -36,11 +36,12 @@ Sea::~Sea()
 
 void Sea::Update()
 {
+	int vSize = MESH->GetNumBytesPerVertex();
+	pV = nullptr;
 
 	MESH->LockVertexBuffer(0, (VOID**)&pV);
 	//クローン			頂点バッファ				先頭アドレスが入る(0番目の頂点の内容)
 
-	int vSize = MESH->GetNumBytesPerVertex();
 
 	for (DWORD i = 0; i < verNum; i++) {
 		D3DXVECTOR3* pos = (D3DXVECTOR3*)(pV + i * vSize);
