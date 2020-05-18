@@ -31,7 +31,7 @@ void CGameScene::Init()
 
 
 	//曲選択
-	MusicChoise = rand() % 2;
+	MusicChoise = 3;// rand() % 5;
 	switch (MusicChoise)
 	{
 	case 0:
@@ -41,6 +41,18 @@ void CGameScene::Init()
 	case 1:
 		m_pSound = RESOURCE_MNG.GetSound("Dance_Dance_Cats");
 		m_pSound->Playsound("Dance_Dance_Cats", true, true);
+		break;
+	case 2:
+		m_pSound = RESOURCE_MNG.GetSound("Green_Stage_2");
+		m_pSound->Playsound("Green_Stage_2", true, true);
+		break;
+	case 3:
+		m_pSound = RESOURCE_MNG.GetSound("Ride_On_The_Wind_2");
+		m_pSound->Playsound("Ride_On_The_Wind_2", true, true);
+		break;
+	case 4:
+		m_pSound = RESOURCE_MNG.GetSound("START!!");
+		m_pSound->Playsound("START!!", true, true);
 		break;
 	}
 
@@ -119,7 +131,13 @@ int CGameScene::Update()
 			//デバッグ用回避手段
 			if (clickNum <= 0) {
 				Check = false;
-				FADE.Start(5);
+
+				//曲変更
+				m_pSound->LDSB8->Stop();
+				m_pSound = RESOURCE_MNG.GetSound("レベルが上がったり何かをクリアした時の短いジングル");
+				m_pSound->Playsound("レベルが上がったり何かをクリアした時の短いジングル", true, false);
+
+				FADE.Start(6.5);
 				return TITLE;
 			}
 
