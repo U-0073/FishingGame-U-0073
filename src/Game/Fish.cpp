@@ -34,22 +34,7 @@ void Fish::Init()
 	m_world = ScaleMat * TransMat;
 //	int name = rand() % 3;
 	m_pModel= RESOURCE_MNG.GetModel(m_Tag);
-	//int name = 0;
-	//switch (name)
-	//{
-	//case 0:
-	//	m_Tag = "RedSnapper";
-	//	m_pModel = RESOURCE_MNG.GetModel("Resource/3DModel/RedSnapper.x");
-	//	break;
-	//case 1:
-	//	m_Tag = "Saury";
-	//	m_pModel = RESOURCE_MNG.GetModel("Resource/3DModel/Saury.x");
-	//	break;
-	//case 2:
-	//	m_Tag = "Tuna";
-	//	m_pModel = RESOURCE_MNG.GetModel("Resource/3DModel/Tuna.x");
-	//	break;
-	//}
+	
 }
 
 void Fish::Update()
@@ -156,35 +141,50 @@ void Fish::TitleUpdate()
 
 void Fishes::Init()
 {
+	std::vector<std::shared_ptr<Fish>>m_Fishs;
 	for (int i = 0; i < 40; i++) {
 		int name = rand() % 3;
 		auto l_Fish = std::make_shared<Fish>();
+
+
 		l_Fish->SetTagType(name);
 		l_Fish->Init();
 		m_Fishs.push_back(l_Fish);
+		m_Fihes.push_back(m_Fishs);//“ñŽŸŒ³”z—ñ‰»
+	
 	}
 }
 
 void Fishes::Update()
 {
-	for (auto&& p_Obj : m_Fishs) {
-
-		p_Obj->Update();
+	for (auto&& p : m_Fihes) {
+		for (auto&& pp : p) {
+			pp->Update();
+			
+		}
 	}
+	//for (auto&& p_Obj : m_Fishs) {
+
+	//	p_Obj->Update();
+	//}
 }
 
 void Fishes::Draw2D()
 {
-	for (auto&& p_Obj : m_Fishs) {
+	for (auto&& p : m_Fihes) {
+		for (auto&& pp : p) {
+			pp->Draw2D();
 
-		p_Obj->Draw2D();
+		}
 	}
 }
 
 void Fishes::Draw3D()
 {
-	for (auto&& p_Obj : m_Fishs) {
+	for (auto&& p : m_Fihes) {
+		for (auto&& pp : p) {
+			pp->Draw3D();
 
-		p_Obj->Draw3D();
+		}
 	}
 }
