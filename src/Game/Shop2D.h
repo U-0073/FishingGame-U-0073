@@ -22,8 +22,6 @@ public:
 private:
 
 	KdMatrix FrameMat;
-	//KdMatrix FrameSecMat;
-	//KdMatrix FrameSrdMat;
 	KdMatrix ItemNameTextMat;
 	KdMatrix ItemDesFrameMat;
 	KdMatrix TabLeftMat;
@@ -51,7 +49,7 @@ private:
 	int tabPattern = 0;
 
 	float select[LISTNUMBER];
-	float tabL, tabC, tabR;
+	float tabL = 0, tabC = 0, tabR = 0;
 
 	bool KeyDownFlg = false;
 	bool KeyUpFlg = false;
