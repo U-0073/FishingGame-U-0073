@@ -39,7 +39,7 @@ void Shop2D::Init()
 	D3DXMatrixTranslation(&TabLeftMat, 50.0f, 0.0f, 0.0f);
 	D3DXMatrixTranslation(&TabCenterMat, 50.0f, 0.0f, 0.0f);
 	D3DXMatrixTranslation(&TabRightMat, 50.0f, 0.0f, 0.0f);
-	tabL = 30;
+	tabL = 0;
 	tabC = 0;
 	tabR = 0;
 
@@ -105,19 +105,19 @@ void Shop2D::Update()
 	D3DXMatrixTranslation(&ListSelectMat, 50.0f, select[cursor], 0.0f);
 	//ƒ^ƒu
 	if (tabPattern == 0) {
-		tabL = 40; tabC = 0; tabR = 0;
+		tabL = 43; tabC = 0; tabR = 0;
 		RodTextFlg = true;
 		BaitTextFlg = false;
 		ReelTextFlg = false;
 	}
 	if (tabPattern == 1) {
-		tabL = 0; tabC = 40; tabR = 0;
+		tabL = 0; tabC = 43; tabR = 0;
 		RodTextFlg = false;
 		BaitTextFlg = true;
 		ReelTextFlg = false;
 	}
 	if (tabPattern == 2) {
-		tabL = 0; tabC = 0; tabR = 40;
+		tabL = 0; tabC = 0; tabR = 43;
 		RodTextFlg = false;
 		BaitTextFlg = false;
 		ReelTextFlg = true;
