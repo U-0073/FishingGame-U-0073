@@ -122444,7 +122444,7 @@ Frame Root {
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"tex/ŠC–Ê.jpg";}
+          TextureFilename {"ŠC–Ê.jpg";}
         }
       } // End of Plane material list
     } // End of Plane mesh

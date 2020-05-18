@@ -3040,7 +3040,7 @@ Frame Root {
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"tex/SkySphere.png";}
+          TextureFilename {"SkySphere.png";}
         }
       } // End of Sphere material list
     } // End of Sphere mesh
