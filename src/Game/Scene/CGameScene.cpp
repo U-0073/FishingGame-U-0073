@@ -26,7 +26,7 @@ void CGameScene::Init()
 	//ägèkÉTÉCÉY
 	scale = 2.0f;
 	speed = 0.02f;
-	clickNum = 1;
+	clickNum = 3;
 	frame = 120;
 
 
