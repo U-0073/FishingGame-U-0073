@@ -8,6 +8,7 @@
 #include"../Port.h"
 #include"../Fish.h"
 #include"../Fishing.h"
+#include"../Seagull.h"
 #include"../ShopObject.h"
 
 
@@ -32,6 +33,10 @@ CMapScene::CMapScene()
 	//ãõ
 	m_Fishing = std::make_shared<C_Fishing>();
 	m_Fishing->Init();
+
+	//ÉJÉÇÉÅ
+	m_Seagull = std::make_shared<Seagull>();
+	m_Seagull->Init();
 
 
 

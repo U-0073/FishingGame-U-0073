@@ -1,7 +1,7 @@
 #pragma once
 #include"../System/FrameBase/GameObject.h"
 
-#define path "Resource/3DModel/"
+class GameObject;
 
 class Seagull : GameObject
 {
@@ -15,7 +15,6 @@ public:
 	void End()override;
 
 private:
-	std::string SEagull;
 
 	KdVec3 SeagullPos;
 	KdVec3 SeagullLen;
