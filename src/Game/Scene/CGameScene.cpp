@@ -26,7 +26,7 @@ void CGameScene::Init()
 	//拡縮サイズ
 	scale = 2.0f;
 	speed = 0.01f;
-	clickNum = 10;
+	clickNum = 1;
 	frame = 120;
 
 	m_pSound = RESOURCE_MNG.GetSound("Phantom_Apartment_2");
@@ -103,7 +103,7 @@ int CGameScene::Update()
 		clickNum--;
 		//デバッグ用回避手段
 		if (clickNum <= 0) {
-			FADE.Start(5);
+			FADE.Start(1);
 			return TITLE;
 		}
 
