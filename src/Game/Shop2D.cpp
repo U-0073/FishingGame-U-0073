@@ -25,8 +25,8 @@ void Shop2D::Init()
 	D3DXMatrixTranslation(&ItemNameTextMat, 50.0f, 0.0f, 0.0f);
 
 	//アイテム説明枠
-	ItemDesFrameTex = *RESOURCE_MNG.GetTexture("Shop/ItemDescriptionFrame.png");
-	D3DXMatrixTranslation(&ItemDesFrameMat, 575.0f, 465.0f, 0.0f);
+	ItemDesTex = *RESOURCE_MNG.GetTexture("Shop/ItemDes.png");
+	D3DXMatrixTranslation(&ItemDesMat, 575.0f, 465.0f, 0.0f);
 	
 	//エサ
 	BaitTex = *RESOURCE_MNG.GetTexture("Shop/Bait.png");
@@ -147,29 +147,113 @@ void Shop2D::Draw2D()
 	SPRITE->SetTransform(&FrameMat);
 	SPRITE->Draw(FrameTex, &rcFrame, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
-	//アイテム説明枠
-	RECT rcItemDesFrame = { 0,0,650,200 };
-	SPRITE->SetTransform(&ItemDesFrameMat);
-	SPRITE->Draw(ItemDesFrameTex, &rcItemDesFrame, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-
 	//選択カーソル
 	RECT rcSelect = { 0,0,500,720 };
 	SPRITE->SetTransform(&ListSelectMat);
 	SPRITE->Draw(ListSelectTex, &rcSelect, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
+	//アイテム説明
+	RECT rcItemDes;
 	//リスト文字
 	RECT rcItemNameText;
 	if (RodTextFlg) {
 		rcItemNameText = { 0,0,500,720 };
+		//カーソル位置に応じてアイテム説明変更
+		switch (cursor)
+		{
+		case 0:
+			rcItemDes = { 0,0,650,200 };
+			break;
+		case 1:
+			rcItemDes = { 0,200,650,400 };
+			break;
+		case 2:
+			rcItemDes = { 0,400,650,600 };
+			break;
+		case 3:
+			rcItemDes = { 0,600,650,800 };
+			break;
+		case 4:
+			rcItemDes = { 0,800,650,1000 };
+			break;
+		case 5:
+			rcItemDes = { 0,1000,650,1200 };
+			break;
+		case 6:
+			rcItemDes = { 0,1200,650,1400 };
+			break;
+		case 7:
+			rcItemDes = { 0,1400,650,1600 };
+			break;
+		}
 	}
 	if (BaitTextFlg) {
 		rcItemNameText = { 500,0,1000,720 };
+		//カーソル位置に応じてアイテム説明変更
+		switch (cursor)
+		{
+		case 0:
+			rcItemDes = { 650,0,1300,200 };
+			break;
+		case 1:
+			rcItemDes = { 650,200,1300,400 };
+			break;
+		case 2:
+			rcItemDes = { 650,400,1300,600 };
+			break;
+		case 3:
+			rcItemDes = { 650,600,1300,800 };
+			break;
+		case 4:
+			rcItemDes = { 650,800,1300,1000 };
+			break;
+		case 5:
+			rcItemDes = { 650,1000,1300,1200 };
+			break;
+		case 6:
+			rcItemDes = { 650,1200,1300,1400 };
+			break;
+		case 7:
+			rcItemDes = { 650,1400,1300,1600 };
+			break;
+		}
 	}
 	if (ReelTextFlg){
 		rcItemNameText = { 1000,0,1500,720 };
+		//カーソル位置に応じてアイテム説明変更
+		switch (cursor)
+		{
+		case 0:
+			rcItemDes = { 1300,0,1950,200 };
+			break;
+		case 1:
+			rcItemDes = { 1300,200,1950,400 };
+			break;
+		case 2:
+			rcItemDes = { 1300,400,1950,600 };
+			break;
+		case 3:
+			rcItemDes = { 1300,600,1950,800 };
+			break;
+		case 4:
+			rcItemDes = { 1300,800,1950,1000 };
+			break;
+		case 5:
+			rcItemDes = { 1300,1000,1950,1200 };
+			break;
+		case 6:
+			rcItemDes = { 1300,1200,1950,1400 };
+			break;
+		case 7:
+			rcItemDes = { 1300,1400,1950,1600 };
+			break;
+		}
 	}
 	SPRITE->SetTransform(&ItemNameTextMat);
 	SPRITE->Draw(ItemNameTextTex, &rcItemNameText, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+
+	SPRITE->SetTransform(&ItemDesMat);
+	SPRITE->Draw(ItemDesTex, &rcItemDes, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
 	
 
@@ -228,7 +312,7 @@ void Shop2D::End()
 	SafeReleaseTex(TabRightTex);
 
 	SafeReleaseTex(ListSelectTex);
-	SafeReleaseTex(ItemDesFrameTex);
+	SafeReleaseTex(ItemDesTex);
 }
 
 int Shop2D::SetListChange()
