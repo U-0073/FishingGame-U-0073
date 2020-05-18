@@ -7,6 +7,7 @@ class Port;
 class Fish;
 class C_Player;		//プレイヤー全般
 class C_Fishing;
+class Seagull;
 class CShopObject;
 
 class Sea;
@@ -31,6 +32,7 @@ private:
 	std::shared_ptr<Port> m_Port = nullptr;
 	std::shared_ptr<C_Fishing> m_Fishing = nullptr;
 	std::shared_ptr<C_Player> m_Player = nullptr;
+	std::shared_ptr<Seagull> m_Seagull = nullptr;
 
 
 
