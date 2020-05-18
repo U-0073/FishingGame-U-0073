@@ -15,18 +15,14 @@ void ShopObject::Init()
 	m_pNormalRod1 = RESOURCE_MNG.GetModel("WoodRod");
 	//m_pNormalRod2 = RESOURCE_MNG.GetModel("./Resource/3DModel/FishingLod.x");
 	//m_pNormalRod3 = RESOURCE_MNG.GetModel("./Resource/3DModel/FishingLod.x");
+
 	//ÉJÉÅÉâÇÃê›íË
 	CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 0, 1));
 	D3DXMatrixTranslation(&m_world, 0, 0, 0);
-
-	m_world.RotateYLocal(D3DXToRadian(90));
-	m_world.RotateXLocal(D3DXToRadian(-45));
-	m_world.MoveWorld(2.0f, 0.0f, 7.0f);
 }
 
 void ShopObject::Update()
 {
-	//m_world.RotateYWorld(D3DXToRadian(1));
 }
 
 void ShopObject::Draw3D()
