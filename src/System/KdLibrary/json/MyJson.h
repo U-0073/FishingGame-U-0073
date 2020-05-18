@@ -53,12 +53,13 @@ public:
 		outFile.close();
 	}
 
-
+	
 	bool checkValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const std::string & Value);
 	 bool checkValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const int & Value);
 	 bool checkValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const double & Value);
 	 bool checkValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const bool & Value);
-	
+    
+	const std::shared_ptr< json11::Json>& GetArray(const std::shared_ptr < json11::Json>Json, const std::string& Tag);
 	
 
 
@@ -71,7 +72,7 @@ public:
 
 
 
-
+	
 
 	
 	

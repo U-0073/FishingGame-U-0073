@@ -3,5 +3,9 @@
   "Value5": "ABCD",
   "value1": 111,
   "value2": 2.2000000000000002,
-  "value3": true
+  "value3": true,
+  "value4": {
+    "a": 1,
+    "b": 2
+  }
 }
