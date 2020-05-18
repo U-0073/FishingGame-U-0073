@@ -200,6 +200,9 @@ bool KdDirect3D::Init(HWND hWnd, int width, int height, bool fullscreen, std::st
 void KdDirect3D::Release()
 {
 	// バックバッファとZバッファ解放
+	
+	
+	//Release(m_OrgRenderTarget);
 	KdSafeRelease(m_OrgRenderTarget);
 	KdSafeRelease(m_OrgDepthStencil);
 

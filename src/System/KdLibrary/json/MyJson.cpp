@@ -31,6 +31,18 @@
 	else return false;
 }
 
+const std::shared_ptr < json11::Json>& MyJson::GetArray(const std::shared_ptr<json11::Json> Json, const std::string& Tag)
+ {		std::shared_ptr < json11::Json>mJson;
+	if ((*Json)[Tag].is_array()) {
+
+		
+		(*mJson)=(*Json)[Tag].array_items();
+
+	}
+	return mJson;
+	// TODO: return ステートメントをここに挿入します
+ }
+
 
 
 
