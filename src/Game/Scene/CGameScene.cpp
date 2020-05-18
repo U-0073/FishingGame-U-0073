@@ -26,11 +26,23 @@ void CGameScene::Init()
 	//ŠgkƒTƒCƒY
 	scale = 2.0f;
 	speed = 0.02f;
-	clickNum = 10;
+	clickNum = 1;
 	frame = 120;
 
-	m_pSound = RESOURCE_MNG.GetSound("Phantom_Apartment_2");
-	m_pSound->Playsound("Phantom_Apartment_2", true, true);
+
+	//‹È‘I‘ð
+	MusicChoise = rand() % 2;
+	switch (MusicChoise)
+	{
+	case 0:
+		m_pSound = RESOURCE_MNG.GetSound("Phantom_Apartment_2");
+		m_pSound->Playsound("Phantom_Apartment_2", true, true);
+		break;
+	case 1:
+		m_pSound = RESOURCE_MNG.GetSound("Dance_Dance_Cats");
+		m_pSound->Playsound("Dance_Dance_Cats", true, true);
+		break;
+	}
 
 	judgeFlg = 0;
 	len = 10000;
