@@ -17120,7 +17120,7 @@ Frame Root {
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"tex/サンマ.png";}
+          TextureFilename {"サンマ.png";}
         }
       } // End of Plane material list
     } // End of Plane mesh

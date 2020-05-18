@@ -143,7 +143,7 @@ Frame Root {
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"tex/ÉRÉìÉNÉä.jpeg";}
+          TextureFilename {"ÉRÉìÉNÉä.jpeg";}
         }
         Material Clear {
            0.640000; 0.640000; 0.640000; 0.000000;;
@@ -40739,7 +40739,7 @@ Frame Root {
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"tex/éVã¥ÇÃäp.jpg";}
+          TextureFilename {"éVã¥ÇÃäp.jpg";}
         }
       } // End of Pier_Pillar material list
     } // End of Pier_Pillar mesh
@@ -45080,21 +45080,21 @@ Frame Root {
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"tex/ÉRÉìÉNÉä.jpeg";}
+          TextureFilename {"ÉRÉìÉNÉä.jpeg";}
         }
         Material Stair_wood {
            0.640000; 0.640000; 0.640000; 1.000000;;
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"tex/éVã¥ÇÃè∞.jpg";}
+          TextureFilename {"éVã¥ÇÃè∞.jpg";}
         }
         Material Floor_grout {
            0.640000; 0.640000; 0.640000; 1.000000;;
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"tex/éVã¥ÇÃè∞.jpg";}
+          TextureFilename {"éVã¥ÇÃè∞.jpg";}
         }
       } // End of Pier_Stair material list
     } // End of Pier_Stair mesh
@@ -45784,7 +45784,7 @@ Frame Root {
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"tex/éVã¥ÇÃè∞.jpg";}
+          TextureFilename {"éVã¥ÇÃè∞.jpg";}
         }
       } // End of Pier_Stair_001 material list
     } // End of Pier_Stair_001 mesh
