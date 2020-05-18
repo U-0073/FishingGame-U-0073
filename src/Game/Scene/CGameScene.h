@@ -45,6 +45,9 @@ private:
 	POINT Mouse;
 	KdVec3 clickPos;
 	float len;
+	bool Check;
+
+	int MusicChoise;
 
 	//判定用画像のポジション設定用関数
 	const void SetPos(const KdVec3& Vec) {

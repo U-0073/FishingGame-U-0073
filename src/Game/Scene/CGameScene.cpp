@@ -25,19 +25,33 @@ void CGameScene::Init()
 	backMat.CreateTrans(1280 / 2, 720 / 2, 0);
 	//拡縮サイズ
 	scale = 2.0f;
-	speed = 0.01f;
-	clickNum = 10;
+	speed = 0.02f;
+	clickNum = 1;
 	frame = 120;
 
-	m_pSound = RESOURCE_MNG.GetSound("Phantom_Apartment_2");
-	m_pSound->Playsound("Phantom_Apartment_2", true, true);
+
+	//曲選択
+	MusicChoise = rand() % 2;
+	switch (MusicChoise)
+	{
+	case 0:
+		m_pSound = RESOURCE_MNG.GetSound("Phantom_Apartment_2");
+		m_pSound->Playsound("Phantom_Apartment_2", true, true);
+		break;
+	case 1:
+		m_pSound = RESOURCE_MNG.GetSound("Dance_Dance_Cats");
+		m_pSound->Playsound("Dance_Dance_Cats", true, true);
+		break;
+	}
 
 	judgeFlg = 0;
 	len = 10000;
+	Check = true;
 }
 
 int CGameScene::Update()
 {
+	ShowCursor(true);
 	GetCursorPos(&Mouse);
 	ScreenToClient(GETHWND, &Mouse);
 
@@ -96,23 +110,26 @@ int CGameScene::Update()
 
 
 	//scale縮小
-	scale -= speed;
-	if (scale < 0.0f) {
-		len = 10000;
-		clickPos = { 0,0,0 };
-		clickNum--;
-		//デバッグ用回避手段
-		if (clickNum <= 0) {
-			FADE.Start(5);
-			return TITLE;
+	if (Check) {
+		scale -= speed;
+		if (scale < 0.0f) {
+			len = 10000;
+			clickPos = { 0,0,0 };
+			clickNum--;
+			//デバッグ用回避手段
+			if (clickNum <= 0) {
+				Check = false;
+				FADE.Start(5);
+				return TITLE;
+			}
+
+			judgeFlg = 0;
+			ringMat.CreateTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
+			SetPos(KdVec3(ringMat._41, ringMat._42, ringMat._43));
+			notesMat = ringMat;
+
+			scale = 2.0f;
 		}
-
-		judgeFlg = 0;
-		ringMat.CreateTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
-		SetPos(KdVec3(ringMat._41, ringMat._42, ringMat._43));
-		notesMat = ringMat;
-
-		scale = 2.0f;
 	}
 
 

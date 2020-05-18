@@ -19,5 +19,5 @@ public:
 private:
 	DWORD verNum;
 	bool HeightCtrl;
-	D3DXVECTOR3* pV;
+	char* pV;
 };
