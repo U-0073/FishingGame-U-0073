@@ -31,7 +31,7 @@ void CGameScene::Init()
 
 
 	//‹È‘I‘ð
-	MusicChoise = 3;// rand() % 5;
+	MusicChoise = rand() % 5;
 	switch (MusicChoise)
 	{
 	case 0:
