@@ -18,7 +18,10 @@ void ShopObject::Init()
 
 	//ÉJÉÅÉâÇÃê›íË
 	CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 0, 1));
-	D3DXMatrixTranslation(&m_world, 0, 0, 0);
+
+
+	//m_world.MoveLocal(0, 0, 0);
+	m_world.RotateLocal(D3DXToRadian(0), D3DXToRadian(0), D3DXToRadian(0));
 }
 
 void ShopObject::Update()

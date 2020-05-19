@@ -11,13 +11,29 @@ Seagull::~Seagull()
 
 void Seagull::Init()
 {
-	GameObject::Init();
 
 	m_pModel = RESOURCE_MNG.GetModel("Seagull");
+	int r;
+
+	srand(time(0));
+	rand();
+	r = rand();
+	SeagullPos.x = r % 300 - 150;
+	SeagullPos.y = r % 30 + 80;
+	SeagullPos.z = r % 300 - 150;
+
+	TransMat.CreateTrans(SeagullPos);
+	m_world = ScaleMat * TransMat;
+
+	testsound = RESOURCE_MNG.GetSound("umineko");
+	testsound->LDS3B8->SetMode(DS3DMODE_NORMAL, DS3D_IMMEDIATE);
+	testsound->LDS3B8->SetPosition(SeagullPos.x, SeagullPos.y, SeagullPos.z, DS3D_IMMEDIATE);
+	testsound->Playsound("umineko", true, true);
 }
 
 void Seagull::Update()
 {
+	
 }
 
 void Seagull::Draw2D()
@@ -42,4 +58,7 @@ void Seagull::Draw3D()
 void Seagull::End()
 {
 	m_pModel = nullptr;
+	testsound->LDSB8->Stop();
+	testsound = nullptr;
+
 }

@@ -3,9 +3,6 @@
 
 CTitleScene::CTitleScene()
 {
-
-//m_PSound->Playsound("TitleBGM", true, true);
-
 }
 
 CTitleScene::~CTitleScene()
