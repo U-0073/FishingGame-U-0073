@@ -99,6 +99,11 @@ public:
 	void CreateScale(float x, float y, float z) {
 		D3DXMatrixScaling(this, x, y, z);
 	}
+	void CangeScal(float x, float y, float z) {
+		KdMatrix m;
+		m.CreateScale(x, y, z);
+		(*this) = m * (*this);
+	}
 
 	//‘€ìŒn--------------------------->
 	//“Œ¼“ì–k“V’n‚Éi‚ßfloat

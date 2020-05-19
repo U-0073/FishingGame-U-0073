@@ -5,11 +5,7 @@
 CShopScene::CShopScene()
 	:mMat()
 {
-	shop2d = std::make_shared<Shop2D>();
-	shop2d->Init();
 
-	shopObj = std::make_shared<ShopObject>();
-	shopObj->Init();
 }
 
 CShopScene::~CShopScene()
@@ -18,6 +14,11 @@ CShopScene::~CShopScene()
 
 void CShopScene::Init()
 {
+	shop2d = std::make_shared<Shop2D>();
+	shop2d->Init();
+
+	shopObj = std::make_shared<ShopObject>();
+	shopObj->Init();
 	vTex = *RESOURCE_MNG.GetTexture("Shop/ShopBack001.png");
 
 	m_pSound = RESOURCE_MNG.GetSound("New_Place_of_Work");

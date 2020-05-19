@@ -142,25 +142,22 @@ void Fish::TitleUpdate()
 void Fishes::Init()
 {
 	std::vector<std::shared_ptr<Fish>>m_Fishs;
-	auto json= JSONS.LoadJson("Default/Test.json");
-	bool test;
-	//test=JSONS.checkValue(JSONS.GetArray(json,"value4"), "a", 1);
-	
-	int a = 0;
-	for (int i = 0; i < 40; i++) {
-		int name = rand() % 3;
-		auto l_Fish = std::make_shared<Fish>();
+	for (int c = 0; c < 3; c++) {
+		for (int i = 0; i < rand() % 5; i++) {
+			int name = rand() % 3;
+			auto l_Fish = std::make_shared<Fish>();
 
 
-		l_Fish->SetTagType(name);
-		l_Fish->Init();
-		m_Fishs.push_back(l_Fish);
+			l_Fish->SetTagType(name);
+			l_Fish->Init();
+			m_Fishs.push_back(l_Fish);
 
-	
+
+		}
+		m_Fihes.push_back(m_Fishs);//“ñŽŸŒ³”z—ñ‰»
+
 	}
-	m_Fihes.push_back(m_Fishs);//“ñŽŸŒ³”z—ñ‰»
 }
-
 void Fishes::Update()
 {
 	for (auto&& p : m_Fihes) {

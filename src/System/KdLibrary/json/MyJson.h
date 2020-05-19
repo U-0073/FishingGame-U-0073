@@ -59,7 +59,7 @@ public:
 	 bool checkValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const double & Value);
 	 bool checkValue(const std::shared_ptr < json11::Json>Json, const std::string& Tag, const bool & Value);
     
-	const std::shared_ptr< json11::Json>& GetArray(const std::shared_ptr < json11::Json>Json, const std::string& Tag);
+	const std::shared_ptr< json11::Json> GetArray(const std::shared_ptr < json11::Json>Json, const std::string& Tag);
 	
 
 
