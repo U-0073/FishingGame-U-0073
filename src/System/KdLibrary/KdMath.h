@@ -99,6 +99,13 @@ public:
 	void CreateScale(float x, float y, float z) {
 		D3DXMatrixScaling(this, x, y, z);
 	}
+	//動的な拡大行列の変更
+
+	void CangeScal(float x, float y, float z) {
+		KdMatrix m;
+		m.CreateScale(x, y, z);
+		(*this) = m * (*this);
+	}
 
 	//操作系--------------------------->
 	//東西南北天地に進めfloat

@@ -21,11 +21,14 @@ void ShopObject::Init()
 
 
 	//m_world.MoveLocal(0, 0, 0);
-	m_world.RotateLocal(D3DXToRadian(0), D3DXToRadian(0), D3DXToRadian(0));
+
+
 }
 
 void ShopObject::Update()
 {
+	m_world.RotateLocal(D3DXToRadian(0), D3DXToRadian(5), D3DXToRadian(0));
+
 }
 
 void ShopObject::Draw3D()

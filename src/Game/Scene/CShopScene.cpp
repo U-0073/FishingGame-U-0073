@@ -3,13 +3,9 @@
 #include"../GameProc.h"
 
 CShopScene::CShopScene()
-	:mMat()
-{
-	shop2d = std::make_shared<Shop2D>();
-	shop2d->Init();
 
-	shopObj = std::make_shared<ShopObject>();
-	shopObj->Init();
+{
+
 }
 
 CShopScene::~CShopScene()
