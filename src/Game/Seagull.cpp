@@ -13,11 +13,16 @@ void Seagull::Init()
 {
 
 	m_pModel = RESOURCE_MNG.GetModel("Seagull");
+	int r;
 
-	SeagullPos.x = -50;
-	SeagullPos.y = 0;
-	SeagullPos.z = 0;
-	TransMat.CreateTrans(SeagullPos.x, SeagullPos.y, SeagullPos.z);
+	srand(time(0));
+	rand();
+	r = rand();
+	SeagullPos.x = r % 300 - 150;
+	SeagullPos.y = r % 30 + 80;
+	SeagullPos.z = r % 300 - 150;
+
+	TransMat.CreateTrans(SeagullPos);
 	m_world = ScaleMat * TransMat;
 
 	testsound = RESOURCE_MNG.GetSound("umineko");
