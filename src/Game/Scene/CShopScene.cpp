@@ -22,8 +22,8 @@ void CShopScene::Init()
 	m_pSound = RESOURCE_MNG.GetSound("New_Place_of_Work");
 	m_pSound->Playsound("New_Place_of_Work", true, true);
 
-	shop2D = std::make_shared<Shop2D>();
-	shop2D->Init();
+	shop2d = std::make_shared<Shop2D>();
+	shop2d->Init();
 
 	shopObj = std::make_shared<ShopObject>();
 	shopObj->Init();
