@@ -157,7 +157,7 @@ void Fishes::Init()
 	
 	int a = 0;
 	for (int i = 0; i < 40; i++) {
-		int name = rand() % 3;
+		int name = rand() % 6;
 		auto l_Fish = std::make_shared<Fish>();
 
 
