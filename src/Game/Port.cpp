@@ -8,7 +8,6 @@ Port::Port()
 Port::~Port()
 {
 	m_pModel = nullptr;
-	testsound = nullptr;
 }
 
 void Port::Init()
@@ -16,10 +15,6 @@ void Port::Init()
 	D3DXMatrixTranslation(&m_world, 0, -1.5, 0);
 	m_pModel = RESOURCE_MNG.GetModel("Port2");
 
-	testsound = RESOURCE_MNG.GetSound("umineko");
-	testsound->LDS3B8->SetMode(DS3DMODE_NORMAL, DS3D_IMMEDIATE);
-	testsound->LDS3B8->SetPosition(0, 30, 0, DS3D_IMMEDIATE);
-	testsound->Playsound("umineko", true, true);
 }
 
 void Port::Update()
@@ -38,5 +33,5 @@ void Port::Draw3D()
 
 void Port::End()
 {
-	testsound->LDSB8->Stop();
+	
 }
