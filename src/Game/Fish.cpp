@@ -22,6 +22,15 @@ void Fish::SetTagType(int No)
 	case 2:
 		m_Tag = "Tuna";
 		break;
+	case 3:
+		m_Tag = "Shark";
+		break;
+	case 4:
+		m_Tag = "SunFish";
+		break;
+	case 5:
+		m_Tag = "Whale";
+		break;
 	}
 }
 
