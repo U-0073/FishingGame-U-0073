@@ -18,7 +18,7 @@ CShopScene::~CShopScene()
 
 void CShopScene::Init()
 {
-	vTex = *RESOURCE_MNG.GetTexture("Shop/ShopBack001.png");
+	vTex = RESOURCE_MNG.GetTexture("Shop/ShopBack001.png");
 
 	m_pSound = RESOURCE_MNG.GetSound("New_Place_of_Work");
 	m_pSound->Playsound("New_Place_of_Work", true, true);
@@ -51,7 +51,7 @@ void CShopScene::Draw2D()
 
 	RECT rcTitle = { 0,0,1280,720 };
 	SPRITE->SetTransform(&mMat);
-	SPRITE->Draw(vTex, &rcTitle, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+	SPRITE->Draw(*vTex, &rcTitle, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
 	SPRITE->End();
 
@@ -68,7 +68,7 @@ void CShopScene::End()
 	shop2d->End();
 	shopObj->End();
 	m_pSound->LDSB8->Stop();
-	if (vTex != nullptr)vTex->Release();
+	vTex = nullptr;
 }
 
 

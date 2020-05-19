@@ -21,6 +21,7 @@ private:
 	std::shared_ptr<LPDIRECT3DTEXTURE9> ringTex = nullptr;
 	KdMatrix ringMat;
 
+
 	//ノーツ
 	std::shared_ptr<LPDIRECT3DTEXTURE9> notesTex = nullptr;
 	KdMatrix notesMat;
@@ -55,6 +56,13 @@ private:
 		judgeMat._42 = Vec.y;
 		judgeMat._43 = Vec.z;
 	}
+
+
+	//スコアチェッカー
+	int clickCNT;
+	int Excellent;
+	int Miss;
+
 
 	std::shared_ptr<SoundBase> m_pSound = nullptr;
 

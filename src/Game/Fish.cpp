@@ -22,6 +22,15 @@ void Fish::SetTagType(int No)
 	case 2:
 		m_Tag = "Tuna";
 		break;
+	case 3:
+		m_Tag = "Shark";
+		break;
+	case 4:
+		m_Tag = "SunFish";
+		break;
+	case 5:
+		m_Tag = "Whale";
+		break;
 	}
 }
 
@@ -157,7 +166,7 @@ void Fishes::Init()
 	
 	int a = 0;
 	for (int i = 0; i < 40; i++) {
-		int name = rand() % 3;
+		int name = rand() % 6;
 		auto l_Fish = std::make_shared<Fish>();
 
 
