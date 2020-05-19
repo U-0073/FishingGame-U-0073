@@ -58,6 +58,10 @@ int CTitleScene::Update()
 		FADE.Start(5);
 		return GAME;
 	}
+	if (GetKey('R') & 0x8000) {
+		FADE.Start(5);
+		return RESULT;
+	}
 	return TITLE;
 }
 

@@ -16,6 +16,8 @@ public:
 	void End()override;
 
 	void TitleUpdate();
+	void ResultUpdate();
+
 
 	const void SetPlayerPos(const KdVec3& Vec) { PlayerPos = Vec; }
 	const void SetCamAngY(const float& f) { CamAngY = f; }
