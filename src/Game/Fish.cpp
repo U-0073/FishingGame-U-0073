@@ -23,6 +23,15 @@ void Fish::SetTagType(int No)
 	case 2:
 		m_Tag = "Tuna";
 		break;
+	case 3:
+		m_Tag = "Shark";
+		break;
+	case 4:
+		m_Tag = "SunFish";
+		break;
+	case 5:
+		m_Tag = "Whale";
+		break;
 	}
 }
 
@@ -138,6 +147,15 @@ void Fish::TitleUpdate()
 	TransMat.CreateTrans(FishPos);
 	m_world = ScaleMat * TransMat;
 
+}
+
+void Fish::ResultUpdate()
+{
+	D3DXMATRIX RotMat;
+	D3DXMatrixRotationY(&RotMat, D3DXToRadian(90));
+	FishPos = D3DXVECTOR3(0.0f,1.0f, 0);
+	TransMat.CreateTrans(FishPos);
+	m_world = ScaleMat * TransMat*RotMat;
 }
 
 

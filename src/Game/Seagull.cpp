@@ -7,21 +7,32 @@ Seagull::Seagull()
 
 Seagull::~Seagull()
 {
-	testsound = nullptr;
 }
 
 void Seagull::Init()
 {
-	GameObject::Init();
-
+	//モデルセット
 	m_pModel = RESOURCE_MNG.GetModel("Seagull");
+	
+	//初期位置ランダム配置
+	int r;
+	srand(time(0));
+	rand();
+	r = rand();
+	SeagullPos.x = r % 300 - 150;
+	SeagullPos.y = r % 30 + 80;
+	SeagullPos.z = r % 300 - 150;
+	
+	//行列設定
+	TransMat.CreateTrans(SeagullPos);
 
-	SeagullPos.x = -50;
-	SeagullPos.y = 0;
-	SeagullPos.z = 0;
-	TransMat.CreateTrans(SeagullPos.x, SeagullPos.y, SeagullPos.z);
-	m_world = ScaleMat * TransMat;
+	//回転設定
+	RotMat.CreateRotation(SeagullRot.x, SeagullRot.y, SeagullRot.z);
 
+	//合成
+	m_world = RotMat * TransMat;
+
+	//サウンド
 	testsound = RESOURCE_MNG.GetSound("umineko");
 	testsound->LDS3B8->SetMode(DS3DMODE_NORMAL, DS3D_IMMEDIATE);
 	testsound->LDS3B8->SetPosition(SeagullPos.x, SeagullPos.y, SeagullPos.z, DS3D_IMMEDIATE);
@@ -30,7 +41,16 @@ void Seagull::Init()
 
 void Seagull::Update()
 {
-	
+	//カモメ前方へ移動
+	//SeagullPos.z += 1;
+	TransMat.CreateTrans(SeagullPos);
+
+	//カモメ右回転
+	SeagullRot.y += 0.01f;
+	RotMat.CreateRotation(SeagullRot.x, SeagullRot.y,SeagullRot.z);
+
+	//合成
+	m_world = RotMat * TransMat;
 }
 
 void Seagull::Draw2D()
@@ -54,6 +74,11 @@ void Seagull::Draw3D()
 
 void Seagull::End()
 {
+	//モデル解放
 	m_pModel = nullptr;
+	//サウンド停止
 	testsound->LDSB8->Stop();
+	//サウンド解放
+	testsound = nullptr;
+
 }

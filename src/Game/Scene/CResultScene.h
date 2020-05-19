@@ -1,7 +1,17 @@
 #pragma once
 #include"../../System/FrameBase/CSceneBase.h"
 
+#include"../Skysphere.h"
+#include"../Fish.h"
+#include"../Sea.h"
+#include"../Result.h"
+
 class CGameProc;
+class Skysphere;
+class Fish;
+class Sea;
+class Result;
+
 
 class CResultScene : public CSceneBase
 {
@@ -17,42 +27,13 @@ public:
 	void End()override;
 
 private:
-	//固定枠
-	LPDIRECT3DTEXTURE9 ringTex;
-	KdMatrix ringMat;
+	D3DXVECTOR3 mPos;
+	BOOL MoveFlg;
 
-	//ノーツ
-	LPDIRECT3DTEXTURE9 notesTex;
-	KdMatrix notesMat;
-	float scale;
-
-	//判定文字
-	LPDIRECT3DTEXTURE9 judgeTex;
-	LPDIRECT3DTEXTURE9 resultTex = nullptr;
-	KdMatrix judgeMat;
-
-	LPDIRECT3DTEXTURE9 backTex;
-	KdMatrix backMat;
-
-	float speed;
-	int size;
-	int clickNum;
-	bool keyFlg;
-	int frame;
-	int judgeFlg;
-
-	//マウス関連
-	POINT Mouse;
-	KdVec3 clickPos;
-	float len;
-
-	//判定用画像のポジション設定用関数
-	const void SetPos(const KdVec3& Vec) {
-		judgeMat._41 = Vec.x;
-		judgeMat._42 = Vec.y;
-		judgeMat._43 = Vec.z;
-	}
-
+	std::shared_ptr<Skysphere>	Sky = nullptr;
+	std::shared_ptr<Fish>		Fishes = nullptr;
+	std::shared_ptr<Sea>		sea = nullptr;
+	std::shared_ptr<Result>     result = nullptr;
 	std::shared_ptr<SoundBase> m_pSound = nullptr;
 
 };

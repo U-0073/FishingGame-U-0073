@@ -20,6 +20,7 @@ private:
 
 	KdVec3 SeagullPos;
 	KdVec3 SeagullLen;
+	KdVec3 SeagullRot;
 	KdMatrix TransMat;
-	KdMatrix ScaleMat;
+	KdMatrix RotMat;
 };

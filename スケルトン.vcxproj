@@ -149,6 +149,7 @@
     <ClCompile Include="src\Game\Fish.cpp" />
     <ClCompile Include="src\Game\Fishing.cpp" />
     <ClCompile Include="src\Game\Port.cpp" />
+    <ClCompile Include="src\Game\Result.cpp" />
     <ClCompile Include="src\Game\Scene\CGameScene.cpp" />
     <ClCompile Include="src\Game\Scene\CMapScene.cpp" />
     <ClCompile Include="src\Game\Scene\CResultScene.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="src\Game\Fish.h" />
     <ClInclude Include="src\Game\Fishing.h" />
     <ClInclude Include="src\Game\Port.h" />
+    <ClInclude Include="src\Game\Result.h" />
     <ClInclude Include="src\Game\Scene\CGameScene.h" />
     <ClInclude Include="src\Game\Scene\CMapScene.h" />
     <ClInclude Include="src\Game\Scene\CResultScene.h" />

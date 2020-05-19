@@ -21,6 +21,7 @@ private:
 	std::shared_ptr<LPDIRECT3DTEXTURE9> ringTex = nullptr;
 	KdMatrix ringMat;
 
+
 	//ノーツ
 	std::shared_ptr<LPDIRECT3DTEXTURE9> notesTex = nullptr;
 	KdMatrix notesMat;
@@ -46,6 +47,7 @@ private:
 	KdVec3 clickPos;
 	float len;
 	bool Check;
+	bool frameStopper;
 
 	int MusicChoise;
 
@@ -55,6 +57,23 @@ private:
 		judgeMat._42 = Vec.y;
 		judgeMat._43 = Vec.z;
 	}
+
+
+	KdVec3 score;
+	const void SetScore(const int Excellent, const int Miss)
+	{
+		score.Set(Excellent, Miss, 0);
+	}
+	const KdVec3 ReturnScore()
+	{
+		return score;
+	}
+
+	//スコアチェッカー
+	int clickCNT;
+	int Excellent;
+	int Miss;
+
 
 	std::shared_ptr<SoundBase> m_pSound = nullptr;
 

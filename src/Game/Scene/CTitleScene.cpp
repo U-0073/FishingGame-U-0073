@@ -3,9 +3,6 @@
 
 CTitleScene::CTitleScene()
 {
-
-//m_PSound->Playsound("TitleBGM", true, true);
-
 }
 
 CTitleScene::~CTitleScene()
@@ -57,6 +54,10 @@ int CTitleScene::Update()
 	if (GetKey('F') & 0x8000) {
 		FADE.Start(5);
 		return GAME;
+	}
+	if (GetKey('R') & 0x8000) {
+		FADE.Start(5);
+		return RESULT;
 	}
 	return TITLE;
 }
