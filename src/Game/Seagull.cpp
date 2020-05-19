@@ -16,6 +16,12 @@ void Seagull::Init()
 
 	m_pModel = RESOURCE_MNG.GetModel("Seagull");
 
+	SeagullPos.x = 0;
+	SeagullPos.y =100;
+	SeagullPos.z = 0;
+	TransMat.CreateTrans(SeagullPos.x, SeagullPos.y, SeagullPos.z);
+	m_world = ScaleMat * TransMat;
+
 	testsound = RESOURCE_MNG.GetSound("umineko");
 	testsound->LDS3B8->SetMode(DS3DMODE_NORMAL, DS3D_IMMEDIATE);
 	testsound->LDS3B8->SetPosition(SeagullPos.x, SeagullPos.y, SeagullPos.z, DS3D_IMMEDIATE);
