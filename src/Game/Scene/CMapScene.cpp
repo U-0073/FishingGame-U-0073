@@ -67,6 +67,7 @@ int CMapScene::Update()
 	m_Fishing->SetBuoiFlg(m_Player->GetBuoiFlg());
 	m_Fishing->Update();
 
+	m_Seagull->Update();
 
 	if (GetKey(VK_SPACE) & 0x8000)
 	{
