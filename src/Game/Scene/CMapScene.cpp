@@ -15,6 +15,15 @@
 
 CMapScene::CMapScene()
 {
+
+}
+
+CMapScene::~CMapScene()
+{
+}
+
+void CMapScene::Init()
+{
 	//スカイスフィア
 	Sky = std::make_shared<Skysphere>();
 	Sky->Init();
@@ -39,18 +48,8 @@ CMapScene::CMapScene()
 	m_Seagull->Init();
 
 
-
 	m_PSound = RESOURCE_MNG.GetSound("wave3");
 	m_PSound->Playsound("wave3", true, true);
-
-}
-
-CMapScene::~CMapScene()
-{
-}
-
-void CMapScene::Init()
-{
 
 }
 
@@ -67,6 +66,7 @@ int CMapScene::Update()
 	m_Fishing->SetBuoiFlg(m_Player->GetBuoiFlg());
 	m_Fishing->Update();
 
+	m_Seagull->Update();
 
 	if (GetKey(VK_SPACE) & 0x8000)
 	{
@@ -91,12 +91,13 @@ int CMapScene::Update()
 
 void CMapScene::Draw2D()
 {
-	//m_Player->Draw2D();
+	m_Player->Draw2D();
 	//m_Fishing->Draw2D();
 }
 
 void CMapScene::Draw3D()
 {
+	//m_Player->Draw3D();
 	Sky->Draw3D();
 	m_Port->Draw3D();
 	Seas->Draw3D();

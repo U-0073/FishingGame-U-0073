@@ -9,13 +9,24 @@ public:
 	Fish();
 	~Fish();
 	void SetTagType(int No);
+	
 	void Init()override;
+
+	inline void SetCenter(KdVec3 pos) {
+		Center = pos;
+
+	};
+	const KdVec3& GetPos() {
+		return m_world.GetPos();
+	}
 	void Update()override;
 	void Draw2D()override;
 	void Draw3D()override;
 	void End()override;
 
 	void TitleUpdate();
+	void ResultUpdate();
+
 
 	const void SetPlayerPos(const KdVec3& Vec) { PlayerPos = Vec; }
 	const void SetCamAngY(const float& f) { CamAngY = f; }
@@ -26,6 +37,8 @@ public:
 private:
 	std::string m_Tag;//‰½‚Ì‹›‚©
 	
+	KdVec3 Center;
+
 	KdVec3 PlayerPos;
 	KdVec3 FishPos;
 	KdVec3 FishLen;
@@ -40,6 +53,7 @@ private:
 class Fishes {
 public:
 	void Init();
+
 	void Update();
 	void Draw2D();
 	void Draw3D();
@@ -52,9 +66,11 @@ public:
 			}
 			p.clear();
 		}
+		CenterPoss.clear();
 	}
 
 private:
 	std::vector<std::vector<std::shared_ptr<Fish>>>m_Fihes;
+	std::vector<KdVec3>CenterPoss;
 
 };
