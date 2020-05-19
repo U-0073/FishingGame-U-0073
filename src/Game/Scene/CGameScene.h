@@ -21,6 +21,7 @@ private:
 	std::shared_ptr<LPDIRECT3DTEXTURE9> ringTex = nullptr;
 	KdMatrix ringMat;
 
+
 	//ノーツ
 	std::shared_ptr<LPDIRECT3DTEXTURE9> notesTex = nullptr;
 	KdMatrix notesMat;
@@ -45,6 +46,9 @@ private:
 	POINT Mouse;
 	KdVec3 clickPos;
 	float len;
+	bool Check;
+
+	int MusicChoise;
 
 	//判定用画像のポジション設定用関数
 	const void SetPos(const KdVec3& Vec) {
@@ -52,6 +56,13 @@ private:
 		judgeMat._42 = Vec.y;
 		judgeMat._43 = Vec.z;
 	}
+
+
+	//スコアチェッカー
+	int clickCNT;
+	int Excellent;
+	int Miss;
+
 
 	std::shared_ptr<SoundBase> m_pSound = nullptr;
 

@@ -12,6 +12,8 @@ Sea::Sea()
 	//移動量の設定
 	D3DXMatrixTranslation(&m_world, 0, -3, 0);
 
+	//
+	int vSize = MESH->GetNumBytesPerVertex();
 
 	//CLONEVERTEX* pV;
 	pV = nullptr;
@@ -19,9 +21,10 @@ Sea::Sea()
 	MESH->LockVertexBuffer(0, (VOID**)&pV);
 	//クローン			頂点バッファ				先頭アドレスが入る(0番目の頂点の内容)
 	for (DWORD i = 0; i < verNum; i++) {
-		(pV + i)->y = (rand() % WaveHeight - WaveHeight / 2) * 0.01;
+		D3DXVECTOR3* pos = (D3DXVECTOR3*)(pV + i * vSize);
+		pos->y = (rand() % WaveHeight - WaveHeight / 2) * 0.01;
 	}
-		(*m_pModel).GetMesh()->UnlockVertexBuffer();
+	(*m_pModel).GetMesh()->UnlockVertexBuffer();
 
 	HeightCtrl = false;
 }
@@ -33,21 +36,25 @@ Sea::~Sea()
 
 void Sea::Update()
 {
+	int vSize = MESH->GetNumBytesPerVertex();
+	pV = nullptr;
 
 	MESH->LockVertexBuffer(0, (VOID**)&pV);
 	//クローン			頂点バッファ				先頭アドレスが入る(0番目の頂点の内容)
 
 
 	for (DWORD i = 0; i < verNum; i++) {
+		D3DXVECTOR3* pos = (D3DXVECTOR3*)(pV + i * vSize);
 		if (HeightCtrl == false) {
-			(pV + i)->y += 0.002;
-			if ((pV + i)->y > 1) { HeightCtrl = true; }
+			pos->y += 0.02;
+			if (pos->y > 1) { HeightCtrl = true; }
 		}
 		else {
-			(pV + i)->y -= 0.002;
-			if ((pV + i)->y < -1) { HeightCtrl = false; }
+			pos->y -= 0.02;
+			if (pos->y < -1) { HeightCtrl = false; }
 		}
 	}
+
 	MESH->UnlockVertexBuffer();
 
 }

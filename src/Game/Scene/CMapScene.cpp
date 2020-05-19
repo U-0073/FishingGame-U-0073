@@ -8,11 +8,21 @@
 #include"../Port.h"
 #include"../Fish.h"
 #include"../Fishing.h"
+#include"../Seagull.h"
 #include"../ShopObject.h"
 
 
 
 CMapScene::CMapScene()
+{
+
+}
+
+CMapScene::~CMapScene()
+{
+}
+
+void CMapScene::Init()
 {
 	//スカイスフィア
 	Sky = std::make_shared<Skysphere>();
@@ -33,19 +43,14 @@ CMapScene::CMapScene()
 	m_Fishing = std::make_shared<C_Fishing>();
 	m_Fishing->Init();
 
+	//カモメ
+	m_Seagull = std::make_shared<Seagull>();
+	m_Seagull->Init();
+
 
 
 	m_PSound = RESOURCE_MNG.GetSound("wave3");
 	m_PSound->Playsound("wave3", true, true);
-
-}
-
-CMapScene::~CMapScene()
-{
-}
-
-void CMapScene::Init()
-{
 
 }
 
@@ -62,6 +67,7 @@ int CMapScene::Update()
 	m_Fishing->SetBuoiFlg(m_Player->GetBuoiFlg());
 	m_Fishing->Update();
 
+	m_Seagull->Update();
 
 	if (GetKey(VK_SPACE) & 0x8000)
 	{
@@ -97,6 +103,7 @@ void CMapScene::Draw3D()
 	m_Port->Draw3D();
 	Seas->Draw3D();
 	m_Fishing->Draw3D();
+	m_Seagull->Draw3D();
 }
 
 void CMapScene::End()
@@ -111,6 +118,8 @@ void CMapScene::End()
 	m_Player = nullptr;
 	m_Fishing->End();
 	m_Fishing = nullptr;
+	m_Seagull->End();
+	m_Seagull = nullptr;
 
 	m_PSound->LDSB8->Stop();
 	m_PSound = nullptr;

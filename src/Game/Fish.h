@@ -16,6 +16,8 @@ public:
 	void End()override;
 
 	void TitleUpdate();
+	void ResultUpdate();
+
 
 	const void SetPlayerPos(const KdVec3& Vec) { PlayerPos = Vec; }
 	const void SetCamAngY(const float& f) { CamAngY = f; }
@@ -44,13 +46,17 @@ public:
 	void Draw2D();
 	void Draw3D();
 	void End() {
-		for (auto&& p_Obj : m_Fishs) {
+		for (auto&& p : m_Fihes) {
+			for (auto&& pp : p) {
+				pp->End();
+				
 
-			p_Obj->End();
+			}
+			p.clear();
 		}
-		m_Fishs.clear(); }
+	}
 
 private:
-	
-	std::vector<std::shared_ptr<Fish>>m_Fishs;
+	std::vector<std::vector<std::shared_ptr<Fish>>>m_Fihes;
+
 };

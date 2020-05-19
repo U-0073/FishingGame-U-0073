@@ -22,6 +22,15 @@ void Fish::SetTagType(int No)
 	case 2:
 		m_Tag = "Tuna";
 		break;
+	case 3:
+		m_Tag = "Shark";
+		break;
+	case 4:
+		m_Tag = "SunFish";
+		break;
+	case 5:
+		m_Tag = "Whale";
+		break;
 	}
 }
 
@@ -34,22 +43,7 @@ void Fish::Init()
 	m_world = ScaleMat * TransMat;
 //	int name = rand() % 3;
 	m_pModel= RESOURCE_MNG.GetModel(m_Tag);
-	//int name = 0;
-	//switch (name)
-	//{
-	//case 0:
-	//	m_Tag = "RedSnapper";
-	//	m_pModel = RESOURCE_MNG.GetModel("Resource/3DModel/RedSnapper.x");
-	//	break;
-	//case 1:
-	//	m_Tag = "Saury";
-	//	m_pModel = RESOURCE_MNG.GetModel("Resource/3DModel/Saury.x");
-	//	break;
-	//case 2:
-	//	m_Tag = "Tuna";
-	//	m_pModel = RESOURCE_MNG.GetModel("Resource/3DModel/Tuna.x");
-	//	break;
-	//}
+	
 }
 
 void Fish::Update()
@@ -106,7 +100,7 @@ void Fish::Update()
 	KdMatrix RotMatX;
 	//RotMatX.CreateRotationX(D3DXToRadian(90));
 
-	m_world.MoveLocal(0, 0, -1);
+	m_world.MoveLocal(0, 0, -0.5);
 
 	
 	m_world.RotateYLocal(D3DXToRadian((rand()%10)-5));
@@ -152,39 +146,69 @@ void Fish::TitleUpdate()
 
 }
 
+void Fish::ResultUpdate()
+{
+	D3DXMATRIX RotMat;
+	D3DXMatrixRotationY(&RotMat, D3DXToRadian(90));
+	FishPos = D3DXVECTOR3(0.0f,1.0f, 0);
+	TransMat.CreateTrans(FishPos);
+	m_world = ScaleMat * TransMat*RotMat;
+}
+
 
 
 void Fishes::Init()
 {
+	std::vector<std::shared_ptr<Fish>>m_Fishs;
+	auto json= JSONS.LoadJson("Default/Test.json");
+	bool test;
+	//test=JSONS.checkValue(JSONS.GetArray(json,"value4"), "a", 1);
+	
+	int a = 0;
 	for (int i = 0; i < 40; i++) {
-		int name = rand() % 3;
+		int name = rand() % 6;
 		auto l_Fish = std::make_shared<Fish>();
+
+
 		l_Fish->SetTagType(name);
 		l_Fish->Init();
 		m_Fishs.push_back(l_Fish);
+
+	
 	}
+	m_Fihes.push_back(m_Fishs);//“ñŽŸŒ³”z—ñ‰»
 }
 
 void Fishes::Update()
 {
-	for (auto&& p_Obj : m_Fishs) {
-
-		p_Obj->Update();
+	for (auto&& p : m_Fihes) {
+		for (auto&& pp : p) {
+			pp->Update();
+			
+		}
 	}
+	//for (auto&& p_Obj : m_Fishs) {
+
+	//	p_Obj->Update();
+	//}
 }
 
 void Fishes::Draw2D()
 {
-	for (auto&& p_Obj : m_Fishs) {
+	for (auto&& p : m_Fihes) {
+		for (auto&& pp : p) {
+			pp->Draw2D();
 
-		p_Obj->Draw2D();
+		}
 	}
 }
 
 void Fishes::Draw3D()
 {
-	for (auto&& p_Obj : m_Fishs) {
+	for (auto&& p : m_Fihes) {
+		for (auto&& pp : p) {
+			pp->Draw3D();
 
-		p_Obj->Draw3D();
+		}
 	}
 }

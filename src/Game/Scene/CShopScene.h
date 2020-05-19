@@ -28,6 +28,9 @@ private:
 
 	KdMatrix mMat;
 	KdMatrix mScale;
-	LPDIRECT3DTEXTURE9 vTex;
+	std::shared_ptr<LPDIRECT3DTEXTURE9> vTex;
+
+
+	std::shared_ptr<SoundBase> m_pSound = nullptr;
 
 };
