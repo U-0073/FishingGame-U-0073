@@ -21,5 +21,5 @@ private:
 	KdVec3 SeagullPos;
 	KdVec3 SeagullLen;
 	KdMatrix TransMat;
-	KdMatrix ScaleMat;
+	KdMatrix RotMat;
 };
