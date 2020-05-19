@@ -50,21 +50,16 @@ void C_Player::Init()
 
 void C_Player::End()
 {
-	if (m_pModel != nullptr)m_pModel=nullptr;
+	if (m_pModel != nullptr)m_pModel = nullptr;
 	if (CollisionModel != nullptr)CollisionModel = nullptr;
 }
 
 
 void C_Player::Update()
 {
-	if (GetKey('Z') & 0x8000) {//前へ
-		KdVec3 Vec(0.0f, 0.1f, 0.0f);
-		if (PlayerPos.y > 0)PlayerPos -= Vec;
-		else PlayerPos.y = 0;
-	}
 	if (GetKey('X') & 0x8000) {//前へ
 		KdVec3 Vec(0.0f, 0.1f, 0.0f);
-		PlayerPos += Vec;
+		PlayerPos -= Vec;
 	}
 
 
@@ -103,8 +98,8 @@ void C_Player::FlgProc()
 
 void C_Player::MoveProc()
 {
-	Earth();
 	Move();
+	Earth();
 }
 
 void C_Player::Move()
@@ -118,10 +113,8 @@ void C_Player::Move()
 
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Front, &RotMat);
 			MoveRay(Vec);
-			D3DXVec3TransformCoord(&Vec, &CoordVec.Left, &RotMat);
-			MoveRay(Vec);
-			D3DXVec3TransformCoord(&Vec, &CoordVec.Right, &RotMat);
-			MoveRay(Vec);
+			if (WallFlg) {
+			}
 		}
 		if (GetKey('A') & 0x8000) {//左
 			D3DXMATRIX RotMat;
@@ -130,10 +123,8 @@ void C_Player::Move()
 
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Left, &RotMat);
 			MoveRay(Vec);
-			D3DXVec3TransformCoord(&Vec, &CoordVec.Front, &RotMat);
-			MoveRay(Vec);
-			D3DXVec3TransformCoord(&Vec, &CoordVec.Back, &RotMat);
-			MoveRay(Vec);
+			if (WallFlg) {
+			}
 		}
 		if (GetKey('S') & 0x8000) {//後ろへ
 			D3DXMATRIX RotMat;
@@ -141,10 +132,6 @@ void C_Player::Move()
 			D3DXVECTOR3	Vec;
 
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Back, &RotMat);
-			MoveRay(Vec);
-			D3DXVec3TransformCoord(&Vec, &CoordVec.Right, &RotMat);
-			MoveRay(Vec);
-			D3DXVec3TransformCoord(&Vec, &CoordVec.Left, &RotMat);
 			MoveRay(Vec);
 		}
 		if (GetKey('D') & 0x8000) {//右
@@ -154,10 +141,8 @@ void C_Player::Move()
 
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Right, &RotMat);
 			MoveRay(Vec);
-			D3DXVec3TransformCoord(&Vec, &CoordVec.Front, &RotMat);
-			MoveRay(Vec);
-			D3DXVec3TransformCoord(&Vec, &CoordVec.Back, &RotMat);
-			MoveRay(Vec);
+			if (WallFlg) {
+			}
 		}
 	}
 
@@ -175,68 +160,20 @@ void C_Player::Earth()
 	D3DXMATRIX	InvMat;
 	D3DXMatrixInverse(&InvMat, NULL, &CollisionMat);
 	D3DXVECTOR3	LocalPos, LocalVec;
-	D3DXVec3TransformCoord(&LocalPos, &(PlayerPos), &InvMat);
+	D3DXVec3TransformCoord(&LocalPos, &(PlayerPos + KdVec3(0, 1, 0)), &InvMat);
 	D3DXVec3TransformNormal(&LocalVec, &Vec, &InvMat);
 
 	BOOL Hit;
 	DWORD PolyNo;	//ポリゴン番号
 	D3DXIntersect(m_pModel->GetMesh(), &LocalPos, &LocalVec, &Hit,
-		&PolyNo, NULL, NULL, &TextMeshDis, NULL, NULL);
+		&PolyNo, NULL, NULL, &TextMeshDis2, NULL, NULL);
 
-	if (Hit) {
-		//レイ判定で当たっているポリゴンの識別
-		WORD* pI;
-		m_pModel->GetMesh()->LockIndexBuffer(0, (LPVOID*)&pI);
-		DWORD VertexNo[3];
-		VertexNo[0] = *(pI + PolyNo * 3 + 0);
-		VertexNo[1] = *(pI + PolyNo * 3 + 1);
-		VertexNo[2] = *(pI + PolyNo * 3 + 2);
-
-		CollisionModel->GetMesh()->UnlockIndexBuffer();
-
-
-		CLONEVERTEX* pV;
-		m_pModel->GetMesh()->LockVertexBuffer(0, (LPVOID*)&pV);
-		D3DXVECTOR3		VPos[3];
-		VPos[0] = (pV + VertexNo[0])->Pos;
-		VPos[1] = (pV + VertexNo[1])->Pos;
-		VPos[2] = (pV + VertexNo[2])->Pos;
-
-		m_pModel->GetMesh()->UnlockVertexBuffer();
-
-
-		//壁ずりプログラム	三角形の底面と斜面のベクトルを入手    →△
-		//法線の取得										こいつら↑
-		D3DXVECTOR3 Vec1, Vec2;
-		Vec1 = VPos[1] - VPos[0];
-		Vec2 = VPos[2] - VPos[0];
-		D3DXVECTOR3 WallVec;
-		D3DXVec3Cross(&WallVec, &Vec1, &Vec2);
-
-		D3DXVec3TransformNormal(&WallVec, &WallVec, &CollisionMat);//長さを1に
-		//						　①		 ②		　 ③		　 1:3D空間上での法線の向き　
-		//														   2:メッシュ作成用の法線の向き
-		//														   3:建物用メッシュの行列
-		D3DXVec3Normalize(&WallVec, &WallVec);//正規化
-		//法線の取得完了
-
-
-		float Dot;
-		Dot = D3DXVec3Dot(&WallVec, &-Vec);//カメラの進行方向
-		float Limit;
-		Limit = 1.0f / Dot;
-		if (Limit < 0)Limit *= -1;
-		if (TextMeshDis < Limit) {
-
-			KdVec3 TmpVec = WallVec * ((Limit - TextMeshDis) * Dot);
-			TmpVec.Set(0.0f, TmpVec.y, 0.0f);
-			//PlayerPos += TmpVec;//法線方向に押し出す
-		}
-		if (GetKey('5') & 0x8000) {
-			int i;
-		}
+	if (TextMeshDis2 < 1) {
+		PlayerPos.y += 1 - TextMeshDis2;
 	}
-	//	PlayerPos += Vec * MoveSpeed;
+	else {
+		//重力判定
+	}
 }
 
 
@@ -403,6 +340,28 @@ void C_Player::Draw3D() {
 void C_Player::Draw2D()
 {
 	SPRITE->End();
+	char Text[100];
+	RECT rcText = { 10,30 * 1,0,0 };
+	sprintf_s(Text, sizeof(Text), "MeshDis2 %f", TextMeshDis2);
+	FONT->DrawText(NULL, Text, -1, &rcText, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	RECT rcText1 = { 10,30 * 7,0,0 };
+	sprintf_s(Text, sizeof(Text), "Dot %f", TextDot);
+	FONT->DrawText(NULL, Text, -1, &rcText1, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	RECT rcText2 = { 10,30 * 2,0,0 };
+	sprintf_s(Text, sizeof(Text), "PlayerPos  x %f  y%f z %f ", PlayerPos.x, PlayerPos.y, PlayerPos.z);
+	FONT->DrawText(NULL, Text, -1, &rcText2, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	RECT rcText3 = { 10,30 * 3,0,0 };
+	if (!RestoreFlg)FONT->DrawText(NULL, "RestoreFlg=false", -1, &rcText3, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	else FONT->DrawText(NULL, "RestoreFlg=true", -1, &rcText3, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	RECT rcText4 = { 10,30 * 4,0,0 };
+	if (!WallFlg)FONT->DrawText(NULL, "WallFlg=false", -1, &rcText4, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	else FONT->DrawText(NULL, "WallFlg=true", -1, &rcText4, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	RECT rcText5 = { 10,30 * 5,0,0 };
+	sprintf_s(Text, sizeof(Text), "TextDot2 %f ", TextDot2);
+	KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText5, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	RECT rcText6 = { 10,30 * 6,0,0 };
+	sprintf_s(Text, sizeof(Text), "FishingScene_CamPos  x %f  y%f z %f ", FishScene_CamPos.x, FishScene_CamPos.y, FishScene_CamPos.z);
+	FONT->DrawText(NULL, Text, -1, &rcText6, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 
 	SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
 
@@ -419,10 +378,11 @@ void C_Player::MoveRay(D3DXVECTOR3 Vec)
 	D3DXVec3TransformNormal(&LocalVec, &Vec, &InvMat);
 
 	BOOL Hit;
+	TextMeshDis = 0;
 	float MeshDis;
 	DWORD PolyNo;	//ポリゴン番号
 	D3DXIntersect(CollisionModel->GetMesh(), &LocalPos, &LocalVec, &Hit,
-		&PolyNo, NULL, NULL, &MeshDis, NULL, NULL);
+		&PolyNo, NULL, NULL, &TextMeshDis, NULL, NULL);
 
 
 	if (Hit) {
@@ -463,18 +423,19 @@ void C_Player::MoveRay(D3DXVECTOR3 Vec)
 		//法線の取得完了
 
 
-		float Dot;
-		Dot = D3DXVec3Dot(&WallVec, &-Vec);//カメラの進行方向
-		float Limit;
-		Limit = 1 / Dot;
-		if (Limit < 0)Limit *= -1;
-		if (MeshDis < Limit) {
+		//float Dot;
+		float Limit = -1.0f;
+		TextDot = D3DXVec3Dot(&-WallVec, &(Vec * TextMeshDis));//カメラの進行方向
 
+		if (TextDot > Limit && TextDot < 0) {
 			WallFlg = true;
-			KdVec3 TmpVec = WallVec * ((Limit - MeshDis) * Dot);
+
+			float Tmp = Limit - TextDot;
+			KdVec3 TmpVec = (Tmp * WallVec);
 			TmpVec.Set(TmpVec.x, 0.0f, TmpVec.z);
-			PlayerPos += TmpVec;//法線方向に押し出す
-		}else 	WallFlg = false;
+			PlayerPos += TmpVec;
+		}
+		else 	WallFlg = false;
 	}
 	PlayerPos += Vec * MoveSpeed;
 }
