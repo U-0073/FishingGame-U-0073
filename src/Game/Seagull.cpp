@@ -16,8 +16,8 @@ void Seagull::Init()
 
 	m_pModel = RESOURCE_MNG.GetModel("Seagull");
 
-	SeagullPos.x = 0;
-	SeagullPos.y =100;
+	SeagullPos.x = -50;
+	SeagullPos.y = 0;
 	SeagullPos.z = 0;
 	TransMat.CreateTrans(SeagullPos.x, SeagullPos.y, SeagullPos.z);
 	m_world = ScaleMat * TransMat;
