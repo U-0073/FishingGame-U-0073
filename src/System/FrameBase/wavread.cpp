@@ -278,14 +278,14 @@ void SoundBase::SetPos(D3DXVECTOR3& Pos)
 	SoundPos = Pos;
 }
 
-bool SoundBase::Loadsound(const char* fname)
+bool SoundBase::Loadsound(const std::string& fname)
 {
 	HRESULT hr;
 
-
+	std::string filename = fname;
 	// WAVEファイルを開く
 	CWaveSoundRead WaveFile;
-	WaveFile.Open((char*)fname);
+	WaveFile.Open((char*)filename.c_str());
 
 	// セカンダリ・バッファを作成する
 	// DSBUFFERDESC構造体を設定
@@ -346,7 +346,7 @@ bool SoundBase::Loadsound(const char* fname)
 }
 
 
-void SoundBase::Copysound(const char* Key, int Init, int Loop)
+void SoundBase::Copysound(const std::string&, int Init, int Loop)
 {
 	/*
 	List tmp;
@@ -385,7 +385,7 @@ void SoundBase::Update()
 }
 
 
-void SoundBase::Playsound(const char* Key, bool Init, bool Loop)
+void SoundBase::Playsound(const std::string& Key, bool Init, bool Loop)
 {
 
 	if (Init)
