@@ -15,6 +15,7 @@ void Fish::SetTagType(int No)
 	{
 	case 0:
 		m_Tag = "RedSnapper";
+	
 		break;
 	case 1:
 		m_Tag = "Saury";	
@@ -29,10 +30,8 @@ void Fish::Init()
 {
 	GameObject::Init();
 
-	ScaleMat.CreateScale(0.1f, 0.1f, 0.1f);
-	TransMat.CreateTrans(0.0f, 0.0f, 0.0f);
-	m_world = ScaleMat * TransMat;
-//	int name = rand() % 3;
+
+
 	m_pModel= RESOURCE_MNG.GetModel(m_Tag);
 	
 }
@@ -91,6 +90,10 @@ void Fish::Update()
 	KdMatrix RotMatX;
 	//RotMatX.CreateRotationX(D3DXToRadian(90));
 
+	
+	
+	
+	
 	m_world.MoveLocal(0, 0, -0.5);
 
 	
@@ -143,33 +146,52 @@ void Fishes::Init()
 {
 	std::vector<std::shared_ptr<Fish>>m_Fishs;
 	for (int c = 0; c < 3; c++) {
+		int name = rand() % 3;
+		KdVec3 Pos;
 		for (int i = 0; i < rand() % 5; i++) {
-			int name = rand() % 3;
+
 			auto l_Fish = std::make_shared<Fish>();
 
 
 			l_Fish->SetTagType(name);
 			l_Fish->Init();
+			Pos=+l_Fish->GetPos();
 			m_Fishs.push_back(l_Fish);
-
+			
 
 		}
-		m_Fihes.push_back(m_Fishs);//“ñŽŸŒ³”z—ñ‰»
-
+		if (m_Fishs.size()>0) {
+			Pos = Pos / m_Fishs.size();
+			CenterPoss.push_back(Pos);
+			m_Fihes.push_back(m_Fishs);//“ñŽŸŒ³”z—ñ‰»
+			c++;
+		}
+		
 	}
 }
 void Fishes::Update()
 {
+	int i = 0;
 	for (auto&& p : m_Fihes) {
+
+		int c=0;
 		for (auto&& pp : p) {
+			CenterPoss[i]+=pp->GetPos();
 			pp->Update();
-			
+			c++;
+		}
+		if (c != 0) {
+			CenterPoss[i] = CenterPoss[i] / (float)c;
+		}
+		for (auto&& pp : p) {
+			CenterPoss[i] += pp->GetPos();
+			pp->SetCenter(CenterPoss[i]);
 		}
 	}
-	//for (auto&& p_Obj : m_Fishs) {
 
-	//	p_Obj->Update();
-	//}
+
+	
+
 }
 
 void Fishes::Draw2D()

@@ -3,7 +3,7 @@
 #include"../GameProc.h"
 
 CShopScene::CShopScene()
-	:mMat()
+
 {
 
 }
@@ -14,6 +14,7 @@ CShopScene::~CShopScene()
 
 void CShopScene::Init()
 {
+	mMat.CreateTrans( 0, 0, 0 );
 	shop2d = std::make_shared<Shop2D>();
 	shop2d->Init();
 
