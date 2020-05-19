@@ -16,6 +16,8 @@ public:
 
 private:
 
+	std::shared_ptr<SoundBase> testsound = nullptr;
+
 	KdVec3 SeagullPos;
 	KdVec3 SeagullLen;
 	KdMatrix TransMat;
