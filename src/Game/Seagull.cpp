@@ -7,12 +7,10 @@ Seagull::Seagull()
 
 Seagull::~Seagull()
 {
-	testsound = nullptr;
 }
 
 void Seagull::Init()
 {
-	GameObject::Init();
 
 	m_pModel = RESOURCE_MNG.GetModel("Seagull");
 
@@ -56,4 +54,6 @@ void Seagull::End()
 {
 	m_pModel = nullptr;
 	testsound->LDSB8->Stop();
+	testsound = nullptr;
+
 }

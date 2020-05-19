@@ -29,19 +29,19 @@ private:
 	KdMatrix TabRightMat;
 	KdMatrix ListSelectMat;
 
-	LPDIRECT3DTEXTURE9 FrameTex;
-	LPDIRECT3DTEXTURE9 FrameSecTex;
-	LPDIRECT3DTEXTURE9 FrameSrdTex;
-	LPDIRECT3DTEXTURE9 ItemNameTextTex;
-	LPDIRECT3DTEXTURE9 ItemDesTex;
-	LPDIRECT3DTEXTURE9 TabLeftTex;
-	LPDIRECT3DTEXTURE9 TabCenterTex;
-	LPDIRECT3DTEXTURE9 TabRightTex;
-	LPDIRECT3DTEXTURE9 ListSelectTex;
+	std::shared_ptr<LPDIRECT3DTEXTURE9> FrameTex;
+	std::shared_ptr<LPDIRECT3DTEXTURE9> FrameSecTex;
+	std::shared_ptr<LPDIRECT3DTEXTURE9> FrameSrdTex;
+	std::shared_ptr<LPDIRECT3DTEXTURE9> ItemNameTextTex;
+	std::shared_ptr<LPDIRECT3DTEXTURE9> ItemDesTex;
+	std::shared_ptr<LPDIRECT3DTEXTURE9> TabLeftTex;
+	std::shared_ptr<LPDIRECT3DTEXTURE9> TabCenterTex;
+	std::shared_ptr<LPDIRECT3DTEXTURE9> TabRightTex;
+	std::shared_ptr<LPDIRECT3DTEXTURE9> ListSelectTex;
 
 
 	KdMatrix BaitMat;
-	LPDIRECT3DTEXTURE9 BaitTex;
+	std::shared_ptr<LPDIRECT3DTEXTURE9> BaitTex;
 	
 	D3DXVECTOR3 mPos;
 

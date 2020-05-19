@@ -15,6 +15,15 @@
 
 CMapScene::CMapScene()
 {
+
+}
+
+CMapScene::~CMapScene()
+{
+}
+
+void CMapScene::Init()
+{
 	//スカイスフィア
 	Sky = std::make_shared<Skysphere>();
 	Sky->Init();
@@ -42,15 +51,6 @@ CMapScene::CMapScene()
 
 	m_PSound = RESOURCE_MNG.GetSound("wave3");
 	m_PSound->Playsound("wave3", true, true);
-
-}
-
-CMapScene::~CMapScene()
-{
-}
-
-void CMapScene::Init()
-{
 
 }
 
