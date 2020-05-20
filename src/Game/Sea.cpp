@@ -19,6 +19,7 @@ Sea::Sea()
 	pV = nullptr;
 
 	MESH->LockVertexBuffer(0, (VOID**)&pV);
+	
 	//クローン			頂点バッファ				先頭アドレスが入る(0番目の頂点の内容)
 	for (DWORD i = 0; i < verNum; i++) {
 		D3DXVECTOR3* pos = (D3DXVECTOR3*)(pV + i * vSize);
@@ -54,7 +55,6 @@ void Sea::Update()
 			if (pos->y < -1) { HeightCtrl = false; }
 		}
 	}
-
 	MESH->UnlockVertexBuffer();
 
 }
