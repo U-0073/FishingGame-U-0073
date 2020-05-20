@@ -32,7 +32,7 @@ public:
 	const void SetCamAngY(const float& f) { CamAngY = f; }
 	const void SetFishFlg(const bool& flg) { FishFlg = flg; }
 	
-	const D3DXVECTOR3& GetFishPos() { return FishPos; }
+	const D3DXVECTOR3& GetFishPos() { return m_world.GetPos(); }
 
 private:
 	std::string m_Tag;//‰½‚Ì‹›‚©

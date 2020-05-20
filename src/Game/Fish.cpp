@@ -40,7 +40,8 @@ void Fish::Init()
 	GameObject::Init();
 
 
-
+	//m_world.CreateScale(0.5, 0.5, 0.5);
+	//m_world.CreateRotation(0, D3DXToRadian(90), 0);
 	m_pModel= RESOURCE_MNG.GetModel(m_Tag);
 	
 }
@@ -138,7 +139,11 @@ void Fish::End()
 void Fish::TitleUpdate()
 {
 
-	m_world.MoveLocal(0, 0, -0.5);
+	m_world.CreateRotation(0, D3DXToRadian(90), 0);
+	//
+	//m_world.CreateTrans(0, 0, 15);
+	//m_world.CreateScale(0.1, 0.1, 0.1);
+	//	m_world.MoveLocal(0, 0, -0.5);
 
 }
 
