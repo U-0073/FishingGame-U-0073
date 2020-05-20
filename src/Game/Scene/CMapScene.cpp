@@ -48,7 +48,6 @@ void CMapScene::Init()
 	m_Seagull->Init();
 
 
-
 	m_PSound = RESOURCE_MNG.GetSound("wave3");
 	m_PSound->Playsound("wave3", true, true);
 

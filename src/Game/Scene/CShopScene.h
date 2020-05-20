@@ -1,10 +1,6 @@
 #pragma once
 #include"../../System/FrameBase/CSceneBase.h"
 
-
-#include"../Shop2D.h"
-#include"../ShopObject.h"
-
 class Shop2D;
 class ShopObject;
 

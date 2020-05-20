@@ -1,5 +1,10 @@
 #include"../../System/KdLibrary/KdLibrary.h"
 #include "CTitleScene.h"
+#include"../Title.h"
+#include"../Skysphere.h"
+#include"../Fish.h"
+#include"../Sea.h"
+
 
 CTitleScene::CTitleScene()
 {
