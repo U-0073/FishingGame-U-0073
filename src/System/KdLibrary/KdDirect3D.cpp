@@ -124,7 +124,7 @@ bool KdDirect3D::Init(HWND hWnd, int width, int height, bool fullscreen, std::st
 	m_lpD3DDev->SetTransform(D3DTS_PROJECTION, &mProj);
 
 	//ライト設定
-	CreateLight(D3DLIGHT_DIRECTIONAL, KdVec3(0.5f, -1.0f, -1.0f), D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f), D3DXVECTOR4(1.0f, 0.2f, 0.2f, 0.2f));
+	CreateDirectionalLight(KdVec3(0.5f, -1.0f, -1.0f), D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f), D3DXVECTOR4(1.0f, 0.2f, 0.2f, 0.2f));
 
 	//ライトを有効にする
 	m_lpD3DDev->LightEnable(0, true);
@@ -295,10 +295,10 @@ void KdDirect3D::SetDefaultState()
 	m_lpD3DDev->SetRenderState(D3DRS_FOGENABLE, FALSE);
 }
 
-void KdDirect3D::CreateLight(const D3DLIGHTTYPE type, const KdVec3& Pos, const KdVec3& Dir, const D3DXVECTOR4& Diffuse, const D3DXVECTOR4& Ambient)
+void KdDirect3D::CreatePointLight(const D3DXVECTOR3& Pos, const D3DXVECTOR3& Dir, const D3DXVECTOR4& Diffuse, const D3DXVECTOR4& Ambient)
 {
 	D3DLIGHT9 tmp = {};
-	tmp.Type = type;
+	tmp.Type = D3DLIGHT_POINT;
 
 	tmp.Position = Pos;
 
@@ -313,20 +313,20 @@ void KdDirect3D::CreateLight(const D3DLIGHTTYPE type, const KdVec3& Pos, const K
 	tmp.Ambient.b = Ambient.z;
 
 	auto dir = Dir;
-	dir.Normalize();
+	D3DXVec3Normalize(&dir, &dir);
 	tmp.Direction = dir;
 
 	m_Lights.emplace_back(tmp);
 
 	//ライトのセット
-	m_lpD3DDev->SetLight(0, &m_Lights.back());
+//	m_lpD3DDev->SetLight(&m_Lights.back(), &m_Lights[m_Lights.back()]);
 
 }
 
-void KdDirect3D::CreateLight(const D3DLIGHTTYPE type, const KdVec3& Dir, const D3DXVECTOR4& Diffuse, const D3DXVECTOR4& Ambient)
+void KdDirect3D::CreateDirectionalLight(const D3DXVECTOR3& Dir, const D3DXVECTOR4& Diffuse, const D3DXVECTOR4& Ambient)
 {
 	D3DLIGHT9 tmp = {};
-	tmp.Type = type;
+	tmp.Type = D3DLIGHT_DIRECTIONAL;
 
 	tmp.Diffuse.a = Diffuse.w;
 	tmp.Diffuse.r = Diffuse.x;
@@ -339,17 +339,26 @@ void KdDirect3D::CreateLight(const D3DLIGHTTYPE type, const KdVec3& Dir, const D
 	tmp.Ambient.b = Ambient.z;
 
 	auto dir = Dir;
-	dir.Normalize();
+	D3DXVec3Normalize(&dir, &dir);
 	tmp.Direction = dir;
 
 	m_Lights.emplace_back(tmp);
 
 	//ライトのセット
-	m_lpD3DDev->SetLight(0, &m_Lights.back());
+//	m_lpD3DDev->SetLight(0, &m_Lights.back());
 }
 
 void KdDirect3D::DeleteLight()
 {
+}
+
+void KdDirect3D::SetLights()
+{
+	for (UINT i = 0; i < m_Lights.size(); i++)
+	{
+		m_lpD3DDev->SetLight(i, &m_Lights[i]);
+		m_lpD3DDev->LightEnable(i, true);
+	}
 }
 
 void KdDirect3D::LoadTexture(LPDIRECT3DTEXTURE9* lpTex, const std::string& Path, int W, int H, const D3DCOLOR Color)

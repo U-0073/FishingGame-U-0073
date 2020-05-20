@@ -137,6 +137,9 @@
     <ClCompile Include="src\Game\Result.cpp">
       <Filter>src\ゲーム</Filter>
     </ClCompile>
+    <ClCompile Include="src\Pch.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\System\Component\InputComponent.h">
@@ -246,6 +249,9 @@
     </ClInclude>
     <ClInclude Include="src\Game\Result.h">
       <Filter>src\ゲーム</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Pch.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
