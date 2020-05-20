@@ -24,6 +24,14 @@ private:
 	D3DXVECTOR3 mPos2;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> vTex2 = nullptr;
 
+	//anime
+	std::shared_ptr<LPDIRECT3DTEXTURE9> titleAnime = nullptr;
+	std::shared_ptr<LPDIRECT3DTEXTURE9> whiteAnime = nullptr;
+	KdMatrix animMat;
+	KdMatrix wAnim;
+	int animAlpha;
+	bool animFlg;
+
 	int alpha;
 
 };
