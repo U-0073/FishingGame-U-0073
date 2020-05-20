@@ -140,6 +140,9 @@
     <ClCompile Include="src\Pch.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Scene\CRogoScene.cpp">
+      <Filter>src\シーン</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\System\Component\InputComponent.h">
@@ -252,6 +255,9 @@
     </ClInclude>
     <ClInclude Include="src\Pch.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Scene\CRogoScene.h">
+      <Filter>src\シーン</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

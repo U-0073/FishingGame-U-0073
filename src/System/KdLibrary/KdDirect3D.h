@@ -69,7 +69,7 @@ public:
 		m_lpD3DDev->SetTransform(D3DTS_WORLD, m);
 	}
 	//ÉâÉCÉgÇÃê›íË
-	void CreatePointLight(const D3DXVECTOR3& Pos, const D3DXVECTOR3& Dir, const D3DXVECTOR4& Diffuse, const D3DXVECTOR4& Ambient);
+	void CreatePointLight(const D3DXVECTOR3& Pos, const D3DXVECTOR4& Diffuse, const D3DXVECTOR4& Ambient);
 	void CreateDirectionalLight(const D3DXVECTOR3& Dir, const D3DXVECTOR4& Diffuse, const D3DXVECTOR4& Ambient);
 	void DeleteLight();
 	void SetLights();

@@ -1,6 +1,7 @@
 ﻿#include"../KdLibrary/KdLibrary.h"
 #include "CGameFrame.h"
 #include "CSceneBase.h"
+#include"../../Game/Scene/CRogoScene.h"
 #include"../../Game/Scene/CTitleScene.h"
 #include"../../Game/Scene/CMapScene.h"
 #include"../../Game/Scene/CGameScene.h"
@@ -84,8 +85,6 @@ const bool CGameFrame::CreateHWND(HINSTANCE aHInst, const int aCmdShow)
 	}
 
 
-
-
 	return true;
 }
 //初期化関数、ウィンドウとDirectX関連に必要なものを生成する.
@@ -102,8 +101,6 @@ const bool CGameFrame::Initialize(HINSTANCE aHInst, const int aCmdShow)
 	nowScene->Init();
 	nowscene = nowScene->GetID();
 	CAMERA.Set(mWindowSize);
-
-
 
 	return true;
 }
@@ -124,17 +121,10 @@ void CGameFrame::GameLoop()
 		cnt = 0;
 	}
 	cnt++;
-
-
-
-
 	DWORD flags =
 		D3DCLEAR_TARGET | // ARGB情報
 		D3DCLEAR_ZBUFFER | // 奥行情報
 		D3DCLEAR_STENCIL;	// マスク用情報
-
-
-
 
 
 
@@ -148,6 +138,11 @@ void CGameFrame::GameLoop()
 			SceneClear();
 			switch (nextscene)
 			{
+			case ROGO:
+				nowScene = std::make_shared<CRogoScene>();
+				nowScene->Init();
+				nowscene = nowScene->GetID();//シーンIDの保存
+				break;
 			case TITLE:
 				nowScene = std::make_shared<CTitleScene>();
 				nowScene->Init();
@@ -215,6 +210,7 @@ void CGameFrame::GameLoop()
 		SPRITE->End();
 
 		//3D描画.
+		KD3D.SetLights();
 		nowScene->Draw3D();
 
 	}
@@ -268,6 +264,7 @@ void CGameFrame::SceneClear()
 	if (nowScene) {
 		nowScene->End();
 		nowScene = nullptr;
+		KD3D.DeleteLight();
 	}
 }
 //
