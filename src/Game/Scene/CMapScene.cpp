@@ -97,6 +97,7 @@ void CMapScene::Draw2D()
 
 void CMapScene::Draw3D()
 {
+	KD3D.SetLights();
 	//m_Player->Draw3D();
 	Sky->Draw3D();
 	m_Port->Draw3D();
