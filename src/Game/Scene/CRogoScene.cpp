@@ -12,6 +12,9 @@ void CRogoScene::Init()
 	animAlpha = 0;
 	animFlg = false;
 
+	m_pSound = RESOURCE_MNG.GetSound("SoundLogo#1_soft");
+	m_pSound->Playsound("SoundLogo#1_soft", true, false);
+
 }
 
 int CRogoScene::Update()
@@ -59,4 +62,5 @@ void CRogoScene::End()
 {
 	titleAnime = nullptr;
 	whiteAnime = nullptr;
+	m_pSound->LDSB8->Stop();
 }

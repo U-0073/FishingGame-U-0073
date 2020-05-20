@@ -50,6 +50,8 @@ void CMapScene::Init()
 
 	m_PSound = RESOURCE_MNG.GetSound("wave3");
 	m_PSound->Playsound("wave3", true, true);
+	m_PBGM = RESOURCE_MNG.GetSound("MetroNight");
+	m_PBGM->Playsound("MetroNight", true, true);
 
 }
 
@@ -118,4 +120,6 @@ void CMapScene::End()
 
 	m_PSound->LDSB8->Stop();
 	m_PSound = nullptr;
+	m_PBGM->LDSB8->Stop();
+	m_PBGM = nullptr;
 }

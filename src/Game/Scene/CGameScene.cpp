@@ -52,7 +52,7 @@ void CGameScene::Init()
 	Excellent = 0;
 	Miss = 0;
 
-	MusicChoise = rand() % 5;
+	MusicChoise = rand() % 6;
 
 }
 
@@ -69,30 +69,32 @@ int CGameScene::Update()
 			frame = 0;
 
 			m_pSound->LDSB8->Stop();
+			std::string name;
 			//‹È‘I‘ð
 			switch (MusicChoise)
 			{
 			case 0:
-				m_pSound = RESOURCE_MNG.GetSound("Phantom_Apartment_2");
-				m_pSound->Playsound("Phantom_Apartment_2", true, true);
+				name = "CGSSound/Phantom_Apartment_2";
 				break;
 			case 1:
-				m_pSound = RESOURCE_MNG.GetSound("Dance_Dance_Cats");
-				m_pSound->Playsound("Dance_Dance_Cats", true, true);
+				name = "CGSSound/Dance_Dance_Cats";
 				break;
 			case 2:
-				m_pSound = RESOURCE_MNG.GetSound("Green_Stage_2");
-				m_pSound->Playsound("Green_Stage_2", true, true);
+				name = "CGSSound/Green_Stage_2";
 				break;
 			case 3:
-				m_pSound = RESOURCE_MNG.GetSound("Ride_On_The_Wind_2");
-				m_pSound->Playsound("Ride_On_The_Wind_2", true, true);
+				name = "CGSSound/Ride_On_The_Wind_2";
 				break;
 			case 4:
-				m_pSound = RESOURCE_MNG.GetSound("START!!");
-				m_pSound->Playsound("START!!", true, true);
+				name = "CGSSound/START!!";
+				break;
+			case 5:
+				name = "CGSSound/Ride_On_The_Wind";
 				break;
 			}
+			m_pSound = RESOURCE_MNG.GetSound(name);
+			m_pSound->Playsound(name, true, true);
+
 
 			clickCNT--;
 			Check = true;
@@ -218,8 +220,8 @@ void CGameScene::Draw2D()
 	//”»’è‰æ‘œ
 	if (judgeFlg != 0) {
 		//judgeMat.CreateTrans();
-		scaleMat.CreateScale(1.0f, 1.0f, 0);
-		judgeMat = scaleMat * judgeMat;
+		//scaleMat.CreateScale(1.0f, 1.0f, 0);
+		//judgeMat = scaleMat * judgeMat;
 		SPRITE->SetTransform(&judgeMat);
 		rc = { 0,0,335,200 };
 		if (resultTex)		SPRITE->Draw(*resultTex, &rc, &D3DXVECTOR3(335 / 2, 200 / 2, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));

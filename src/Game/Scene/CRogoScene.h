@@ -27,6 +27,6 @@ private:
 	int animAlpha;
 	bool animFlg;
 
-	int alpha;
+	std::shared_ptr<SoundBase> m_pSound = nullptr;
 
 };

@@ -37,5 +37,6 @@ private:
 
 
 	std::shared_ptr<SoundBase> m_PSound = nullptr;
+	std::shared_ptr<SoundBase> m_PBGM = nullptr;
 
 };
