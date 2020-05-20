@@ -155,7 +155,8 @@ void Fish::ResultUpdate()
 	D3DXMatrixRotationY(&RotMat, D3DXToRadian(90));
 	FishPos = D3DXVECTOR3(0.0f,1.0f, 0);
 	TransMat.CreateTrans(FishPos);
-	m_world = ScaleMat * TransMat*RotMat;
+	ScaleMat.CreateScale(1,1,1);
+	m_world = ScaleMat*TransMat*RotMat;
 }
 
 
