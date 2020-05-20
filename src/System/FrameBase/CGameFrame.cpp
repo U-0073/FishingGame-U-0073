@@ -97,7 +97,7 @@ const bool CGameFrame::Initialize(HINSTANCE aHInst, const int aCmdShow)
 	if (CreateDirectX9() == false) { return false; }
 
 
-	nowScene = std::make_shared<CTitleScene>();
+	nowScene = std::make_shared<CRogoScene>();
 	nowScene->Init();
 	nowscene = nowScene->GetID();
 	CAMERA.Set(mWindowSize);

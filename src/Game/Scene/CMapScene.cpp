@@ -71,7 +71,7 @@ int CMapScene::Update()
 	if (GetKey(VK_SPACE) & 0x8000)
 	{
 		FADE.Start(5);
-		return TITLE;
+		return ROGO;
 	}
 	if (GetKey('I') & 0x8000) {
 		FADE.Start(5);
@@ -80,10 +80,6 @@ int CMapScene::Update()
 	if (GetKey('F') & 0x8000) {
 		FADE.Start(5);
 		return GAME;
-	}
-	if (GetKey('Z') & 0x8000) {
-		FADE.Start(5);
-		return TITLE;
 	}
 
 	return MAP;
