@@ -101,7 +101,7 @@ public:
 	}
 	//“®“I‚ÈŠg‘ås—ñ‚Ì•ÏX
 
-	void CangeScal(float x, float y, float z) {
+	void MoveScal(float x, float y, float z) {
 		KdMatrix m;
 		m.CreateScale(x, y, z);
 		(*this) = m * (*this);
