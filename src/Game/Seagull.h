@@ -18,6 +18,8 @@ private:
 
 	std::shared_ptr<SoundBase> testsound = nullptr;
 
+	float MoveZ = 0.3f;
+
 	KdVec3 SeagullPos;
 	KdVec3 SeagullLen;
 	KdVec3 SeagullRot;
