@@ -11,7 +11,13 @@ public:
 	void SetTagType(int No);
 	
 	void Init()override;
+	const std::string& getTag() {
+		return m_Tag;
+	}
+	void setBuoy(const KdVec3 Pos) {
 
+		BuoyPos = Pos;
+	}
 	inline void SetCenter(KdVec3 pos) {
 		Center = pos;
 
@@ -38,12 +44,14 @@ private:
 	std::string m_Tag;//‰½‚Ì‹›‚©
 	
 	KdVec3 Center;
+	KdVec3 BuoyPos;
 
 	KdVec3 PlayerPos;
 	KdVec3 FishPos;
 	KdVec3 FishLen;
 	KdMatrix TransMat;
 	KdMatrix ScaleMat;
+
 
 	float Count = 0.0f;
 	float CamAngY;

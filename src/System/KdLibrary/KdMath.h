@@ -158,7 +158,7 @@ public:
 		rM._42 = 0;
 		rM._43 = 0;
 		D3DXMatrixScaling(&scl, x, y, z);
-		(*this)=rM * scl*Mat;
+		(*this)=scl*rM * Mat;
 
 	}
 	//“®“I‚ÈŠg‘ås—ñ‚Ì•ÏX
