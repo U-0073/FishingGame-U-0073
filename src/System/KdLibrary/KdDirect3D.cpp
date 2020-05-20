@@ -328,15 +328,15 @@ void KdDirect3D::CreateDirectionalLight(const D3DXVECTOR3& Dir, const D3DXVECTOR
 	D3DLIGHT9 tmp = {};
 	tmp.Type = D3DLIGHT_DIRECTIONAL;
 
-	tmp.Diffuse.a = Diffuse.w;
-	tmp.Diffuse.r = Diffuse.x;
-	tmp.Diffuse.g = Diffuse.y;
-	tmp.Diffuse.b = Diffuse.z;
+	tmp.Diffuse.a = Diffuse.x;
+	tmp.Diffuse.r = Diffuse.y;
+	tmp.Diffuse.g = Diffuse.z;
+	tmp.Diffuse.b = Diffuse.w;
 
-	tmp.Ambient.a = Ambient.w;
-	tmp.Ambient.r = Ambient.x;
-	tmp.Ambient.g = Ambient.y;
-	tmp.Ambient.b = Ambient.z;
+	tmp.Ambient.a = Ambient.x;
+	tmp.Ambient.r = Ambient.y;
+	tmp.Ambient.g = Ambient.z;
+	tmp.Ambient.b = Ambient.w;
 
 	auto dir = Dir;
 	D3DXVec3Normalize(&dir, &dir);
