@@ -53,8 +53,6 @@ void Fish::Update()
 
 	float len =m.LengthToTarget(n);
 
-
-
 	if (GetKey('Q') & 0x8000)
 	{
 		Init();
