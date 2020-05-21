@@ -137,6 +137,7 @@ void Fish::TitleUpdate()
 	//m_world.SetRotation(0, D3DXToRadian(90), 0);
 
 		//m_world.CreateScale(0.1, 0.1, 0.1);	
+	//m_world.SetRotation(D3DXToRadian(90), D3DXToRadian(90), D3DXToRadian(90));
 	m_world.MoveLocal(0, 0, -0.5);
 
 

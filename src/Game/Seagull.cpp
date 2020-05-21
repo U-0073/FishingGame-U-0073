@@ -45,6 +45,9 @@ void Seagull::Update()
 	//‡¬
 	m_world = TransMat * RotMat;
 
+	
+
+
 	sound = rand() % 1000;
 	if (sound == 0) {
 		//ƒTƒEƒ“ƒh
