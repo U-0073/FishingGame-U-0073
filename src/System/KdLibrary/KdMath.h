@@ -288,7 +288,8 @@ public:
 		KdMatrix m;
 		m.CreateRotationY(rad);
 		*this = m * (*this);
-	}void RotateZLocal(float rad) {
+	}
+	void RotateZLocal(float rad) {
 		KdMatrix m;
 		m.CreateRotationZ(rad);
 		*this = m * (*this);
