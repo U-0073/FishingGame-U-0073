@@ -35,8 +35,7 @@ public:
 
 
 	const void SetPlayerPos(const KdVec3& Vec) { PlayerPos = Vec; }
-	const void SetCamAngY(const float& f) { CamAngY = f; }
-	const void SetFishFlg(const bool& flg) { FishFlg = flg; }
+	const void SetFishingFlg(const bool& flg) { FishFlg = flg; }
 	
 	const D3DXVECTOR3& GetFishPos() { return m_world.GetPos(); }
 
@@ -55,10 +54,11 @@ private:
 
 
 	float Count = 0.0f;
-	float CamAngY;
+	float AngY;
 	bool  FishFlg;
 };
 
+//ŒQ‚ê‚½‚Ì“®‚«Bˆê•C‚¸‚Â‚ÌW‡‘Ì
 class Fishes {
 public:
 	void Init();
@@ -75,11 +75,11 @@ public:
 			}
 			p.clear();
 		}
-		CenterPoss.clear();
+		CenterPos.clear();
 	}
 
 private:
 	std::vector<std::vector<std::shared_ptr<Fish>>>m_Fihes;
-	std::vector<KdVec3>CenterPoss;
+	std::vector<KdVec3>CenterPos;
 
 };

@@ -15,10 +15,10 @@ void Fish::SetTagType(int No)
 	{
 	case 0:
 		m_Tag = "RedSnapper";
-	
+
 		break;
 	case 1:
-		m_Tag = "Saury";	
+		m_Tag = "Saury";
 		break;
 	case 2:
 		m_Tag = "Tuna";
@@ -42,7 +42,7 @@ void Fish::Init()
 
 	//m_world.CreateScale(0.5, 0.5, 0.5);
 	//m_world.CreateRotation(0, D3DXToRadian(90), 0);
-	m_pModel= RESOURCE_MNG.GetModel(m_Tag);
+	m_pModel = RESOURCE_MNG.GetModel(m_Tag);
 	m_world.SetScale(0.1, 0.1, 0.1);
 }
 
@@ -60,7 +60,7 @@ void Fish::Update()
 	if (!FishFlg) {
 		D3DXVECTOR3	Vec;
 
-		RotMat.CreateRotationY(D3DXToRadian(CamAngY));
+		RotMat.CreateRotationY(D3DXToRadian(AngY));
 		D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, 1), &RotMat);
 
 		FishPos = PlayerPos + Vec * 20 - KdVec3(0.0f, 4.0f, 0.0f);
@@ -68,10 +68,10 @@ void Fish::Update()
 		FishPosYCnt = 8.0f;
 	}
 	else {
-		if (FishPosZCnt > 0 &&FishPosYCnt<7) {
+		if (FishPosZCnt > 0 && FishPosYCnt < 7) {
 
 			D3DXVECTOR3	Vec;
-			RotMat.CreateRotationY(D3DXToRadian(CamAngY));
+			RotMat.CreateRotationY(D3DXToRadian(AngY));
 			D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, 1), &RotMat);
 
 			FishPos -= Vec * 0.5;
@@ -84,23 +84,18 @@ void Fish::Update()
 				FishPosYCnt -= 0.2f;
 			}
 			else {
-			FishPos += KdVec3(0.0f, 0.2f, 0.0f);
-			FishPosYCnt -= 0.4f;
+				FishPos += KdVec3(0.0f, 0.2f, 0.0f);
+				FishPosYCnt -= 0.4f;
 			}
 		}
 	}
 
 	KdMatrix RotMatX;
-	//RotMatX.CreateRotationX(D3DXToRadian(90));
 
-	
-	
-	
-	
+	//ƒtƒ‰ƒtƒ‰“®‚­
 	m_world.MoveLocal(0, 0, -0.5);
 
-	
-	m_world.RotateYLocal(D3DXToRadian((rand()%10)-5));
+	m_world.RotateYLocal(D3DXToRadian((rand() % 10) - 5));
 
 }
 
@@ -131,25 +126,11 @@ void Fish::End()
 
 void Fish::TitleUpdate()
 {
-	//m_world.SetTrans(0, 0, 15);
-	//m_world.RotateLocal(0, D3DXToRadian(0.5), 0);
-		
-	//m_world.SetRotation(0, D3DXToRadian(90), 0);
-
-		//m_world.CreateScale(0.1, 0.1, 0.1);	
-	//m_world.SetRotation(D3DXToRadian(90), D3DXToRadian(90), D3DXToRadian(90));
 	m_world.MoveLocal(0, 0, -0.5);
-
-
-
-
-
-
 }
 
 void Fish::ResultUpdate()
 {
-	
 	m_world.SetTrans(0.0f, 1.0f, 0);
 	m_world.CreateRotationY(D3DXToRadian(90));
 	m_world.SetScale(2, 2, 2);
@@ -170,42 +151,43 @@ void Fishes::Init()
 
 			l_Fish->SetTagType(name);
 			l_Fish->Init();
-			Pos=+l_Fish->GetPos();
+			Pos = +l_Fish->GetPos();
 			m_Fishs.push_back(l_Fish);
-			
+
 
 		}
-		if (m_Fishs.size()>0) {
+		if (m_Fishs.size() > 0) {
 			Pos = Pos / m_Fishs.size();
-			CenterPoss.push_back(Pos);
+			CenterPos.push_back(Pos);
 			m_Fihes.push_back(m_Fishs);//“ñŽŸŒ³”z—ñ‰»
 			c++;
 		}
-		
+
 	}
 }
+
 void Fishes::Update()
 {
 	int i = 0;
 	for (auto&& p : m_Fihes) {
 
-		int c=0;
+		int c = 0;
 		for (auto&& pp : p) {
-			CenterPoss[i]+=pp->GetPos();
+			CenterPos[i] += pp->GetPos();
 			pp->Update();
 			c++;
 		}
 		if (c != 0) {
-			CenterPoss[i] = CenterPoss[i] / (float)c;
+			CenterPos[i] = CenterPos[i] / (float)c;
 		}
 		for (auto&& pp : p) {
-			CenterPoss[i] += pp->GetPos();
-			pp->SetCenter(CenterPoss[i]);
+			CenterPos[i] += pp->GetPos();
+			pp->SetCenter(CenterPos[i]);
 		}
 	}
 
 
-	
+
 
 }
 

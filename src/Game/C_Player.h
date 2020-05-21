@@ -35,8 +35,8 @@ public:
 	//プレイヤーの座標を外部に渡す関数
 	const KdVec3& GetPlayerPos()const { return PlayerPos; }
 	const float& GetCamAngY()	const { return CamAngY; }
-	const bool& GetFeshFlg()	const { return FishFlg; }
-	const bool& GetBuoiFlg()	const { return BuoiFlg; }
+	const bool& GetFishingFlg()	const { return FishFlg; }
+	const bool& GetBuoyFlg()	const { return BuoyFlg; }
 
 	void End();
 private:
@@ -92,7 +92,7 @@ private:
 
 	bool				FishFlg = false;
 	bool				RestoreFlg = false;
-	bool				BuoiFlg = false;		//浮きを動かすか否か
+	bool				BuoyFlg = false;		//浮きを動かすか否か
 	bool				WallFlg = false;
 
 
