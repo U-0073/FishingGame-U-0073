@@ -29,6 +29,7 @@ private:
 	KdMatrix TabCenterMat;
 	KdMatrix TabRightMat;
 	KdMatrix ListSelectMat;
+	KdMatrix MoneyFrameMat;
 	KdMatrix E_PowerMat;
 
 	std::shared_ptr<LPDIRECT3DTEXTURE9> FrameTex;
@@ -40,6 +41,7 @@ private:
 	std::shared_ptr<LPDIRECT3DTEXTURE9> TabCenterTex;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> TabRightTex;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> ListSelectTex;
+	std::shared_ptr<LPDIRECT3DTEXTURE9> MoneyFrameTex;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> E_PowerTex;
 
 
