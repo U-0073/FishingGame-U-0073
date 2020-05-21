@@ -52,8 +52,6 @@ void Fish::Update()
 
 	float len =m.LengthToTarget(n);
 
-
-
 	if (GetKey('Q') & 0x8000)
 	{
 		Init();
@@ -156,6 +154,7 @@ void Fish::ResultUpdate()
 	FishPos = D3DXVECTOR3(0.0f,1.0f, 0);
 	TransMat.CreateTrans(FishPos);
 	ScaleMat.CreateScale(1,1,1);
+	
 	m_world = ScaleMat*TransMat*RotMat;
 }
 
