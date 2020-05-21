@@ -104,7 +104,6 @@ int CGameScene::Update()
 
 	if (GetKey(VK_LBUTTON) & 0x8000) {
 		if (!keyFlg) {
-			//SetPos(KdVec3(ringMat._41, ringMat._42, ringMat._43));
 			clickPos = { (float)Mouse.x,(float)Mouse.y,0.0f };
 			KdVec3 ringPos = { ringMat._41, ringMat._42, ringMat._43 };
 			len = ringMat.GetPos().LengthToTarget(clickPos);

@@ -44,5 +44,6 @@ void Port::Draw3D()
 
 void Port::End()
 {
-
+	m_pModel = nullptr;
+	ShopModel = nullptr;
 }
