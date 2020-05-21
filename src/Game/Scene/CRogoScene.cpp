@@ -12,8 +12,8 @@ void CRogoScene::Init()
 	animAlpha = 0;
 	animFlg = false;
 
-	m_pSound = RESOURCE_MNG.GetSound("SoundLogo#1_soft");
-	m_pSound->Playsound("SoundLogo#1_soft", true, false);
+	m_pSound = RESOURCE_MNG.GetSound("Archievement_Jingle");
+	m_pSound->Playsound("Archievement_Jingle", true, false);
 
 }
 
@@ -28,7 +28,7 @@ int CRogoScene::Update()
 		}
 	}
 	else {
-		FADE.Start(2.5);
+		FADE.Start(5);
 		return TITLE;
 	}
 	/*if (GetKey('M') & 0x8000) {
