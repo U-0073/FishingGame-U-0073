@@ -47,9 +47,12 @@ void CMapScene::Init()
 	m_Seagull = std::make_shared<Seagull>();
 	m_Seagull->Init();
 
-
 	m_PSound = RESOURCE_MNG.GetSound("wave3");
+	m_PSound->LDS3B8->SetMode(DS3DMODE_DISABLE, DS3D_IMMEDIATE);
 	m_PSound->Playsound("wave3", true, true);
+	m_PBGM = RESOURCE_MNG.GetSound("超使いやすいドラム&ベース無限BGM");
+	m_PBGM->LDS3B8->SetMode(DS3DMODE_DISABLE, DS3D_IMMEDIATE);
+	m_PBGM->Playsound("超使いやすいドラム&ベース無限BGM", true, true);
 
 }
 
@@ -71,7 +74,7 @@ int CMapScene::Update()
 	if (GetKey(VK_SPACE) & 0x8000)
 	{
 		FADE.Start(5);
-		return TITLE;
+		return ROGO;
 	}
 	if (GetKey('I') & 0x8000) {
 		FADE.Start(5);
@@ -80,10 +83,6 @@ int CMapScene::Update()
 	if (GetKey('F') & 0x8000) {
 		FADE.Start(5);
 		return GAME;
-	}
-	if (GetKey('Z') & 0x8000) {
-		FADE.Start(5);
-		return TITLE;
 	}
 
 	return MAP;
@@ -97,7 +96,6 @@ void CMapScene::Draw2D()
 
 void CMapScene::Draw3D()
 {
-	KD3D.SetLights();
 	//m_Player->Draw3D();
 	Sky->Draw3D();
 	m_Port->Draw3D();
@@ -123,4 +121,6 @@ void CMapScene::End()
 
 	m_PSound->LDSB8->Stop();
 	m_PSound = nullptr;
+	m_PBGM->LDSB8->Stop();
+	m_PBGM = nullptr;
 }

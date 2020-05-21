@@ -21,7 +21,7 @@ void C_Player::Init()
 	GameObject::Init();
 	CollisionMat.SetTrans(0.0f, -1.5f, 0.0f);
 	CollisionModel = RESOURCE_MNG.GetModel("PortWall_CollisionTest1");
-	m_pModel = RESOURCE_MNG.GetModel("Port2");
+	m_pModel = RESOURCE_MNG.GetModel("Portfloer_Collision");
 
 	//ポインター関係
 	BasePt.x = SCRW / 2;
@@ -57,15 +57,26 @@ void C_Player::End()
 
 void C_Player::Update()
 {
-	if (GetKey('X') & 0x8000) {//前へ
-		KdVec3 Vec(0.0f, 0.1f, 0.0f);
-		PlayerPos -= Vec;
-	}
 
 
 	FlgProc();
 	MoveProc();
 	CameraProc();
+
+	if (GetKey('X') & 0x8000) {//前へ
+		KdVec3 Vec(0.0f, 0.1f, 0.0f);
+		PlayerPos -= Vec;
+	}
+	if (GetKey('8') & 0x8000) {//前へ
+											//	　（クライアント座標）（スクリーン座標）
+		SetCursorPos(BasePt.x, BasePt.y);
+		ShowCursor(FALSE);
+	}
+	if (GetKey('7') & 0x8000) {//前へ
+											//	　（クライアント座標）（スクリーン座標）
+		SetCursorPos(BasePt.x, BasePt.y);
+		ShowCursor(TRUE);
+	}
 
 }
 
@@ -104,6 +115,7 @@ void C_Player::MoveProc()
 
 void C_Player::Move()
 {
+
 	bool	MoveFlg = false;
 	if (!FishFlg) {
 		if (GetKey('W') & 0x8000) {//前へ
@@ -113,8 +125,6 @@ void C_Player::Move()
 
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Front, &RotMat);
 			MoveRay(Vec);
-			if (WallFlg) {
-			}
 		}
 		if (GetKey('A') & 0x8000) {//左
 			D3DXMATRIX RotMat;
@@ -171,8 +181,9 @@ void C_Player::Earth()
 	if (TextMeshDis2 < 1) {
 		PlayerPos.y += 1 - TextMeshDis2;
 	}
-	else {
-		//重力判定
+
+	if (PlayerPos.y < 0) {
+		PlayerPos.y = 0;
 	}
 }
 
@@ -335,7 +346,6 @@ void C_Player::Draw3D() {
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, TRUE);
 	CollisionModel->Draw();
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
-	//	Draw3DWall();
 }
 void C_Player::Draw2D()
 {
@@ -356,9 +366,9 @@ void C_Player::Draw2D()
 	RECT rcText4 = { 10,30 * 4,0,0 };
 	if (!WallFlg)FONT->DrawText(NULL, "WallFlg=false", -1, &rcText4, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	else FONT->DrawText(NULL, "WallFlg=true", -1, &rcText4, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	RECT rcText5 = { 10,30 * 5,0,0 };
-	sprintf_s(Text, sizeof(Text), "TextDot2 %f ", TextDot2);
-	KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText5, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	//RECT rcText5 = { 10,30 * 5,0,0 };
+	//sprintf_s(Text, sizeof(Text), "TextDot2 %f ", TextDot2);
+	//KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText5, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	RECT rcText6 = { 10,30 * 6,0,0 };
 	sprintf_s(Text, sizeof(Text), "FishingScene_CamPos  x %f  y%f z %f ", FishScene_CamPos.x, FishScene_CamPos.y, FishScene_CamPos.z);
 	FONT->DrawText(NULL, Text, -1, &rcText6, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
@@ -374,7 +384,7 @@ void C_Player::MoveRay(D3DXVECTOR3 Vec)
 	D3DXMATRIX	InvMat;
 	D3DXMatrixInverse(&InvMat, NULL, &CollisionMat);
 	D3DXVECTOR3	LocalPos, LocalVec;
-	D3DXVec3TransformCoord(&LocalPos, &PlayerPos, &InvMat);
+	D3DXVec3TransformCoord(&LocalPos, &(PlayerPos), &InvMat);
 	D3DXVec3TransformNormal(&LocalVec, &Vec, &InvMat);
 
 	BOOL Hit;
@@ -428,14 +438,26 @@ void C_Player::MoveRay(D3DXVECTOR3 Vec)
 		TextDot = D3DXVec3Dot(&-WallVec, &(Vec * TextMeshDis));//カメラの進行方向
 
 		if (TextDot > Limit && TextDot < 0) {
-			WallFlg = true;
+			//WallFlg = true;
 
 			float Tmp = Limit - TextDot;
 			KdVec3 TmpVec = (Tmp * WallVec);
 			TmpVec.Set(TmpVec.x, 0.0f, TmpVec.z);
 			PlayerPos += TmpVec;
 		}
-		else 	WallFlg = false;
+		//else 	WallFlg = false;
+
+		Limit = 1.0f;
+		if (TextDot < Limit && TextDot > 0) {
+			//WallFlg = true;
+
+			float Tmp = Limit - TextDot;
+			KdVec3 TmpVec = (Tmp * WallVec);
+			TmpVec.Set(TmpVec.x, 0.0f, TmpVec.z);
+			PlayerPos += TmpVec;
+		}
+		//else 	WallFlg = false;
 	}
-	PlayerPos += Vec * MoveSpeed;
+	if (!WallFlg)
+		PlayerPos += Vec * MoveSpeed;
 }

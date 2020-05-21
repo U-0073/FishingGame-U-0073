@@ -37,13 +37,14 @@ void C_Fishing::Update() {
 	//m_Fishes->SetCamAngY(CamAngY);
 	(*m_Fishes).Update();
 }
+
 void C_Fishing::FishingProc()
 {
 	static bool StopFlg = false;
 	static bool HitFlg = false;
 	KdMatrix RotMat;
 	D3DXVECTOR3	Vec;
-
+	
 	if (FishSceneFlg) {
 		if (!StopFlg) {
 			

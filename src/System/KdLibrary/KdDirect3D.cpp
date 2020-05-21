@@ -295,7 +295,7 @@ void KdDirect3D::SetDefaultState()
 	m_lpD3DDev->SetRenderState(D3DRS_FOGENABLE, FALSE);
 }
 
-void KdDirect3D::CreatePointLight(const D3DXVECTOR3& Pos, const D3DXVECTOR3& Dir, const D3DXVECTOR4& Diffuse, const D3DXVECTOR4& Ambient)
+void KdDirect3D::CreatePointLight(const D3DXVECTOR3& Pos, const D3DXVECTOR4& Diffuse, const D3DXVECTOR4& Ambient)
 {
 	D3DLIGHT9 tmp = {};
 	tmp.Type = D3DLIGHT_POINT;
@@ -312,9 +312,6 @@ void KdDirect3D::CreatePointLight(const D3DXVECTOR3& Pos, const D3DXVECTOR3& Dir
 	tmp.Ambient.g = Ambient.y;
 	tmp.Ambient.b = Ambient.z;
 
-	auto dir = Dir;
-	D3DXVec3Normalize(&dir, &dir);
-	tmp.Direction = dir;
 
 	m_Lights.emplace_back(tmp);
 
@@ -350,6 +347,11 @@ void KdDirect3D::CreateDirectionalLight(const D3DXVECTOR3& Dir, const D3DXVECTOR
 
 void KdDirect3D::DeleteLight()
 {
+	for (UINT i = 1; i < m_Lights.size(); i++)
+	{
+		m_lpD3DDev->LightEnable(i, false);
+		m_Lights.pop_back();
+	}
 }
 
 void KdDirect3D::SetLights()

@@ -43,12 +43,13 @@ public:
 private:
 	std::string m_Tag;//何の魚か
 	
+	//群れの中心座標
 	KdVec3 Center;
+	//ウキの位置
 	KdVec3 BuoyPos;
 
 	KdVec3 PlayerPos;
 	KdVec3 FishPos;
-	KdVec3 FishLen;
 	KdMatrix TransMat;
 	KdMatrix ScaleMat;
 

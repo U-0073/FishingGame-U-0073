@@ -89,7 +89,6 @@ private:
 	float TextMeshDis;
 	float TextDot;
 	float TextMeshDis2;
-	float TextDot2;
 
 	bool				FishFlg = false;
 	bool				RestoreFlg = false;

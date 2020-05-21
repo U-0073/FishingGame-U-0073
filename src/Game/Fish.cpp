@@ -48,13 +48,6 @@ void Fish::Init()
 
 void Fish::Update()
 {
-	FishLen = KdVec3(FishPos.x, FishPos.y, FishPos.z);
-	KdVec3 m,n;
-
-	float len =m.LengthToTarget(n);
-
-
-
 	if (GetKey('Q') & 0x8000)
 	{
 		Init();

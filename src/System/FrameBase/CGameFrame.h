@@ -3,6 +3,7 @@
 
 
 class CSceneBase;
+class CRogoScene;
 class CTitleScene;
 class CMapScene;
 class CGameScene;

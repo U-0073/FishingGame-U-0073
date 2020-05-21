@@ -16,13 +16,13 @@ void CResultScene::Init()
 	Sky = std::make_shared<Skysphere>();
 	Sky->Init();
 	Fishes = std::make_shared<Fish>();
-	Fishes->SetTagType(0);
+	Fishes->SetTagType(1);
 	Fishes->Init();
 	result = std::make_shared<Result>();
 	result->Init();
 
 	CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -5), Fishes->GetFishPos());
-
+	KD3D.CreatePointLight(D3DXVECTOR3(0, 0, -1), D3DXVECTOR4(1, 1, 1, 1), D3DXVECTOR4(0.2, 0.2, 0.2, 0.2));
 }
 
 int CResultScene::Update()
