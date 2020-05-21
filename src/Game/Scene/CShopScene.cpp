@@ -33,8 +33,8 @@ int CShopScene::Update()
 	shop2d->Update();
 	shopObj->Update();
 
-	shopObj->GetListChange(shop2d->SetListChange());
-
+	shopObj->Get2D(shop2d->SetTabPattern(), shop2d->SetCursor());
+	
 	//ФwМiВ╠ZТlТ▓Ро
 	D3DXMatrixTranslation(&mMat, 0, 0, 1);
 
