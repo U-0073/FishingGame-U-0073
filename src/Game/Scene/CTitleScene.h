@@ -1,10 +1,6 @@
 #pragma once
 #include"../../System/FrameBase/CSceneBase.h"
 
-#include"../Title.h"
-#include"../Skysphere.h"
-#include"../Fish.h"
-#include"../Sea.h"
 
 class Skysphere;
 class Fish;
@@ -36,5 +32,6 @@ private:
 	BOOL MoveFlg;
 
 	std::shared_ptr<SoundBase> m_PSound = nullptr;
+	std::shared_ptr<SoundBase> m_PSE = nullptr;
 
 };

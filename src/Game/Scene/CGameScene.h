@@ -47,6 +47,7 @@ private:
 	KdVec3 clickPos;
 	float len;
 	bool Check;
+	bool frameStopper;
 
 	int MusicChoise;
 
@@ -57,6 +58,17 @@ private:
 		judgeMat._43 = Vec.z;
 	}
 
+
+	KdVec3 score;
+	const void SetScore(const int Excellent, const int Miss)
+	{
+		int calcAve = Excellent / (Excellent + Miss);//calcAveは全ノーツのエクセレント率
+		score.Set(Excellent, Miss, calcAve);
+	}
+	const KdVec3 ReturnScore()
+	{
+		return score;
+	}
 
 	//スコアチェッカー
 	int clickCNT;

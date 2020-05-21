@@ -1,5 +1,10 @@
 #include"../../System/KdLibrary/KdLibrary.h"
 #include "CTitleScene.h"
+#include"../Title.h"
+#include"../Skysphere.h"
+#include"../Fish.h"
+#include"../Sea.h"
+
 
 CTitleScene::CTitleScene()
 {
@@ -22,8 +27,9 @@ void CTitleScene::Init()
 	CAMERA.SetCameraPos(D3DXVECTOR3(0, 3, -5), Fishes->GetFishPos());
 	MoveFlg = false;
 	mPos = D3DXVECTOR3(0, 20, 0);
-	m_PSound = RESOURCE_MNG.GetSound("TitleBGM");
-
+	m_PSound = RESOURCE_MNG.GetSound("Smash");
+	m_PSound->Playsound("Smash", true, true);
+	m_PSE = RESOURCE_MNG.GetSound("水バッシャ_2");
 }
 
 int CTitleScene::Update()
@@ -34,8 +40,11 @@ int CTitleScene::Update()
 	//シーン切り替え
 	if (GetKey(VK_RETURN) & 0x8000)
 	{
-		FADE.Start(10);
-		MoveFlg = true;
+		if (!MoveFlg) {
+			m_PSE->Playsound("水バッシャ_2", true, false);
+			FADE.Start(10);
+			MoveFlg = true;
+		}
 		//return MAP;
 	}
 	if (MoveFlg) {
@@ -88,4 +97,6 @@ void CTitleScene::End()
 
 	m_PSound->LDSB8->Stop();
 	m_PSound = nullptr;
+	m_PSE->LDSB8->Stop();
+	m_PSE = nullptr;
 }

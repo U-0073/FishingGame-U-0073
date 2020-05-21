@@ -2,14 +2,13 @@
 #include"CShopScene.h"
 #include"../GameProc.h"
 
-CShopScene::CShopScene()
-	:mMat()
-{
-	shop2d = std::make_shared<Shop2D>();
-	shop2d->Init();
+#include"../Shop2D.h"
+#include"../ShopObject.h"
 
-	shopObj = std::make_shared<ShopObject>();
-	shopObj->Init();
+CShopScene::CShopScene()
+
+{
+
 }
 
 CShopScene::~CShopScene()
@@ -23,6 +22,11 @@ void CShopScene::Init()
 	m_pSound = RESOURCE_MNG.GetSound("New_Place_of_Work");
 	m_pSound->Playsound("New_Place_of_Work", true, true);
 
+	shop2d = std::make_shared<Shop2D>();
+	shop2d->Init();
+
+	shopObj = std::make_shared<ShopObject>();
+	shopObj->Init();
 }
 
 int CShopScene::Update()

@@ -13,9 +13,12 @@ void Title::Init()
 {
 	vTex = RESOURCE_MNG.GetTexture("Title.png", 674, 108, D3DCOLOR_ARGB(255, 255, 255, 255));
 	vTex2 = RESOURCE_MNG.GetTexture("PRESSENTER.png", 432, 88, D3DCOLOR_ARGB(255, 255, 255, 255));
+	
+
 
 	mPos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	mPos2 = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+
 
 	D3DXMatrixTranslation(&mMat, 0.0f, 0.0f, 0.0f);
 	D3DXMatrixTranslation(&mMat2, 0.0f, 0.0f, 0.0f);
@@ -38,8 +41,6 @@ void Title::Update()
 			alpha = 255;
 		}
 	}
-
-
 
 	D3DXMatrixTranslation(&mMat, mPos.x, mPos.y, mPos.z);
 	D3DXMatrixTranslation(&mMat2, mPos2.x, mPos2.y, mPos2.z);
@@ -66,6 +67,7 @@ void Title::End()
 	m_pModel = nullptr;
 	vTex = nullptr;
 	vTex2 = nullptr;
+
 	/*
 	if (vTex != nullptr)vTex->Release();
 	if (vTex2 != nullptr)vTex2->Release();
