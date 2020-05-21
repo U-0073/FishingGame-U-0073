@@ -2,7 +2,6 @@
 #include"../../System/FrameBase/CGameFrame.h"
 
 #include "CGameScene.h"
-#include"../GameProc.h"
 
 CGameScene::CGameScene()
 {
