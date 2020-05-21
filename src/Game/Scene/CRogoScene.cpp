@@ -6,8 +6,8 @@ void CRogoScene::Init()
 	titleAnime = RESOURCE_MNG.GetTexture("U+0037logo.png");
 	whiteAnime = RESOURCE_MNG.GetTexture("whiteBack.png");
 
-	animMat.CreateTrans(1280 / 2, 720 / 2, 0);
-	wAnim.CreateTrans(0, 0, 0);
+	animMat.SetTrans(1280 / 2, 720 / 2, 0);
+	wAnim.SetTrans(0, 0, 0);
 
 	animAlpha = 0;
 	animFlg = true;//‚à‚Æ‚à‚Æfalse
