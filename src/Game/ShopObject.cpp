@@ -19,37 +19,98 @@ void ShopObject::Init()
 	Rod["Carbon"] = RESOURCE_MNG.GetModel("CarbonRod");
 	Rod["Bamboo"] = RESOURCE_MNG.GetModel("BambooRod");
 	Rod["Golden"] = RESOURCE_MNG.GetModel("GoldenRod");
+
+	Reel["Reel"] = RESOURCE_MNG.GetModel("Reel");
+	Reel["SimpleReel"] = RESOURCE_MNG.GetModel("SimpleReel");
 	
 	//ƒJƒƒ‰‚ÌÝ’è
 	CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -5.5f), D3DXVECTOR3(0, 0, 1));
 
 	//ˆÊ’u’²®
 	m_world.MoveLocal(0.5f, -0.5f, 0);
-	m_world.RotateLocal(D3DXToRadian(-45), D3DXToRadian(90), D3DXToRadian(0));
+	m_world.SetRotation(D3DXToRadian(0), D3DXToRadian(90), D3DXToRadian(-45));
 
-	//D3DXVec3TransformCoord(&getvec, &D3DXVECTOR3(0, 0, 2.5f),&m_world);
-	//getmat.CreateTrans(getvec);
-	//m_world = m_world * getmat;
+	D3DXMatrixTranslation(&m_reel, 9, 7, 0);
+	D3DXMatrixScaling(&m_reelScal, 40, 40, 40);
+	m_reel = m_reelScal * m_reel;
+	
+	KD3D.CreateDirectionalLight(D3DXVECTOR3(0, 0, 10), D3DXVECTOR4(1, 1, 1, 1), D3DXVECTOR4(1.0, 1.0, 1.0, 1.0));
 }
 
 void ShopObject::Update()
 {
-	
+
 }
 
 void ShopObject::Draw3D()
 {
 	KD3D.SetWorldMatrix(&m_world);
-
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, TRUE);
-
 	if (tPattern == 0) {
-		Rod["Wood"]->Draw();
-		Rod["Carbon"]->Draw();
-		Rod["Bamboo"]->Draw();
-		Rod["Golden"]->Draw();
+		//’Þ‚èŠÆ
+		switch (Cur)
+		{
+		case 0:
+			Rod["Wood"]->Draw();
+			break;
+		case 1:
+			Rod["Carbon"]->Draw();
+			break;
+		case 2:
+			Rod["Wood"]->Draw();
+			break;
+		case 3:
+			Rod["Bamboo"]->Draw();
+			break;
+		case 4:
+			Rod["Carbon"]->Draw();
+			break;
+		case 5:
+			Rod["Golden"]->Draw();
+			break;
+		case 6:
+			Rod["Bamboo"]->Draw();
+			break;
+		case 7:
+			Rod["Golden"]->Draw();
+			break;
+		}
 	}
+	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
 
+
+	KD3D.SetWorldMatrix(&m_reel);
+	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, TRUE);
+	if (tPattern == 2) {
+		//ƒŠ[ƒ‹
+		switch (Cur)
+		{
+		case 0:
+			Reel["Reel"]->Draw();
+			break;
+		case 1:
+			Reel["SimpleReel"]->Draw();
+			break;
+		case 2:
+			Reel["Reel"]->Draw();
+			break;
+		case 3:
+			Reel["SimpleReel"]->Draw();
+			break;
+		case 4:
+			Reel["Reel"]->Draw();
+			break;
+		case 5:
+			Reel["SimpleReel"]->Draw();
+			break;
+		case 6:
+			Reel["Reel"]->Draw();
+			break;
+		case 7:
+			Reel["SimpleReel"]->Draw();
+			break;
+		}
+	}
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
 }
 
@@ -62,7 +123,8 @@ void ShopObject::End()
 	Rod["Golden"] = nullptr;
 }
 
-void ShopObject::GetListChange(int tPat)
+void ShopObject::Get2D(int tPat, int cur)
 {
 	tPattern = tPat;
+	Cur = cur;
 }

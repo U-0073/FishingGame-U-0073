@@ -27,7 +27,12 @@ void Shop2D::Init()
 	//アイテム説明枠
 	ItemDesTex = RESOURCE_MNG.GetTexture("Shop/ItemDes.png");
 	D3DXMatrixTranslation(&ItemDesMat, 575.0f, 465.0f, 0.0f);
-	
+	//ステータス関係
+	E_PowerTex = RESOURCE_MNG.GetTexture("Shop/E_power.png");
+	D3DXMatrixTranslation(&E_PowerMat, 850.0f, 435.0f, 0.0f);
+	MoneyFrameTex = RESOURCE_MNG.GetTexture("Shop/MoneyFrame.png");
+	D3DXMatrixTranslation(&MoneyFrameMat, 940.0f, 10.0f, 0.0f);
+
 	//エサ
 	BaitTex = RESOURCE_MNG.GetTexture("Shop/Bait.png");
 	D3DXMatrixTranslation(&BaitMat, 735.0f, 125.0f, 0.0f);
@@ -259,7 +264,12 @@ void Shop2D::Draw2D()
 	SPRITE->SetTransform(&ItemDesMat);
 	SPRITE->Draw(*ItemDesTex, &rcItemDes, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
-	
+	RECT rcE_Power = { 0,0,350,39 };
+	SPRITE->SetTransform(&E_PowerMat);
+	SPRITE->Draw(*E_PowerTex, &rcE_Power, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+	RECT rcMoneyFrame = { 0,0,300,100 };
+	SPRITE->SetTransform(&MoneyFrameMat);
+	SPRITE->Draw(*MoneyFrameTex, &rcMoneyFrame, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
 	//エサ
 	RECT rcBait;
@@ -318,7 +328,12 @@ void Shop2D::End()
 	BaitTex = nullptr;
 }
 
-int Shop2D::SetListChange()
+int Shop2D::SetTabPattern()
 {
 	return tabPattern;
+}
+
+int Shop2D::SetCursor()
+{
+	return cursor;
 }

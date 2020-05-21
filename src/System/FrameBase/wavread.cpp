@@ -342,6 +342,9 @@ bool SoundBase::Loadsound(const std::string& fname)
 
 	//3Dのセカンダリバッファを作る
 	LDSB8->QueryInterface(IID_IDirectSound3DBuffer8, (LPVOID*)&LDS3B8);
+
+	//周波数を取ってくる
+	LDSB8->GetFrequency(&Hz);
 	return true;
 }
 
@@ -369,8 +372,6 @@ void SoundBase::Copysound(const std::string&, int Init, int Loop)
 
 void SoundBase::Update()
 {
-	//lpSListener->SetPosition();
-
 /*
 	for (int i = 0; i < List.size(); i++)
 	{

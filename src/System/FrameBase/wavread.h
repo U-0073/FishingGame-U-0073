@@ -56,15 +56,22 @@ public:
 
 	void Playsound(const std::string& Key, bool Init, bool Loop);
 
+	void SetVol(float Volume) {
+		if (Volume < 0)Volume = 0;
+		LDSB8->SetVolume(-5000 + (5000 * Volume)); }
+	void SetFreq(const float& Freq) { LDSB8->SetFrequency(Hz * Freq); }
 
 	LPDIRECTSOUND3DBUFFER8	LDS3B8;
 	LPDIRECTSOUNDBUFFER8	LDSB8;
 	D3DXVECTOR3 SoundPos;
 private:
 
-	//常に単一である情報の定義
-	LPDIRECTSOUND3DLISTENER8 lpSListener;
-
+	//音量
+	int volume;
+	//周波数
+	DWORD Hz;
+	//プライマリバッファの音量
+	long masterVol;
 
 
 };
