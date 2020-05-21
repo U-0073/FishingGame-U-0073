@@ -66,8 +66,8 @@ int CMapScene::Update()
 
 	m_Fishing->SetCamAngY(m_Player->GetCamAngY());
 	m_Fishing->SetPlayerPos(m_Player->GetPlayerPos());
-	m_Fishing->SetFishFlg(m_Player->GetFeshFlg());
-	m_Fishing->SetBuoiFlg(m_Player->GetBuoiFlg());
+	m_Fishing->SetFishingFlg(m_Player->GetFishingFlg());
+	m_Fishing->SetBuoyFlg(m_Player->GetBuoyFlg());
 	m_Fishing->Update();
 
 	m_Seagull->Update();

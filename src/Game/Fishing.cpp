@@ -15,8 +15,8 @@ void C_Fishing::Init() {
 	GameObject::Init();
 	m_pModel = RESOURCE_MNG.GetModel("Buoy");
 	ScileMat.SetScale(4.0f, 4.0f, 4.0f);
-	BuoiPos = PlayerPos + KdVec3(0.0f, -1.0f, 0.0f);
-	TransMat.SetTrans(BuoiPos);
+	BuoyPos = PlayerPos + KdVec3(0.0f, -1.0f, 0.0f);
+	TransMat.SetTrans(BuoyPos);
 
 	m_world = ScileMat * TransMat;
 
@@ -32,9 +32,6 @@ void C_Fishing::Update() {
 
 	FishingProc();
 
-	//m_Fishes->SetPlayerPos(PlayerPos);
-	//m_Fishes->SetFishFlg(GetFish);
-	//m_Fishes->SetCamAngY(CamAngY);
 	(*m_Fishes).Update();
 }
 
@@ -51,11 +48,11 @@ void C_Fishing::FishingProc()
 			RotMat.CreateRotationY(D3DXToRadian(CamAngY));
 			D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, 1), &RotMat);
 			StopFlg = true;
-			BuoiPos = PlayerPos + (Vec * 20.0f) + KdVec3(0.0f, -3.7f, 0.0f);
+			BuoyPos = PlayerPos + (Vec * 20.0f) + KdVec3(0.0f, -3.7f, 0.0f);
 		}
-		if (BuoiFlg && !HitFlg) {
-			if (BuoiPos.y < -2.9f)BuoiPos += KdVec3(0.0f, 0.05f, 0.0f);
-			else BuoiPos.y = -2.9f;
+		if (BuoyFlg && !HitFlg) {
+			if (BuoyPos.y < -2.9f)BuoyPos += KdVec3(0.0f, 0.05f, 0.0f);
+			else BuoyPos.y = -2.9f;
 		}
 
 		if (GetKey('1') & 0x8000) {
@@ -69,9 +66,9 @@ void C_Fishing::FishingProc()
 	}
 
 	if (HitFlg) {
-		if (BuoiPos.y > -3.7f)BuoiPos -= KdVec3(0.0f, 0.15f, 0.0f);
+		if (BuoyPos.y > -3.7f)BuoyPos -= KdVec3(0.0f, 0.15f, 0.0f);
 		else {
-			BuoiPos.y = -3.7f;
+			BuoyPos.y = -3.7f;
 			if (GetKey('2') & 0x8000) {
 				HitFlg = false;
 			}
@@ -81,7 +78,7 @@ void C_Fishing::FishingProc()
 		}
 	}
 
-	TransMat.SetTrans(BuoiPos);
+	TransMat.SetTrans(BuoyPos);
 	m_world = ScileMat * TransMat;
 }
 

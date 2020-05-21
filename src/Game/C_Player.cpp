@@ -248,8 +248,8 @@ void C_Player::CameraSet()
 	static bool			StopFlg = false;//釣りモードに移行した一回の間だけ動かす処理用
 
 	//カメラの移動が終わったときに浮きが浮くようにするもの
-	if (flg1 && flg2) { BuoiFlg = true; }
-	else { BuoiFlg = false; }
+	if (flg1 && flg2) { BuoyFlg = true; }
+	else { BuoyFlg = false; }
 
 	//釣りモードじゃないとき
 	if (!FishFlg) {
