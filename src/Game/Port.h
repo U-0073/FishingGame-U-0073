@@ -14,5 +14,4 @@ public:
 private:
 	std::shared_ptr<KdModel> ShopModel = nullptr;
 	KdMatrix ShopMat;
-	KdMatrix ShopScail;
 };

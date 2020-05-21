@@ -93,6 +93,7 @@ void Fish::Update()
 	KdMatrix RotMatX;
 
 	//ƒtƒ‰ƒtƒ‰“®‚­
+	//‚±‚±‚ÉU‚èŒü‚«ŒvZ“ü‚ê‚Äcoord‚·‚é
 	m_world.MoveLocal(0, 0, -0.5);
 
 	m_world.RotateYLocal(D3DXToRadian((rand() % 10) - 5));

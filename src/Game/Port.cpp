@@ -16,10 +16,6 @@ void Port::Init()
 	m_pModel = RESOURCE_MNG.GetModel("Port");
 	ShopMat.SetTrans(14, -0.6f, -42);
 
-	KdMatrix RotMat;
-	RotMat.CreateRotationY(D3DXToRadian(180));
-	ShopScail.SetScale(1.7f, 1.7f, 1.0f);
-	ShopMat = ShopScail * RotMat * ShopMat;
 	ShopModel = RESOURCE_MNG.GetModel("Shop");
 
 }
