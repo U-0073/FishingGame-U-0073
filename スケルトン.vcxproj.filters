@@ -62,9 +62,6 @@
     <ClCompile Include="src\System\FrameBase\GameObject.cpp">
       <Filter>ライブラリ</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\TestCharacter.cpp">
-      <Filter>src\ゲーム</Filter>
-    </ClCompile>
     <ClCompile Include="src\System\KdLibrary\KdDirect3D.cpp">
       <Filter>ライブラリ</Filter>
     </ClCompile>
@@ -113,9 +110,6 @@
     <ClCompile Include="src\Game\ShopObject.cpp">
       <Filter>src\ゲーム</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\GameProc.cpp">
-      <Filter>src\ゲーム</Filter>
-    </ClCompile>
     <ClCompile Include="src\Game\Scene\CGameScene.cpp">
       <Filter>src\シーン</Filter>
     </ClCompile>
@@ -136,6 +130,12 @@
     </ClCompile>
     <ClCompile Include="src\Game\Result.cpp">
       <Filter>src\ゲーム</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Pch.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Scene\CRogoScene.cpp">
+      <Filter>src\シーン</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -168,9 +168,6 @@
     </ClInclude>
     <ClInclude Include="src\System\FrameBase\CSceneBase.h">
       <Filter>src\システム</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Game\TestCharacter.h">
-      <Filter>src\ゲーム</Filter>
     </ClInclude>
     <ClInclude Include="src\System\KdLibrary\KdDirect3D.h">
       <Filter>ライブラリ</Filter>
@@ -223,9 +220,6 @@
     <ClInclude Include="src\Game\ShopObject.h">
       <Filter>src\ゲーム</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\GameProc.h">
-      <Filter>src\ゲーム</Filter>
-    </ClInclude>
     <ClInclude Include="src\Game\Scene\CGameScene.h">
       <Filter>src\シーン</Filter>
     </ClInclude>
@@ -246,6 +240,12 @@
     </ClInclude>
     <ClInclude Include="src\Game\Result.h">
       <Filter>src\ゲーム</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Pch.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Scene\CRogoScene.h">
+      <Filter>src\シーン</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -22,7 +22,7 @@ void CResultScene::Init()
 	result->Init();
 
 	CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -5), Fishes->GetFishPos());
-
+	KD3D.CreatePointLight(D3DXVECTOR3(0, 0, -1), D3DXVECTOR4(1, 1, 1, 1), D3DXVECTOR4(0.2, 0.2, 0.2, 0.2));
 }
 
 int CResultScene::Update()

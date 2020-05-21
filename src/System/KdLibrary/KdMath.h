@@ -75,36 +75,98 @@ public:
 
 	//ˆÚ“®
 	void CreateTrans(float x, float y, float z) {
-		D3DXMatrixTranslation(this, x, y, z);
+		(*this)._41 = x;
+		(*this)._42 = y;
+		(*this)._43 = z;
+
+
 	}
 	void CreateTrans(const KdVec3& v) {
-		D3DXMatrixTranslation(this, v.x, v.y,v.z);
+		(*this)._41 = v.x;
+		(*this)._42 = v.y;
+		(*this)._43 = v.z;
 	}
 
 	//‰ñ“]
 	void CreateRotationX(const float rad) {
+		KdVec3 pos, scl;
+		KdMatrix  rM, sM;
+
+		pos = (*this).GetPos();
+		scl.x = (*this).GetScaleX();
+		scl.y = (*this).GetScaleY();
+		scl.z = (*this).GetScaleZ();
 		D3DXMatrixRotationX(this, rad);
+		D3DXMatrixScaling(&sM, scl.x, scl.y, scl.z);
+		(*this) = sM * rM * (*this);
+		(*this)._41 = pos.x;
+		(*this)._42 = pos.y;
+		(*this)._43 = pos.z;
 	}
 	void CreateRotationY(const float rad) {
+		KdVec3 pos, scl;
+		KdMatrix  rM, sM;
+
+		pos = (*this).GetPos();
+		scl.x = (*this).GetScaleX();
+		scl.y = (*this).GetScaleY();
+		scl.z = (*this).GetScaleZ();
 		D3DXMatrixRotationY(this, rad);
+		D3DXMatrixScaling(&sM, scl.x, scl.y, scl.z);
+		(*this) = sM * rM * (*this);
+		(*this)._41 = pos.x;
+		(*this)._42 = pos.y;
+		(*this)._43 = pos.z;
 	}
 	void CreateRotationZ(const float rad) {
+		KdVec3 pos, scl;
+		KdMatrix  rM, sM;
+		pos = (*this).GetPos();
+		scl.x = (*this).GetScaleX();
+		scl.y = (*this).GetScaleY();
+		scl.z = (*this).GetScaleZ();
 		D3DXMatrixRotationZ(this, rad);
+		D3DXMatrixScaling(&sM, scl.x, scl.y, scl.z);
+		(*this) = sM * rM * (*this);
+		(*this)._41 = pos.x;
+		(*this)._42 = pos.y;
+		(*this)._43 = pos.z;
 	}
 	void CreateRotation(float radx, float rady, float radz) {
-		D3DXMatrixRotationYawPitchRoll(this,rady,radx, radz);
+		KdVec3 pos, scl;
+		KdMatrix  rM,sM,Mat;
+		pos = (*this).GetPos();
+		scl.x = (*this).GetScaleX();
+		scl.y = (*this).GetScaleY();
+		scl.z = (*this).GetScaleZ();
+		D3DXMatrixRotationYawPitchRoll(&rM,rady,radx, radz);
+		D3DXMatrixScaling(&sM, scl.x, scl.y, scl.z);
+		D3DXMatrixTranslation(&Mat, pos.x, pos.y, pos.z);
+		(*this) = sM * rM, Mat;
 	}
 
 	//Šg‘ås—ñ
-	void CreateScale(float x, float y, float z) {
-		D3DXMatrixScaling(this, x, y, z);
+	inline void CreateScale(float x, float y, float z) {
+		KdVec3 Pos = (*this).GetPos();
+
+		KdMatrix scl,Mat,rM;
+
+		D3DXMatrixTranslation(&Mat, Pos.x, Pos.y, Pos.z);
+		rM = (*this);
+		
+		rM._41 = 0;
+		rM._42 = 0;
+		rM._43 = 0;
+		D3DXMatrixScaling(&scl, x, y, z);
+		(*this)=scl*rM * Mat;
+
 	}
 	//“®“I‚ÈŠg‘ås—ñ‚Ì•ÏX
 
-	void CangeScal(float x, float y, float z) {
-		KdMatrix m;
-		m.CreateScale(x, y, z);
-		(*this) = m * (*this);
+	void MoveScal(float x, float y, float z) {
+		KdMatrix s;
+		D3DXMatrixScaling(&s, x, y, z);
+		(*this) = s * (*this);
 	}
 
 	//‘€ìŒn--------------------------->
@@ -212,10 +274,10 @@ public:
 		return GetXAxis().Length();
 	}
 	float GetScaleY()const {
-		return GetXAxis().Length();
+		return GetYAxis().Length();
 	}
 	float GetScaleZ()const {
-		return GetXAxis().Length();
+		return GetZAxis().Length();
 	}
 
 	//////Ž©•ª‚ÌŒX‚«radŠp

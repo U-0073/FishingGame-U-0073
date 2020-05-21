@@ -40,7 +40,8 @@ void Fish::Init()
 	GameObject::Init();
 
 
-
+	//m_world.CreateScale(0.5, 0.5, 0.5);
+	//m_world.CreateRotation(0, D3DXToRadian(90), 0);
 	m_pModel= RESOURCE_MNG.GetModel(m_Tag);
 	
 }
@@ -136,26 +137,20 @@ void Fish::End()
 void Fish::TitleUpdate()
 {
 
-	D3DXMATRIX RotMat;
-	D3DXMatrixRotationY(&RotMat, D3DXToRadian(0));
-	D3DXVECTOR3 Vec;
-	D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0.0f, 0.0f, -0.05f), &RotMat);
-	FishPos += Vec;
-	
-	TransMat.CreateTrans(FishPos);
-	m_world = ScaleMat * TransMat;
+	//m_world.CreateRotation(0, D3DXToRadian(90), 0);
+	//
+	//m_world.CreateTrans(0, 0, 15);
+	//m_world.CreateScale(0.1, 0.1, 0.1);
+		m_world.MoveLocal(0, 0, -0.5);
 
 }
 
 void Fish::ResultUpdate()
 {
-	D3DXMATRIX RotMat;
-	D3DXMatrixRotationY(&RotMat, D3DXToRadian(90));
-	FishPos = D3DXVECTOR3(0.0f,1.0f, 0);
-	TransMat.CreateTrans(FishPos);
-	ScaleMat.CreateScale(1,1,1);
 	
-	m_world = ScaleMat*TransMat*RotMat;
+	m_world.CreateTrans(0.0f, 1.0f, 0);
+	m_world.CreateRotationY(D3DXToRadian(90));
+	m_world.CreateScale(2, 2, 2);
 }
 
 

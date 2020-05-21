@@ -50,6 +50,8 @@ void CMapScene::Init()
 
 	m_PSound = RESOURCE_MNG.GetSound("wave3");
 	m_PSound->Playsound("wave3", true, true);
+	//m_PBGM = RESOURCE_MNG.GetSound("MetroNight");
+	//m_PBGM->Playsound("MetroNight", true, true);
 
 }
 
@@ -71,7 +73,7 @@ int CMapScene::Update()
 	if (GetKey(VK_SPACE) & 0x8000)
 	{
 		FADE.Start(5);
-		return TITLE;
+		return ROGO;
 	}
 	if (GetKey('I') & 0x8000) {
 		FADE.Start(5);
@@ -80,10 +82,6 @@ int CMapScene::Update()
 	if (GetKey('F') & 0x8000) {
 		FADE.Start(5);
 		return GAME;
-	}
-	if (GetKey('Z') & 0x8000) {
-		FADE.Start(5);
-		return TITLE;
 	}
 
 	return MAP;
@@ -122,4 +120,6 @@ void CMapScene::End()
 
 	m_PSound->LDSB8->Stop();
 	m_PSound = nullptr;
+	//m_PBGM->LDSB8->Stop();
+	//m_PBGM = nullptr;
 }

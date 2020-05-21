@@ -15,13 +15,10 @@ void Seagull::Init()
 	m_pModel = RESOURCE_MNG.GetModel("Seagull");
 	
 	//初期位置ランダム配置
-	int r;
 	srand(time(0));
-	rand();
-	r = rand();
-	SeagullPos.x = r % 300 - 150;
-	SeagullPos.y = r % 30 + 80;
-	SeagullPos.z = r % 300 - 150;
+	SeagullPos.x = rand() % 300 - 150;
+	SeagullPos.y = rand() % 30 + 80;
+	SeagullPos.z = rand() % 300 - 150;
 	
 	//行列設定
 	TransMat.CreateTrans(SeagullPos);

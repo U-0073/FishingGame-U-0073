@@ -89,6 +89,7 @@
 #define MESH m_pModel->GetMesh()
 enum Scene
 {
+	ROGO,
 	TITLE,
 	MAP,
 	GAME,

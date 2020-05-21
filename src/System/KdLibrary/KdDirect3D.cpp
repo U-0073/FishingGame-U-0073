@@ -25,7 +25,7 @@ bool KdDirect3D::Init(HWND hWnd, int width, int height, bool fullscreen, std::st
 	// D3Dオブジェクト作成
 	//=======================================================
 	hr = Direct3DCreate9Ex(D3D_SDK_VERSION, &m_lpD3D);
-	if(FAILED(hr)){
+	if (FAILED(hr)) {
 		return false;
 	}
 
@@ -42,10 +42,10 @@ bool KdDirect3D::Init(HWND hWnd, int width, int height, bool fullscreen, std::st
 	//=======================================================
 	// デバイス作成のための設定
 	//=======================================================
-	ZeroMemory( &m_d3dpp, sizeof(m_d3dpp) );
+	ZeroMemory(&m_d3dpp, sizeof(m_d3dpp));
 	m_d3dpp.BackBufferCount = 2;
 	// フルスクリーンモード時
-	if (fullscreen){
+	if (fullscreen) {
 		m_d3dpp.Windowed = FALSE;
 		m_d3dpp.BackBufferWidth = width;
 		m_d3dpp.BackBufferHeight = height;
@@ -53,7 +53,7 @@ bool KdDirect3D::Init(HWND hWnd, int width, int height, bool fullscreen, std::st
 		m_d3dpp.FullScreen_RefreshRateInHz = 60;
 	}
 	// ウィンドウモード時
-	else{
+	else {
 		m_d3dpp.Windowed = TRUE;
 		m_d3dpp.BackBufferWidth = 0;
 		m_d3dpp.BackBufferHeight = 0;
@@ -84,9 +84,9 @@ bool KdDirect3D::Init(HWND hWnd, int width, int height, bool fullscreen, std::st
 	// ※D3DCREATE_FPU_PRESERVE		…　floatの制度を下げずに維持する(高精度なfloatを使う)
 	DWORD flags = D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE;
 
-//	hr = m_lpD3D->CreateDeviceEx(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, flags, &m_d3dpp, (fullscreen ? &dm : nullptr), &m_lpD3DDev);
+	//	hr = m_lpD3D->CreateDeviceEx(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, flags, &m_d3dpp, (fullscreen ? &dm : nullptr), &m_lpD3DDev);
 	hr = m_lpD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, flags, &m_d3dpp, &m_lpD3DDev);
-	if(FAILED(hr))
+	if (FAILED(hr))
 	{
 		// 失敗
 		errorMsg = "Direct3Dの初期化に失敗", "Direct3D初期化";
@@ -100,7 +100,7 @@ bool KdDirect3D::Init(HWND hWnd, int width, int height, bool fullscreen, std::st
 	// Caps取得
 	//=======================================================
 	m_lpD3DDev->GetDeviceCaps(&m_Caps);
-	
+
 	//=======================================================
 	// デフォルトのバックバッファとZバッファ取得しておく
 	//=======================================================
@@ -120,30 +120,11 @@ bool KdDirect3D::Init(HWND hWnd, int width, int height, bool fullscreen, std::st
 
 	// 射影行列
 	D3DXMATRIX mProj;
-	D3DXMatrixPerspectiveFovLH(&mProj, D3DXToRadian(60), (float)width/height, 0.1f, 2000.0f);
+	D3DXMatrixPerspectiveFovLH(&mProj, D3DXToRadian(60), (float)width / height, 0.1f, 2000.0f);
 	m_lpD3DDev->SetTransform(D3DTS_PROJECTION, &mProj);
 
 	//ライト設定
-	m_Light.Type = D3DLIGHT_DIRECTIONAL;//平行光線
-	//ライトの色
-	m_Light.Diffuse.a = 1.0f;
-	m_Light.Diffuse.r = 1.0f;
-	m_Light.Diffuse.g = 1.0f;
-	m_Light.Diffuse.b = 1.0f;
-
-	//光届かぬ地に光明を
-	m_Light.Ambient.a = 1.0f;
-	m_Light.Ambient.r = 0.2f;
-	m_Light.Ambient.g = 0.2f;
-	m_Light.Ambient.b = 0.2f;
-
-	//光差す方へ
-	auto dir = KdVec3(0.5f, -1, -1);
-	dir.Normalize();
-	m_Light.Direction = dir;
-
-	//ライトのセット
-	m_lpD3DDev->SetLight(0, &m_Light);
+	CreateDirectionalLight(KdVec3(0.5f, -1.0f, -1.0f), D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f), D3DXVECTOR4(1.0f, 0.2f, 0.2f, 0.2f));
 
 	//ライトを有効にする
 	m_lpD3DDev->LightEnable(0, true);
@@ -200,8 +181,8 @@ bool KdDirect3D::Init(HWND hWnd, int width, int height, bool fullscreen, std::st
 void KdDirect3D::Release()
 {
 	// バックバッファとZバッファ解放
-	
-	
+
+
 	//Release(m_OrgRenderTarget);
 	KdSafeRelease(m_OrgRenderTarget);
 	KdSafeRelease(m_OrgDepthStencil);
@@ -259,20 +240,20 @@ bool KdDirect3D::ChangeFullScreenMode()
 void KdDirect3D::SetDefaultState()
 {
 	// DirectGraphicsの詳細設定
-	m_lpD3DDev->SetRenderState(D3DRS_ZENABLE,TRUE);					// Zバッファ有効
-	m_lpD3DDev->SetRenderState(D3DRS_ZWRITEENABLE,TRUE);			// Zバッファに書き込み有効
+	m_lpD3DDev->SetRenderState(D3DRS_ZENABLE, TRUE);					// Zバッファ有効
+	m_lpD3DDev->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);			// Zバッファに書き込み有効
 	m_lpD3DDev->SetRenderState(D3DRS_STENCILENABLE, FALSE);
-	
-	m_lpD3DDev->SetRenderState( D3DRS_ALPHABLENDENABLE, TRUE );		// アルファブレンド有効
+
+	m_lpD3DDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);		// アルファブレンド有効
 
 	// 半透明モード
 	m_lpD3DDev->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
 	m_lpD3DDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	m_lpD3DDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
-	m_lpD3DDev->SetRenderState(D3DRS_NORMALIZENORMALS,TRUE);		//頂点法線の自動正規化
+	m_lpD3DDev->SetRenderState(D3DRS_NORMALIZENORMALS, TRUE);		//頂点法線の自動正規化
 
-	m_lpD3DDev->SetRenderState(D3DRS_SHADEMODE,D3DSHADE_GOURAUD);	// グローシェーディング
+	m_lpD3DDev->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);	// グローシェーディング
 	m_lpD3DDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);		// カリング CCW = 右回り = 表面のみ描画
 
 	// アルファ値個別計算
@@ -283,13 +264,13 @@ void KdDirect3D::SetDefaultState()
 
 	// テクスチャのα値のブレンディング方法の設定
 	// テクスチャα合成処理の方法
-	m_lpD3DDev->SetTextureStageState( 0, D3DTSS_ALPHAOP, D3DTOP_MODULATE );    // 以下の引数の成分を乗算する
-	m_lpD3DDev->SetTextureStageState( 0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE );    // テクスチャの色を使用
-	m_lpD3DDev->SetTextureStageState( 0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE );    // 頂点の色を使用
+	m_lpD3DDev->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);    // 以下の引数の成分を乗算する
+	m_lpD3DDev->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);    // テクスチャの色を使用
+	m_lpD3DDev->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);    // 頂点の色を使用
 	// 色を合成する方法
-	m_lpD3DDev->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE );    // 以下の引数の成分を乗算する
-	m_lpD3DDev->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );    // テクスチャの色を使用
-	m_lpD3DDev->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );    // 頂点の色を使用
+	m_lpD3DDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);    // 以下の引数の成分を乗算する
+	m_lpD3DDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);    // テクスチャの色を使用
+	m_lpD3DDev->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);    // 頂点の色を使用
 
 	// テクスチャ補間を線形に
 	m_lpD3DDev->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
@@ -297,8 +278,8 @@ void KdDirect3D::SetDefaultState()
 	m_lpD3DDev->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR);
 
 	// テクスチャアドレッシングモード設定
-	m_lpD3DDev->SetSamplerState(0,D3DSAMP_ADDRESSU,D3DTADDRESS_WRAP);	// ラップモード
-	m_lpD3DDev->SetSamplerState(0,D3DSAMP_ADDRESSV,D3DTADDRESS_WRAP);	// ラップモード
+	m_lpD3DDev->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_WRAP);	// ラップモード
+	m_lpD3DDev->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_WRAP);	// ラップモード
 
 	// ミップマップ詳細レベルを設定する。
 	float fMipBias = 0.0f;
@@ -314,17 +295,85 @@ void KdDirect3D::SetDefaultState()
 	m_lpD3DDev->SetRenderState(D3DRS_FOGENABLE, FALSE);
 }
 
-void KdDirect3D::LoadTexture(LPDIRECT3DTEXTURE9* lpTex, const std::string &Path, int W, int H, const D3DCOLOR Color)
+void KdDirect3D::CreatePointLight(const D3DXVECTOR3& Pos, const D3DXVECTOR4& Diffuse, const D3DXVECTOR4& Ambient)
+{
+	D3DLIGHT9 tmp = {};
+	tmp.Type = D3DLIGHT_POINT;
+
+	tmp.Position = Pos;
+
+	tmp.Diffuse.a = Diffuse.w;
+	tmp.Diffuse.r = Diffuse.x;
+	tmp.Diffuse.g = Diffuse.y;
+	tmp.Diffuse.b = Diffuse.z;
+
+	tmp.Ambient.a = Ambient.w;
+	tmp.Ambient.r = Ambient.x;
+	tmp.Ambient.g = Ambient.y;
+	tmp.Ambient.b = Ambient.z;
+
+
+	m_Lights.emplace_back(tmp);
+
+	//ライトのセット
+//	m_lpD3DDev->SetLight(&m_Lights.back(), &m_Lights[m_Lights.back()]);
+
+}
+
+void KdDirect3D::CreateDirectionalLight(const D3DXVECTOR3& Dir, const D3DXVECTOR4& Diffuse, const D3DXVECTOR4& Ambient)
+{
+	D3DLIGHT9 tmp = {};
+	tmp.Type = D3DLIGHT_DIRECTIONAL;
+
+	tmp.Diffuse.a = Diffuse.x;
+	tmp.Diffuse.r = Diffuse.y;
+	tmp.Diffuse.g = Diffuse.z;
+	tmp.Diffuse.b = Diffuse.w;
+
+	tmp.Ambient.a = Ambient.x;
+	tmp.Ambient.r = Ambient.y;
+	tmp.Ambient.g = Ambient.z;
+	tmp.Ambient.b = Ambient.w;
+
+	auto dir = Dir;
+	D3DXVec3Normalize(&dir, &dir);
+	tmp.Direction = dir;
+
+	m_Lights.emplace_back(tmp);
+
+	//ライトのセット
+//	m_lpD3DDev->SetLight(0, &m_Lights.back());
+}
+
+void KdDirect3D::DeleteLight()
+{
+	for (UINT i = 1; i < m_Lights.size(); i++)
+	{
+		m_lpD3DDev->LightEnable(i, false);
+		m_Lights.pop_back();
+	}
+}
+
+void KdDirect3D::SetLights()
+{
+	for (UINT i = 0; i < m_Lights.size(); i++)
+	{
+		m_lpD3DDev->SetLight(i, &m_Lights[i]);
+		m_lpD3DDev->LightEnable(i, true);
+	}
+}
+
+void KdDirect3D::LoadTexture(LPDIRECT3DTEXTURE9* lpTex, const std::string& Path, int W, int H, const D3DCOLOR Color)
 {
 	if (W == 0)W = D3DX_DEFAULT;
 	if (H == 0)H = D3DX_DEFAULT;
-	D3DXCreateTextureFromFileEx(m_lpD3DDev,Path.c_str(),W,H, 1, 0, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_DEFAULT, Color, nullptr, nullptr, lpTex);
+	D3DXCreateTextureFromFileEx(m_lpD3DDev, Path.c_str(), W, H, 1, 0, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_DEFAULT, Color, nullptr, nullptr, lpTex);
 }
-void KdDirect3D::LoadTexture(LPDIRECT3DTEXTURE9* lpTex, const std::string &Path, const D3DCOLOR Color)
+void KdDirect3D::LoadTexture(LPDIRECT3DTEXTURE9* lpTex, const std::string& Path, const D3DCOLOR Color)
 {
-	D3DXCreateTextureFromFileEx(m_lpD3DDev,Path.c_str(), D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, 1, 0, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_DEFAULT, Color, nullptr, nullptr, lpTex);
+	D3DXCreateTextureFromFileEx(m_lpD3DDev, Path.c_str(), D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, 1, 0, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_DEFAULT, Color, nullptr, nullptr, lpTex);
 }
-void KdDirect3D::LoadTexture(LPDIRECT3DTEXTURE9* lpTex, const std::string &Path)
+void KdDirect3D::LoadTexture(LPDIRECT3DTEXTURE9* lpTex, const std::string& Path)
 {
 	D3DXCreateTextureFromFileEx(m_lpD3DDev, Path.c_str(), D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, 1, 0, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_DEFAULT, 0, nullptr, nullptr, lpTex);
 }

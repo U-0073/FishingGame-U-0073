@@ -23,8 +23,8 @@ private:
 	D3DXMATRIX mMat2;//エンターキー
 	D3DXVECTOR3 mPos2;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> vTex2 = nullptr;
-
 	int alpha;
+
 
 };
 

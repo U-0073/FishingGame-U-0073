@@ -90,12 +90,13 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>Pch.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -116,12 +117,13 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>Pch.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -153,6 +155,7 @@
     <ClCompile Include="src\Game\Scene\CGameScene.cpp" />
     <ClCompile Include="src\Game\Scene\CMapScene.cpp" />
     <ClCompile Include="src\Game\Scene\CResultScene.cpp" />
+    <ClCompile Include="src\Game\Scene\CRogoScene.cpp" />
     <ClCompile Include="src\Game\Scene\CShopScene.cpp" />
     <ClCompile Include="src\Game\Scene\CTitleScene.cpp" />
     <ClCompile Include="src\Game\Sea.cpp" />
@@ -162,9 +165,11 @@
     <ClCompile Include="src\Game\Shop2D.cpp" />
     <ClCompile Include="src\Game\ShopObject.cpp" />
     <ClCompile Include="src\Game\Skysphere.cpp" />
-    <ClCompile Include="src\Game\TestCharacter.cpp" />
-    <ClCompile Include="src\Game\GameProc.cpp" />
     <ClCompile Include="src\Game\Title.cpp" />
+    <ClCompile Include="src\Pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="src\System\2d\Board.cpp" />
     <ClCompile Include="src\System\Component\InputComponent.cpp" />
     <ClCompile Include="src\System\FrameBase\CGameFrame.cpp" />
@@ -190,6 +195,7 @@
     <ClInclude Include="src\Game\Scene\CGameScene.h" />
     <ClInclude Include="src\Game\Scene\CMapScene.h" />
     <ClInclude Include="src\Game\Scene\CResultScene.h" />
+    <ClInclude Include="src\Game\Scene\CRogoScene.h" />
     <ClInclude Include="src\Game\Scene\CShopScene.h" />
     <ClInclude Include="src\Game\Scene\CTitleScene.h" />
     <ClInclude Include="src\Game\Sea.h" />
@@ -200,9 +206,8 @@
     <ClInclude Include="src\Game\ShopObject.h" />
     <ClInclude Include="src\Game\Skysphere.h" />
     <ClInclude Include="src\Game\structList.h" />
-    <ClInclude Include="src\Game\TestCharacter.h" />
-    <ClInclude Include="src\Game\GameProc.h" />
     <ClInclude Include="src\Game\Title.h" />
+    <ClInclude Include="src\Pch.h" />
     <ClInclude Include="src\System\2d\Board.h" />
     <ClInclude Include="src\System\Component\InputComponent.h" />
     <ClInclude Include="src\System\FrameBase\CGameFrame.h" />
