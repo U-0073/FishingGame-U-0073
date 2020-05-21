@@ -52,6 +52,7 @@ void CMapScene::Init()
 	m_PSound->Playsound("wave3", true, true);
 	m_PBGM = RESOURCE_MNG.GetSound("超使いやすいドラム&ベース無限BGM");
 	m_PBGM->LDS3B8->SetMode(DS3DMODE_DISABLE, DS3D_IMMEDIATE);
+	m_PBGM->SetVol(0.5f);
 	m_PBGM->Playsound("超使いやすいドラム&ベース無限BGM", true, true);
 
 }
