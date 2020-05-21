@@ -12,5 +12,7 @@ public:
 	void Draw3D()override;
 	void End()override;
 private:
-
+	std::shared_ptr<KdModel> ShopModel = nullptr;
+	KdMatrix ShopMat;
+	KdMatrix ShopScail;
 };
