@@ -19,7 +19,7 @@ void C_Player::Init()
 {
 	PlayerPos = InitPos;
 	GameObject::Init();
-	CollisionMat.CreateTrans(0.0f, -1.5f, 0.0f);
+	CollisionMat.SetTrans(0.0f, -1.5f, 0.0f);
 	CollisionModel = RESOURCE_MNG.GetModel("PortWall_CollisionTest1");
 	m_pModel = RESOURCE_MNG.GetModel("Port2");
 
@@ -146,7 +146,7 @@ void C_Player::Move()
 		}
 	}
 
-	TransMat.CreateTrans(PlayerPos);
+	TransMat.SetTrans(PlayerPos);
 	D3DXMatrixRotationY(&PlayerRot, D3DXToRadian(CamAngY));
 	m_world = PlayerRot * TransMat;
 }
@@ -277,7 +277,7 @@ void C_Player::CameraSet()
 		KdMatrix			CamRot;
 		D3DXVECTOR3			Vec;
 
-		CamRot.CreateRotation(D3DXToRadian(CamAngX), D3DXToRadian(CamAngY), 0);
+		CamRot.SetRotation(D3DXToRadian(CamAngX), D3DXToRadian(CamAngY), 0);
 		D3DXVec3TransformCoord(&Vec, &CoordVec.Z, &CamRot);
 
 		CamLook = Vec;
@@ -315,7 +315,7 @@ void C_Player::CameraSet()
 		KdMatrix			CamRot;
 		D3DXVECTOR3			Vec;
 
-		CamRot.CreateRotation(D3DXToRadian(FishScene_CamAngX), D3DXToRadian(CamAngY), 0);
+		CamRot.SetRotation(D3DXToRadian(FishScene_CamAngX), D3DXToRadian(CamAngY), 0);
 		D3DXVec3TransformCoord(&Vec, &CoordVec.Z, &CamRot);
 		CamLook = Vec;
 

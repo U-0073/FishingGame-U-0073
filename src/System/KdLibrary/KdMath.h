@@ -74,14 +74,14 @@ public:
 
 
 	//移動
-	void CreateTrans(float x, float y, float z) {
+	void SetTrans(float x, float y, float z) {
 		(*this)._41 = x;
 		(*this)._42 = y;
 		(*this)._43 = z;
 
 
 	}
-	void CreateTrans(const KdVec3& v) {
+	void SetTrans(const KdVec3& v) {
 		(*this)._41 = v.x;
 		(*this)._42 = v.y;
 		(*this)._43 = v.z;
@@ -96,7 +96,13 @@ public:
 		scl.x = (*this).GetScaleX();
 		scl.y = (*this).GetScaleY();
 		scl.z = (*this).GetScaleZ();
+
+
+
 		D3DXMatrixRotationX(this, rad);
+		
+		
+		
 		D3DXMatrixScaling(&sM, scl.x, scl.y, scl.z);
 		(*this) = sM * rM * (*this);
 		(*this)._41 = pos.x;
@@ -132,33 +138,85 @@ public:
 		(*this)._42 = pos.y;
 		(*this)._43 = pos.z;
 	}
-	void CreateRotation(float radx, float rady, float radz) {
+	void SetRotation(float radx, float rady, float radz) {
 		KdVec3 pos, scl;
 		KdMatrix  rM,sM,Mat;
-		pos = (*this).GetPos();
-		scl.x = (*this).GetScaleX();
-		scl.y = (*this).GetScaleY();
-		scl.z = (*this).GetScaleZ();
-		D3DXMatrixRotationYawPitchRoll(&rM,rady,radx, radz);
-		D3DXMatrixScaling(&sM, scl.x, scl.y, scl.z);
-		D3DXMatrixTranslation(&Mat, pos.x, pos.y, pos.z);
-		(*this) = sM * rM, Mat;
+	
+		//移動行列の取り出し
+		Mat.SetTrans((*this)._41, (*this)._42, (*this)._43);
+
+		//拡大行列の取り出し
+		sM.MoveScal((*this).GetXAxis().Length(), (*this).GetYAxis().Length(), (*this).GetZAxis().Length());
+		
+		//回転行列の取り出し
+		rM.RotateXLocal(radx);
+		rM.RotateYLocal(rady);
+		rM.RotateZLocal(radz);
+
+
+		//sM.CreateScale((*this).GetXAxis().Length(), (*this).GetXAxis().Length(), (*this).GetXAxis().Length());
+
+
+		
+
+
+
+
+		(*this) = sM*rM*Mat;
 	}
 
 	//拡大行列
-	inline void CreateScale(float x, float y, float z) {
-		KdVec3 Pos = (*this).GetPos();
+	inline void SetScale(float x, float y, float z) {
+	
 
-		KdMatrix scl,Mat,rM;
+		if ((*this).GetScaleX()!=0)
+		{
+			//スケールｘの単位化
+			(KdVec3&)_11 /= (*this).GetScaleX();
 
-		D3DXMatrixTranslation(&Mat, Pos.x, Pos.y, Pos.z);
-		rM = (*this);
-		
-		rM._41 = 0;
-		rM._42 = 0;
-		rM._43 = 0;
-		D3DXMatrixScaling(&scl, x, y, z);
-		(*this)=scl*rM * Mat;
+		}
+		else {
+			_11 = 1;
+			_12 = 1;
+			_13 = 1;
+		}
+
+		//スケールｘ
+		(KdVec3&)_11 *= x;
+
+		//スケールｙの単位化
+		if ((*this).GetScaleY() != 0)
+		{
+			//スケールyの単位化
+			(KdVec3&)_21 /= (*this).GetScaleY();
+
+		}
+		else {
+			_21 = 1;
+			_22 = 1;
+			_23 = 1;
+		}
+		//スケールｙ*
+		(KdVec3&)_21 *= y;
+
+		//スケールzの単位化
+		if ((*this).GetScaleZ() != 0)
+		{
+			//スケールzの単位化
+			(KdVec3&)_31 /= (*this).GetScaleZ();
+
+		}
+		else {
+			_31 = 1;
+			_32 = 1;
+			_33 = 1;
+		}
+
+		//スケールz	*
+		(KdVec3&)_31 *= z;
+	
+	
+	
 
 	}
 	//動的な拡大行列の変更
@@ -173,21 +231,21 @@ public:
 	//東西南北天地に進めfloat
 	void MoveWorld(float x, float y, float z) {
 		KdMatrix m;
-		m.CreateTrans(x, y, z);
+		m.SetTrans(x, y, z);
 		*this = (*this)*m;
 	}
 
 	//東西南北天地に進め
 	void MoveWorld(const KdVec3& v) {
 		KdMatrix m;
-		m.CreateTrans(v.x, v.y, v.z);
+		m.SetTrans(v.x, v.y, v.z);
 		*this = (*this)*m;
 	}
 
 	//上下左右に動けfloat
 	void MoveLocal(float x, float y, float z) {
 		KdMatrix m;
-		m.CreateTrans(x, y, z);
+		m.SetTrans(x, y, z);
 		*this = m * (*this);
 	}
 
@@ -195,7 +253,7 @@ public:
 	//上下左右に動け
 	void MoveLocal(const KdVec3& v) {
 		KdMatrix m;
-		m.CreateTrans(v.x, v.y, v.z);
+		m.SetTrans(v.x, v.y, v.z);
 		*this = m * (*this);
 	}
 	
@@ -217,7 +275,7 @@ public:
 	}
 	void RotateWorld(float radx, float rady, float radz ) {
 		KdMatrix m;
-		m.CreateRotation(radx,rady,radz);
+		m.SetRotation(radx,rady,radz);
 		*this = (*this)*m;
 	}
 	//自分座標回転
@@ -237,12 +295,12 @@ public:
 	}
 	void RotateLocal(float radx, float rady, float radz) {
 		KdMatrix m;
-		m.CreateRotation(radx, rady, radz);
+		m.SetRotation(radx, rady, radz);
 		*this = m * (*this);
 	}
 	void Scaling(float x, float y, float z) {
 		KdMatrix m;
-		m.CreateScale(x, y, z);
+		m.SetScale(x, y, z);
 		*this = m * (*this);
 	}
 
@@ -280,68 +338,6 @@ public:
 		return GetZAxis().Length();
 	}
 
-	//////自分の傾きrad角
-	//float GetXDegRot() {
-	//	KdVec3 v = GetYAxis();
 
-	//	v.Normalize();
-	//	v.x = 0;
-
-	//	float ToRot = D3DXVec3Dot(&D3DXVECTOR3(0, 1, 0), &v);
-
-	//	//======================================
-
-	//	//角度変換
-	//	ToRot = D3DXToDegree(acos(ToRot));
-	//	//補正
-	//	if (v.x < 0) {
-	//		ToRot *= -1;
-	//	}
-	//	return ToRot;
-	//}
-
-
-
-	//////自分の傾きrad角
-	//float GetYDegRot(){
-	//	KdVec3 v = GetXAxis();
-
-	//	v.Normalize();
-	//	v.y = 0;
-
-	//	float ToRot = D3DXVec3Dot(&D3DXVECTOR3(1, 0, 0), &v);
-
-	//	//======================================
-
-	//	//角度変換
-	//	ToRot = D3DXToDegree(acos(ToRot));
-	//	//補正
-	//	if (v.y < 0) {
-	//		ToRot *= -1;
-	//	}
-	//	return ToRot;
-	//}
-	////自分の傾きrad角
-	//float GetZDegRot() {
-	//	KdVec3 v = GetXAxis();
-
-	//	v.Normalize();
-	//	//v.Inverse();
-	//	v.z = 0;
-
-	//	float ToRot = D3DXVec3Dot(&D3DXVECTOR3(1, 0, 0), &v);
-
-	//	//======================================
-
-	//	//角度変換
-	//	ToRot = D3DXToDegree(acos(ToRot));
-	//	//補正
-	//	if (v.x < 0) {
-	//		ToRot *= -1;
-	//	}
-	//	ToRot *= -1;
-	//	return ToRot;
-
-	//}
 	
 };

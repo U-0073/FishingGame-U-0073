@@ -21,10 +21,10 @@ void Seagull::Init()
 	SeagullPos.z = rand() % 300 - 150;
 	
 	//行列設定
-	TransMat.CreateTrans(SeagullPos);
+	TransMat.SetTrans(SeagullPos);
 
 	//回転設定
-	RotMat.CreateRotation(SeagullRot.x, SeagullRot.y, SeagullRot.z);
+	RotMat.SetRotation(SeagullRot.x, SeagullRot.y, SeagullRot.z);
 
 	//合成
 	m_world = RotMat * TransMat;
@@ -40,11 +40,11 @@ void Seagull::Update()
 {
 	//カモメ前方へ移動
 	//SeagullPos.z += 1;
-	TransMat.CreateTrans(SeagullPos);
+	TransMat.SetTrans(SeagullPos);
 
 	//カモメ右回転
 	SeagullRot.y += 0.01f;
-	RotMat.CreateRotation(SeagullRot.x, SeagullRot.y,SeagullRot.z);
+	RotMat.SetRotation(SeagullRot.x, SeagullRot.y,SeagullRot.z);
 
 	//合成
 	m_world = RotMat * TransMat;

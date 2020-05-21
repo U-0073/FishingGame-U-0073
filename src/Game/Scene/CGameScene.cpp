@@ -21,10 +21,10 @@ void CGameScene::Init()
 	notesTex = RESOURCE_MNG.GetTexture("ScaleRing2.png");
 	backTex = RESOURCE_MNG.GetTexture("SeaBack002.png");
 
-	ringMat.CreateTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
+	ringMat.SetTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
 	SetPos(KdVec3(ringMat._41, ringMat._42, ringMat._43));
 	notesMat = ringMat;
-	backMat.CreateTrans(1280 / 2, 720 / 2, 0);
+	backMat.SetTrans(1280 / 2, 720 / 2, 0);
 
 	//ŠgkƒTƒCƒY
 	scale = 2.0f;
@@ -175,7 +175,7 @@ int CGameScene::Update()
 			}
 
 			judgeFlg = 0;
-			ringMat.CreateTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
+			ringMat.SetTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
 			SetPos(KdVec3(ringMat._41, ringMat._42, ringMat._43));
 			notesMat = ringMat;
 
@@ -205,7 +205,7 @@ void CGameScene::Draw2D()
 	//ƒm[ƒc
 	KdMatrix scaleMat;
 	notesMat = ringMat;
-	scaleMat.CreateScale(scale, scale, 0);
+	scaleMat.SetScale(scale, scale, 0);
 	notesMat = scaleMat * notesMat;
 	SPRITE->SetTransform(&notesMat);
 	if (scale > 0.7f && scale < 1.0f) {
@@ -218,7 +218,7 @@ void CGameScene::Draw2D()
 	//”»’è‰æ‘œ
 	if (judgeFlg != 0) {
 		//judgeMat.CreateTrans();
-		scaleMat.CreateScale(1.0f, 1.0f, 0);
+		scaleMat.SetScale(1.0f, 1.0f, 0);
 		judgeMat = scaleMat * judgeMat;
 		SPRITE->SetTransform(&judgeMat);
 		rc = { 0,0,335,200 };
