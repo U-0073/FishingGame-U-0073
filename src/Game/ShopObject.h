@@ -12,7 +12,7 @@ public:
 	void Draw3D()override;
 	void End()override;
 
-	void GetListChange(int);
+	void Get2D(int, int);
 
 private:
 
@@ -21,7 +21,9 @@ private:
 	//std::shared_ptr<KdModel> m_pNormalRod3 = nullptr;
 
 	std::map<std::string, std::shared_ptr<KdModel>> Rod;
-	
+	std::map<std::string, std::shared_ptr<KdModel>> Reel;
 
-	int tPattern;
+	D3DXMATRIX m_reel, m_reelScal, m_reelRot;
+
+	int tPattern,Cur;
 };
