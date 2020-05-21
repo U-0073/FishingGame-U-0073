@@ -2,7 +2,6 @@
 #include"../../System/FrameBase/CGameFrame.h"
 
 #include "CGameScene.h"
-#include"../GameProc.h"
 
 CGameScene::CGameScene()
 {
@@ -21,10 +20,10 @@ void CGameScene::Init()
 	notesTex = RESOURCE_MNG.GetTexture("ScaleRing2.png");
 	backTex = RESOURCE_MNG.GetTexture("SeaBack002.png");
 
-	ringMat.CreateTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
+	ringMat.SetTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
 	SetPos(KdVec3(ringMat._41, ringMat._42, ringMat._43));
 	notesMat = ringMat;
-	backMat.CreateTrans(1280 / 2, 720 / 2, 0);
+	backMat.SetTrans(1280 / 2, 720 / 2, 0);
 
 	//ŠgkƒTƒCƒY
 	scale = 2.0f;
@@ -105,7 +104,6 @@ int CGameScene::Update()
 
 	if (GetKey(VK_LBUTTON) & 0x8000) {
 		if (!keyFlg) {
-			//SetPos(KdVec3(ringMat._41, ringMat._42, ringMat._43));
 			clickPos = { (float)Mouse.x,(float)Mouse.y,0.0f };
 			KdVec3 ringPos = { ringMat._41, ringMat._42, ringMat._43 };
 			len = ringMat.GetPos().LengthToTarget(clickPos);
@@ -177,7 +175,7 @@ int CGameScene::Update()
 			}
 
 			judgeFlg = 0;
-			ringMat.CreateTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
+			ringMat.SetTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
 			SetPos(KdVec3(ringMat._41, ringMat._42, ringMat._43));
 			notesMat = ringMat;
 
@@ -207,7 +205,7 @@ void CGameScene::Draw2D()
 	//ƒm[ƒc
 	KdMatrix scaleMat;
 	notesMat = ringMat;
-	scaleMat.CreateScale(scale, scale, 0);
+	scaleMat.SetScale(scale, scale, 0);
 	notesMat = scaleMat * notesMat;
 	SPRITE->SetTransform(&notesMat);
 	if (scale > 0.7f && scale < 1.0f) {

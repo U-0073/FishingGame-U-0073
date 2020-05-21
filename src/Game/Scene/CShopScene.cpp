@@ -1,6 +1,5 @@
 #include"../../System/KdLibrary/KdLibrary.h"
 #include"CShopScene.h"
-#include"../GameProc.h"
 
 #include"../Shop2D.h"
 #include"../ShopObject.h"

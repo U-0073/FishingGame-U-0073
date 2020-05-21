@@ -43,18 +43,11 @@ void Fish::Init()
 	//m_world.CreateScale(0.5, 0.5, 0.5);
 	//m_world.CreateRotation(0, D3DXToRadian(90), 0);
 	m_pModel= RESOURCE_MNG.GetModel(m_Tag);
-	
+	m_world.SetScale(0.1, 0.1, 0.1);
 }
 
 void Fish::Update()
 {
-	FishLen = KdVec3(FishPos.x, FishPos.y, FishPos.z);
-	KdVec3 m,n;
-
-	float len =m.LengthToTarget(n);
-
-
-
 	if (GetKey('Q') & 0x8000)
 	{
 		Init();
@@ -138,21 +131,27 @@ void Fish::End()
 
 void Fish::TitleUpdate()
 {
+	//m_world.SetTrans(0, 0, 15);
+	//m_world.RotateLocal(0, D3DXToRadian(0.5), 0);
+		
+	//m_world.SetRotation(0, D3DXToRadian(90), 0);
 
-	//m_world.CreateRotation(0, D3DXToRadian(90), 0);
-	//
-	//m_world.CreateTrans(0, 0, 15);
-	//m_world.CreateScale(0.1, 0.1, 0.1);
-		m_world.MoveLocal(0, 0, -0.5);
+		//m_world.CreateScale(0.1, 0.1, 0.1);	
+	m_world.MoveLocal(0, 0, -0.5);
+
+
+
+
+
 
 }
 
 void Fish::ResultUpdate()
 {
 	
-	m_world.CreateTrans(0.0f, 1.0f, 0);
+	m_world.SetTrans(0.0f, 1.0f, 0);
 	m_world.CreateRotationY(D3DXToRadian(90));
-	m_world.CreateScale(2, 2, 2);
+	m_world.SetScale(2, 2, 2);
 }
 
 

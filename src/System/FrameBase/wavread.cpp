@@ -369,8 +369,6 @@ void SoundBase::Copysound(const std::string&, int Init, int Loop)
 
 void SoundBase::Update()
 {
-	//lpSListener->SetPosition();
-
 /*
 	for (int i = 0; i < List.size(); i++)
 	{

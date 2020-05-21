@@ -165,8 +165,6 @@
     <ClCompile Include="src\Game\Shop2D.cpp" />
     <ClCompile Include="src\Game\ShopObject.cpp" />
     <ClCompile Include="src\Game\Skysphere.cpp" />
-    <ClCompile Include="src\Game\TestCharacter.cpp" />
-    <ClCompile Include="src\Game\GameProc.cpp" />
     <ClCompile Include="src\Game\Title.cpp" />
     <ClCompile Include="src\Pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -208,8 +206,6 @@
     <ClInclude Include="src\Game\ShopObject.h" />
     <ClInclude Include="src\Game\Skysphere.h" />
     <ClInclude Include="src\Game\structList.h" />
-    <ClInclude Include="src\Game\TestCharacter.h" />
-    <ClInclude Include="src\Game\GameProc.h" />
     <ClInclude Include="src\Game\Title.h" />
     <ClInclude Include="src\Pch.h" />
     <ClInclude Include="src\System\2d\Board.h" />
