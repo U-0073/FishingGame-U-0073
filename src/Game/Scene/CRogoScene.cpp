@@ -31,10 +31,6 @@ int CRogoScene::Update()
 		FADE.Start(5);
 		return TITLE;
 	}
-	/*if (GetKey('M') & 0x8000) {
-		FADE.Start(2.5);
-		return MAP;
-	}*/
 
 	return ROGO;
 }
