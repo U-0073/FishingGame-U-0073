@@ -67,12 +67,12 @@ void C_Player::Update()
 		KdVec3 Vec(0.0f, 0.1f, 0.0f);
 		PlayerPos -= Vec;
 	}
-	if (GetKey('8') & 0x8000) {//前へ
+	if (GetKey('8') & 0x8000) {
 											//	　（クライアント座標）（スクリーン座標）
 		SetCursorPos(BasePt.x, BasePt.y);
 		ShowCursor(FALSE);
 	}
-	if (GetKey('7') & 0x8000) {//前へ
+	if (GetKey('7') & 0x8000) {
 											//	　（クライアント座標）（スクリーン座標）
 		SetCursorPos(BasePt.x, BasePt.y);
 		ShowCursor(TRUE);
@@ -124,7 +124,9 @@ void C_Player::Move()
 			D3DXVECTOR3	Vec;
 
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Front, &RotMat);
-			MoveRay(Vec);
+			MoveRay(Vec,CollisionMat, CollisionModel->GetMesh());
+
+
 		}
 		if (GetKey('A') & 0x8000) {//左
 			D3DXMATRIX RotMat;
@@ -132,7 +134,7 @@ void C_Player::Move()
 			D3DXVECTOR3	Vec;
 
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Left, &RotMat);
-			MoveRay(Vec);
+			MoveRay(Vec,CollisionMat, CollisionModel->GetMesh());
 			if (WallFlg) {
 			}
 		}
@@ -142,7 +144,7 @@ void C_Player::Move()
 			D3DXVECTOR3	Vec;
 
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Back, &RotMat);
-			MoveRay(Vec);
+			MoveRay(Vec, CollisionMat, CollisionModel->GetMesh());
 		}
 		if (GetKey('D') & 0x8000) {//右
 			D3DXMATRIX RotMat;
@@ -150,7 +152,7 @@ void C_Player::Move()
 			D3DXVECTOR3	Vec;
 
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Right, &RotMat);
-			MoveRay(Vec);
+			MoveRay(Vec, CollisionMat, CollisionModel->GetMesh());
 			if (WallFlg) {
 			}
 		}
@@ -378,11 +380,11 @@ void C_Player::Draw2D()
 }
 
 
-void C_Player::MoveRay(D3DXVECTOR3 Vec)
+void C_Player::MoveRay(D3DXVECTOR3 Vec, KdMatrix Mat ,LPD3DXBASEMESH lpMesh)
 {
 	//かべずり判定（メッシュ）
 	D3DXMATRIX	InvMat;
-	D3DXMatrixInverse(&InvMat, NULL, &CollisionMat);
+	D3DXMatrixInverse(&InvMat, NULL, &Mat);
 	D3DXVECTOR3	LocalPos, LocalVec;
 	D3DXVec3TransformCoord(&LocalPos, &(PlayerPos), &InvMat);
 	D3DXVec3TransformNormal(&LocalVec, &Vec, &InvMat);
@@ -391,30 +393,30 @@ void C_Player::MoveRay(D3DXVECTOR3 Vec)
 	TextMeshDis = 0;
 	float MeshDis;
 	DWORD PolyNo;	//ポリゴン番号
-	D3DXIntersect(CollisionModel->GetMesh(), &LocalPos, &LocalVec, &Hit,
+	D3DXIntersect(lpMesh, &LocalPos, &LocalVec, &Hit,
 		&PolyNo, NULL, NULL, &TextMeshDis, NULL, NULL);
 
 
 	if (Hit) {
 		//レイ判定で当たっているポリゴンの識別
 		WORD* pI;
-		CollisionModel->GetMesh()->LockIndexBuffer(0, (LPVOID*)&pI);
+		lpMesh->LockIndexBuffer(0, (LPVOID*)&pI);
 		DWORD VertexNo[3];
 		VertexNo[0] = *(pI + PolyNo * 3 + 0);
 		VertexNo[1] = *(pI + PolyNo * 3 + 1);
 		VertexNo[2] = *(pI + PolyNo * 3 + 2);
 
-		CollisionModel->GetMesh()->UnlockIndexBuffer();
+		lpMesh->UnlockIndexBuffer();
 
 
 		CLONEVERTEX* pV;
-		CollisionModel->GetMesh()->LockVertexBuffer(0, (LPVOID*)&pV);
+		lpMesh->LockVertexBuffer(0, (LPVOID*)&pV);
 		D3DXVECTOR3		VPos[3];
 		VPos[0] = (pV + VertexNo[0])->Pos;
 		VPos[1] = (pV + VertexNo[1])->Pos;
 		VPos[2] = (pV + VertexNo[2])->Pos;
 
-		CollisionModel->GetMesh()->UnlockVertexBuffer();
+		lpMesh->UnlockVertexBuffer();
 
 
 		//壁ずりプログラム	三角形の底面と斜面のベクトルを入手    →△
@@ -425,7 +427,7 @@ void C_Player::MoveRay(D3DXVECTOR3 Vec)
 		D3DXVECTOR3 WallVec;
 		D3DXVec3Cross(&WallVec, &Vec1, &Vec2);
 
-		D3DXVec3TransformNormal(&WallVec, &WallVec, &CollisionMat);//長さを1に
+		D3DXVec3TransformNormal(&WallVec, &WallVec, &Mat);//長さを1に
 		//						　①		 ②		　 ③		　 1:3D空間上での法線の向き　
 		//														   2:メッシュ作成用の法線の向き
 		//														   3:建物用メッシュの行列
