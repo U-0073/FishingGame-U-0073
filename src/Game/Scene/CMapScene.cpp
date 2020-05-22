@@ -52,6 +52,7 @@ void CMapScene::Init()
 	m_PSound->Playsound("wave3", true, true);
 	m_PBGM = RESOURCE_MNG.GetSound("超使いやすいドラム&ベース無限BGM");
 	m_PBGM->LDS3B8->SetMode(DS3DMODE_DISABLE, DS3D_IMMEDIATE);
+	m_PBGM->SetVol(0.5f);
 	m_PBGM->Playsound("超使いやすいドラム&ベース無限BGM", true, true);
 
 }
@@ -65,8 +66,8 @@ int CMapScene::Update()
 
 	m_Fishing->SetCamAngY(m_Player->GetCamAngY());
 	m_Fishing->SetPlayerPos(m_Player->GetPlayerPos());
-	m_Fishing->SetFishFlg(m_Player->GetFeshFlg());
-	m_Fishing->SetBuoiFlg(m_Player->GetBuoiFlg());
+	m_Fishing->SetFishingFlg(m_Player->GetFishingFlg());
+	m_Fishing->SetBuoyFlg(m_Player->GetBuoyFlg());
 	m_Fishing->Update();
 
 	m_Seagull->Update();

@@ -158,6 +158,7 @@ void C_Player::Move()
 
 	TransMat.SetTrans(PlayerPos);
 	D3DXMatrixRotationY(&PlayerRot, D3DXToRadian(CamAngY));
+	
 	m_world = PlayerRot * TransMat;
 }
 
@@ -248,8 +249,8 @@ void C_Player::CameraSet()
 	static bool			StopFlg = false;//釣りモードに移行した一回の間だけ動かす処理用
 
 	//カメラの移動が終わったときに浮きが浮くようにするもの
-	if (flg1 && flg2) { BuoiFlg = true; }
-	else { BuoiFlg = false; }
+	if (flg1 && flg2) { BuoyFlg = true; }
+	else { BuoyFlg = false; }
 
 	//釣りモードじゃないとき
 	if (!FishFlg) {
@@ -269,7 +270,7 @@ void C_Player::CameraSet()
 			KdMatrix		CamRot;
 			KdVec3			TmpVec;
 
-			CamRot.CreateRotationY(D3DXToRadian(CamAngY));
+			CamRot.SetRotation(0,D3DXToRadian(CamAngY),0);
 			D3DXVec3TransformCoord(&TmpVec, &CoordVec.Z, &CamRot);
 			FishScene_CamPos -= TmpVec * 0.025f;
 			D3DXVec3TransformCoord(&TmpVec, &CoordVec.Y, &CamRot);
@@ -288,7 +289,7 @@ void C_Player::CameraSet()
 		KdMatrix			CamRot;
 		D3DXVECTOR3			Vec;
 
-		CamRot.SetRotation(D3DXToRadian(CamAngX), D3DXToRadian(CamAngY), 0);
+		CamRot.CreateRotation(D3DXToRadian(CamAngX), D3DXToRadian(CamAngY), 0);
 		D3DXVec3TransformCoord(&Vec, &CoordVec.Z, &CamRot);
 
 		CamLook = Vec;
@@ -313,7 +314,7 @@ void C_Player::CameraSet()
 			KdMatrix CamRot;
 			KdVec3 TmpVec;
 
-			CamRot.CreateRotationY(D3DXToRadian(CamAngY));
+			CamRot.SetRotation(0,D3DXToRadian(CamAngY),0);
 			D3DXVec3TransformCoord(&TmpVec, &CoordVec.Z, &CamRot);
 			FishScene_CamPos += TmpVec * 0.025f;
 			D3DXVec3TransformCoord(&TmpVec, &CoordVec.Y, &CamRot);

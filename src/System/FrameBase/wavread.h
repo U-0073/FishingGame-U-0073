@@ -56,7 +56,9 @@ public:
 
 	void Playsound(const std::string& Key, bool Init, bool Loop);
 
-	void SetVolume(const int& Volume) { LDSB8->SetVolume(Volume); }
+	void SetVol(float Volume) {
+		if (Volume < 0)Volume = 0;
+		LDSB8->SetVolume(-5000 + (5000 * Volume)); }
 	void SetFreq(const float& Freq) { LDSB8->SetFrequency(Hz * Freq); }
 
 	LPDIRECTSOUND3DBUFFER8	LDS3B8;
