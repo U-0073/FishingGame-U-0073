@@ -24,7 +24,7 @@ void CResultScene::Init()
 	Sky = std::make_shared<Skysphere>();
 	Sky->Init();
 	fish = std::make_shared<Fish>();
-	//fish->SetTagType(4);
+	fish->SetTagType(0);//ŠÔˆá‚¦‚Äƒ^ƒCƒgƒ‹‚Å‰Ÿ‚µ‚½‚Æ‚«‚É—Ž‚¿‚È‚¢‚æ‚¤‚É‚·‚é‚½‚ß
 	fish->Init();
 	NameTex = RESOURCE_MNG.GetTexture(fish->getTag() + ".png");
 	mNameMat.SetTrans(1280.0f/2, 720.0f/2+75, 0.0f);
@@ -33,11 +33,7 @@ void CResultScene::Init()
 	if (fish->getTag() == "SunFish"||fish->getTag()=="Whale") {
 		CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -50), fish->GetFishPos());
 	}
-	else {
-		CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -25), fish->GetFishPos());
-	
-	}
-	//CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -25), fish->GetFishPos());
+	CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -25), fish->GetFishPos());
 	KD3D.CreateDirectionalLight(D3DXVECTOR3(0, 0, -1), D3DXVECTOR4(1, 1, 1, 1), D3DXVECTOR4(1.0, 1.0, 1.0, 1.0));
 	
 }
