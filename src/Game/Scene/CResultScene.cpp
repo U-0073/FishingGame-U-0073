@@ -25,15 +25,15 @@ void CResultScene::Init()
 	Sky->Init();
 	fish = std::make_shared<Fish>();
 	fish->SetTagType(0);//ŠÔˆá‚¦‚Äƒ^ƒCƒgƒ‹‚Å‰Ÿ‚µ‚½‚Æ‚«‚É—Ž‚¿‚È‚¢‚æ‚¤‚É‚·‚é‚½‚ß
-	fish->Init();
+	fish->ResultInit();
 	NameTex = RESOURCE_MNG.GetTexture(fish->getTag() + ".png");
 	mNameMat.SetTrans(1280.0f/2, 720.0f/2+75, 0.0f);
 	result = std::make_shared<Result>();
 	result->Init();
+	CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -25), fish->GetFishPos());
 	if (fish->getTag() == "SunFish"||fish->getTag()=="Whale") {
 		CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -50), fish->GetFishPos());
 	}
-	CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -25), fish->GetFishPos());
 	KD3D.CreateDirectionalLight(D3DXVECTOR3(0, 0, -1), D3DXVECTOR4(1, 1, 1, 1), D3DXVECTOR4(1.0, 1.0, 1.0, 1.0));
 	
 }
@@ -42,7 +42,6 @@ int CResultScene::Update()
 {
 	result->Update();
 	Sky->SetPos(mPos);
-	fish->ResultUpdate();
 	if (GetKey(VK_RETURN) & 0x8000)
 	{
 		FADE.Start(5);
