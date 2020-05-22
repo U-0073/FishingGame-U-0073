@@ -149,7 +149,7 @@ void Fish::TitleUpdate()
 void Fish::ResultUpdate()
 {
 	
-	m_world.SetTrans(0.0f, 1.0f, 0);
+	m_world.SetTrans(0.0f, 5.0f, 0);
 	m_world.CreateRotationY(D3DXToRadian(90));
 	m_world.SetScale(2, 2, 2);
 }
