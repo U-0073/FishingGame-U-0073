@@ -8,10 +8,10 @@ public:
 	void SetNo  (const std::string& Tag, const float& data)			{ No[Tag] = data; }
 	void SetFlg  (const std::string& Tag, const float& data)			{ Flg[Tag] = data; }
 
-	std::string GetFishName(const std::string& Tag) { return Str[Tag]; }
-	KdVec3		GetPos(const std::string& Tag)		{ return Pos[Tag]; }
-	float	    GetNo(const std::string& Tag)		{ return No[Tag]; }
-	float	    GetFlg(const std::string& Tag)		{ return Flg[Tag]; }
+	std::string& GetFishName(const std::string& Tag) { return Str[Tag]; }
+	KdVec3&		GetPos(const std::string& Tag)		{ return Pos[Tag]; }
+	float&	    GetNo(const std::string& Tag)		{ return No[Tag]; }
+	bool&	    GetFlg(const std::string& Tag)		{ return Flg[Tag]; }
 
 private:
 	std::map<std::string, std::string>	Str;

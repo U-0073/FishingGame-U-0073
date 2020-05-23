@@ -62,6 +62,11 @@ void C_Fishing::FishingProc()
 		}
 	}
 	else {
+		//ブイをカメラの真後ろに置いて隠す
+		KdVec3 Vec= DTWHOUCE.GetPos("CamLookVec");
+		Vec.Inverse();
+		BuoyPos = CAMERA.GetCameraPos() + (Vec * 1.5f);
+
 		StopFlg = false;
 		HitFlg = false;
 	}
@@ -79,7 +84,7 @@ void C_Fishing::FishingProc()
 			}
 		}
 	}
-
+	
 	TransMat.SetTrans(BuoyPos);
 	m_world = ScileMat * TransMat;
 }
