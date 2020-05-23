@@ -72,6 +72,7 @@ int CMapScene::Update()
 
 	m_Seagull->Update();
 
+
 	if (GetKey(VK_SPACE) & 0x8000)
 	{
 		FADE.Start(5);

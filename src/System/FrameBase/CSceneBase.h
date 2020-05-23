@@ -13,8 +13,6 @@ public:
 	virtual void Draw3D();
 	virtual int GetID() = 0;
 	virtual void End() {};
-	virtual std::string GetData() { return ""; };
-	virtual void SetData(std::string) {};
 
 private:
 

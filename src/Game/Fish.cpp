@@ -1,4 +1,5 @@
 #include"../System/KdLibrary/KdLibrary.h"
+#include"../System/FrameBase/CGameFrame.h"
 #include"Fish.h"
 
 Fish::Fish()
@@ -37,11 +38,14 @@ void Fish::SetTagType(int No)
 
 void Fish::Init()
 {
-	GameObject::Init();
+	if (!m_Tag.length())
+	{
+		if (MessageBox(GETHWND, "ãõÇÃñºëOÇ™ê›íËÇ≥ÇÍÇƒÇ¢Ç‹ÇπÇÒ", "Error", MB_ICONINFORMATION) == IDOK)
+		{
+			PostQuitMessage(0);
+		}
+	}
 
-
-	//m_world.CreateScale(0.5, 0.5, 0.5);
-	//m_world.CreateRotation(0, D3DXToRadian(90), 0);
 	m_pModel = RESOURCE_MNG.GetModel(m_Tag);
 	m_world.SetScale(0.1, 0.1, 0.1);
 }
@@ -74,7 +78,7 @@ void Fish::Update()
 			RotMat.CreateRotationY(D3DXToRadian(AngY));
 			D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, 1), &RotMat);
 
-			FishPos -= Vec * 0.5;
+			FishPos -= Vec * 0.5f;
 			FishPosZCnt -= 0.5f;
 		}
 

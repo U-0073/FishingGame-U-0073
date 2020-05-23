@@ -21,8 +21,6 @@ public:
 	void SetTagType(std::string Name);
 	int GetID()override { return RESULT; };
 	void End()override;
-	std::string GetData()override { return ""; };
-	void SetData(std::string data);
 private:
 	D3DXVECTOR3 mPos;
 	BOOL MoveFlg;
