@@ -63,11 +63,9 @@ private:
 	{
 		int calcAve = Excellent / (Excellent + Miss);//calcAveは全ノーツのエクセレント率
 		score.Set(Excellent, Miss, calcAve);
+		DTWHOUCE.SetPos("score",score);
 	}
-	const KdVec3 ReturnScore()
-	{
-		return score;
-	}
+
 
 	//スコアチェッカー
 	int clickCNT;
