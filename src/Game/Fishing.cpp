@@ -33,7 +33,7 @@ void C_Fishing::Update()
 
 	FishingProc();
 
-	DTWHOUCE.SetPos("Buoy", BuoyPos);
+	DTWHOUCE.SetVec("Buoy", BuoyPos);
 
 	(*m_Fishes).Update();
 

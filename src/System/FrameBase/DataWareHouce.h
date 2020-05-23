@@ -4,7 +4,7 @@ class DataWareHouce
 {
 public:
 	void SetName(const std::string& Tag, const std::string& data)	{ Str[Tag] = data; }
-	void SetPos (const std::string& Tag, const KdVec3& data)		{ Pos[Tag] = data; }
+	void SetVec (const std::string& Tag, const KdVec3& data)		{ Pos[Tag] = data; }
 	void SetNo  (const std::string& Tag, const float& data)			{ No[Tag] = data; }
 	void SetFlg  (const std::string& Tag, const float& data)			{ Flg[Tag] = data; }
 

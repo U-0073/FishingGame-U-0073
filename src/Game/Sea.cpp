@@ -18,7 +18,7 @@ void Sea::Init()
 	verNum = MESH->GetNumVertices();
 	//ˆÊ’u‚ÌÝ’è
 	D3DXMatrixTranslation(&m_world, 0, -3, 0);
-	DTWHOUCE.SetPos("Sea", m_world.GetPos());
+	DTWHOUCE.SetVec("Sea", m_world.GetPos());
 	//
 	int vSize = MESH->GetNumBytesPerVertex();
 

@@ -63,7 +63,7 @@ private:
 	{
 		int calcAve = Excellent / (Excellent + Miss);//calcAveは全ノーツのエクセレント率
 		score.Set(Excellent, Miss, calcAve);
-		DTWHOUCE.SetPos("score",score);
+		DTWHOUCE.SetVec("score",score);
 	}
 
 

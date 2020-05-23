@@ -75,7 +75,7 @@ void C_Player::Update()
 		SetCursorPos(BasePt.x, BasePt.y);
 		ShowCursor(TRUE);
 	}
-	DTWHOUCE.SetPos("Player", PlayerPos);
+	DTWHOUCE.SetVec("Player", PlayerPos);
 	DTWHOUCE.SetFlg("Fishing", FishingFlg);
 		
 }

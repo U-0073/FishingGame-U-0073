@@ -44,7 +44,7 @@ void CCamera::Set(const D3DXVECTOR2& mWindowSize)
 	lpSListener->SetPosition(Pos.x, Pos.y, Pos.z, DS3D_IMMEDIATE);
 	lpSListener->SetOrientation(LookVec.x, LookVec.y, LookVec.z, 0, 1, 0, DS3D_IMMEDIATE);
 
-	DTWHOUCE.SetPos("CamLookVec", LookVec);
+	DTWHOUCE.SetVec("CamLookVec", LookVec);
 }
 
 //カメラの位置と向いてほしい方向ベクトルを渡す
