@@ -19,6 +19,12 @@ void CResultScene::SetTagType(std::string Name)
 
 void CResultScene::Init()
 {
+	fish = std::make_shared<Fish>();
+	fish->SetTagType(0);
+	fish->ResultInit();
+
+
+
 	mPos = { 0,0,0 };
 
 	Sky = std::make_shared<Skysphere>();
@@ -38,7 +44,6 @@ void CResultScene::Init()
 int CResultScene::Update()
 {
 	result->Update();
-	Sky->SetPos(mPos);
 	if (GetKey(VK_RETURN) & 0x8000)
 	{
 		FADE.Start(5);
@@ -67,12 +72,6 @@ void CResultScene::Draw2D()
 
 }
 
-void CResultScene::SetData(std::string data)
-{
-	fish = std::make_shared<Fish>();
-	fish->SetTagType(data);
-	fish->ResultInit();
-}
 
 void CResultScene::Draw3D()
 {

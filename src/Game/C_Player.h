@@ -27,16 +27,14 @@ public:
 	C_Player();
 	~C_Player();
 
-	void Init()override;		//初期化用関数
+	void Init  ()override;
 	void Update()override;
-	void Draw3D()override;
 	void Draw2D()override;
+	void Draw3D()override;
 
 	//プレイヤーの座標を外部に渡す関数
-	const KdVec3& GetPlayerPos()const { return PlayerPos; }
 	const float& GetCamAngY()	const { return CamAngY; }
-	const bool& GetFishingFlg()	const { return FishFlg; }
-	const bool& GetBuoyFlg()	const { return BuoyFlg; }
+	const bool& GetFishingFlg()	const { return FishingFlg; }
 
 	void End();
 private:
@@ -45,7 +43,7 @@ private:
 	void FlgProc();			//大本のフラグ管理用関数
 	void MoveProc();
 	void Move();
-	void Earth();
+	void HitObject();
 	void CameraProc();
 	void CameraSet();
 	void MouseUpdate();
@@ -53,7 +51,6 @@ private:
 	void MoveRay(D3DXVECTOR3 Vec);	//当たり判定を含めた移動
 	//---------行列-------------
 	//固定変数
-	KdVec3			InitPos = KdVec3(0.0f, 0.0f, 0.0f);		//初期位置
 	KdVec3			InitCamPos = KdVec3(0.0f, 2.0f, 0.0f);
 	S_CoordVec		CoordVec;
 
@@ -90,10 +87,10 @@ private:
 	float TextDot;
 	float TextMeshDis2;
 
-	bool				FishFlg = false;
+	bool				FishingFlg = false;
 	bool				RestoreFlg = false;
-	bool				BuoyFlg = false;		//浮きを動かすか否か
 	bool				WallFlg = false;
+	bool				ClickFlg = false;
 
 
 };

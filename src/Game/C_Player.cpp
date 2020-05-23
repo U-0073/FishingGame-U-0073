@@ -17,8 +17,8 @@ C_Player::~C_Player()
 
 void C_Player::Init()
 {
-	PlayerPos = InitPos;
-	GameObject::Init();
+	PlayerPos = { 0,2.5,0 };
+	CAMERA.SetCameraVec(PlayerPos, KdVec3(0, 0, 1));
 	CollisionMat.SetTrans(0.0f, -1.5f, 0.0f);
 	CollisionModel = RESOURCE_MNG.GetModel("PortWall_CollisionTest1");
 	m_pModel = RESOURCE_MNG.GetModel("Portfloer_Collision");
@@ -30,22 +30,20 @@ void C_Player::Init()
 										//	　（クライアント座標）（スクリーン座標）
 	SetCursorPos(BasePt.x, BasePt.y);
 	ShowCursor(FALSE);
+	/*
+		//―――――――――――――以下Json使用例――――――――――――//
+		auto Json = std::make_shared<json11::Json>();
+		Json = JSONS.LoadJson("Default/Test.json");//読み込み
+		std::string tag = "Player";//VisualStudioバグ対策でstringは一度宣言してから入れて
 
+		bool test1 = JSONS.checkValue(Json, "Tag", tag);//文字列比較
+		test1 = JSONS.checkValue(Json, "Tag", 111);//数字と比較
+		//まだ使えない
+		JSONS.AddKeyValue(Json, "Value5", std::string("ABCD"));//要素の変更、追加
 
-
-
-	//―――――――――――――以下Json使用例――――――――――――//
-	auto Json = std::make_shared<json11::Json>();
-	Json = JSONS.LoadJson("Default/Test.json");//読み込み
-	std::string tag = "Player";//VisualStudioバグ対策でstringは一度宣言してから入れて
-
-	bool test1 = JSONS.checkValue(Json, "Tag", tag);//文字列比較
-	test1 = JSONS.checkValue(Json, "Tag", 111);//数字と比較
-	//まだ使えない
-	JSONS.AddKeyValue(Json, "Value5", std::string("ABCD"));//要素の変更、追加
-
-	JSONS.SaveJson(Json, "Save/Test.json");//セーブ
-	//――――――――――――――――――――――――――――――――//
+		JSONS.SaveJson(Json, "Save/Test.json");//セーブ
+		//――――――――――――――――――――――――――――――――//
+		*/
 }
 
 void C_Player::End()
@@ -77,47 +75,49 @@ void C_Player::Update()
 		SetCursorPos(BasePt.x, BasePt.y);
 		ShowCursor(TRUE);
 	}
-
+	DTWHOUCE.SetPos("Player", PlayerPos);
+	DTWHOUCE.SetFlg("Fishing", FishingFlg);
+		
 }
 
 
 void C_Player::FlgProc()
 {
 	//マウスでのカメラ移動のon off
-	static bool	ClickStop = false;
 	if (GetKey('E') & 0x8000)
 	{
-		if (!ClickStop)
+		if (!ClickFlg)
 		{
-			ClickStop = true;
-
-			if (FishFlg) {
+			ClickFlg = true;
+			//釣りモード解除
+			if (FishingFlg) {
 				ShowCursor(TRUE);
-				FishFlg = false;
+				FishingFlg = false;
 				RestoreFlg = true;
 			}
 			else
 			{
-				FishFlg = true;
+				//釣りモードに移行
+				FishingFlg = true;
 				ShowCursor(FALSE);
 				SetCursorPos(BasePt.x, BasePt.y);
 			}
 		}
 	}
-	else ClickStop = false;
+	else ClickFlg = false;
 }
 
+//当たり判定を含む移動処理
 void C_Player::MoveProc()
 {
 	Move();
-	Earth();
+	HitObject();
 }
 
+//釣りモードでなければ移動できる
 void C_Player::Move()
 {
-
-	bool	MoveFlg = false;
-	if (!FishFlg) {
+	if (!FishingFlg) {
 		if (GetKey('W') & 0x8000) {//前へ
 			D3DXMATRIX RotMat;
 			D3DXMatrixRotationY(&RotMat, D3DXToRadian(CamAngY));
@@ -158,11 +158,11 @@ void C_Player::Move()
 
 	TransMat.SetTrans(PlayerPos);
 	D3DXMatrixRotationY(&PlayerRot, D3DXToRadian(CamAngY));
-	
+
 	m_world = PlayerRot * TransMat;
 }
 
-void C_Player::Earth()
+void C_Player::HitObject()
 {
 	KdVec3 Vec(0.0f, -1.0f, 0.0f);
 
@@ -191,33 +191,19 @@ void C_Player::Earth()
 
 void C_Player::CameraProc()
 {
-	if (!FishFlg && !RestoreFlg) {
-		if (GetKey(VK_RIGHT) & 0x8000) {
-			CamAngY += 1.0f;
-		}
-		if (GetKey(VK_LEFT) & 0x8000) {
-			CamAngY -= 1.0f;
-		}
-		if (GetKey(VK_UP) & 0x8000) {
-			CamAngX -= 1.0f;
-		}
-		if (GetKey(VK_DOWN) & 0x8000) {
-			CamAngX += 1.0f;
-		}
-	}
-
 	//釣り状態移行時のカメラの動き
 	CameraSet();
 
 	//マウス関係の計算
 	MouseUpdate();
 }
+
 void C_Player::MouseUpdate() {
 	POINT Pt;
 	GetCursorPos(&Pt);
 
 	//釣りモードじゃないときにマウスでカメラの回転をできるように移動させる
-	if (!FishFlg && !RestoreFlg)
+	if (!FishingFlg && !RestoreFlg)
 	{
 		long MoveX = (Pt.x - BasePt.x);
 		if ((MoveX >= 3) || (MoveX <= -3)) {
@@ -237,8 +223,44 @@ void C_Player::MouseUpdate() {
 	if (CamAngX < -80.0f) CamAngX = -80.0f;
 	if (CamAngX > 40.0f && !RestoreFlg) CamAngX = 40.0f;
 
-	if (!FishFlg) SetCursorPos(BasePt.x, BasePt.y);
+	if (!FishingFlg) SetCursorPos(BasePt.x, BasePt.y);
 }
+
+void C_Player::CameraSet()
+{
+	KdVec3 CamPos = CAMERA.GetCameraPos();		//カメラの座標を取ってくる
+	//釣りモードかどうか
+	if (FishingFlg)
+	{
+		//カメラを上に上げる処理(注視点はブイの座標)
+		KdVec3 BuoyPos = DTWHOUCE.GetPos("Buoy");	//ブイの座標を取ってくる
+		//カメラの移動量
+		float MoveSize = 0.1f;
+		if (CamPos.y - PlayerPos.y < 5)
+			CamPos.y += MoveSize;
+		CAMERA.SetCameraPos(CamPos, BuoyPos);
+	}
+	else
+	{
+		//カメラの位置を下げる処理
+		float MoveSize = 0.1f;
+		if (CamPos.y - PlayerPos.y > 0)
+			CamPos.y -= MoveSize;
+
+
+		//カメラの移動処理
+		KdMatrix CamRot;
+		KdVec3	 Vec;
+		CamRot.CreateRotation(D3DXToRadian(CamAngX), D3DXToRadian(CamAngY), 0);
+		D3DXVec3TransformCoord(&Vec, &CoordVec.Z, &CamRot);
+
+		CamLook = Vec;
+		CAMERA.SetCameraVec(PlayerPos, Vec);
+		RestoreFlg = false;
+	}
+
+}
+/*
 void C_Player::CameraSet()
 {
 	static KdVec3		CamPos;
@@ -246,6 +268,7 @@ void C_Player::CameraSet()
 	static float		_CamAngX;
 	static bool			flg1 = false;
 	static bool			flg2 = false;
+	//釣りモードだとカメラは動かせなくなる
 	static bool			StopFlg = false;//釣りモードに移行した一回の間だけ動かす処理用
 
 	//カメラの移動が終わったときに浮きが浮くようにするもの
@@ -253,7 +276,7 @@ void C_Player::CameraSet()
 	else { BuoyFlg = false; }
 
 	//釣りモードじゃないとき
-	if (!FishFlg) {
+	if (!FishingFlg) {
 		StopFlg = false;
 		//釣りモードが解除されたとき、カメラの回転をもとに戻す
 		if (FishScene_CamAngX > 0) {
@@ -270,7 +293,7 @@ void C_Player::CameraSet()
 			KdMatrix		CamRot;
 			KdVec3			TmpVec;
 
-			CamRot.SetRotation(0,D3DXToRadian(CamAngY),0);
+			CamRot.SetRotation(0, D3DXToRadian(CamAngY), 0);
 			D3DXVec3TransformCoord(&TmpVec, &CoordVec.Z, &CamRot);
 			FishScene_CamPos -= TmpVec * 0.025f;
 			D3DXVec3TransformCoord(&TmpVec, &CoordVec.Y, &CamRot);
@@ -297,7 +320,7 @@ void C_Player::CameraSet()
 	}
 
 	//釣りモードの時
-	if (FishFlg) {
+	if (FishingFlg) {
 		if (!StopFlg) {
 			FishScene_CamAngX = CamAngX;
 			StopFlg = true;
@@ -314,7 +337,7 @@ void C_Player::CameraSet()
 			KdMatrix CamRot;
 			KdVec3 TmpVec;
 
-			CamRot.SetRotation(0,D3DXToRadian(CamAngY),0);
+			CamRot.SetRotation(0, D3DXToRadian(CamAngY), 0);
 			D3DXVec3TransformCoord(&TmpVec, &CoordVec.Z, &CamRot);
 			FishScene_CamPos += TmpVec * 0.025f;
 			D3DXVec3TransformCoord(&TmpVec, &CoordVec.Y, &CamRot);
@@ -338,7 +361,7 @@ void C_Player::CameraSet()
 
 	CAMERA.SetCameraVec(CamPos, CamLook);
 }
-
+*/
 
 void C_Player::Draw3D() {
 

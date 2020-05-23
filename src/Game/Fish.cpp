@@ -48,6 +48,7 @@ void Fish::Init()
 
 	m_pModel = RESOURCE_MNG.GetModel(m_Tag);
 	m_world.SetScale(0.1, 0.1, 0.1);
+
 }
 
 void Fish::Update()
@@ -56,52 +57,17 @@ void Fish::Update()
 	{
 		Init();
 	}
-
-	KdMatrix RotMat;
-	static float FishPosZCnt;
-	static float FishPosYCnt;
-
-	if (!FishFlg) {
-		D3DXVECTOR3	Vec;
-
-		RotMat.CreateRotationY(D3DXToRadian(AngY));
-		D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, 1), &RotMat);
-
-		FishPos = PlayerPos + Vec * 20 - KdVec3(0.0f, 4.0f, 0.0f);
-		FishPosZCnt = 20.0f;
-		FishPosYCnt = 8.0f;
+	//ブイがおりてきたら振り向き処理
+	if (DTWHOUCE.GetPos("Buoy").y < 1)
+	{
+	
 	}
-	else {
-		if (FishPosZCnt > 0 && FishPosYCnt < 7) {
-
-			D3DXVECTOR3	Vec;
-			RotMat.CreateRotationY(D3DXToRadian(AngY));
-			D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, 1), &RotMat);
-
-			FishPos -= Vec * 0.5f;
-			FishPosZCnt -= 0.5f;
-		}
-
-		if (FishPosYCnt > 0) {
-			if (FishPosYCnt > 7) {
-				FishPos += KdVec3(0.0f, 0.2f, 0.0f);
-				FishPosYCnt -= 0.2f;
-			}
-			else {
-				FishPos += KdVec3(0.0f, 0.2f, 0.0f);
-				FishPosYCnt -= 0.4f;
-			}
-		}
+	else 
+	{
+		//フラフラ動く
+		m_world.MoveLocal(0, 0, -0.5);
+		m_world.RotateYLocal(D3DXToRadian((rand() % 10) - 5));
 	}
-
-	KdMatrix RotMatX;
-
-	//フラフラ動く
-	//ここに振り向き計算入れてcoordする
-	m_world.MoveLocal(0, 0, -0.5);
-
-	m_world.RotateYLocal(D3DXToRadian((rand() % 10) - 5));
-
 }
 
 
@@ -129,15 +95,16 @@ void Fish::End()
 	m_pModel = nullptr;
 }
 
+void Fish::TitleInit()
+{
+	m_Tag = "RedSnapper";
+	m_pModel = RESOURCE_MNG.GetModel(m_Tag);
+	m_world.SetScale(0.2, 0.2, 0.2);
+
+}
 void Fish::TitleUpdate()
 {
 	m_world.MoveLocal(0, 0, -0.5);
-
-
-
-
-
-
 }
 
 void Fish::ResultInit()

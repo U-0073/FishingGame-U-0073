@@ -15,7 +15,7 @@ void C_Fishing::Init() {
 	GameObject::Init();
 	m_pModel = RESOURCE_MNG.GetModel("Buoy");
 	ScileMat.SetScale(4.0f, 4.0f, 4.0f);
-	BuoyPos = PlayerPos + KdVec3(0.0f, -1.0f, 0.0f);
+	BuoyPos = D3DXVECTOR3(0, 0, -50);
 	TransMat.SetTrans(BuoyPos);
 
 	m_world = ScileMat * TransMat;
@@ -27,34 +27,36 @@ void C_Fishing::Init() {
 
 
 
-void C_Fishing::Update() {
-
+void C_Fishing::Update()
+{
+	PlayerPos = DTWHOUCE.GetPos("Player");
 
 	FishingProc();
 
+	DTWHOUCE.SetPos("Buoy", BuoyPos);
+
 	(*m_Fishes).Update();
+
 }
 
 void C_Fishing::FishingProc()
 {
-	static bool StopFlg = false;
-	static bool HitFlg = false;
 	KdMatrix RotMat;
 	D3DXVECTOR3	Vec;
-	
-	if (FishSceneFlg) {
+	FishingFlg = DTWHOUCE.GetFlg("Fishing");
+	if (FishingFlg) {
+		//ウキを海に投げ込む処理
 		if (!StopFlg) {
-			
-			RotMat.CreateRotationY(D3DXToRadian(CamAngY));
-			D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, 1), &RotMat);
 			StopFlg = true;
-			BuoyPos = PlayerPos + (Vec * 20.0f) + KdVec3(0.0f, -3.7f, 0.0f);
+			BuoyPos = DTWHOUCE.GetPos("CamLookVec") * 20;
+			BuoyPos.y = 0;
 		}
-		if (BuoyFlg && !HitFlg) {
+		//
+		if (!HitFlg) {
 			if (BuoyPos.y < -2.9f)BuoyPos += KdVec3(0.0f, 0.05f, 0.0f);
 			else BuoyPos.y = -2.9f;
 		}
-
+		//魚が食いついてウキが海中に引っ張られる様にするフラグを建てる
 		if (GetKey('1') & 0x8000) {
 			HitFlg = true;
 		}
@@ -62,18 +64,18 @@ void C_Fishing::FishingProc()
 	else {
 		StopFlg = false;
 		HitFlg = false;
-		GetFish = false;
 	}
-
-	if (HitFlg) {
+	//魚が食いついてウキが海中に引っ張られる様にする動き
+	if (HitFlg)
+	{
 		if (BuoyPos.y > -3.7f)BuoyPos -= KdVec3(0.0f, 0.15f, 0.0f);
-		else {
+		else
+		{
 			BuoyPos.y = -3.7f;
-			if (GetKey('2') & 0x8000) {
+			//魚が外れて海にもう一度浮き上がってくる処理
+			if (GetKey('2') & 0x8000)
+			{
 				HitFlg = false;
-			}
-			if (GetKey('3') & 0x8000) {
-				GetFish = true;
 			}
 		}
 	}

@@ -16,9 +16,7 @@ public:
 	void Draw3D()override;
 	void End()override;
 
-	const void SetPlayerPos(const KdVec3& Vec) { PlayerPos = Vec; }
-	const void SetCamAngY(const float& f) { CamAngY = f; }
-	const void SetFishingFlg(const bool& flg) { FishSceneFlg = flg; }
+	const void SetFishingFlg(const bool& flg) { FishingFlg = flg; }
 	const void SetBuoyFlg(const bool& flg) { BuoyFlg = flg; }
 private:
 
@@ -35,8 +33,9 @@ private:
 	KdMatrix TransMat;
 
 	float BuoyPosY = -3.7f;
-	float CamAngY;
-	bool  FishSceneFlg = false;
-	bool BuoyFlg = false;
-	bool GetFish = false;
+	bool  FishingFlg = false;
+	bool  BuoyFlg = false;
+	bool  StopFlg = false;
+	bool  HitFlg = false;
+
 };

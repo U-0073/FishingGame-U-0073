@@ -3,18 +3,21 @@
 class DataWareHouce
 {
 public:
-	void SetFishName(std::string data) { FishName = data; };
-	void SetPos(D3DXVECTOR3 data) {};
-	void SetNo(float data) {};
+	void SetName(const std::string& Tag, const std::string& data)	{ Str[Tag] = data; }
+	void SetPos (const std::string& Tag, const KdVec3& data)		{ Pos[Tag] = data; }
+	void SetNo  (const std::string& Tag, const float& data)			{ No[Tag] = data; }
+	void SetFlg  (const std::string& Tag, const float& data)			{ Flg[Tag] = data; }
 
-	std::string GetFishName() { return FishName; };
-	D3DXVECTOR3 GetPos() { return Pos; };
-	float	    GetNo() { return No; };
+	std::string GetFishName(const std::string& Tag) { return Str[Tag]; }
+	KdVec3		GetPos(const std::string& Tag)		{ return Pos[Tag]; }
+	float	    GetNo(const std::string& Tag)		{ return No[Tag]; }
+	float	    GetFlg(const std::string& Tag)		{ return Flg[Tag]; }
 
 private:
-	std::string FishName;
-	D3DXVECTOR3 Pos;
-	float		No;
+	std::map<std::string, std::string>	Str;
+	std::map<std::string, KdVec3>		Pos;
+	std::map<std::string, float>		No;
+	std::map<std::string, bool>		Flg;
 
 	//ƒVƒ“ƒOƒ‹ƒgƒ“
 private:

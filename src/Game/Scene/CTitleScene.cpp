@@ -19,8 +19,7 @@ void CTitleScene::Init()
 	Sky = std::make_shared<Skysphere>();
 	Sky->Init();
 	Fishes = std::make_shared<Fish>();
-	Fishes->SetTagType(0);
-	Fishes->Init();
+	Fishes->TitleInit();
 	title = std::make_shared<Title>();
 	title->Init();
 
@@ -35,7 +34,6 @@ void CTitleScene::Init()
 int CTitleScene::Update()
 {
 	title->Update();
-	Sky->SetPos(mPos);
 
 	//ƒV[ƒ“Ø‚è‘Ö‚¦
 	if (GetKey(VK_RETURN) & 0x8000)

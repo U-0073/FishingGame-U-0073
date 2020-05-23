@@ -31,6 +31,7 @@ public:
 	void Draw3D()override;
 	void End()override;
 
+	void TitleInit();
 	void TitleUpdate();
 	void ResultInit();
 

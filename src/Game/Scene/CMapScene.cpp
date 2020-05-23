@@ -31,6 +31,7 @@ void CMapScene::Init()
 
 	//ŠC
 	Seas = std::make_shared<Sea>();
+	Seas->Init();
 	//`
 	m_Port = std::make_shared<Port>();
 	m_Port->Init();
@@ -60,14 +61,10 @@ void CMapScene::Init()
 int CMapScene::Update()
 {
 	m_Player->Update();
-	Sky->SetPos(m_Player->GetPlayerPos());
+	Sky->Update();
 	m_Port->Update();
 	Seas->Update();
 
-	m_Fishing->SetCamAngY(m_Player->GetCamAngY());
-	m_Fishing->SetPlayerPos(m_Player->GetPlayerPos());
-	m_Fishing->SetFishingFlg(m_Player->GetFishingFlg());
-	m_Fishing->SetBuoyFlg(m_Player->GetBuoyFlg());
 	m_Fishing->Update();
 
 	m_Seagull->Update();
