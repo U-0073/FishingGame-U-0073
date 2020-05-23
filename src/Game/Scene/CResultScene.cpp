@@ -23,9 +23,6 @@ void CResultScene::Init()
 
 	Sky = std::make_shared<Skysphere>();
 	Sky->Init();
-	fish = std::make_shared<Fish>();
-	fish->SetTagType(0);//ŠÔˆá‚¦‚Äƒ^ƒCƒgƒ‹‚Å‰Ÿ‚µ‚½‚Æ‚«‚É—Ž‚¿‚È‚¢‚æ‚¤‚É‚·‚é‚½‚ß
-	fish->ResultInit();
 	NameTex = RESOURCE_MNG.GetTexture(fish->getTag() + ".png");
 	mNameMat.SetTrans(1280.0f/2, 720.0f/2+75, 0.0f);
 	result = std::make_shared<Result>();
@@ -68,6 +65,13 @@ void CResultScene::Draw2D()
 	SPRITE->SetTransform(&mNameMat);
 	SPRITE->Draw(*NameTex, &rcName, &D3DXVECTOR3(150.0f, 50.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
+}
+
+void CResultScene::SetData(std::string data)
+{
+	fish = std::make_shared<Fish>();
+	fish->SetTagType(data);
+	fish->ResultInit();
 }
 
 void CResultScene::Draw3D()

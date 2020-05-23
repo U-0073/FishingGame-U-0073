@@ -80,7 +80,7 @@ void Seagull::End()
 	//モデル解放
 	m_pModel = nullptr;
 	//サウンド停止
-	if (!SeagullVoice)	SeagullVoice->LDSB8->Stop();
+	if (SeagullVoice)	SeagullVoice->LDSB8->Stop();
 	//サウンド解放
 	SeagullVoice = nullptr;
 

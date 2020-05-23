@@ -22,12 +22,7 @@ public:
 	int GetID()override { return RESULT; };
 	void End()override;
 	std::string GetData()override { return ""; };
-	void SetData(std::string data)
-	{
-		Fishes = std::make_shared<Fish>();
-		Fishes->SetTagType(data);
-		Fishes->Init();
-	}
+	void SetData(std::string data);
 private:
 	D3DXVECTOR3 mPos;
 	BOOL MoveFlg;

@@ -128,7 +128,7 @@ void CGameFrame::GameLoop()
 
 
 	//魚の名前の記憶
-	static std::string name;
+	static std::string name = "Tuna";
 
 	if (nextscene != nowscene)//シーンIDの比較
 	{
