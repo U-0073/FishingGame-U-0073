@@ -32,7 +32,7 @@ public:
 	void End()override;
 
 	void TitleUpdate();
-	void ResultUpdate();
+	void ResultInit();
 
 
 	const void SetPlayerPos(const KdVec3& Vec) { PlayerPos = Vec; }
