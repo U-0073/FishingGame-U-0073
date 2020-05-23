@@ -50,7 +50,7 @@ private:
 	void CameraSet();
 	void MouseUpdate();
 
-	void MoveRay(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh);	//“–‚½‚è”»’è‚ğŠÜ‚ß‚½ˆÚ“®
+	void MoveRay(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh,bool ShopFlg);	//“–‚½‚è”»’è‚ğŠÜ‚ß‚½ˆÚ“®
 	//---------s—ñ-------------
 	//ŒÅ’è•Ï”
 	KdVec3			InitPos = KdVec3(0.0f, 0.0f, 0.0f);		//‰ŠúˆÊ’u

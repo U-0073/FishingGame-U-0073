@@ -124,7 +124,7 @@ void C_Player::Move()
 			D3DXVECTOR3	Vec;
 
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Front, &RotMat);
-			MoveRay(Vec,CollisionMat, CollisionModel->GetMesh());
+			MoveRay(Vec,CollisionMat, CollisionModel->GetMesh(),false);
 
 
 		}
@@ -134,7 +134,7 @@ void C_Player::Move()
 			D3DXVECTOR3	Vec;
 
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Left, &RotMat);
-			MoveRay(Vec,CollisionMat, CollisionModel->GetMesh());
+			MoveRay(Vec,CollisionMat, CollisionModel->GetMesh(),false);
 			if (WallFlg) {
 			}
 		}
@@ -144,7 +144,7 @@ void C_Player::Move()
 			D3DXVECTOR3	Vec;
 
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Back, &RotMat);
-			MoveRay(Vec, CollisionMat, CollisionModel->GetMesh());
+			MoveRay(Vec, CollisionMat, CollisionModel->GetMesh(),false);
 		}
 		if (GetKey('D') & 0x8000) {//右
 			D3DXMATRIX RotMat;
@@ -152,7 +152,7 @@ void C_Player::Move()
 			D3DXVECTOR3	Vec;
 
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Right, &RotMat);
-			MoveRay(Vec, CollisionMat, CollisionModel->GetMesh());
+			MoveRay(Vec, CollisionMat, CollisionModel->GetMesh(),false);
 			if (WallFlg) {
 			}
 		}
@@ -271,7 +271,9 @@ void C_Player::CameraSet()
 			KdMatrix		CamRot;
 			KdVec3			TmpVec;
 
-			CamRot.CreateRotationY(D3DXToRadian(CamAngY));
+			D3DXMatrixRotationY(&CamRot, D3DXToRadian(CamAngY));
+
+			//CamRot.CreateRotationY(D3DXToRadian(CamAngY));
 			D3DXVec3TransformCoord(&TmpVec, &CoordVec.Z, &CamRot);
 			FishScene_CamPos -= TmpVec * 0.025f;
 			D3DXVec3TransformCoord(&TmpVec, &CoordVec.Y, &CamRot);
@@ -315,7 +317,9 @@ void C_Player::CameraSet()
 			KdMatrix CamRot;
 			KdVec3 TmpVec;
 
-			CamRot.CreateRotationY(D3DXToRadian(CamAngY));
+			D3DXMatrixRotationY(&CamRot, D3DXToRadian(CamAngY));
+
+			//CamRot.CreateRotationY(D3DXToRadian(CamAngY));
 			D3DXVec3TransformCoord(&TmpVec, &CoordVec.Z, &CamRot);
 			FishScene_CamPos += TmpVec * 0.025f;
 			D3DXVec3TransformCoord(&TmpVec, &CoordVec.Y, &CamRot);
@@ -380,7 +384,7 @@ void C_Player::Draw2D()
 }
 
 
-void C_Player::MoveRay(D3DXVECTOR3 Vec, KdMatrix Mat ,LPD3DXBASEMESH lpMesh)
+void C_Player::MoveRay(D3DXVECTOR3 Vec, KdMatrix Mat ,LPD3DXBASEMESH lpMesh,bool ShopFlg)
 {
 	//かべずり判定（メッシュ）
 	D3DXMATRIX	InvMat;

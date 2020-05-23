@@ -78,8 +78,6 @@ public:
 		(*this)._41 = x;
 		(*this)._42 = y;
 		(*this)._43 = z;
-
-
 	}
 	void SetTrans(const KdVec3& v) {
 		(*this)._41 = v.x;
@@ -155,13 +153,6 @@ public:
 
 
 		//sM.CreateScale((*this).GetXAxis().Length(), (*this).GetXAxis().Length(), (*this).GetXAxis().Length());
-
-
-		
-
-
-
-
 		(*this) = sM*rM*Mat;
 	}
 
