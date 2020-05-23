@@ -48,10 +48,10 @@ void Seagull::Update()
 	sound = rand() % 1000;
 	if (sound == 0) {
 		//サウンド
-		testsound = RESOURCE_MNG.GetSound("umineko");
-		testsound->LDS3B8->SetMode(DS3DMODE_NORMAL, DS3D_IMMEDIATE);
-		testsound->LDS3B8->SetPosition(SeagullPos.x, SeagullPos.y, SeagullPos.z, DS3D_IMMEDIATE);
-		testsound->Playsound("umineko", true, false);
+		SeagullVoice = RESOURCE_MNG.GetSound("umineko");
+		SeagullVoice->LDS3B8->SetMode(DS3DMODE_NORMAL, DS3D_IMMEDIATE);
+		SeagullVoice->LDS3B8->SetPosition(SeagullPos.x, SeagullPos.y, SeagullPos.z, DS3D_IMMEDIATE);
+		SeagullVoice->Playsound("umineko", true, false);
 	}
 
 }
@@ -80,8 +80,8 @@ void Seagull::End()
 	//モデル解放
 	m_pModel = nullptr;
 	//サウンド停止
-	testsound->LDSB8->Stop();
+	if (!SeagullVoice)	SeagullVoice->LDSB8->Stop();
 	//サウンド解放
-	testsound = nullptr;
+	SeagullVoice = nullptr;
 
 }

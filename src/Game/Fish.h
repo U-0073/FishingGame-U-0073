@@ -9,6 +9,7 @@ public:
 	Fish();
 	~Fish();
 	void SetTagType(int No);
+	void SetTagType(std::string name) { m_Tag = name; }
 	
 	void Init()override;
 	const std::string& getTag() {

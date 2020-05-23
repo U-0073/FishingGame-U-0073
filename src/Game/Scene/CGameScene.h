@@ -15,7 +15,8 @@ public:
 	void Draw3D()override;
 	int GetID()override { return GAME; };
 	void End()override;
-
+	std::string GetData()override { return ""; };
+	void SetData(std::string Data) { name = Data; }
 private:
 	//ŒÅ’è˜g
 	std::shared_ptr<LPDIRECT3DTEXTURE9> ringTex = nullptr;
@@ -75,6 +76,8 @@ private:
 	int Excellent;
 	int Miss;
 
+	//‰½‚Ì‹›‚©
+	std::string name;
 
 	std::shared_ptr<SoundBase> m_pSound = nullptr;
 

@@ -25,6 +25,8 @@ public:
 
 	int GetID()override { return MAP; };
 	void End()override;
+	std::string GetData()override { return "Shark"; }
+	void SetData(std::string Data) {}
 
 private:
 	std::shared_ptr<Skysphere> Sky = nullptr;

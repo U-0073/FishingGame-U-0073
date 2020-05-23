@@ -15,9 +15,6 @@ void CResultScene::Init()
 
 	Sky = std::make_shared<Skysphere>();
 	Sky->Init();
-	Fishes = std::make_shared<Fish>();
-	Fishes->SetTagType(1);
-	Fishes->Init();
 	result = std::make_shared<Result>();
 	result->Init();
 

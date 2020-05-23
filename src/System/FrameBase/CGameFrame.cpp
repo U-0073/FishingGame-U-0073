@@ -127,7 +127,8 @@ void CGameFrame::GameLoop()
 		D3DCLEAR_STENCIL;	// マスク用情報
 
 
-
+	//魚の名前の記憶
+	static std::string name;
 
 	if (nextscene != nowscene)//シーンIDの比較
 	{
@@ -150,6 +151,7 @@ void CGameFrame::GameLoop()
 				break;
 			case GAME:
 				nowScene = std::make_shared<CGameScene>();
+				nowScene->SetData(name);
 				nowScene->Init();
 				nowscene = nowScene->GetID();//シーンIDの保存
 				break;
@@ -165,6 +167,7 @@ void CGameFrame::GameLoop()
 				break;
 			case RESULT:
 				nowScene = std::make_shared<CResultScene>();
+				nowScene->SetData(name);
 				nowScene->Init();
 				nowscene = nowScene->GetID();//シーンIDの保存
 				break;
@@ -183,12 +186,12 @@ void CGameFrame::GameLoop()
 		//シーンの更新
 		nextscene = nowScene->Update();
 
-
 	}
 	else if(nextscene != nowscene) {
 		nowScene->Update();
 	}
 
+	name = nowScene->GetData();
 
 
 
