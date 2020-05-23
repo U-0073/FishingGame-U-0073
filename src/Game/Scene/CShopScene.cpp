@@ -1,6 +1,5 @@
 #include"../../System/KdLibrary/KdLibrary.h"
 #include"CShopScene.h"
-#include"../GameProc.h"
 
 #include"../Shop2D.h"
 #include"../ShopObject.h"
@@ -34,8 +33,8 @@ int CShopScene::Update()
 	shop2d->Update();
 	shopObj->Update();
 
-	shopObj->GetListChange(shop2d->SetListChange());
-
+	shopObj->Get2D(shop2d->SetTabPattern(), shop2d->SetCursor());
+	
 	//ФwМiВ╠ZТlТ▓Ро
 	D3DXMatrixTranslation(&mMat, 0, 0, 1);
 

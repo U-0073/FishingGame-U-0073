@@ -17,7 +17,8 @@ public:
 	void Draw3D()override;
 	void End()override;
 
-	int SetListChange();
+	int SetTabPattern();
+	int SetCursor();
 
 private:
 
@@ -28,6 +29,7 @@ private:
 	KdMatrix TabCenterMat;
 	KdMatrix TabRightMat;
 	KdMatrix ListSelectMat;
+	KdMatrix E_PowerMat;
 
 	std::shared_ptr<LPDIRECT3DTEXTURE9> FrameTex;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> FrameSecTex;
@@ -38,6 +40,7 @@ private:
 	std::shared_ptr<LPDIRECT3DTEXTURE9> TabCenterTex;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> TabRightTex;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> ListSelectTex;
+	std::shared_ptr<LPDIRECT3DTEXTURE9> E_PowerTex;
 
 
 	KdMatrix BaitMat;

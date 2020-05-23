@@ -47,11 +47,12 @@ void CMapScene::Init()
 	m_Seagull = std::make_shared<Seagull>();
 	m_Seagull->Init();
 
-
 	m_PSound = RESOURCE_MNG.GetSound("wave3");
+	m_PSound->LDS3B8->SetMode(DS3DMODE_DISABLE, DS3D_IMMEDIATE);
 	m_PSound->Playsound("wave3", true, true);
-	m_PBGM = RESOURCE_MNG.GetSound("MetroNight");
-	m_PBGM->Playsound("MetroNight", true, true);
+	m_PBGM = RESOURCE_MNG.GetSound("超使いやすいドラム&ベース無限BGM");
+	m_PBGM->LDS3B8->SetMode(DS3DMODE_DISABLE, DS3D_IMMEDIATE);
+	m_PBGM->Playsound("超使いやすいドラム&ベース無限BGM", true, true);
 
 }
 
