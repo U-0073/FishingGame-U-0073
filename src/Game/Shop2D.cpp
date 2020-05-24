@@ -31,9 +31,9 @@ void Shop2D::Init()
 	E_PowerTex = RESOURCE_MNG.GetTexture("Shop/E_power.png");
 	D3DXMatrixTranslation(&E_PowerMat, 850.0f, 435.0f, 0.0f);
 	MoneyFrameTex = RESOURCE_MNG.GetTexture("Shop/MoneyFrame.png");
-	D3DXMatrixTranslation(&MoneyFrameMat, 750.0f, 10.0f, 0.0f);
+	D3DXMatrixTranslation(&MoneyFrameMat, 840.0f, 10.0f, 0.0f);
 	numberTex = RESOURCE_MNG.GetTexture("Shop/number.png");
-	D3DXMatrixTranslation(&MoneyFrameMat, 940.0f, 10.0f, 0.0f);
+	D3DXMatrixTranslation(&numberMat, 940.0f, 10.0f, 0.0f);
 
 	//エサ
 	BaitTex = RESOURCE_MNG.GetTexture("Shop/Bait.png");
@@ -57,6 +57,10 @@ void Shop2D::Init()
 
 void Shop2D::Update()
 {
+	//=========================================
+	// 操作
+	//=========================================
+
 	//上下キーでカーソル移動
 	if (GetKey(VK_DOWN) & 0x8000) {
 		if (KeyDownFlg == false) {
@@ -105,6 +109,85 @@ void Shop2D::Update()
 		KeyRightFlg = false;
 	}
 
+	//エンターキー
+	if (GetKey(VK_RETURN) & 0x8000) {
+		enterFlg = true;
+		//釣り竿
+		if (tabPattern == 0) {
+			switch (cursor)
+			{
+			case 0:
+				break;
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			case 6:
+				break;
+			case 7:
+				break;
+			}
+		}
+		//餌
+		if (tabPattern == 1) {
+			switch (cursor)
+			{
+			case 0:
+				break;
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			case 6:
+				break;
+			case 7:
+				break;
+			}
+		}
+		//リール
+		if (tabPattern == 2) {
+			switch (cursor)
+			{
+			case 0:
+				break;
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			case 6:
+				break;
+			case 7:
+				break;
+			}
+		}
+	}
+	//バックスペースでウィンドウクローズ
+	if (GetKey(VK_BACK) & 0x8000) {
+		enterFlg = false;
+	}
+
+	//=========================================
+	// 表示
+	//=========================================
+
 	//選択カーソル
 	for (int i = 0; i < LISTNUMBER; i++) {
 		select[i] = i * 60.5f;
@@ -132,6 +215,9 @@ void Shop2D::Update()
 	D3DXMatrixTranslation(&TabLeftMat, 50.0f, 0.0f - tabL, 0.0f);
 	D3DXMatrixTranslation(&TabCenterMat, 50.0f, 0.0f - tabC, 0.0f);
 	D3DXMatrixTranslation(&TabRightMat, 50.0f, 0.0f - tabR, 0.0f);
+
+	//能力及び購入ウィンドウ
+
 }
 
 void Shop2D::Draw2D()
@@ -148,11 +234,8 @@ void Shop2D::Draw2D()
 	SPRITE->Draw(*TabCenterTex, &rcTagC, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 	RECT rcTagR = { 0,0,500,720 };
 	SPRITE->SetTransform(&TabRightMat);
-	SPRITE->Draw(*
-	TabRightTex, &rcTagR, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-	
 	SPRITE->Draw(*TabRightTex, &rcTagR, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-
+	
 	//リスト
 	RECT rcFrame = { 0,0,500,720 };
 	SPRITE->SetTransform(&FrameMat);
@@ -269,7 +352,7 @@ void Shop2D::Draw2D()
 	RECT rcE_Power = { 0,0,350,39 };
 	SPRITE->SetTransform(&E_PowerMat);
 	SPRITE->Draw(*E_PowerTex, &rcE_Power, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-	RECT rcMoneyFrame = { 0,0,500,70 };
+	RECT rcMoneyFrame = { 0,0,400,70 };
 	SPRITE->SetTransform(&MoneyFrameMat);
 	SPRITE->Draw(*MoneyFrameTex, &rcMoneyFrame, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
@@ -322,7 +405,7 @@ void Shop2D::Draw2D()
 
 	char cScore[64];
 	sprintf_s(cScore, sizeof(cScore), "%d", miPos);
-	D3DXMatrixTranslation(&numberMat, 1210, 35, 0);
+	D3DXMatrixTranslation(&numberMat, 1210, 20, 0);
 	D3DXMatrixTranslation(&transMat, -35, 0, 0);
 
 	int i;
