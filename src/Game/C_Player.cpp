@@ -140,9 +140,21 @@ void C_Player::Move()
 
 
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Front, &RotMat);
-			MoveRay(Vec, CollisionMat, CollisionModel->GetMesh(), 0);
-			MoveRay(Vec, ShopMat, ShopModel->GetMesh(), 1);
 
+			//PlayerPos += Vec * MoveSpeed;
+			MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 0);
+			MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 0);
+
+
+			bool SkipFlg = false;
+			D3DXVec3TransformCoord(&Vec, &CoordVec.Front, &RotMat);
+			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			D3DXVec3TransformCoord(&Vec, &CoordVec.Right, &RotMat);
+			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			D3DXVec3TransformCoord(&Vec, &CoordVec.Left, &RotMat);
+			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			D3DXVec3TransformCoord(&Vec, &CoordVec.Back, &RotMat);
+			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
 		}
 		if (GetKey('A') & 0x8000) {//左
 			D3DXMATRIX RotMat;
@@ -150,11 +162,19 @@ void C_Player::Move()
 			D3DXVECTOR3	Vec;
 
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Left, &RotMat);
-			MoveRay(Vec, CollisionMat, CollisionModel->GetMesh(), 0);
-			MoveRay(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 0);
+			MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 0);
 
-			if (WallFlg) {
-			}
+
+			bool SkipFlg = false;
+			D3DXVec3TransformCoord(&Vec, &CoordVec.Front, &RotMat);
+			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			D3DXVec3TransformCoord(&Vec, &CoordVec.Right, &RotMat);
+			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			D3DXVec3TransformCoord(&Vec, &CoordVec.Left, &RotMat);
+			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			D3DXVec3TransformCoord(&Vec, &CoordVec.Back, &RotMat);
+			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
 		}
 		if (GetKey('S') & 0x8000) {//後ろへ
 			D3DXMATRIX RotMat;
@@ -162,11 +182,19 @@ void C_Player::Move()
 			D3DXVECTOR3	Vec;
 
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Back, &RotMat);
-			MoveRay(Vec, CollisionMat, CollisionModel->GetMesh(), 0);
-			MoveRay(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 0);
+			MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 0);
 
+
+			bool SkipFlg = false;
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Front, &RotMat);
-			MoveRay(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			D3DXVec3TransformCoord(&Vec, &CoordVec.Right, &RotMat);
+			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			D3DXVec3TransformCoord(&Vec, &CoordVec.Left, &RotMat);
+			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			D3DXVec3TransformCoord(&Vec, &CoordVec.Back, &RotMat);
+			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
 
 		}
 		if (GetKey('D') & 0x8000) {//右
@@ -175,10 +203,19 @@ void C_Player::Move()
 			D3DXVECTOR3	Vec;
 
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Right, &RotMat);
-			MoveRay(Vec, CollisionMat, CollisionModel->GetMesh(), 0);
-			MoveRay(Vec, ShopMat, ShopModel->GetMesh(), 1);
-			if (WallFlg) {
-			}
+			MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 0);
+			MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 0);
+
+
+			bool SkipFlg = false;
+			D3DXVec3TransformCoord(&Vec, &CoordVec.Front, &RotMat);
+			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			D3DXVec3TransformCoord(&Vec, &CoordVec.Right, &RotMat);
+			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			D3DXVec3TransformCoord(&Vec, &CoordVec.Left, &RotMat);
+			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			D3DXVec3TransformCoord(&Vec, &CoordVec.Back, &RotMat);
+			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
 		}
 	}
 
@@ -224,7 +261,6 @@ void C_Player::CameraProc()
 	//マウス関係の計算
 	MouseUpdate();
 }
-
 void C_Player::MouseUpdate() {
 	POINT Pt;
 	GetCursorPos(&Pt);
@@ -252,7 +288,6 @@ void C_Player::MouseUpdate() {
 
 	if (!FishingFlg) SetCursorPos(BasePt.x, BasePt.y);
 }
-
 void C_Player::CameraSet()
 {
 	static int cntY = 0;
@@ -292,7 +327,7 @@ void C_Player::CameraSet()
 		D3DXVec3TransformCoord(&Vec, &CoordVec.Z, &CamRot);
 
 		CamLook = Vec;
-		CAMERA.SetCameraVec(PlayerPos+InitCamPos, Vec);
+		CAMERA.SetCameraVec(PlayerPos + InitCamPos, Vec);
 		RestoreFlg = false;
 	}
 
@@ -412,9 +447,9 @@ void C_Player::Draw2D()
 {
 	SPRITE->End();
 	char Text[100];
-//	RECT rcText = { 10,30 * 1,0,0 };
-//	sprintf_s(Text, sizeof(Text), "Dis2 %f", TextMeshDis);
-//	FONT->DrawText(NULL, Text, -1, &rcText, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	RECT rcText = { 10,30 * 1,0,0 };
+	sprintf_s(Text, sizeof(Text), "Dot %f", DTWHOUCE.GetNo("Dot1"));
+	FONT->DrawText(NULL, Text, -1, &rcText, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	//RECT rcText1 = { 10,30 * 7,0,0 };
 	//sprintf_s(Text, sizeof(Text), "Dot %f", TextDot);
 	//FONT->DrawText(NULL, Text, -1, &rcText1, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
@@ -422,24 +457,24 @@ void C_Player::Draw2D()
 	sprintf_s(Text, sizeof(Text), "PlayerPos  x %f  y%f z %f ", PlayerPos.x, PlayerPos.y, PlayerPos.z);
 	FONT->DrawText(NULL, Text, -1, &rcText2, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	RECT rcText3 = { 10,30 * 3,0,0 };
-	if (!RestoreFlg)FONT->DrawText(NULL, "RestoreFlg=false", -1, &rcText3, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	else FONT->DrawText(NULL, "RestoreFlg=true", -1, &rcText3, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	if (!ShopFlg)FONT->DrawText(NULL, "ShopFlg=false", -1, &rcText3, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	else FONT->DrawText(NULL, "ShopFlg=true", -1, &rcText3, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	RECT rcText4 = { 10,30 * 4,0,0 };
 	if (!WallFlg)FONT->DrawText(NULL, "WallFlg=false", -1, &rcText4, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	else FONT->DrawText(NULL, "WallFlg=true", -1, &rcText4, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	//RECT rcText5 = { 10,30 * 5,0,0 };
 	//sprintf_s(Text, sizeof(Text), "TextDot2 %f ", TextDot2);
 	//KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText5, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	RECT rcText6 = { 10,30 * 6,0,0 };
-	sprintf_s(Text, sizeof(Text), "FishingScene_CamPos  x %f  y%f z %f ", FishScene_CamPos.x, FishScene_CamPos.y, FishScene_CamPos.z);
-	FONT->DrawText(NULL, Text, -1, &rcText6, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	//RECT rcText6 = { 10,30 * 6,0,0 };
+	//sprintf_s(Text, sizeof(Text), "FishingScene_CamPos  x %f  y%f z %f ", FishScene_CamPos.x, FishScene_CamPos.y, FishScene_CamPos.z);
+	//FONT->DrawText(NULL, Text, -1, &rcText6, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 
 	SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
 
 }
 
-//店との当たり判定
-void C_Player::MoveRay(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh, int Mode)//Mode:1なら店との当たり判定
+//当たり判定
+bool C_Player::MoveRay_Shop(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh, int Mode)//Mode:0なら店との当たり判定 Mode:1は店との距離を測って店に入れるかどうか
 {
 	//かべずり判定（メッシュ）
 	D3DXMATRIX	InvMat;
@@ -454,6 +489,8 @@ void C_Player::MoveRay(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh, int
 	D3DXIntersect(lpMesh, &LocalPos, &LocalVec, &Hit,
 		&PolyNo, NULL, NULL, &MeshDis, NULL, NULL);
 
+
+	float Dot = -1;
 
 	if (Hit) {
 		//レイ判定で当たっているポリゴンの識別
@@ -493,26 +530,124 @@ void C_Player::MoveRay(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh, int
 		//法線の取得完了
 
 
-		float Dot;
 		Dot = D3DXVec3Dot(&-WallVec, &(Vec * MeshDis));//カメラの進行方向
-		float Limit = -1.0f;
+		float Limit = -2.0f;
 		//ポリゴンからどれだけ離して壁ずりするかを調整('Д')
-		if (Mode == 1)
-			Limit = -2.0f;
 
 		//ここが壁ずり処理。
-		//立ち入り禁止エリアと店に当たった時に自身を跳ね返す処理です＿(　_´ω`)_ﾍﾟｼｮ
+		//立ち入り禁止エリアと店に当たった時に自信を跳ね返す処理です＿(　_´ω`)_ﾍﾟｼｮ
+		if (Mode != 1) {
+			if (Dot > Limit && Dot < 0) {
+				float Tmp = Limit - Dot;
+				KdVec3 TmpVec = (Tmp * WallVec);
+				TmpVec.Set(TmpVec.x, 0.0f, TmpVec.z);
+				PlayerPos += TmpVec;
+			}
+
+			Limit *= -1;
+			//↑のやつはポリゴンの裏面だけを判定するのでこっちは表面も判定するように
+			//立ち入り禁止エリアに入った時に跳ね返す処理
+			if (Dot < Limit && Dot > 0) {
+				float Tmp = Limit - Dot;
+				KdVec3 TmpVec = (Tmp * WallVec);
+				TmpVec.Set(TmpVec.x, 0.0f, TmpVec.z);
+				PlayerPos += TmpVec;
+			}
+		}
+	}
+
+	//ショップに入る処理
+	if (Mode == 0 || Mode == 1) {
+		float Limit = 3;
+
+		if (Dot < Limit && Dot>0) {
+			//ショップに入る処理
+			ShopFlg = true;
+		}
+		else {
+			DTWHOUCE.SetFlg("ShopFlg", false);
+			ShopFlg = false;
+		}
+	}
+	DTWHOUCE.SetNo("Dot1", Dot);
+
+	//ショップフラグがオンなら4方向に行うはずだったレイ判定を途中でスキップ
+	//ファルスなら他の方向のレイ判定を行います(;'∀')ﾁｶﾚﾀ…
+	if (ShopFlg)return true;
+	else return false;
+}
+bool C_Player::MoveRay_Bridge(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh, int Mode)//Mode:1なら店との当たり判定 Mode:2は店との距離を測って店に入れるかどうか
+{
+	//かべずり判定（メッシュ）
+	D3DXMATRIX	InvMat;
+	D3DXMatrixInverse(&InvMat, NULL, &Mat);
+	D3DXVECTOR3	LocalPos, LocalVec;
+	D3DXVec3TransformCoord(&LocalPos, &(PlayerPos), &InvMat);
+	D3DXVec3TransformNormal(&LocalVec, &Vec, &InvMat);
+
+	BOOL Hit;
+	float MeshDis;
+	DWORD PolyNo;	//ポリゴン番号
+	D3DXIntersect(lpMesh, &LocalPos, &LocalVec, &Hit,
+		&PolyNo, NULL, NULL, &MeshDis, NULL, NULL);
+
+
+	float Dot = -1;
+
+	if (Hit) {
+		//レイ判定で当たっているポリゴンの識別
+		WORD* pI;
+		lpMesh->LockIndexBuffer(0, (LPVOID*)&pI);
+		DWORD VertexNo[3];
+		VertexNo[0] = *(pI + PolyNo * 3 + 0);
+		VertexNo[1] = *(pI + PolyNo * 3 + 1);
+		VertexNo[2] = *(pI + PolyNo * 3 + 2);
+
+		lpMesh->UnlockIndexBuffer();
+
+
+		CLONEVERTEX* pV;
+		lpMesh->LockVertexBuffer(0, (LPVOID*)&pV);
+		D3DXVECTOR3		VPos[3];
+		VPos[0] = (pV + VertexNo[0])->Pos;
+		VPos[1] = (pV + VertexNo[1])->Pos;
+		VPos[2] = (pV + VertexNo[2])->Pos;
+
+		lpMesh->UnlockVertexBuffer();
+
+
+		//壁ずりプログラム	三角形の底面と斜面のベクトルを入手    →△
+		//法線の取得										こいつら↑
+		D3DXVECTOR3 Vec1, Vec2;
+		Vec1 = VPos[1] - VPos[0];
+		Vec2 = VPos[2] - VPos[0];
+		D3DXVECTOR3 WallVec;
+		D3DXVec3Cross(&WallVec, &Vec1, &Vec2);
+
+		D3DXVec3TransformNormal(&WallVec, &WallVec, &Mat);//長さを1に
+		//						　①		 ②		　 ③		　 1:3D空間上での法線の向き　
+		//														   2:メッシュ作成用の法線の向き
+		//														   3:建物用メッシュの行列
+		D3DXVec3Normalize(&WallVec, &WallVec);//正規化
+		//法線の取得完了
+
+		Dot = D3DXVec3Dot(&-WallVec, &(Vec * MeshDis));//Playerと壁の距離を計算
+
+		//ポリゴンからどれだけ離して壁ずりするかを調整('Д')
+		float Limit = -1.0f;
+
+
+		//ここが壁ずり処理。
+		//立ち入り禁止エリアと店に当たった時に自信を跳ね返す処理です＿(　_´ω`)_ﾍﾟｼｮ
 		if (Dot > Limit && Dot < 0) {
-			//WallFlg = true;
 			float Tmp = Limit - Dot;
 			KdVec3 TmpVec = (Tmp * WallVec);
 			TmpVec.Set(TmpVec.x, 0.0f, TmpVec.z);
 			PlayerPos += TmpVec;
 		}
-		//else 	WallFlg = false;
 
 		Limit *= -1;
-		//↑はポリゴンの裏面だけを判定するので表面も判定するようにしている
+		//↑のやつはポリゴンの裏面だけを判定するのでこっちは表面も判定するように
 		//立ち入り禁止エリアに入った時に跳ね返す処理
 		if (Dot < Limit && Dot > 0) {
 			float Tmp = Limit - Dot;
@@ -521,22 +656,11 @@ void C_Player::MoveRay(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh, int
 			PlayerPos += TmpVec;
 		}
 
-		//ショップに入る処理
-		if (Mode == 1) {
-			Limit = 3;
-			if (Dot < Limit) {
-				//ショップに入る処理
-				ShopFlg = true;
-
-			}
-			else {
-				DTWHOUCE.SetFlg("ShopFlg", false);
-				ShopFlg = false;
-			}
-			//else 	WallFlg = false;
-		}
 	}
 
-	if (!WallFlg && Mode == 0)
-		PlayerPos += Vec * MoveSpeed;
+
+	if (!WallFlg && Mode == 0)PlayerPos += Vec * MoveSpeed;
+	return false;
 }
+
+
