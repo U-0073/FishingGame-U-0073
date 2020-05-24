@@ -17,11 +17,17 @@ C_Player::~C_Player()
 
 void C_Player::Init()
 {
-	PlayerPos = { 0,2.5,0 };
-	CAMERA.SetCameraVec(PlayerPos, KdVec3(0, 0, 1));
+	PlayerPos = { 0,0,0 };
+	CAMERA.SetCameraVec(InitCamPos, KdVec3(0, 0, 1));
 	CollisionMat.SetTrans(0.0f, -1.5f, 0.0f);
+	ShopMat.SetTrans(14, -0.6f, -42);
+
 	CollisionModel = RESOURCE_MNG.GetModel("PortWall_CollisionTest1");
 	m_pModel = RESOURCE_MNG.GetModel("Portfloer_Collision");
+	ShopModel = RESOURCE_MNG.GetModel("Shop");
+
+
+
 
 	//ポインター関係
 	BasePt.x = SCRW / 2;
@@ -56,7 +62,7 @@ void C_Player::End()
 void C_Player::Update()
 {
 
-
+	if (ShopFlg);
 	FlgProc();
 	MoveProc();
 	CameraProc();
@@ -66,23 +72,30 @@ void C_Player::Update()
 		PlayerPos -= Vec;
 	}
 	if (GetKey('8') & 0x8000) {
-											//	　（クライアント座標）（スクリーン座標）
+		//	　（クライアント座標）（スクリーン座標）
 		SetCursorPos(BasePt.x, BasePt.y);
 		ShowCursor(FALSE);
 	}
 	if (GetKey('7') & 0x8000) {
-											//	　（クライアント座標）（スクリーン座標）
+		//	　（クライアント座標）（スクリーン座標）
 		SetCursorPos(BasePt.x, BasePt.y);
 		ShowCursor(TRUE);
 	}
 	DTWHOUCE.SetVec("Player", PlayerPos);
 	DTWHOUCE.SetFlg("Fishing", FishingFlg);
-		
+
 }
 
 
 void C_Player::FlgProc()
 {
+	if (ShopFlg) {
+		if (GetKey('I') & 0x8000) {
+			DTWHOUCE.SetFlg("ShopFlg", true);
+		}
+		else DTWHOUCE.SetFlg("ShopFlg", false);
+	}
+
 	//マウスでのカメラ移動のon off
 	if (GetKey('E') & 0x8000)
 	{
@@ -105,6 +118,8 @@ void C_Player::FlgProc()
 		}
 	}
 	else ClickFlg = false;
+
+
 }
 
 //当たり判定を含む移動処理
@@ -123,9 +138,10 @@ void C_Player::Move()
 			D3DXMatrixRotationY(&RotMat, D3DXToRadian(CamAngY));
 			D3DXVECTOR3	Vec;
 
-			D3DXVec3TransformCoord(&Vec, &CoordVec.Front, &RotMat);
-			MoveRay(Vec,CollisionMat, CollisionModel->GetMesh(),false);
 
+			D3DXVec3TransformCoord(&Vec, &CoordVec.Front, &RotMat);
+			MoveRay(Vec, CollisionMat, CollisionModel->GetMesh(), 0);
+			MoveRay(Vec, ShopMat, ShopModel->GetMesh(), 1);
 
 		}
 		if (GetKey('A') & 0x8000) {//左
@@ -134,7 +150,7 @@ void C_Player::Move()
 			D3DXVECTOR3	Vec;
 
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Left, &RotMat);
-			MoveRay(Vec,CollisionMat, CollisionModel->GetMesh(),false);
+			MoveRay(Vec, CollisionMat, CollisionModel->GetMesh(), 0);
 			if (WallFlg) {
 			}
 		}
@@ -144,7 +160,12 @@ void C_Player::Move()
 			D3DXVECTOR3	Vec;
 
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Back, &RotMat);
-			MoveRay(Vec, CollisionMat, CollisionModel->GetMesh(),false);
+			MoveRay(Vec, CollisionMat, CollisionModel->GetMesh(), 0);
+			MoveRay(Vec, ShopMat, ShopModel->GetMesh(), 1);
+
+			//D3DXVec3TransformCoord(&Vec, &CoordVec.Front, &RotMat);
+			//MoveRay(Vec, ShopMat, ShopModel->GetMesh(), 1);
+
 		}
 		if (GetKey('D') & 0x8000) {//右
 			D3DXMATRIX RotMat;
@@ -152,7 +173,7 @@ void C_Player::Move()
 			D3DXVECTOR3	Vec;
 
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Right, &RotMat);
-			MoveRay(Vec, CollisionMat, CollisionModel->GetMesh(),false);
+			MoveRay(Vec, CollisionMat, CollisionModel->GetMesh(), 0);
 			if (WallFlg) {
 			}
 		}
@@ -230,24 +251,34 @@ void C_Player::MouseUpdate() {
 
 void C_Player::CameraSet()
 {
+	static int cntY = 0;
 	KdVec3 CamPos = CAMERA.GetCameraPos();		//カメラの座標を取ってくる
 	//釣りモードかどうか
 	if (FishingFlg)
 	{
+		if (cntY < 50) { cntY++; }
+		else cntY = 50;
+
 		//カメラを上に上げる処理(注視点はブイの座標)
+
 		KdVec3 BuoyPos = DTWHOUCE.GetPos("Buoy");	//ブイの座標を取ってくる
 		//カメラの移動量
 		float MoveSize = 0.1f;
-		if (CamPos.y - PlayerPos.y < 5)
-			CamPos.y += MoveSize;
+
+		if (cntY < 50)CamPos.y += MoveSize;
+		//		if (CamPos.y - PlayerPos.y < 5)CamPos.y += MoveSize;
 		CAMERA.SetCameraPos(CamPos, BuoyPos);
 	}
 	else
 	{
+		if (cntY > 0)cntY--;
+		else cntY = 0;
+
 		//カメラの位置を下げる処理
 		float MoveSize = 0.1f;
-		if (CamPos.y - PlayerPos.y > 0)
-			CamPos.y -= MoveSize;
+
+		if (cntY > 0)CamPos.y -= MoveSize;
+		//if (CamPos.y - PlayerPos.y > 0)CamPos.y -= MoveSize;
 
 
 		//カメラの移動処理
@@ -257,7 +288,7 @@ void C_Player::CameraSet()
 		D3DXVec3TransformCoord(&Vec, &CoordVec.Z, &CamRot);
 
 		CamLook = Vec;
-		CAMERA.SetCameraVec(PlayerPos, Vec);
+		CAMERA.SetCameraVec(PlayerPos+InitCamPos, Vec);
 		RestoreFlg = false;
 	}
 
@@ -377,9 +408,9 @@ void C_Player::Draw2D()
 {
 	SPRITE->End();
 	char Text[100];
-	RECT rcText = { 10,30 * 1,0,0 };
-	sprintf_s(Text, sizeof(Text), "MeshDis2 %f", TextMeshDis2);
-	FONT->DrawText(NULL, Text, -1, &rcText, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+//	RECT rcText = { 10,30 * 1,0,0 };
+//	sprintf_s(Text, sizeof(Text), "Dis2 %f", TextMeshDis);
+//	FONT->DrawText(NULL, Text, -1, &rcText, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	RECT rcText1 = { 10,30 * 7,0,0 };
 	sprintf_s(Text, sizeof(Text), "Dot %f", TextDot);
 	FONT->DrawText(NULL, Text, -1, &rcText1, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
@@ -404,7 +435,7 @@ void C_Player::Draw2D()
 }
 
 
-void C_Player::MoveRay(D3DXVECTOR3 Vec, KdMatrix Mat ,LPD3DXBASEMESH lpMesh,bool ShopFlg)
+void C_Player::MoveRay(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh, int Mode)
 {
 	//かべずり判定（メッシュ）
 	D3DXMATRIX	InvMat;
@@ -461,6 +492,8 @@ void C_Player::MoveRay(D3DXVECTOR3 Vec, KdMatrix Mat ,LPD3DXBASEMESH lpMesh,bool
 
 		//float Dot;
 		float Limit = -1.0f;
+		if (Mode == 1)
+			Limit = -2.0f;
 		TextDot = D3DXVec3Dot(&-WallVec, &(Vec * TextMeshDis));//カメラの進行方向
 
 		if (TextDot > Limit && TextDot < 0) {
@@ -473,7 +506,7 @@ void C_Player::MoveRay(D3DXVECTOR3 Vec, KdMatrix Mat ,LPD3DXBASEMESH lpMesh,bool
 		}
 		//else 	WallFlg = false;
 
-		Limit = 1.0f;
+		Limit *= -1;
 		if (TextDot < Limit && TextDot > 0) {
 			//WallFlg = true;
 
@@ -482,8 +515,22 @@ void C_Player::MoveRay(D3DXVECTOR3 Vec, KdMatrix Mat ,LPD3DXBASEMESH lpMesh,bool
 			TmpVec.Set(TmpVec.x, 0.0f, TmpVec.z);
 			PlayerPos += TmpVec;
 		}
-		//else 	WallFlg = false;
+
+		if (Mode == 1) {
+			Limit = 3;
+			if (TextDot < Limit) {
+				//ショップに入る処理
+				ShopFlg = true;
+
+			}
+			else {
+				DTWHOUCE.SetFlg("ShopFlg", false);
+				ShopFlg = false;
+			}
+			//else 	WallFlg = false;
+		}
 	}
-	if (!WallFlg)
+
+	if (!WallFlg && Mode == 0)
 		PlayerPos += Vec * MoveSpeed;
 }

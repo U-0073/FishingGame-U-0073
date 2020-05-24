@@ -75,7 +75,7 @@ int CMapScene::Update()
 		FADE.Start(5);
 		return ROGO;
 	}
-	if (GetKey('I') & 0x8000) {
+	if (DTWHOUCE.GetFlg("ShopFlg")) {
 		FADE.Start(5);
 		return SHOP;
 	}
