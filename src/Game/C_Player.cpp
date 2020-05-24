@@ -496,12 +496,12 @@ void C_Player::MoveRay(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh, int
 		float Dot;
 		Dot = D3DXVec3Dot(&-WallVec, &(Vec * MeshDis));//ƒJƒƒ‰‚Ìis•ûŒü
 		float Limit = -1.0f;
-		//“X‚É‚Ô‚Â‚©‚Á‚½Žž‚Ìˆ—
+		//ƒ|ƒŠƒSƒ“‚©‚ç‚Ç‚ê‚¾‚¯—£‚µ‚Ä•Ç‚¸‚è‚·‚é‚©‚ð’²®('„D')
 		if (Mode == 1)
 			Limit = -2.0f;
 
-		//ŽV‹´‚É“–‚½‚Á‚½Žž‚É”­“®‚·‚é
-		//—§‚¿“ü‚è‹ÖŽ~ƒGƒŠƒA‚É“ü‚Á‚½Žž‚É’µ‚Ë•Ô‚·ˆ—H
+		//‚±‚±‚ª•Ç‚¸‚èˆ—B
+		//—§‚¿“ü‚è‹ÖŽ~ƒGƒŠƒA‚Æ“X‚É“–‚½‚Á‚½Žž‚ÉŽ©M‚ð’µ‚Ë•Ô‚·ˆ—‚Å‚·Q(@_LƒÖ`)_Íß¼®
 		if (Dot > Limit && Dot < 0) {
 			//WallFlg = true;
 			float Tmp = Limit - Dot;
@@ -512,8 +512,8 @@ void C_Player::MoveRay(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh, int
 		//else 	WallFlg = false;
 
 		Limit *= -1;
-		//“X‚Æ“–‚½‚Á‚½Žž‚É”­“®‚·‚é
-		//—§‚¿“ü‚è‹ÖŽ~ƒGƒŠƒA‚É“ü‚Á‚½Žž‚É’µ‚Ë•Ô‚·ˆ—H
+		//“X‚Æ“–‚½‚Á‚½Žž‚É”­“®‚·‚é@©ˆá‚¢‚Ü‚·Bª‚Ì‚â‚Â‚Íƒ|ƒŠƒSƒ“‚Ì— –Ê‚¾‚¯‚ð”»’è‚·‚é‚Ì‚Å‚±‚Á‚¿‚Í•\–Ê‚à”»’è‚·‚é‚æ‚¤‚É
+		//—§‚¿“ü‚è‹ÖŽ~ƒGƒŠƒA‚É“ü‚Á‚½Žž‚É’µ‚Ë•Ô‚·ˆ—
 		if (Dot < Limit && Dot > 0) {
 			float Tmp = Limit - Dot;
 			KdVec3 TmpVec = (Tmp * WallVec);
