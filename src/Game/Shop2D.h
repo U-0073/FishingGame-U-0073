@@ -56,7 +56,7 @@ private:
 	int cursor = 0;
 	int tabPattern = 0;
 	//Š‹à
-	int miPos = 1000;
+	int miPos = 10000000;
 	int num[10];
 
 	float select[LISTNUMBER];
@@ -69,5 +69,6 @@ private:
 	bool RodTextFlg = false;
 	bool BaitTextFlg = false;
 	bool ReelTextFlg = false;
+	bool enterFlg
 };
 
