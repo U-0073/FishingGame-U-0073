@@ -3,15 +3,22 @@
 
 Sea::Sea()
 {
+}
+
+Sea::~Sea()
+{
+}
 
 
+void Sea::Init()
+{
 	srand(timeGetTime());
 	m_pModel = RESOURCE_MNG.GetModel("Sea");
 
 	verNum = MESH->GetNumVertices();
-	//移動量の設定
+	//位置の設定
 	D3DXMatrixTranslation(&m_world, 0, -3, 0);
-
+	DTWHOUCE.SetVec("Sea", m_world.GetPos());
 	//
 	int vSize = MESH->GetNumBytesPerVertex();
 
@@ -19,7 +26,7 @@ Sea::Sea()
 	pV = nullptr;
 
 	MESH->LockVertexBuffer(0, (VOID**)&pV);
-	
+
 	//クローン			頂点バッファ				先頭アドレスが入る(0番目の頂点の内容)
 	for (DWORD i = 0; i < verNum; i++) {
 		D3DXVECTOR3* pos = (D3DXVECTOR3*)(pV + vSize * i);
@@ -28,12 +35,8 @@ Sea::Sea()
 	(*m_pModel).GetMesh()->UnlockVertexBuffer();
 
 	HeightCtrl = false;
-}
 
-Sea::~Sea()
-{
 }
-
 
 void Sea::Update()
 {

@@ -8,12 +8,13 @@ private:
 
 
 public:
-	//CMasterCamera* GetCamera(void)override ;
-
-	 void Set( const D3DXVECTOR2& mWindowSize);
-	 void SetCameraPos(const D3DXVECTOR3& Pos, const D3DXVECTOR3& LookPos);
-	 
-	 void SetCameraVec(const D3DXVECTOR3& Pos, const D3DXVECTOR3& LookVec);
+	void Set(const D3DXVECTOR2& mWindowSize);
+	void SetCameraPos(const KdVec3& Pos, const KdVec3& LookPos);
+	void SetCameraVec(const KdVec3& Pos, const KdVec3& LookVec);
+	KdVec3& GetCameraPos() { return Pos; }
+	KdVec3& GetCameraVec() {
+		return LookVec;
+	}
 
 public:
 	static CCamera& GetInstance()
@@ -27,24 +28,11 @@ public:
 
 private:
 
-	D3DXVECTOR3	Pos;
+	KdVec3	Pos;
 
-	D3DXVECTOR3	LookVec;
+	KdVec3	LookVec;
 
-	D3DXVECTOR3	HeadPos;
-
-
-	D3DXVECTOR3 m_1Rot;
-	D3DXVECTOR3 m_2Rot;
-	D3DXVECTOR3 m_3Rot;
-
-	float		Ang;
-	D3DXMATRIX Rot;
-
-
-	bool type;
-
-
+	KdVec3	HeadPos;
 };
 #define CAMERA CCamera::GetInstance()
 

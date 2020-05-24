@@ -78,65 +78,30 @@ public:
 		(*this)._41 = x;
 		(*this)._42 = y;
 		(*this)._43 = z;
-
-
 	}
 	void SetTrans(const KdVec3& v) {
 		(*this)._41 = v.x;
 		(*this)._42 = v.y;
 		(*this)._43 = v.z;
 	}
-
+	void CreateTrans(float x, float y, float z) {
+		D3DXMatrixTranslation(this, x, y, z);
+	}
+	void CreateTrans(const KdVec3& v) {
+		D3DXMatrixTranslation(this, v.x, v.y, v.z);
+	}
 	//回転
 	void CreateRotationX(const float rad) {
-		KdVec3 pos, scl;
-		KdMatrix  rM, sM;
-
-		pos = (*this).GetPos();
-		scl.x = (*this).GetScaleX();
-		scl.y = (*this).GetScaleY();
-		scl.z = (*this).GetScaleZ();
-
-
-
 		D3DXMatrixRotationX(this, rad);
-		
-		
-		
-		D3DXMatrixScaling(&sM, scl.x, scl.y, scl.z);
-		(*this) = sM * rM * (*this);
-		(*this)._41 = pos.x;
-		(*this)._42 = pos.y;
-		(*this)._43 = pos.z;
 	}
 	void CreateRotationY(const float rad) {
-		KdVec3 pos, scl;
-		KdMatrix  rM, sM;
-
-		pos = (*this).GetPos();
-		scl.x = (*this).GetScaleX();
-		scl.y = (*this).GetScaleY();
-		scl.z = (*this).GetScaleZ();
-		D3DXMatrixRotationY(this, rad);
-		D3DXMatrixScaling(&sM, scl.x, scl.y, scl.z);
-		(*this) = sM * rM * (*this);
-		(*this)._41 = pos.x;
-		(*this)._42 = pos.y;
-		(*this)._43 = pos.z;
+		D3DXMatrixRotationY
+	(this, rad);
 	}
 	void CreateRotationZ(const float rad) {
-		KdVec3 pos, scl;
-		KdMatrix  rM, sM;
-		pos = (*this).GetPos();
-		scl.x = (*this).GetScaleX();
-		scl.y = (*this).GetScaleY();
-		scl.z = (*this).GetScaleZ();
+
 		D3DXMatrixRotationZ(this, rad);
-		D3DXMatrixScaling(&sM, scl.x, scl.y, scl.z);
-		(*this) = sM * rM * (*this);
-		(*this)._41 = pos.x;
-		(*this)._42 = pos.y;
-		(*this)._43 = pos.z;
+
 	}
 	void SetRotation(float radx, float rady, float radz) {
 		KdVec3 pos, scl;
@@ -144,26 +109,18 @@ public:
 	
 		//移動行列の取り出し
 		Mat.SetTrans((*this)._41, (*this)._42, (*this)._43);
-
 		//拡大行列の取り出し
 		sM.MoveScal((*this).GetXAxis().Length(), (*this).GetYAxis().Length(), (*this).GetZAxis().Length());
-		
 		//回転行列の取り出し
 		rM.RotateXLocal(radx);
 		rM.RotateYLocal(rady);
 		rM.RotateZLocal(radz);
-
-
-		//sM.CreateScale((*this).GetXAxis().Length(), (*this).GetXAxis().Length(), (*this).GetXAxis().Length());
-
-
-		
-
-
-
-
 		(*this) = sM*rM*Mat;
 	}
+	void CreateRotation(float radx, float rady, float radz) {
+		D3DXMatrixRotationYawPitchRoll(this, rady, radx, radz);
+	}
+
 
 	//拡大行列
 	inline void SetScale(float x, float y, float z) {
@@ -219,7 +176,10 @@ public:
 	
 
 	}
-	//動的な拡大行列の変更
+	//拡大行列
+	void CreateScale(float x, float y, float z) {
+		D3DXMatrixScaling(this, x, y, z);
+	}
 
 	void MoveScal(float x, float y, float z) {
 		KdMatrix s;

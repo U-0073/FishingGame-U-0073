@@ -128,7 +128,6 @@ void CGameFrame::GameLoop()
 
 
 
-
 	if (nextscene != nowscene)//シーンIDの比較
 	{
 
@@ -182,7 +181,6 @@ void CGameFrame::GameLoop()
 	if (nowScene && nextscene == nowscene) {
 		//シーンの更新
 		nextscene = nowScene->Update();
-
 
 	}
 	else if(nextscene != nowscene) {

@@ -16,7 +16,7 @@ public:
 
 private:
 
-	std::shared_ptr<SoundBase> testsound = nullptr;
+	std::shared_ptr<SoundBase> SeagullVoice = nullptr;
 
 	int sound;
 	float MoveZ = 0.3f;

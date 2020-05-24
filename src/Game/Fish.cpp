@@ -1,4 +1,5 @@
 #include"../System/KdLibrary/KdLibrary.h"
+#include"../System/FrameBase/CGameFrame.h"
 #include"Fish.h"
 
 Fish::Fish()
@@ -15,10 +16,10 @@ void Fish::SetTagType(int No)
 	{
 	case 0:
 		m_Tag = "RedSnapper";
-	
+
 		break;
 	case 1:
-		m_Tag = "Saury";	
+		m_Tag = "Saury";
 		break;
 	case 2:
 		m_Tag = "Tuna";
@@ -37,13 +38,17 @@ void Fish::SetTagType(int No)
 
 void Fish::Init()
 {
-	GameObject::Init();
+	if (!m_Tag.length())
+	{
+		if (MessageBox(GETHWND, "魚の名前が設定されていません", "Error", MB_ICONINFORMATION) == IDOK)
+		{
+			PostQuitMessage(0);
+		}
+	}
 
-
-	//m_world.CreateScale(0.5, 0.5, 0.5);
-	//m_world.CreateRotation(0, D3DXToRadian(90), 0);
-	m_pModel= RESOURCE_MNG.GetModel(m_Tag);
+	m_pModel = RESOURCE_MNG.GetModel(m_Tag);
 	m_world.SetScale(0.1, 0.1, 0.1);
+
 }
 
 void Fish::Update()
@@ -52,56 +57,47 @@ void Fish::Update()
 	{
 		Init();
 	}
-
-	KdMatrix RotMat;
-	static float FishPosZCnt;
-	static float FishPosYCnt;
-
-	if (!FishFlg) {
-		D3DXVECTOR3	Vec;
-
-		RotMat.CreateRotationY(D3DXToRadian(CamAngY));
-		D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, 1), &RotMat);
-
-		FishPos = PlayerPos + Vec * 20 - KdVec3(0.0f, 4.0f, 0.0f);
-		FishPosZCnt = 20.0f;
-		FishPosYCnt = 8.0f;
-	}
-	else {
-		if (FishPosZCnt > 0 &&FishPosYCnt<7) {
-
-			D3DXVECTOR3	Vec;
-			RotMat.CreateRotationY(D3DXToRadian(CamAngY));
-			D3DXVec3TransformCoord(&Vec, &D3DXVECTOR3(0, 0, 1), &RotMat);
-
-			FishPos -= Vec * 0.5;
-			FishPosZCnt -= 0.5f;
+	//振り向き処理
+	if (DTWHOUCE.GetFlg("Fishing"))
+	{
+		//今魚がどこを向いているか
+		KdVec3 vKVec;
+		D3DXVec3TransformNormal(&vKVec, &KdVec3(0, 0, 1), &m_world);
+		float nowRot = D3DXVec3Dot(&KdVec3(0, 0, 1), &vKVec);
+		nowRot = D3DXToDegree(acos(nowRot));
+		if (vKVec.x < 0) { nowRot *= -1; }
+		//魚とウキの角度の差
+		KdVec3 fpos, bpos;
+		fpos = m_world.GetPos();
+		bpos = DTWHOUCE.GetPos("Buoy");
+		fpos = bpos - fpos;
+		fpos.y = 0;
+		fpos.Normalize();
+		float FishRot = D3DXVec3Dot(&KdVec3(0, 0, 1), &fpos);
+		FishRot = D3DXToDegree(acos(FishRot));
+		if (fpos.x < 0) { FishRot *= -1; }
+		//どっち向きに何度移動するか
+		float Rot = FishRot - nowRot;
+		if (Rot > 180) { Rot = 360 - Rot; }
+		if (Rot < -180) { Rot = 360 + Rot; }
+		if (Rot > 0) {
+			if (Rot > 3) { m_world.RotateYLocal(D3DXToRadian(3.0f)); }
+			if (Rot < 3) { m_world.RotateYLocal(D3DXToRadian(Rot)); }
 		}
-
-		if (FishPosYCnt > 0) {
-			if (FishPosYCnt > 7) {
-				FishPos += KdVec3(0.0f, 0.2f, 0.0f);
-				FishPosYCnt -= 0.2f;
-			}
-			else {
-			FishPos += KdVec3(0.0f, 0.2f, 0.0f);
-			FishPosYCnt -= 0.4f;
-			}
+		if (Rot < 0) {
+			if (Rot < -3) { m_world.RotateYLocal(D3DXToRadian(-3.0f)); }
+			if (Rot > -3) { m_world.RotateYLocal(D3DXToRadian(Rot)); }
 		}
+		m_world.MoveLocal(0, 0, -0.5);
+		//m_world.RotateYLocal(D3DXToRadian((rand() % 10) - 5));
+
 	}
-
-	KdMatrix RotMatX;
-	//RotMatX.CreateRotationX(D3DXToRadian(90));
-
-	
-	
-	
-	
-	m_world.MoveLocal(0, 0, -0.5);
-
-	
-	m_world.RotateYLocal(D3DXToRadian((rand()%10)-5));
-
+	else
+	{
+		//フラフラ動く
+		m_world.MoveLocal(0, 0, -0.5);
+		m_world.RotateYLocal(D3DXToRadian((rand() % 10) - 5));
+	}
 }
 
 
@@ -129,27 +125,23 @@ void Fish::End()
 	m_pModel = nullptr;
 }
 
-void Fish::TitleUpdate()
+void Fish::TitleInit()
 {
-	//m_world.SetTrans(0, 0, 15);
-	//m_world.RotateLocal(0, D3DXToRadian(0.5), 0);
-		
-	//m_world.SetRotation(0, D3DXToRadian(90), 0);
-
-		//m_world.CreateScale(0.1, 0.1, 0.1);	
-	m_world.MoveLocal(0, 0, -0.5);
-
-
-
-
-
+	m_Tag = "RedSnapper";
+	m_pModel = RESOURCE_MNG.GetModel(m_Tag);
+	m_world.SetScale(0.2, 0.2, 0.2);
 
 }
-
-void Fish::ResultUpdate()
+void Fish::TitleUpdate()
 {
-	
-	m_world.SetTrans(0.0f, 1.0f, 0);
+	m_world.MoveLocal(0, 0, -0.5);
+}
+
+void Fish::ResultInit()
+{
+	m_pModel = RESOURCE_MNG.GetModel(m_Tag);
+
+	m_world.SetTrans(0.0f, 5.0f, 0);
 	m_world.CreateRotationY(D3DXToRadian(90));
 	m_world.SetScale(2, 2, 2);
 }
@@ -169,42 +161,40 @@ void Fishes::Init()
 
 			l_Fish->SetTagType(name);
 			l_Fish->Init();
-			Pos=+l_Fish->GetPos();
+			Pos = +l_Fish->GetPos();
 			m_Fishs.push_back(l_Fish);
-			
+
 
 		}
-		if (m_Fishs.size()>0) {
+		if (m_Fishs.size() > 0) {
 			Pos = Pos / m_Fishs.size();
-			CenterPoss.push_back(Pos);
+			CenterPos.push_back(Pos);
 			m_Fihes.push_back(m_Fishs);//二次元配列化
 			c++;
 		}
-		
+
 	}
 }
+
 void Fishes::Update()
 {
 	int i = 0;
 	for (auto&& p : m_Fihes) {
 
-		int c=0;
+		int c = 0;
 		for (auto&& pp : p) {
-			CenterPoss[i]+=pp->GetPos();
+			CenterPos[i] += pp->GetPos();
 			pp->Update();
 			c++;
 		}
 		if (c != 0) {
-			CenterPoss[i] = CenterPoss[i] / (float)c;
+			CenterPos[i] = CenterPos[i] / (float)c;
 		}
 		for (auto&& pp : p) {
-			CenterPoss[i] += pp->GetPos();
-			pp->SetCenter(CenterPoss[i]);
+			CenterPos[i] += pp->GetPos();
+			pp->SetCenter(CenterPos[i]);
 		}
 	}
-
-
-	
 
 }
 

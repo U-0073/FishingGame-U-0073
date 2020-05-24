@@ -31,6 +31,7 @@ void CMapScene::Init()
 
 	//äC
 	Seas = std::make_shared<Sea>();
+	Seas->Init();
 	//ç`
 	m_Port = std::make_shared<Port>();
 	m_Port->Init();
@@ -60,30 +61,31 @@ void CMapScene::Init()
 int CMapScene::Update()
 {
 	m_Player->Update();
-	Sky->SetPos(m_Player->GetPlayerPos());
+	Sky->Update();
 	m_Port->Update();
 	Seas->Update();
 
-	m_Fishing->SetCamAngY(m_Player->GetCamAngY());
-	m_Fishing->SetPlayerPos(m_Player->GetPlayerPos());
-	m_Fishing->SetFishFlg(m_Player->GetFeshFlg());
-	m_Fishing->SetBuoiFlg(m_Player->GetBuoiFlg());
 	m_Fishing->Update();
 
 	m_Seagull->Update();
+
 
 	if (GetKey(VK_SPACE) & 0x8000)
 	{
 		FADE.Start(5);
 		return ROGO;
 	}
-	if (GetKey('I') & 0x8000) {
+	if (DTWHOUCE.GetFlg("ShopFlg")) {
 		FADE.Start(5);
 		return SHOP;
 	}
 	if (GetKey('F') & 0x8000) {
 		FADE.Start(5);
 		return GAME;
+	}
+	if (GetKey('R') & 0x8000) {
+		FADE.Start(5);
+		return RESULT;
 	}
 
 	return MAP;
