@@ -32,8 +32,14 @@ void CResultScene::Init()
 
 	Sky = std::make_shared<Skysphere>();
 	Sky->Init();
+	NumberTex = RESOURCE_MNG.GetTexture("BLackNumber.png");
+	
+	CoinTex = RESOURCE_MNG.GetTexture("Coin.png");
+	mCoinMat.SetTrans(1280.0f / 3, 720.0f / 5 * 4, 0.0f);
+
 	NameTex = RESOURCE_MNG.GetTexture(fish->getTag() + ".png");
 	mNameMat.SetTrans(1280.0f/2, 720.0f/2+75, 0.0f);
+	
 	result = std::make_shared<Result>();
 	result->Init();
 	CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -25), fish->GetFishPos());
@@ -80,6 +86,13 @@ void CResultScene::Draw2D()
 	SPRITE->SetTransform(&mNameMat);
 	SPRITE->Draw(*NameTex, &rcName, &D3DXVECTOR3(150.0f, 50.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
+	RECT rcCoin = { 0,0,80,80 };
+	SPRITE->SetTransform(&mCoinMat);
+	SPRITE->Draw(*CoinTex, &rcCoin, &D3DXVECTOR3(40.0f, 40.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+
+	RECT rcNumber = { 0,0,400,80 };
+	SPRITE->SetTransform(&mNameMat);
+	SPRITE->Draw(*NumberTex, &rcNumber, &D3DXVECTOR3(200.0f, 40.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 
 

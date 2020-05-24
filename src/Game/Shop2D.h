@@ -31,6 +31,8 @@ private:
 	KdMatrix ListSelectMat;
 	KdMatrix MoneyFrameMat;
 	KdMatrix E_PowerMat;
+	KdMatrix numberMat;
+	KdMatrix transMat;
 
 	std::shared_ptr<LPDIRECT3DTEXTURE9> FrameTex;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> FrameSecTex;
@@ -43,6 +45,7 @@ private:
 	std::shared_ptr<LPDIRECT3DTEXTURE9> ListSelectTex;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> MoneyFrameTex;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> E_PowerTex;
+	std::shared_ptr<LPDIRECT3DTEXTURE9> numberTex;
 
 
 	KdMatrix BaitMat;
@@ -52,6 +55,9 @@ private:
 
 	int cursor = 0;
 	int tabPattern = 0;
+	//Š‹à
+	int miPos = 10000000;
+	int num[10];
 
 	float select[LISTNUMBER];
 	float tabL = 0, tabC = 0, tabR = 0;
@@ -63,5 +69,6 @@ private:
 	bool RodTextFlg = false;
 	bool BaitTextFlg = false;
 	bool ReelTextFlg = false;
+	bool enterFlg
 };
 
