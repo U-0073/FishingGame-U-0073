@@ -29,7 +29,10 @@ private:
 
 	std::shared_ptr<LPDIRECT3DTEXTURE9> NameTex = nullptr;
 	KdMatrix mNameMat;
-
+	std::shared_ptr<LPDIRECT3DTEXTURE9>NumberTex = nullptr;
+	KdMatrix mNumberMat;
+	std::shared_ptr<LPDIRECT3DTEXTURE9>CoinTex = nullptr;
+	KdMatrix mCoinMat;
 	std::shared_ptr<Skysphere>	Sky = nullptr;
 	std::shared_ptr<Fish>		fish = nullptr;
 	std::shared_ptr<Result>     result = nullptr;
