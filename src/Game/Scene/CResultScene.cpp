@@ -19,6 +19,7 @@ void CResultScene::SetTagType(std::string Name)
 
 void CResultScene::Init()
 {
+
 	fish = std::make_shared<Fish>();
 	fish->SetTagType(0);
 	fish->ResultInit();

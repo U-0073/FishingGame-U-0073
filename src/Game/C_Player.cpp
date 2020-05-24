@@ -188,6 +188,7 @@ void C_Player::Move()
 	m_world = PlayerRot * TransMat;
 }
 
+//床判定
 void C_Player::HitObject()
 {
 	KdVec3 Vec(0.0f, -1.0f, 0.0f);
@@ -414,9 +415,9 @@ void C_Player::Draw2D()
 //	RECT rcText = { 10,30 * 1,0,0 };
 //	sprintf_s(Text, sizeof(Text), "Dis2 %f", TextMeshDis);
 //	FONT->DrawText(NULL, Text, -1, &rcText, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	RECT rcText1 = { 10,30 * 7,0,0 };
-	sprintf_s(Text, sizeof(Text), "Dot %f", TextDot);
-	FONT->DrawText(NULL, Text, -1, &rcText1, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	//RECT rcText1 = { 10,30 * 7,0,0 };
+	//sprintf_s(Text, sizeof(Text), "Dot %f", TextDot);
+	//FONT->DrawText(NULL, Text, -1, &rcText1, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	RECT rcText2 = { 10,30 * 2,0,0 };
 	sprintf_s(Text, sizeof(Text), "PlayerPos  x %f  y%f z %f ", PlayerPos.x, PlayerPos.y, PlayerPos.z);
 	FONT->DrawText(NULL, Text, -1, &rcText2, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
@@ -437,8 +438,8 @@ void C_Player::Draw2D()
 
 }
 
-
-void C_Player::MoveRay(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh, int Mode)
+//店との当たり判定
+void C_Player::MoveRay(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh, int Mode)//Mode:1なら店との当たり判定
 {
 	//かべずり判定（メッシュ）
 	D3DXMATRIX	InvMat;
@@ -448,11 +449,10 @@ void C_Player::MoveRay(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh, int
 	D3DXVec3TransformNormal(&LocalVec, &Vec, &InvMat);
 
 	BOOL Hit;
-	TextMeshDis = 0;
 	float MeshDis;
 	DWORD PolyNo;	//ポリゴン番号
 	D3DXIntersect(lpMesh, &LocalPos, &LocalVec, &Hit,
-		&PolyNo, NULL, NULL, &TextMeshDis, NULL, NULL);
+		&PolyNo, NULL, NULL, &MeshDis, NULL, NULL);
 
 
 	if (Hit) {
@@ -493,16 +493,18 @@ void C_Player::MoveRay(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh, int
 		//法線の取得完了
 
 
-		//float Dot;
+		float Dot;
+		Dot = D3DXVec3Dot(&-WallVec, &(Vec * MeshDis));//カメラの進行方向
 		float Limit = -1.0f;
+		//店にぶつかった時の処理
 		if (Mode == 1)
 			Limit = -2.0f;
-		TextDot = D3DXVec3Dot(&-WallVec, &(Vec * TextMeshDis));//カメラの進行方向
 
-		if (TextDot > Limit && TextDot < 0) {
+		//桟橋に当たった時に発動する
+		//立ち入り禁止エリアに入った時に跳ね返す処理？
+		if (Dot > Limit && Dot < 0) {
 			//WallFlg = true;
-
-			float Tmp = Limit - TextDot;
+			float Tmp = Limit - Dot;
 			KdVec3 TmpVec = (Tmp * WallVec);
 			TmpVec.Set(TmpVec.x, 0.0f, TmpVec.z);
 			PlayerPos += TmpVec;
@@ -510,10 +512,10 @@ void C_Player::MoveRay(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh, int
 		//else 	WallFlg = false;
 
 		Limit *= -1;
-		if (TextDot < Limit && TextDot > 0) {
-			//WallFlg = true;
-
-			float Tmp = Limit - TextDot;
+		//店と当たった時に発動する
+		//立ち入り禁止エリアに入った時に跳ね返す処理？
+		if (Dot < Limit && Dot > 0) {
+			float Tmp = Limit - Dot;
 			KdVec3 TmpVec = (Tmp * WallVec);
 			TmpVec.Set(TmpVec.x, 0.0f, TmpVec.z);
 			PlayerPos += TmpVec;
@@ -522,7 +524,7 @@ void C_Player::MoveRay(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh, int
 		//ショップに入る処理
 		if (Mode == 1) {
 			Limit = 3;
-			if (TextDot < Limit) {
+			if (Dot < Limit) {
 				//ショップに入る処理
 				ShopFlg = true;
 
