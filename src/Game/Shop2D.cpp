@@ -31,6 +31,8 @@ void Shop2D::Init()
 	E_PowerTex = RESOURCE_MNG.GetTexture("Shop/E_power.png");
 	D3DXMatrixTranslation(&E_PowerMat, 850.0f, 435.0f, 0.0f);
 	MoneyFrameTex = RESOURCE_MNG.GetTexture("Shop/MoneyFrame.png");
+	D3DXMatrixTranslation(&MoneyFrameMat, 750.0f, 10.0f, 0.0f);
+	numberTex = RESOURCE_MNG.GetTexture("Shop/number.png");
 	D3DXMatrixTranslation(&MoneyFrameMat, 940.0f, 10.0f, 0.0f);
 
 	//ƒGƒT
@@ -267,7 +269,7 @@ void Shop2D::Draw2D()
 	RECT rcE_Power = { 0,0,350,39 };
 	SPRITE->SetTransform(&E_PowerMat);
 	SPRITE->Draw(*E_PowerTex, &rcE_Power, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-	RECT rcMoneyFrame = { 0,0,300,100 };
+	RECT rcMoneyFrame = { 0,0,500,70 };
 	SPRITE->SetTransform(&MoneyFrameMat);
 	SPRITE->Draw(*MoneyFrameTex, &rcMoneyFrame, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
@@ -305,6 +307,32 @@ void Shop2D::Draw2D()
 		SPRITE->Draw(*BaitTex, &rcBait, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 	}
 
+	//Š‹à
+	RECT rcNum[] = {
+	{  0    ,0, 50 *  1,50 },
+	{ 50 * 1,0, 50 *  2,50 },
+	{ 50 * 2,0, 50 *  3,50 },
+	{ 50 * 3,0, 50 *  4,50 },
+	{ 50 * 4,0, 50 *  5,50 },
+	{ 50 * 5,0, 50 *  6,50 },
+	{ 50 * 6,0, 50 *  7,50 },
+	{ 50 * 7,0, 50 *  8,50 },
+	{ 50 * 8,0, 50 *  9,50 },
+	{ 50 * 9,0, 50 * 10,50 } };
+
+	char cScore[64];
+	sprintf_s(cScore, sizeof(cScore), "%d", miPos);
+	D3DXMatrixTranslation(&numberMat, 1210, 35, 0);
+	D3DXMatrixTranslation(&transMat, -35, 0, 0);
+
+	int i;
+	for (i = 0; cScore[i] != '\0'; i++);
+
+	for (i -= 1; i >= 0; i--) {
+		numberMat *= transMat;
+		SPRITE->SetTransform(&numberMat);
+		SPRITE->Draw(*numberTex, &rcNum[cScore[i] - '0'], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+	}
 
 	SPRITE->End();
 }
