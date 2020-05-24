@@ -69,7 +69,7 @@ void Fish::Update()
 		//魚とウキの角度の差
 		KdVec3 fpos, bpos;
 		fpos = m_world.GetPos();
-		bpos = DTWHOUCE.GetPos("Buoy");
+		bpos = DTWHOUCE.GetVec("Buoy");
 		fpos = bpos - fpos;
 		fpos.y = 0;
 		fpos.Normalize();
@@ -139,6 +139,15 @@ void Fish::TitleUpdate()
 
 void Fish::ResultInit()
 {
+	m_Tag = DTWHOUCE.GetStr("FishName");
+	if (!m_Tag.length())
+	{
+		if (MessageBox(GETHWND, "魚の名前が設定されていません", "Error", MB_ICONINFORMATION) == IDOK)
+		{
+			PostQuitMessage(0);
+		}
+	}
+
 	m_pModel = RESOURCE_MNG.GetModel(m_Tag);
 
 	m_world.SetTrans(0.0f, 5.0f, 0);

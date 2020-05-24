@@ -20,7 +20,7 @@ void Skysphere::Init()
 
 void Skysphere::Update(void)
 {
-	m_world.SetTrans(DTWHOUCE.GetPos("Player"));
+	m_world.SetTrans(DTWHOUCE.GetVec("Player"));
 }
 
 void Skysphere::Draw3D()
