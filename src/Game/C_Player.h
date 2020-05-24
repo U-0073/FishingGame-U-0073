@@ -84,7 +84,7 @@ private:
 	float				FishScene_StartPos = 4.0f;
 	float				CamAngY = 0.0f;
 	float				CamAngX = 0.0f;
-	float				MoveSpeed = 0.4f;
+	float				MoveSpeed = 0.1f;
 	float				FishScene_CamAngX = 0.0f;
 	float				TextMeshDis2;
 	

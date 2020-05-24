@@ -261,7 +261,6 @@ void C_Player::CameraProc()
 	//マウス関係の計算
 	MouseUpdate();
 }
-
 void C_Player::MouseUpdate() {
 	POINT Pt;
 	GetCursorPos(&Pt);
@@ -289,7 +288,6 @@ void C_Player::MouseUpdate() {
 
 	if (!FishingFlg) SetCursorPos(BasePt.x, BasePt.y);
 }
-
 void C_Player::CameraSet()
 {
 	static int cntY = 0;
@@ -467,9 +465,9 @@ void C_Player::Draw2D()
 	//RECT rcText5 = { 10,30 * 5,0,0 };
 	//sprintf_s(Text, sizeof(Text), "TextDot2 %f ", TextDot2);
 	//KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText5, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	RECT rcText6 = { 10,30 * 6,0,0 };
-	sprintf_s(Text, sizeof(Text), "FishingScene_CamPos  x %f  y%f z %f ", FishScene_CamPos.x, FishScene_CamPos.y, FishScene_CamPos.z);
-	FONT->DrawText(NULL, Text, -1, &rcText6, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	//RECT rcText6 = { 10,30 * 6,0,0 };
+	//sprintf_s(Text, sizeof(Text), "FishingScene_CamPos  x %f  y%f z %f ", FishScene_CamPos.x, FishScene_CamPos.y, FishScene_CamPos.z);
+	//FONT->DrawText(NULL, Text, -1, &rcText6, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 
 	SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
 
@@ -578,7 +576,6 @@ bool C_Player::MoveRay_Shop(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh
 	if (ShopFlg)return true;
 	else return false;
 }
-
 bool C_Player::MoveRay_Bridge(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh, int Mode)//Mode:1なら店との当たり判定 Mode:2は店との距離を測って店に入れるかどうか
 {
 	//かべずり判定（メッシュ）
