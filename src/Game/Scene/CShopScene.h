@@ -29,4 +29,7 @@ private:
 
 	std::shared_ptr<SoundBase> m_pSound = nullptr;
 
+	//Š‹à
+	int Possession;
+
 };

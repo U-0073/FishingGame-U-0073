@@ -34,6 +34,7 @@ private:
 	std::shared_ptr<Fish>		fish = nullptr;
 	std::shared_ptr<Result>     result = nullptr;
 	std::shared_ptr<SoundBase> m_pSound = nullptr;
+	std::shared_ptr<SoundBase> SellSound = nullptr;
 
 	KdVec3 ScoreData;
 	float Price;
