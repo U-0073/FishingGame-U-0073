@@ -302,7 +302,7 @@ void C_Player::CameraSet()
 
 		//カメラを上に上げる処理(注視点はブイの座標)
 
-		KdVec3 BuoyPos = DTWHOUCE.GetPos("Buoy");	//ブイの座標を取ってくる
+		KdVec3 BuoyPos = DTWHOUCE.GetVec("Buoy");	//ブイの座標を取ってくる
 		//カメラの移動量
 		float MoveSize = 0.1f;
 

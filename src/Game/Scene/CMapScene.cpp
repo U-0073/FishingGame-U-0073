@@ -56,6 +56,7 @@ void CMapScene::Init()
 	m_PBGM->SetVol(0.5f);
 	m_PBGM->Playsound("超使いやすいドラム&ベース無限BGM", true, true);
 
+	DTWHOUCE.SetStr("FishName", "SunFish");
 }
 
 int CMapScene::Update()

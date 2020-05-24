@@ -168,8 +168,14 @@ int CGameScene::Update()
 				m_pSound = RESOURCE_MNG.GetSound("レベルが上がったり何かをクリアした時の短いジングル");
 				m_pSound->Playsound("レベルが上がったり何かをクリアした時の短いジングル", true, false);
 
-				SetScore(Excellent, Miss);
-
+				//ゲーム結果をDTWHOUCEに保存する
+				int calcAve = Excellent / (Excellent + Miss);//calcAveは全ノーツのエクセレント率
+				bool clear;
+				if (calcAve >= 0.6) { clear = true; }
+				if (calcAve < 0.6) { clear = false; }
+				score.Set(Excellent, Miss, clear);
+				DTWHOUCE.SetVec("score", score);
+				//保存後、リザルトシーンヘ
 				FADE.Start(6.5);
 				return RESULT;
 			}
