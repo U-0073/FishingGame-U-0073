@@ -519,6 +519,7 @@ void C_Player::MoveRay(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh, int
 			PlayerPos += TmpVec;
 		}
 
+		//ƒVƒ‡ƒbƒv‚É“ü‚éˆ—
 		if (Mode == 1) {
 			Limit = 3;
 			if (TextDot < Limit) {
