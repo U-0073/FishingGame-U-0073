@@ -151,6 +151,8 @@ void C_Player::Move()
 
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Left, &RotMat);
 			MoveRay(Vec, CollisionMat, CollisionModel->GetMesh(), 0);
+			MoveRay(Vec, ShopMat, ShopModel->GetMesh(), 1);
+
 			if (WallFlg) {
 			}
 		}
@@ -163,8 +165,8 @@ void C_Player::Move()
 			MoveRay(Vec, CollisionMat, CollisionModel->GetMesh(), 0);
 			MoveRay(Vec, ShopMat, ShopModel->GetMesh(), 1);
 
-			//D3DXVec3TransformCoord(&Vec, &CoordVec.Front, &RotMat);
-			//MoveRay(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			D3DXVec3TransformCoord(&Vec, &CoordVec.Front, &RotMat);
+			MoveRay(Vec, ShopMat, ShopModel->GetMesh(), 1);
 
 		}
 		if (GetKey('D') & 0x8000) {//‰E
@@ -174,6 +176,7 @@ void C_Player::Move()
 
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Right, &RotMat);
 			MoveRay(Vec, CollisionMat, CollisionModel->GetMesh(), 0);
+			MoveRay(Vec, ShopMat, ShopModel->GetMesh(), 1);
 			if (WallFlg) {
 			}
 		}
