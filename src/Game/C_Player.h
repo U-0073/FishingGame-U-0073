@@ -48,7 +48,8 @@ private:
 	void CameraSet();
 	void MouseUpdate();
 
-	void MoveRay(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh,int Mode);	//“–‚½‚è”»’è‚ğŠÜ‚ß‚½ˆÚ“®
+	bool MoveRay_Shop(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh,int Mode);	//“–‚½‚è”»’è‚ğŠÜ‚ß‚½ˆÚ“®
+	bool MoveRay_Bridge(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh,int Mode);	//“–‚½‚è”»’è‚ğŠÜ‚ß‚½ˆÚ“®
 	//---------s—ñ-------------
 	//ŒÅ’è•Ï”
 	KdVec3			InitCamPos = KdVec3(0.0f, 2.0f, 0.0f);
@@ -83,10 +84,10 @@ private:
 	float				FishScene_StartPos = 4.0f;
 	float				CamAngY = 0.0f;
 	float				CamAngX = 0.0f;
-	float				MoveSpeed = 0.1f;
+	float				MoveSpeed = 0.4f;
 	float				FishScene_CamAngX = 0.0f;
-	float TextMeshDis2;
-
+	float				TextMeshDis2;
+	
 	bool				FishingFlg = false;
 	bool				RestoreFlg = false;
 	bool				WallFlg = false;
