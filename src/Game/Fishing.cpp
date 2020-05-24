@@ -29,7 +29,7 @@ void C_Fishing::Init() {
 
 void C_Fishing::Update()
 {
-	PlayerPos = DTWHOUCE.GetPos("Player");
+	PlayerPos = DTWHOUCE.GetVec("Player");
 
 	FishingProc();
 
@@ -48,7 +48,7 @@ void C_Fishing::FishingProc()
 		//ウキを海に投げ込む処理
 		if (!StopFlg) {
 			StopFlg = true;
-			BuoyPos = DTWHOUCE.GetPos("CamLookVec") * 20;
+			BuoyPos = DTWHOUCE.GetVec("CamLookVec") * 20;
 			BuoyPos.y = 0;
 		}
 		//
@@ -63,7 +63,7 @@ void C_Fishing::FishingProc()
 	}
 	else {
 		//ブイをカメラの真後ろに置いて隠す
-		KdVec3 Vec= DTWHOUCE.GetPos("CamLookVec");
+		KdVec3 Vec = DTWHOUCE.GetVec("CamLookVec");
 		Vec.Inverse();
 		BuoyPos = CAMERA.GetCameraPos() + (Vec * 1.5f);
 

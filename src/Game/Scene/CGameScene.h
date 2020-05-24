@@ -61,9 +61,6 @@ private:
 	KdVec3 score;
 	const void SetScore(const int Excellent, const int Miss)
 	{
-		int calcAve = Excellent / (Excellent + Miss);//calcAveは全ノーツのエクセレント率
-		score.Set(Excellent, Miss, calcAve);
-		DTWHOUCE.SetVec("score",score);
 	}
 
 

@@ -85,7 +85,7 @@ private:
 	float				CamAngX = 0.0f;
 	float				MoveSpeed = 0.1f;
 	float				FishScene_CamAngX = 0.0f;
-	float TextMeshDis2;
+	float				TextMeshDis2;
 
 	bool				FishingFlg = false;
 	bool				RestoreFlg = false;

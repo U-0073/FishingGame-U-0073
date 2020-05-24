@@ -265,7 +265,7 @@ void C_Player::CameraSet()
 
 		//カメラを上に上げる処理(注視点はブイの座標)
 
-		KdVec3 BuoyPos = DTWHOUCE.GetPos("Buoy");	//ブイの座標を取ってくる
+		KdVec3 BuoyPos = DTWHOUCE.GetVec("Buoy");	//ブイの座標を取ってくる
 		//カメラの移動量
 		float MoveSize = 0.1f;
 
@@ -501,7 +501,7 @@ void C_Player::MoveRay(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh, int
 			Limit = -2.0f;
 
 		//ここが壁ずり処理。
-		//立ち入り禁止エリアと店に当たった時に自信を跳ね返す処理です＿(　_´ω`)_ﾍﾟｼｮ
+		//立ち入り禁止エリアと店に当たった時に自身を跳ね返す処理です＿(　_´ω`)_ﾍﾟｼｮ
 		if (Dot > Limit && Dot < 0) {
 			//WallFlg = true;
 			float Tmp = Limit - Dot;
@@ -512,7 +512,7 @@ void C_Player::MoveRay(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh, int
 		//else 	WallFlg = false;
 
 		Limit *= -1;
-		//店と当たった時に発動する　←違います。↑のやつはポリゴンの裏面だけを判定するのでこっちは表面も判定するように
+		//↑はポリゴンの裏面だけを判定するので表面も判定するようにしている
 		//立ち入り禁止エリアに入った時に跳ね返す処理
 		if (Dot < Limit && Dot > 0) {
 			float Tmp = Limit - Dot;
