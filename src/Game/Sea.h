@@ -10,7 +10,7 @@ public:
 	Sea();
 	~Sea();
 
-	void Init()override {};
+	void Init()override ;
 	void Update()override;
 	void Draw2D()override {};
 	void Draw3D()override;

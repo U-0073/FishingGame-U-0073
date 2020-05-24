@@ -15,7 +15,6 @@ public:
 	void Draw3D()override;
 	int GetID()override { return GAME; };
 	void End()override;
-
 private:
 	//固定枠
 	std::shared_ptr<LPDIRECT3DTEXTURE9> ringTex = nullptr;
@@ -64,17 +63,17 @@ private:
 	{
 		int calcAve = Excellent / (Excellent + Miss);//calcAveは全ノーツのエクセレント率
 		score.Set(Excellent, Miss, calcAve);
+		DTWHOUCE.SetVec("score",score);
 	}
-	const KdVec3 ReturnScore()
-	{
-		return score;
-	}
+
 
 	//スコアチェッカー
 	int clickCNT;
 	int Excellent;
 	int Miss;
 
+	//何の魚か
+	std::string name;
 
 	std::shared_ptr<SoundBase> m_pSound = nullptr;
 

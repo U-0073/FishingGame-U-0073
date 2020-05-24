@@ -31,6 +31,7 @@ void CMapScene::Init()
 
 	//海
 	Seas = std::make_shared<Sea>();
+	Seas->Init();
 	//港
 	m_Port = std::make_shared<Port>();
 	m_Port->Init();
@@ -52,6 +53,7 @@ void CMapScene::Init()
 	m_PSound->Playsound("wave3", true, true);
 	m_PBGM = RESOURCE_MNG.GetSound("超使いやすいドラム&ベース無限BGM");
 	m_PBGM->LDS3B8->SetMode(DS3DMODE_DISABLE, DS3D_IMMEDIATE);
+	m_PBGM->SetVol(0.5f);
 	m_PBGM->Playsound("超使いやすいドラム&ベース無限BGM", true, true);
 
 }
@@ -59,17 +61,14 @@ void CMapScene::Init()
 int CMapScene::Update()
 {
 	m_Player->Update();
-	Sky->SetPos(m_Player->GetPlayerPos());
+	Sky->Update();
 	m_Port->Update();
 	Seas->Update();
 
-	m_Fishing->SetCamAngY(m_Player->GetCamAngY());
-	m_Fishing->SetPlayerPos(m_Player->GetPlayerPos());
-	m_Fishing->SetFishFlg(m_Player->GetFeshFlg());
-	m_Fishing->SetBuoiFlg(m_Player->GetBuoiFlg());
 	m_Fishing->Update();
 
 	m_Seagull->Update();
+
 
 	if (GetKey(VK_SPACE) & 0x8000)
 	{
@@ -83,6 +82,10 @@ int CMapScene::Update()
 	if (GetKey('F') & 0x8000) {
 		FADE.Start(5);
 		return GAME;
+	}
+	if (GetKey('R') & 0x8000) {
+		FADE.Start(5);
+		return RESULT;
 	}
 
 	return MAP;

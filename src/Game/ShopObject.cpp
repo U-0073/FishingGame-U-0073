@@ -28,7 +28,7 @@ void ShopObject::Init()
 
 	//à íuí≤êÆ
 	m_world.MoveLocal(0.5f, -0.5f, 0);
-	m_world.RotateLocal(D3DXToRadian(-45), D3DXToRadian(90), D3DXToRadian(0));
+	m_world.SetRotation(D3DXToRadian(0), D3DXToRadian(90), D3DXToRadian(-45));
 
 	D3DXMatrixTranslation(&m_reel, 9, 7, 0);
 	D3DXMatrixScaling(&m_reelScal, 40, 40, 40);

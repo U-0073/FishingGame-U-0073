@@ -137,6 +137,9 @@
     <ClCompile Include="src\Game\Scene\CRogoScene.cpp">
       <Filter>src\シーン</Filter>
     </ClCompile>
+    <ClCompile Include="src\System\FrameBase\DataWareHouce.cpp">
+      <Filter>src\システム</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\System\Component\InputComponent.h">
@@ -246,6 +249,9 @@
     </ClInclude>
     <ClInclude Include="src\Game\Scene\CRogoScene.h">
       <Filter>src\シーン</Filter>
+    </ClInclude>
+    <ClInclude Include="src\System\FrameBase\DataWareHouce.h">
+      <Filter>src\システム</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

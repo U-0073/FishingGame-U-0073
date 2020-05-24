@@ -15,15 +15,12 @@ void Skysphere::Init()
 	m_pModel = RESOURCE_MNG.GetModel("SkySphere2");
 	m_pModel2 = RESOURCE_MNG.GetModel("SeaSphere");
 	
-	D3DXMATRIX ScaleMat;
-	D3DXMatrixScaling(&ScaleMat, 1.5f, 1.5f, 1.5f);
-	m_world = ScaleMat * m_world;
-
+	m_world.SetScale(1.5, 1.5, 1.5);
 }
 
 void Skysphere::Update(void)
 {
-	
+	m_world.SetTrans(DTWHOUCE.GetPos("Player"));
 }
 
 void Skysphere::Draw3D()

@@ -77,6 +77,7 @@
 #include"KdResourceManager.h"
 
 #include"KdMath.h"//—Dæ“x‚‚¢
+#include"../FrameBase/DataWareHouce.h"
 
 #include"CCamera.h"//ƒJƒƒ‰
 
