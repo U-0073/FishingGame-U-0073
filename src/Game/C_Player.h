@@ -48,7 +48,7 @@ private:
 	void CameraSet();
 	void MouseUpdate();
 
-	void MoveRay(D3DXVECTOR3 Vec);	//“–‚½‚è”»’è‚ğŠÜ‚ß‚½ˆÚ“®
+	void MoveRay(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh,int Mode);	//“–‚½‚è”»’è‚ğŠÜ‚ß‚½ˆÚ“®
 	//---------s—ñ-------------
 	//ŒÅ’è•Ï”
 	KdVec3			InitCamPos = KdVec3(0.0f, 2.0f, 0.0f);
@@ -65,6 +65,7 @@ private:
 	float			FishScene_LenMin = 2.0f;
 
 	std::shared_ptr<KdModel> CollisionModel = nullptr;
+	std::shared_ptr<KdModel> ShopModel = nullptr;
 
 	KdVec3			PlayerPos;
 	KdVec3			FishScene_CamPos = KdVec3(0.0f, 2.0f, 0.0f);
@@ -73,6 +74,7 @@ private:
 	KdMatrix		TransMat;
 	KdMatrix		PlayerRot;
 	KdMatrix		CollisionMat;
+	KdMatrix		ShopMat;
 
 	//ƒJƒƒ‰
 	POINT				BasePt;
@@ -83,14 +85,12 @@ private:
 	float				CamAngX = 0.0f;
 	float				MoveSpeed = 0.1f;
 	float				FishScene_CamAngX = 0.0f;
-	float TextMeshDis;
-	float TextDot;
-	float TextMeshDis2;
+	float				TextMeshDis2;
 
 	bool				FishingFlg = false;
 	bool				RestoreFlg = false;
 	bool				WallFlg = false;
 	bool				ClickFlg = false;
-
+	bool				ShopFlg=false;
 
 };

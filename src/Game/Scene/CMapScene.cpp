@@ -56,6 +56,7 @@ void CMapScene::Init()
 	m_PBGM->SetVol(0.5f);
 	m_PBGM->Playsound("超使いやすいドラム&ベース無限BGM", true, true);
 
+	DTWHOUCE.SetStr("FishName", "SunFish");
 }
 
 int CMapScene::Update()
@@ -75,7 +76,7 @@ int CMapScene::Update()
 		FADE.Start(5);
 		return ROGO;
 	}
-	if (GetKey('I') & 0x8000) {
+	if (DTWHOUCE.GetFlg("ShopFlg")) {
 		FADE.Start(5);
 		return SHOP;
 	}

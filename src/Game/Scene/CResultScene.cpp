@@ -19,11 +19,14 @@ void CResultScene::SetTagType(std::string Name)
 
 void CResultScene::Init()
 {
+	//ゲームシーンから取ってきたデータを保存する
+	ScoreData = DTWHOUCE.GetVec("score");
+
+
 	fish = std::make_shared<Fish>();
-	fish->SetTagType(0);
 	fish->ResultInit();
 
-
+	if (ScoreData.Success)CalcData();
 
 	mPos = { 0,0,0 };
 
@@ -78,7 +81,9 @@ void CResultScene::Draw3D()
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, TRUE);
 	
 	Sky->Draw3D();
-	fish->Draw3D();
+	if (ScoreData.Success) {
+		fish->Draw3D();
+	}
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
 }
 
@@ -91,4 +96,34 @@ void CResultScene::End()
 	result->End();
 	result = nullptr;
 
+	DTWHOUCE.SetVec("score", { 0,0,0 });
+}
+
+void CResultScene::CalcData()
+{
+	//魚のサイズと売値
+	if (DTWHOUCE.GetStr("FishName") == "RedSnapper"){
+		Size = 50;
+		Price = 3500;
+	}
+	if (DTWHOUCE.GetStr("FishName") == "Saury"){
+		Size = 35;
+		Price = 300;
+	}
+	if (DTWHOUCE.GetStr("FishName") == "Tuna"){
+		Size = 150;
+		Price = 2000000;
+	}
+	if (DTWHOUCE.GetStr("FishName") == "Shark"){
+		Size = 430;
+		Price = 10000;
+	}
+	if (DTWHOUCE.GetStr("FishName") == "SunFish"){
+		Size = 250;
+		Price = 20000;
+	}
+	if (DTWHOUCE.GetStr("FishName") == "Whale"){
+		Size = 2700;
+		Price = 3500000;
+	}
 }

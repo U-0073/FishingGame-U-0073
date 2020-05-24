@@ -21,9 +21,11 @@ public:
 	void SetTagType(std::string Name);
 	int GetID()override { return RESULT; };
 	void End()override;
+
+	//結果計算関数(サイズや売値など)
+	void CalcData();
 private:
 	D3DXVECTOR3 mPos;
-	BOOL MoveFlg;
 
 	std::shared_ptr<LPDIRECT3DTEXTURE9> NameTex = nullptr;
 	KdMatrix mNameMat;
@@ -33,4 +35,11 @@ private:
 	std::shared_ptr<Result>     result = nullptr;
 	std::shared_ptr<SoundBase> m_pSound = nullptr;
 
+	KdVec3 ScoreData;
+	float Price;
+	float Size;
 };
+
+#define Excellent x
+#define Miss	  y
+#define	Success	  z

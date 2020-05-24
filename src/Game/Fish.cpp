@@ -57,12 +57,42 @@ void Fish::Update()
 	{
 		Init();
 	}
-	//ブイがおりてきたら振り向き処理
-	if (DTWHOUCE.GetPos("Buoy").y < 1)
+	//振り向き処理
+	if (DTWHOUCE.GetFlg("Fishing"))
 	{
-	
+		//今魚がどこを向いているか
+		KdVec3 vKVec;
+		D3DXVec3TransformNormal(&vKVec, &KdVec3(0, 0, 1), &m_world);
+		float nowRot = D3DXVec3Dot(&KdVec3(0, 0, 1), &vKVec);
+		nowRot = D3DXToDegree(acos(nowRot));
+		if (vKVec.x < 0) { nowRot *= -1; }
+		//魚とウキの角度の差
+		KdVec3 fpos, bpos;
+		fpos = m_world.GetPos();
+		bpos = DTWHOUCE.GetVec("Buoy");
+		fpos = bpos - fpos;
+		fpos.y = 0;
+		fpos.Normalize();
+		float FishRot = D3DXVec3Dot(&KdVec3(0, 0, 1), &fpos);
+		FishRot = D3DXToDegree(acos(FishRot));
+		if (fpos.x < 0) { FishRot *= -1; }
+		//どっち向きに何度移動するか
+		float Rot = FishRot - nowRot;
+		if (Rot > 180) { Rot = 360 - Rot; }
+		if (Rot < -180) { Rot = 360 + Rot; }
+		if (Rot > 0) {
+			if (Rot > 3) { m_world.RotateYLocal(D3DXToRadian(3.0f)); }
+			if (Rot < 3) { m_world.RotateYLocal(D3DXToRadian(Rot)); }
+		}
+		if (Rot < 0) {
+			if (Rot < -3) { m_world.RotateYLocal(D3DXToRadian(-3.0f)); }
+			if (Rot > -3) { m_world.RotateYLocal(D3DXToRadian(Rot)); }
+		}
+		m_world.MoveLocal(0, 0, -0.5);
+		//m_world.RotateYLocal(D3DXToRadian((rand() % 10) - 5));
+
 	}
-	else 
+	else
 	{
 		//フラフラ動く
 		m_world.MoveLocal(0, 0, -0.5);
@@ -109,6 +139,15 @@ void Fish::TitleUpdate()
 
 void Fish::ResultInit()
 {
+	m_Tag = DTWHOUCE.GetStr("FishName");
+	if (!m_Tag.length())
+	{
+		if (MessageBox(GETHWND, "魚の名前が設定されていません", "Error", MB_ICONINFORMATION) == IDOK)
+		{
+			PostQuitMessage(0);
+		}
+	}
+
 	m_pModel = RESOURCE_MNG.GetModel(m_Tag);
 
 	m_world.SetTrans(0.0f, 5.0f, 0);
@@ -165,9 +204,6 @@ void Fishes::Update()
 			pp->SetCenter(CenterPos[i]);
 		}
 	}
-
-
-
 
 }
 

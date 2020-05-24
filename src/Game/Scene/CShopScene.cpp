@@ -41,6 +41,7 @@ int CShopScene::Update()
 	//ƒV[ƒ“Ø‚è‘Ö‚¦
 	if (GetKey('O') & 0x8000)
 	{
+		DTWHOUCE.SetFlg("ShopFlg", false);
 		FADE.Start(5);
 		return MAP;
 	}
