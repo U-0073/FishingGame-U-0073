@@ -27,6 +27,9 @@ void CResultScene::Init()
 	fish->ResultInit();
 
 	if (ScoreData.Success)CalcData();
+	else {
+		Price = 8888;
+	}
 
 	mPos = { 0,0,0 };
 
