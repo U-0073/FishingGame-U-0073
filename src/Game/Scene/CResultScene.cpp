@@ -55,6 +55,13 @@ int CResultScene::Update()
 	result->Update();
 	if (GetKey(VK_RETURN) & 0x8000)
 	{
+		int Possession;
+		Possession = DTWHOUCE.GetNo("Possession");
+		Possession += Price;
+		DTWHOUCE.SetNo("Possession", Possession);
+
+		SellSound = RESOURCE_MNG.GetSound("Money");
+		SellSound->Playsound("Money", true, false);
 		FADE.Start(5);
 		return MAP;
 	}
@@ -125,7 +132,7 @@ void CResultScene::CalcData()
 	}
 	if (DTWHOUCE.GetStr("FishName") == "Tuna"){
 		Size = 150;
-		Price = 2000000;
+		Price = 20000;
 	}
 	if (DTWHOUCE.GetStr("FishName") == "Shark"){
 		Size = 430;

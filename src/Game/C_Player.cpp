@@ -448,7 +448,7 @@ void C_Player::Draw2D()
 	SPRITE->End();
 	char Text[100];
 	RECT rcText = { 10,30 * 1,0,0 };
-	sprintf_s(Text, sizeof(Text), "Dot %f", DTWHOUCE.GetNo("Dot1"));
+	sprintf_s(Text, sizeof(Text), "ŠŽ‹à %d", (int)DTWHOUCE.GetNo("Possession"));
 	FONT->DrawText(NULL, Text, -1, &rcText, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	//RECT rcText1 = { 10,30 * 7,0,0 };
 	//sprintf_s(Text, sizeof(Text), "Dot %f", TextDot);
