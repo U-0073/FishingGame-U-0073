@@ -89,37 +89,36 @@ void CResultScene::Draw2D()
 	SPRITE->SetTransform(&mCoinMat);
 	SPRITE->Draw(*CoinTex, &rcCoin, &D3DXVECTOR3(40.0f, 40.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
-	mNumberMat.SetTrans(1280 / 2 , 720 / 5 * 3, 0);
+	mNumberMat.SetTrans(1280 / 2, 720 / 5 * 3, 0);
 	for (int i = 0; i < 4; i++)
 	{
-	RECT rcScore[] = {
-	{  0    ,0, 50 * 1,50 },
-	{ 50 * 1,0, 50 * 2,50 },
-	{ 50 * 2,0, 50 * 3,50 },
-	{ 50 * 3,0, 50 * 4,50 },
-	{ 50 * 4,0, 50 * 5,50 },
-	{ 50 * 5,0, 50 * 6,50 },
-	{ 50 * 6,0, 50 * 7,50 },
-	{ 50 * 7,0, 50 * 8,50 },
-	{ 50 * 8,0, 50 * 9,50 },
-	{ 50 * 9,0, 50 * 10,50 } };
+		RECT rcScore[] = {
+		{  0    ,0, 50 * 1,50 },
+		{ 50 * 1,0, 50 * 2,50 },
+		{ 50 * 2,0, 50 * 3,50 },
+		{ 50 * 3,0, 50 * 4,50 },
+		{ 50 * 4,0, 50 * 5,50 },
+		{ 50 * 5,0, 50 * 6,50 },
+		{ 50 * 6,0, 50 * 7,50 },
+		{ 50 * 7,0, 50 * 8,50 },
+		{ 50 * 8,0, 50 * 9,50 },
+		{ 50 * 9,0, 50 * 10,50 } };
 
-	char cScore[64];
-	sprintf_s(cScore, sizeof(cScore), "%d", (int)Price);
-	D3DXMatrixTranslation(&mNumberMat, 1280/2*1.5, 720/5*4, 0);
-	D3DXMatrixTranslation(&mTransMat, -35, 0, 0);
+		char cScore[64];
+		sprintf_s(cScore, sizeof(cScore), "%d", (int)Price);
+		D3DXMatrixTranslation(&mNumberMat, 1280 / 2 * 1.5, 720 / 5 * 4, 0);
+		D3DXMatrixTranslation(&mTransMat, -35, 0, 0);
 
-	int i;
-	for (int i = 0; cScore[i] != '\0'; i++);
+		for (int i = 0; cScore[i] != '\0'; i++);
 
-	for (i -= 1; i >= 0; i--) {
-		mNumberMat *= mTransMat;
-		SPRITE->SetTransform(&mNumberMat);
-		SPRITE->Draw(*NumberTex, &rcNum[i], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+		for (int i = -1; i >= 0; i--) {
+			mNumberMat *= mTransMat;
+			SPRITE->SetTransform(&mNumberMat);
+			SPRITE->Draw(*NumberTex, &rcNum[i], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+		}
+
 	}
-
 }
-
 
 void CResultScene::Draw3D()
 {
