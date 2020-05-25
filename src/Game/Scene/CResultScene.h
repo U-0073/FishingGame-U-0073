@@ -44,6 +44,10 @@ private:
 	float num[10];
 	float Price = 0;
 	float Size = 0;
+
+	RECT rcNum[10];
+
+	void CalcNum();
 };
 
 #define Excellent x

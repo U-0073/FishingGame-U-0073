@@ -29,8 +29,9 @@ void CResultScene::Init()
 
 	Sky = std::make_shared<Skysphere>();
 	Sky->Init();
-	NumberTex = RESOURCE_MNG.GetTexture("Shop/number.png");
-	mNumberMat.SetScale(5.0f, 5.0f, 5.0f);
+	CalcNum();
+
+
 	CoinTex = RESOURCE_MNG.GetTexture("Coin.png");
 	mCoinMat.SetTrans(1280.0f / 3, 720.0f / 6 * 5, 0.0f);
 
@@ -102,14 +103,10 @@ void CResultScene::Draw2D()
 
 	char cScore[64];
 	sprintf_s(cScore, sizeof(cScore), "%d", (int)Price);
-	D3DXMatrixTranslation(&mNumberMat, 1280/2*1.5, 720/5*4, 0);
-	D3DXMatrixTranslation(&mTransMat, -35, 0, 0);
 
-	int i;
-	for (i = 0; cScore[i] != '\0'; i++);
-
+	for (int i = 0; cScore[i] != '\0'; i++);
+	mNumberMat.MoveLocal(-35, 0, 0);
 	for (i -= 1; i >= 0; i--) {
-		mNumberMat *= mTransMat;
 		SPRITE->SetTransform(&mNumberMat);
 		SPRITE->Draw(*NumberTex, &rcScore[cScore[i] - '0'], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 	}
@@ -130,8 +127,9 @@ void CResultScene::Draw2D()
 	D3DXMatrixTranslation(&mNumberMat, 1280 / 2, 720 / 5 *3, 0);
 	D3DXMatrixTranslation(&mTransMat, -35, 0, 0);
 
-	int j;
-	for (j = 0; cSize[j] != '\0'; j++);
+	//魚のサイズ用
+
+	for (int j = 0; cSize[j] != '\0'; j++);
 
 	for (j -= 1; j >= 0; j--) {
 		mNumberMat *= mTransMat;
@@ -196,4 +194,16 @@ void CResultScene::CalcData()
 		Size = 0;
 		Price = 0;
 	}
+}
+
+void CResultScene::CalcNum()
+{
+	NumberTex = RESOURCE_MNG.GetTexture("Shop/number.png");
+	mNumberMat.SetScale(5.0f, 5.0f, 5.0f);
+	//サイズ
+	//位取り
+	rcNum[0] = { ((int)Size / 10) * 50,0,((int)Size / 10) * 50 + 50,50 };
+	rcNum[1] = { ((int)Size % 10) * 25,0,((int)Size % 10) * 25 + 25,28 };
+	rcNum[2] = { 250,0,275,28 };
+
 }
