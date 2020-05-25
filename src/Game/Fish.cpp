@@ -186,20 +186,21 @@ void Fish::MoveHoriizontal()
 	//‘€cž…‚ð¶‰E‚É
 	KdVec3 vCross;
 
-	auto vnZ = vTo;
-	vnZ.y =0 ;
-	vnZ.Normalize();
+	auto vnY = vTo;
+	vnY.x =0 ;
+	vnY.Normalize();
 
 	//‚³‚ç‚É×‚©‚¢ŒvŽZ‚ð‚·‚é‚½‚ß‚É“àÏ‚ð‹‚ß‚é
-	float dot = D3DXVec3Dot(&vnZ, &KdVec3(0, 0, 1));
+	float dot = D3DXVec3Dot(&vnY, &KdVec3(0, 0, 1));
 	float rad = acos(dot);//2‚Â‚ÌƒxƒNƒgƒ‹‚ª‚È‚·Šp(ƒ‰ƒWƒAƒ“Šp)
 
-
+	
 
 	//Ž©•ª‚ÌŽp¨‚©‚çŒ©‚½•ûŒü‚È‚Ì‚Å0,-1,0‚ÅOK
-	D3DXVec3Cross(&vCross, &vnZ, &KdVec3(0, 0, 1));
-	if (vCross.z > 0.1f) { m_world.RotateYLocal(D3DXToRadian(-5));}
-	if (vCross.z < -0.1f) { m_world.RotateYLocal(D3DXToRadian(5));}
+	D3DXVec3Cross(&vCross, &vnY, &KdVec3(0, 0, 1));
+	if (vCross.y > 0.1f) { m_world.RotateYLocal(D3DXToRadian(-5));}
+	if (vCross.y < -0.1f) { m_world.RotateYLocal(D3DXToRadian(5));}
+	
 	//ƒtƒ‰ƒtƒ‰“®‚­
 	m_world.MoveLocal(0, 0, -0.5);
 
