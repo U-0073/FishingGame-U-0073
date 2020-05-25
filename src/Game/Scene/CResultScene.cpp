@@ -14,11 +14,6 @@ CResultScene::~CResultScene()
 
 void CResultScene::Init()
 {
-}
-
-void CResultScene::Init()
-{
-
 	if (ScoreData.Success) {
 		//ゲームシーンから取ってきたデータを保存する
 		ScoreData = DTWHOUCE.GetVec("score");
@@ -53,10 +48,10 @@ void CResultScene::Init()
 		KD3D.CreateDirectionalLight(D3DXVECTOR3(0, 0, -1), D3DXVECTOR4(1, 1, 1, 1), D3DXVECTOR4(1.0, 1.0, 1.0, 1.0));
 	}
 }
-	int CResultScene::Update()
+int CResultScene::Update()
 {
-	
-	
+
+
 	if (!ScoreData.Success) {
 
 		FADE.Start(5);
@@ -87,7 +82,7 @@ void CResultScene::Init()
 			return GAME;
 		}
 	}
-		return RESULT;
+	return RESULT;
 }
 
 	void CResultScene::Draw2D()
