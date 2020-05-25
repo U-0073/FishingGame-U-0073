@@ -14,24 +14,22 @@ CResultScene::~CResultScene()
 
 void CResultScene::Init()
 {
-	if (ScoreData.Success) {
-		//ゲームシーンから取ってきたデータを保存する
+		Sky = std::make_shared<Skysphere>();
+		Sky->Init();
 		ScoreData = DTWHOUCE.GetVec("score");
+		//ゲームシーンで成功していたらロードする
+		if (ScoreData.Success) {
+		//ゲームシーンから取ってきたデータを保存する
 
 		fish = std::make_shared<Fish>();
 		fish->ResultInit();
 		if (ScoreData.Success)CalcData();
-		else {
-			Size = 1280;
-			Price = 8888;
-		}
+		
 
 		mPos = { 0,0,0 };
 
-		Sky = std::make_shared<Skysphere>();
-		Sky->Init();
-		CalcNum();
 
+		CalcNum();
 
 		CoinTex = RESOURCE_MNG.GetTexture("Coin.png");
 		mCoinMat.SetTrans(1280.0f / 3, 720.0f / 6 * 5, 0.0f);
@@ -47,19 +45,20 @@ void CResultScene::Init()
 		}
 		KD3D.CreateDirectionalLight(D3DXVECTOR3(0, 0, -1), D3DXVECTOR4(1, 1, 1, 1), D3DXVECTOR4(1.0, 1.0, 1.0, 1.0));
 	}
+		else {
+			Size = 1280;
+			Price = 8888;
+		}
 }
+
 int CResultScene::Update()
 {
-
-
-	if (!ScoreData.Success) {
-
-		FADE.Start(5);
-		return MAP;
-	}
 	if (ScoreData.Success) {
 		result->Update();
-		if (GetKey(VK_RETURN) & 0x8000)
+	}
+	if (GetKey(VK_RETURN) & 0x8000)
+	{
+		if (ScoreData.Success) 
 		{
 			int Possession;
 			Possession = DTWHOUCE.GetNo("Possession");
@@ -71,15 +70,10 @@ int CResultScene::Update()
 			FADE.Start(5);
 			return MAP;
 		}
-
-		if (GetKey('I') & 0x8000) {
+		else 
+		{
 			FADE.Start(5);
-			return SHOP;
-		}
-
-		if (GetKey('F') & 0x8000) {
-			FADE.Start(5);
-			return GAME;
+			return MAP;
 		}
 	}
 	return RESULT;
@@ -97,36 +91,16 @@ int CResultScene::Update()
 		SPRITE->SetTransform(&mCoinMat);
 		SPRITE->Draw(*CoinTex, &rcCoin, &D3DXVECTOR3(40.0f, 40.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
+
 		mNumberMat.SetTrans(1280 / 2, 720 / 5 * 3, 0);
 		for (int i = 0; i < 4; i++)
 		{
-			RECT rcScore[] = {
-			{  0    ,0, 50 * 1,50 },
-			{ 50 * 1,0, 50 * 2,50 },
-			{ 50 * 2,0, 50 * 3,50 },
-			{ 50 * 3,0, 50 * 4,50 },
-			{ 50 * 4,0, 50 * 5,50 },
-			{ 50 * 5,0, 50 * 6,50 },
-			{ 50 * 6,0, 50 * 7,50 },
-			{ 50 * 7,0, 50 * 8,50 },
-			{ 50 * 8,0, 50 * 9,50 },
-			{ 50 * 9,0, 50 * 10,50 } };
-
-			char cScore[64];
-			sprintf_s(cScore, sizeof(cScore), "%d", (int)Price);
-			D3DXMatrixTranslation(&mNumberMat, 1280 / 2 * 1.5, 720 / 5 * 4, 0);
-			D3DXMatrixTranslation(&mTransMat, -35, 0, 0);
-
-			for (int i = 0; cScore[i] != '\0'; i++);
-
-			for (int i = -1; i >= 0; i--) {
-				mNumberMat *= mTransMat;
-				SPRITE->SetTransform(&mNumberMat);
-				SPRITE->Draw(*NumberTex, &rcNum[i], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-			}
-
+			mNumberMat *= mTransMat;
+			SPRITE->SetTransform(&mNumberMat);
+			SPRITE->Draw(*NumberTex, &rcNum[i], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 		}
 	}
+}
 
 void CResultScene::Draw3D()
 {
@@ -143,11 +117,13 @@ void CResultScene::End()
 {
 	Sky->End();
 	Sky = nullptr;
-	fish->End();
-	fish = nullptr;
-	result->End();
-	result = nullptr;
-
+	if (ScoreData.Success) 
+	{
+		fish->End();
+		fish = nullptr;
+		result->End();
+		result = nullptr;
+	}
 	DTWHOUCE.SetVec("score", { 0,0,0 });
 }
 

@@ -19,7 +19,6 @@ public:
 
 	int SetTabPattern();
 	int SetCursor();
-	void GetPoss(int);
 
 private:
 
@@ -34,6 +33,7 @@ private:
 	KdMatrix E_PowerMat;
 	KdMatrix numberMat;
 	KdMatrix transMat;
+	KdMatrix statusMat;
 	KdMatrix BaitMat;
 
 	std::shared_ptr<LPDIRECT3DTEXTURE9> FrameTex;
@@ -48,6 +48,7 @@ private:
 	std::shared_ptr<LPDIRECT3DTEXTURE9> MoneyFrameTex;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> E_PowerTex;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> numberTex;
+	std::shared_ptr<LPDIRECT3DTEXTURE9> statusTex;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> BaitTex;
 
 	D3DXVECTOR3 mPos;
@@ -55,7 +56,7 @@ private:
 	int cursor = 0;
 	int tabPattern = 0;
 	//Š‹à
-	int miPos = 10000000;
+	int Possession;
 	int num[10];
 
 	float select[LISTNUMBER];
