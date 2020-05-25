@@ -23,25 +23,26 @@ void Seagull::Init()
 	SeagullPos.y = 0;
 	SeagullPos.z = 0;
 	SeagullPos.x = 0;
-	
+	//行列設定
+	//初期位置
+	m_world.SetTrans(SeagullPos);
 }
 
 void Seagull::Update()
 {
 	
 	//カモメ右回転
-	SeagullRot.y += 0.1;
-	m_world.RotateYLocal(SeagullRot.y);
+
+	//m_world.RotateYLocal(SeagullRot.y);
 
 	//カモメ前方へ移動
-	SeagullPos.z += 0.2;
-	m_world.MoveWorld(SeagullPos);
+	m_world.MoveLocal(0,0,1);
+	//1フレームで何度傾きたいか
+	m_world.RotateYLocal(D3DXToRadian(5));
 
-	//行列設定
-	m_world.SetTrans(SeagullPos);
 
 	//回転設定
-	m_world.SetRotation(SeagullRot.x, SeagullRot.y, SeagullRot.z);
+	//m_world.SetRotation(SeagullRot.x, SeagullRot.y, SeagullRot.z);
 
 
 	sound = rand() % 1000;
