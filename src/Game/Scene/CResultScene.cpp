@@ -14,6 +14,11 @@ CResultScene::~CResultScene()
 
 void CResultScene::Init()
 {
+}
+
+void CResultScene::Init()
+{
+
 	if (ScoreData.Success) {
 		//ゲームシーンから取ってきたデータを保存する
 		ScoreData = DTWHOUCE.GetVec("score");
@@ -28,28 +33,27 @@ void CResultScene::Init()
 
 		mPos = { 0,0,0 };
 
-	Sky = std::make_shared<Skysphere>();
-	Sky->Init();
-	CalcNum();
+		Sky = std::make_shared<Skysphere>();
+		Sky->Init();
+		CalcNum();
 
 
-	CoinTex = RESOURCE_MNG.GetTexture("Coin.png");
-	mCoinMat.SetTrans(1280.0f / 3, 720.0f / 6 * 5, 0.0f);
+		CoinTex = RESOURCE_MNG.GetTexture("Coin.png");
+		mCoinMat.SetTrans(1280.0f / 3, 720.0f / 6 * 5, 0.0f);
 
-	NameTex = RESOURCE_MNG.GetTexture(fish->getTag() + ".png");
-	mNameMat.SetTrans(1280.0f / 2, 720.0f / 2 + 75, 0.0f);
+		NameTex = RESOURCE_MNG.GetTexture(fish->getTag() + ".png");
+		mNameMat.SetTrans(1280.0f / 2, 720.0f / 2 + 75, 0.0f);
 
-	result = std::make_shared<Result>();
-	result->Init();
-	CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -25), fish->GetFishPos());
-	if (fish->getTag() == "SunFish" || fish->getTag() == "Whale") {
-		CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -50), fish->GetFishPos());
+		result = std::make_shared<Result>();
+		result->Init();
+		CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -25), fish->GetFishPos());
+		if (fish->getTag() == "SunFish" || fish->getTag() == "Whale") {
+			CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -50), fish->GetFishPos());
+		}
+		KD3D.CreateDirectionalLight(D3DXVECTOR3(0, 0, -1), D3DXVECTOR4(1, 1, 1, 1), D3DXVECTOR4(1.0, 1.0, 1.0, 1.0));
 	}
-	KD3D.CreateDirectionalLight(D3DXVECTOR3(0, 0, -1), D3DXVECTOR4(1, 1, 1, 1), D3DXVECTOR4(1.0, 1.0, 1.0, 1.0));
-
 }
-
-int CResultScene::Update()
+	int CResultScene::Update()
 {
 	
 	
@@ -86,48 +90,48 @@ int CResultScene::Update()
 		return RESULT;
 }
 
-void CResultScene::Draw2D()
-{
-	result->Draw2D();
-
-	RECT rcName = { 0,0,300,50 };
-	SPRITE->SetTransform(&mNameMat);
-	SPRITE->Draw(*NameTex, &rcName, &D3DXVECTOR3(150.0f, 50.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-
-	RECT rcCoin = { 0,0,80,80 };
-	SPRITE->SetTransform(&mCoinMat);
-	SPRITE->Draw(*CoinTex, &rcCoin, &D3DXVECTOR3(40.0f, 40.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-
-	mNumberMat.SetTrans(1280 / 2, 720 / 5 * 3, 0);
-	for (int i = 0; i < 4; i++)
+	void CResultScene::Draw2D()
 	{
-		RECT rcScore[] = {
-		{  0    ,0, 50 * 1,50 },
-		{ 50 * 1,0, 50 * 2,50 },
-		{ 50 * 2,0, 50 * 3,50 },
-		{ 50 * 3,0, 50 * 4,50 },
-		{ 50 * 4,0, 50 * 5,50 },
-		{ 50 * 5,0, 50 * 6,50 },
-		{ 50 * 6,0, 50 * 7,50 },
-		{ 50 * 7,0, 50 * 8,50 },
-		{ 50 * 8,0, 50 * 9,50 },
-		{ 50 * 9,0, 50 * 10,50 } };
+		result->Draw2D();
 
-		char cScore[64];
-		sprintf_s(cScore, sizeof(cScore), "%d", (int)Price);
-		D3DXMatrixTranslation(&mNumberMat, 1280 / 2 * 1.5, 720 / 5 * 4, 0);
-		D3DXMatrixTranslation(&mTransMat, -35, 0, 0);
+		RECT rcName = { 0,0,300,50 };
+		SPRITE->SetTransform(&mNameMat);
+		SPRITE->Draw(*NameTex, &rcName, &D3DXVECTOR3(150.0f, 50.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
-		for (int i = 0; cScore[i] != '\0'; i++);
+		RECT rcCoin = { 0,0,80,80 };
+		SPRITE->SetTransform(&mCoinMat);
+		SPRITE->Draw(*CoinTex, &rcCoin, &D3DXVECTOR3(40.0f, 40.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
-		for (int i = -1; i >= 0; i--) {
-			mNumberMat *= mTransMat;
-			SPRITE->SetTransform(&mNumberMat);
-			SPRITE->Draw(*NumberTex, &rcNum[i], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+		mNumberMat.SetTrans(1280 / 2, 720 / 5 * 3, 0);
+		for (int i = 0; i < 4; i++)
+		{
+			RECT rcScore[] = {
+			{  0    ,0, 50 * 1,50 },
+			{ 50 * 1,0, 50 * 2,50 },
+			{ 50 * 2,0, 50 * 3,50 },
+			{ 50 * 3,0, 50 * 4,50 },
+			{ 50 * 4,0, 50 * 5,50 },
+			{ 50 * 5,0, 50 * 6,50 },
+			{ 50 * 6,0, 50 * 7,50 },
+			{ 50 * 7,0, 50 * 8,50 },
+			{ 50 * 8,0, 50 * 9,50 },
+			{ 50 * 9,0, 50 * 10,50 } };
+
+			char cScore[64];
+			sprintf_s(cScore, sizeof(cScore), "%d", (int)Price);
+			D3DXMatrixTranslation(&mNumberMat, 1280 / 2 * 1.5, 720 / 5 * 4, 0);
+			D3DXMatrixTranslation(&mTransMat, -35, 0, 0);
+
+			for (int i = 0; cScore[i] != '\0'; i++);
+
+			for (int i = -1; i >= 0; i--) {
+				mNumberMat *= mTransMat;
+				SPRITE->SetTransform(&mNumberMat);
+				SPRITE->Draw(*NumberTex, &rcNum[i], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+			}
+
 		}
-
 	}
-}
 
 void CResultScene::Draw3D()
 {
