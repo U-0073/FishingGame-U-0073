@@ -24,10 +24,5 @@ private:
 	KdMatrix mMat;
 	KdMatrix mScale;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> vTex;
-
-
 	std::shared_ptr<SoundBase> m_pSound = nullptr;
-
-	//Š‹à
-	int Possession;
 };
