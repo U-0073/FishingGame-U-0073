@@ -14,7 +14,7 @@ void CRogoScene::Init()
 
 	m_pSound = RESOURCE_MNG.GetSound("Archievement_Jingle");
 	m_pSound->Playsound("Archievement_Jingle", true, false);
-
+	m_pSound->SetVol(0.8f);
 }
 
 int CRogoScene::Update()

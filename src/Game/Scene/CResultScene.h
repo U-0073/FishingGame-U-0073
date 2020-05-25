@@ -31,7 +31,6 @@ private:
 	std::shared_ptr<LPDIRECT3DTEXTURE9>NumberTex = nullptr;
 	KdMatrix mNumberMat;
 	KdMatrix mTransMat;
-	KdMatrix mSizeScaleMat;
 	std::shared_ptr<LPDIRECT3DTEXTURE9>CoinTex = nullptr;
 	KdMatrix mCoinMat;
 	std::shared_ptr<Skysphere>	Sky = nullptr;
