@@ -38,7 +38,7 @@ void Seagull::Update()
 	//カモメ前方へ移動
 	m_world.MoveLocal(0,0,1);
 	//1フレームで何度傾きたいか
-	m_world.RotateYLocal(D3DXToRadian(0.1));
+	m_world.RotateYLocal(D3DXToRadian(5));
 
 
 	//回転設定
