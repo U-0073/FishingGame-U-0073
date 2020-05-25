@@ -45,7 +45,7 @@ private:
 	float Price = 0;
 	float Size = 0;
 
-	RECT rcNum[10];
+	RECT rcNum[4];
 
 	void CalcNum();
 };
