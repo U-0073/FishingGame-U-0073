@@ -18,7 +18,6 @@ public:
 	int Update()override;
 	void Draw2D()override;
 	void Draw3D()override;
-	void SetTagType(std::string Name);
 	int GetID()override { return RESULT; };
 	void End()override;
 
@@ -31,6 +30,8 @@ private:
 	KdMatrix mNameMat;
 	std::shared_ptr<LPDIRECT3DTEXTURE9>NumberTex = nullptr;
 	KdMatrix mNumberMat;
+	KdMatrix mTransMat;
+	KdMatrix mSizeScaleMat;
 	std::shared_ptr<LPDIRECT3DTEXTURE9>CoinTex = nullptr;
 	KdMatrix mCoinMat;
 	std::shared_ptr<Skysphere>	Sky = nullptr;
@@ -39,8 +40,9 @@ private:
 	std::shared_ptr<SoundBase> m_pSound = nullptr;
 
 	KdVec3 ScoreData;
-	float Price;
-	float Size;
+	float num[10];
+	float Price = 0;
+	float Size = 0;
 };
 
 #define Excellent x

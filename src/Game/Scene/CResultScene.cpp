@@ -12,30 +12,23 @@ CResultScene::~CResultScene()
 {
 }
 
-void CResultScene::SetTagType(std::string Name) 
-{
-	
-}
-
 void CResultScene::Init()
 {
 	//ゲームシーンから取ってきたデータを保存する
 	ScoreData = DTWHOUCE.GetVec("score");
 
-
 	fish = std::make_shared<Fish>();
 	fish->ResultInit();
-
 	if (ScoreData.Success)CalcData();
-
+	
 	mPos = { 0,0,0 };
 
 	Sky = std::make_shared<Skysphere>();
 	Sky->Init();
-	NumberTex = RESOURCE_MNG.GetTexture("BLackNumber.png");
-	
+	NumberTex = RESOURCE_MNG.GetTexture("Shop/number.png");
+	mSizeScaleMat.SetScale(2.0f, 2.0f, 2.0f);
 	CoinTex = RESOURCE_MNG.GetTexture("Coin.png");
-	mCoinMat.SetTrans(1280.0f / 3, 720.0f / 5 * 4, 0.0f);
+	mCoinMat.SetTrans(1280.0f / 3, 720.0f / 6 * 5, 0.0f);
 
 	NameTex = RESOURCE_MNG.GetTexture(fish->getTag() + ".png");
 	mNameMat.SetTrans(1280.0f/2, 720.0f/2+75, 0.0f);
@@ -83,9 +76,57 @@ void CResultScene::Draw2D()
 	SPRITE->SetTransform(&mCoinMat);
 	SPRITE->Draw(*CoinTex, &rcCoin, &D3DXVECTOR3(40.0f, 40.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
-	RECT rcNumber = { 0,0,400,80 };
-	SPRITE->SetTransform(&mNameMat);
-	SPRITE->Draw(*NumberTex, &rcNumber, &D3DXVECTOR3(200.0f, 40.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+	RECT rcScore[] = {
+	{  0    ,0, 50 * 1,50 },
+	{ 50 * 1,0, 50 * 2,50 },
+	{ 50 * 2,0, 50 * 3,50 },
+	{ 50 * 3,0, 50 * 4,50 },
+	{ 50 * 4,0, 50 * 5,50 },
+	{ 50 * 5,0, 50 * 6,50 },
+	{ 50 * 6,0, 50 * 7,50 },
+	{ 50 * 7,0, 50 * 8,50 },
+	{ 50 * 8,0, 50 * 9,50 },
+	{ 50 * 9,0, 50 * 10,50 } };
+
+	char cScore[64];
+	sprintf_s(cScore, sizeof(cScore), "%d", Price);
+	D3DXMatrixTranslation(&mNumberMat, 1280/2*1.5, 720/5*4, 0);
+	D3DXMatrixTranslation(&mTransMat, -35, 0, 0);
+
+	int i;
+	for (i = 0; cScore[i] != '\0'; i++);
+
+	for (i -= 1; i >= 0; i--) {
+		mNumberMat *= mTransMat;
+		SPRITE->SetTransform(&mNumberMat);
+		SPRITE->Draw(*NumberTex, &rcScore[cScore[i] - '0'], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+	}
+	RECT rcSize[] = {
+	{  0    ,0, 50 * 1,50 },
+	{ 50 * 1,0, 50 * 2,50 },
+	{ 50 * 2,0, 50 * 3,50 },
+	{ 50 * 3,0, 50 * 4,50 },
+	{ 50 * 4,0, 50 * 5,50 },
+	{ 50 * 5,0, 50 * 6,50 },
+	{ 50 * 6,0, 50 * 7,50 },
+	{ 50 * 7,0, 50 * 8,50 },
+	{ 50 * 8,0, 50 * 9,50 },
+	{ 50 * 9,0, 50 * 10,50 } };
+
+	char cSize[64];
+	sprintf_s(cSize, sizeof(cSize), "%d", Size);
+	D3DXMatrixTranslation(&mNumberMat, 1280 / 2*0.95, 720 / 5 *3, 0);
+	D3DXMatrixTranslation(&mTransMat, -35, 0, 0);
+
+	int j;
+	for (j = 0; cScore[j] != '\0'; j++);
+
+	for (j -= 1; j >= 0; j--) {
+		mNumberMat = mSizeScaleMat * mNumberMat;
+		mNumberMat *= mTransMat;
+		SPRITE->SetTransform(&mNumberMat);
+		SPRITE->Draw(*NumberTex, &rcScore[cScore[j] - '0'], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+	}
 }
 
 
@@ -116,27 +157,31 @@ void CResultScene::CalcData()
 {
 	//魚のサイズと売値
 	if (DTWHOUCE.GetStr("FishName") == "RedSnapper"){
-		Size = 50;
+		Size = 50.00;
 		Price = 3500;
 	}
 	if (DTWHOUCE.GetStr("FishName") == "Saury"){
-		Size = 35;
+		Size = 35.00;
 		Price = 300;
 	}
 	if (DTWHOUCE.GetStr("FishName") == "Tuna"){
-		Size = 150;
+		Size = 150.00;
 		Price = 2000000;
 	}
 	if (DTWHOUCE.GetStr("FishName") == "Shark"){
-		Size = 430;
+		Size = 430.00;
 		Price = 10000;
 	}
 	if (DTWHOUCE.GetStr("FishName") == "SunFish"){
-		Size = 250;
+		Size = 250.00;
 		Price = 20000;
 	}
 	if (DTWHOUCE.GetStr("FishName") == "Whale"){
-		Size = 2700;
+		Size = 2700.00;
 		Price = 3500000;
+	}
+	if (DTWHOUCE.GetStr("FishName") == "") {
+		Size = 0.00;
+		Price = 0;
 	}
 }
