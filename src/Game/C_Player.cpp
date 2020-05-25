@@ -22,7 +22,7 @@ void C_Player::Init()
 	CollisionMat.SetTrans(0.0f, -1.5f, 0.0f);
 	ShopMat.SetTrans(14, -0.6f, -42);
 
-	CollisionModel = RESOURCE_MNG.GetModel("PortWall_CollisionTest1");
+	CollisionModel = RESOURCE_MNG.GetModel("PortWall_CollisionTest2");
 	m_pModel = RESOURCE_MNG.GetModel("Portfloer_Collision");
 	ShopModel = RESOURCE_MNG.GetModel("Shop");
 
