@@ -99,7 +99,8 @@ const bool CGameFrame::Initialize(HINSTANCE aHInst, const int aCmdShow)
 
 	nowScene = std::make_shared<CRogoScene>();
 	nowScene->Init();
-	DTWHOUCE.SetStr("FishName", "SunFish");//何の魚もつれていない
+	DTWHOUCE.SetStr("FishName", "");//何の魚もつれていない
+	DTWHOUCE.SetNo("Possession", 1000);
 	nowscene = nowScene->GetID();
 	CAMERA.Set(mWindowSize);
 

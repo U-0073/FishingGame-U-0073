@@ -48,6 +48,13 @@ int CResultScene::Update()
 	result->Update();
 	if (GetKey(VK_RETURN) & 0x8000)
 	{
+		int Possession;
+		Possession = DTWHOUCE.GetNo("Possession");
+		Possession += Price;
+		DTWHOUCE.SetNo("Possession", Possession);
+
+		SellSound = RESOURCE_MNG.GetSound("Money");
+		SellSound->Playsound("Money", true, false);
 		FADE.Start(5);
 		return MAP;
 	}

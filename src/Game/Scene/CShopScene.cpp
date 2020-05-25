@@ -16,6 +16,9 @@ CShopScene::~CShopScene()
 
 void CShopScene::Init()
 {
+	//Š‹à‚ÌŠm”F
+	Possession = DTWHOUCE.GetNo("Possession");
+
 	vTex = RESOURCE_MNG.GetTexture("Shop/ShopBack001.png");
 
 	m_pSound = RESOURCE_MNG.GetSound("New_Place_of_Work");
@@ -42,6 +45,8 @@ int CShopScene::Update()
 	if (GetKey('O') & 0x8000)
 	{
 		DTWHOUCE.SetFlg("ShopFlg", false);
+		//Š‹à‚ÌÄ“o˜^
+		DTWHOUCE.SetNo("Possession", Possession);
 		FADE.Start(5);
 		return MAP;
 	}
