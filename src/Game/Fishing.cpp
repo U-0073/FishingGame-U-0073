@@ -45,6 +45,7 @@ void C_Fishing::FishingProc()
 	D3DXVECTOR3	Vec;
 	FishingFlg = DTWHOUCE.GetFlg("Fishing");
 	if (FishingFlg) {
+
 		//ƒEƒL‚ğŠC‚É“Š‚°‚Şˆ—
 		if (!StopFlg) {
 			StopFlg = true;
