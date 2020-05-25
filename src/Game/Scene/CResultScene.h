@@ -33,6 +33,9 @@ private:
 	KdMatrix mTransMat;
 	std::shared_ptr<LPDIRECT3DTEXTURE9>CoinTex = nullptr;
 	KdMatrix mCoinMat;
+	std::shared_ptr<LPDIRECT3DTEXTURE9>BackTex = nullptr;
+	KdMatrix mBackMat;
+
 	std::shared_ptr<Skysphere>	Sky = nullptr;
 	std::shared_ptr<Fish>		fish = nullptr;
 	std::shared_ptr<Result>     result = nullptr;

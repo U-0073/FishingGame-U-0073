@@ -14,18 +14,19 @@ CResultScene::~CResultScene()
 
 void CResultScene::Init()
 {
-	//ゲームシーンから取ってきたデータを保存する
-	ScoreData = DTWHOUCE.GetVec("score");
+	if (ScoreData.Success) {
+		//ゲームシーンから取ってきたデータを保存する
+		ScoreData = DTWHOUCE.GetVec("score");
 
-	fish = std::make_shared<Fish>();
-	fish->ResultInit();
-	if (ScoreData.Success)CalcData();
-	else {
-		Size = 1280;
-		Price = 8888;
-	}
+		fish = std::make_shared<Fish>();
+		fish->ResultInit();
+		if (ScoreData.Success)CalcData();
+		else {
+			Size = 1280;
+			Price = 8888;
+		}
 
-	mPos = { 0,0,0 };
+		mPos = { 0,0,0 };
 
 	Sky = std::make_shared<Skysphere>();
 	Sky->Init();
@@ -50,31 +51,39 @@ void CResultScene::Init()
 
 int CResultScene::Update()
 {
-	result->Update();
+	
+	
+	if (!ScoreData.Success) {
 
-	if (GetKey(VK_RETURN) & 0x8000)
-	{
-		int Possession;
-		Possession = DTWHOUCE.GetNo("Possession");
-		Possession += Price;
-		DTWHOUCE.SetNo("Possession", Possession);
-
-		SellSound = RESOURCE_MNG.GetSound("Money");
-		SellSound->Playsound("Money", true, false);
 		FADE.Start(5);
 		return MAP;
 	}
+	if (ScoreData.Success) {
+		result->Update();
+		if (GetKey(VK_RETURN) & 0x8000)
+		{
+			int Possession;
+			Possession = DTWHOUCE.GetNo("Possession");
+			Possession += Price;
+			DTWHOUCE.SetNo("Possession", Possession);
 
-	if (GetKey('I') & 0x8000) {
-		FADE.Start(5);
-		return SHOP;
-	}
+			SellSound = RESOURCE_MNG.GetSound("Money");
+			SellSound->Playsound("Money", true, false);
+			FADE.Start(5);
+			return MAP;
+		}
 
-	if (GetKey('F') & 0x8000) {
-		FADE.Start(5);
-		return GAME;
+		if (GetKey('I') & 0x8000) {
+			FADE.Start(5);
+			return SHOP;
+		}
+
+		if (GetKey('F') & 0x8000) {
+			FADE.Start(5);
+			return GAME;
+		}
 	}
-	return RESULT;
+		return RESULT;
 }
 
 void CResultScene::Draw2D()
@@ -148,10 +157,6 @@ void CResultScene::CalcData()
 	if (DTWHOUCE.GetStr("FishName") == "Whale") {
 		Size = 2700;
 		Price = 3500000;
-	}
-	if (DTWHOUCE.GetStr("FishName") == "") {
-		Size = 0;
-		Price = 0;
 	}
 }
 
