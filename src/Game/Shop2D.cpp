@@ -448,3 +448,8 @@ int Shop2D::SetCursor()
 {
 	return cursor;
 }
+
+void Shop2D::GetPoss(int poss)
+{
+	miPos = poss;
+}

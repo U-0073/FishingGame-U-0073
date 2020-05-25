@@ -17,7 +17,7 @@ CShopScene::~CShopScene()
 void CShopScene::Init()
 {
 	//ŠŽ‹à‚ÌŠm”F
-	Possession = DTWHOUCE.GetNo("Possession");
+	Possession = (int)DTWHOUCE.GetNo("Possession");
 
 	vTex = RESOURCE_MNG.GetTexture("Shop/ShopBack001.png");
 
@@ -34,6 +34,7 @@ void CShopScene::Init()
 int CShopScene::Update()
 {
 	shop2d->Update();
+	shop2d->GetPoss(Possession);
 	shopObj->Update();
 
 	shopObj->Get2D(shop2d->SetTabPattern(), shop2d->SetCursor());
