@@ -1,6 +1,8 @@
 #include"../../System/KdLibrary/KdLibrary.h"
+#include "../../System/FrameBase/CGameFrame.h"
 #include"CMapScene.h"
 //―――――――――――――――――――――――――
+
 #include"../structList.h"
 #include"../C_Player.h"
 #include"../Skysphere.h"
@@ -70,6 +72,20 @@ int CMapScene::Update()
 
 	m_Seagull->Update();
 
+
+
+	if (DTWHOUCE.GetFlg("FishingFlg")) {
+		ShowCursor(FALSE);
+	}
+	else {
+		POINT BasePt;
+		BasePt.x = 640;
+		BasePt.y = 360;
+		ClientToScreen(FRAME.GetHWND(), &BasePt);
+		
+		ShowCursor(FALSE);
+		SetCursorPos(BasePt.x, BasePt.y);
+	}
 
 	if (GetKey(VK_SPACE) & 0x8000)
 	{
