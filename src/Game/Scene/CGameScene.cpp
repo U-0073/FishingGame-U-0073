@@ -26,16 +26,16 @@ void CGameScene::Init()
 	backMat.SetTrans(1280 / 2, 720 / 2, 0);
 
 	//拡縮サイズ
-	scale = 2.0f;
-	speed = 0.0215f;
-	clickNum = 10;
-	clickCNT = clickNum;
-	frame = 240;
+	scale = scaleInitialize;
+	speed = EFReduction;
+	clickNum = clickInitialize;
+	clickCNT = clickInitialize;
+	frame = MFInitialize;
 
 
 
-	judgeFlg = 0;
-	len = 10000;
+	judgeFlg = Default_judge;
+	len = defLenInitialize;
 
 
 	//初期の曲
@@ -48,10 +48,10 @@ void CGameScene::Init()
 	frameStopper = false;
 
 	//score
-	Excellent = 0;
-	Miss = 0;
+	Excellent = ZEROreturn;
+	Miss = ZEROreturn;
 
-	MusicChoise = rand() % 6;
+	MusicChoise = rand() % MusicGenerally;
 
 }
 
@@ -64,30 +64,30 @@ int CGameScene::Update()
 
 	if (!frameStopper) {
 		frame--;
-		if (frame < 0) {
-			frame = 0;
+		if (frame < ZEROreturn) {
+			frame = ZEROreturn;
 
 			m_pSound->LDSB8->Stop();
 			std::string name;
 			//曲選択
 			switch (MusicChoise)
 			{
-			case 0:
+			case PhantomA2:
 				name = "CGSSound/Phantom_Apartment_2";
 				break;
-			case 1:
+			case DDCats:
 				name = "CGSSound/Dance_Dance_Cats";
 				break;
-			case 2:
+			case GStage2:
 				name = "CGSSound/Green_Stage_2";
 				break;
-			case 3:
+			case ROTWind2:
 				name = "CGSSound/Ride_On_The_Wind_2";
 				break;
-			case 4:
+			case START:
 				name = "CGSSound/START!!";
 				break;
-			case 5:
+			case ROTWindSP:
 				name = "CGSSound/Ride_On_The_Wind";
 				break;
 			}
@@ -120,31 +120,31 @@ int CGameScene::Update()
 
 	//ノーツ判定処理
 	//エクセレント（内側）の時の処理
-	if (len <= 100 && scale > 0.75 && scale < 1.0) {
-		if (judgeFlg == 0) {
+	if (len <= Length && scale > judgeMin && scale < judgeMax) {
+		if (judgeFlg == Default_judge) {
 			judgeTex = RESOURCE_MNG.GetTexture("excellent1.png");
 			Excellent++;
-			judgeFlg = 1;//	成功
+			judgeFlg = Excellent_judge;//	成功
 		}
 	}
 	//ミスの時の処理
 	else {
-		if (judgeFlg == 0) {
-			if (scale < 0.7) {
+		if (judgeFlg == Default_judge) {
+			if (scale < judgeMin) {
 				judgeTex = RESOURCE_MNG.GetTexture("miss.png");
 				Miss++;
-				judgeFlg = 2;//失敗
+				judgeFlg = Miss_judge;//失敗
 			}
-			if (keyFlg == true && scale > 1.0) {
+			if (keyFlg == true && scale > judgeMax) {
 				judgeTex = RESOURCE_MNG.GetTexture("miss.png");
 				Miss++;
-				judgeFlg = 2;//失敗
+				judgeFlg = Miss_judge;//失敗
 
 			}
-			if (keyFlg == true && len > 100 && scale > 0.75 && scale < 1.0) {
+			if (keyFlg == true && len > Length && scale > judgeMin && scale < judgeMax) {
 				judgeTex = RESOURCE_MNG.GetTexture("miss.png");
 				Miss++;
-				judgeFlg = 2;//失敗
+				judgeFlg = Miss_judge;//失敗
 
 			}
 		}
@@ -155,12 +155,12 @@ int CGameScene::Update()
 
 		//scale縮小
 		scale -= speed;
-		if (scale < 0.0f) {
-			len = 10000;
+		if (scale < scaleLimit) {
+			len = defLenInitialize;
 			clickPos = { 0,0,0 };
 			clickNum--;
 			//デバッグ用回避手段
-			if (clickNum <= 0) {
+			if (clickNum <= ZEROreturn) {
 				Check = false;
 
 				//曲変更
@@ -171,8 +171,8 @@ int CGameScene::Update()
 				//ゲーム結果をDTWHOUCEに保存する
 				int calcAve = Excellent / (Excellent + Miss);//calcAveは全ノーツのエクセレント率
 				bool clear;
-				if (calcAve >= 0.6) { clear = true; }
-				if (calcAve < 0.6) { clear = false; }
+				if (calcAve >= FishSuccess) { clear = true; }
+				if (calcAve < FishSuccess) { clear = false; }
 				score.Set(Excellent, Miss, clear);
 				DTWHOUCE.SetVec("score", score);
 				//保存後、リザルトシーンヘ
@@ -180,17 +180,15 @@ int CGameScene::Update()
 				return RESULT;
 			}
 
-			judgeFlg = 0;
+			judgeFlg = Default_judge;
 			ringMat.SetTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
 			SetPos(KdVec3(ringMat._41, ringMat._42, ringMat._43));
 			notesMat = ringMat;
 
 
 			clickCNT--;
-			if (clickNum == 0)clickCNT = 0;
-
-
-			scale = 2.0f;
+			if (clickNum == ZEROreturn)clickCNT = ZEROreturn;
+			scale = scaleInitialize;
 		}
 	}
 
@@ -214,7 +212,7 @@ void CGameScene::Draw2D()
 	scaleMat.SetScale(scale, scale, 0);
 	notesMat = scaleMat * notesMat;
 	SPRITE->SetTransform(&notesMat);
-	if (scale > 0.7f && scale < 1.0f) {
+	if (scale > judgeMin && scale < judgeMax) {
 		SPRITE->Draw(*notesTex, &rc, &D3DXVECTOR3(100, 100, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 0, 0));
 	}
 	else {
@@ -222,15 +220,11 @@ void CGameScene::Draw2D()
 	}
 
 	//判定画像
-	if (judgeFlg != 0) {
-		//judgeMat.CreateTrans();
-		//scaleMat.CreateScale(1.0f, 1.0f, 0);
-		//judgeMat = scaleMat * judgeMat;
+	if (judgeFlg != Default_judge) {
 		SPRITE->SetTransform(&judgeMat);
 		rc = { 0,0,335,200 };
 		if (resultTex)		SPRITE->Draw(*resultTex, &rc, &D3DXVECTOR3(335 / 2, 200 / 2, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 		else SPRITE->Draw(*judgeTex, &rc, &D3DXVECTOR3(335 / 2, 200 / 2, 0.0f), NULL, D3DCOLOR_ARGB(125, 255, 255, 255));
-
 	}
 
 

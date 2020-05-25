@@ -45,10 +45,11 @@ void C_Fishing::FishingProc()
 	D3DXVECTOR3	Vec;
 	FishingFlg = DTWHOUCE.GetFlg("Fishing");
 	if (FishingFlg) {
+
 		//ÉEÉLÇäCÇ…ìäÇ∞çûÇﬁèàóù
 		if (!StopFlg) {
 			StopFlg = true;
-			BuoyPos = DTWHOUCE.GetVec("CamLookVec") * 20;
+			BuoyPos = PlayerPos + DTWHOUCE.GetVec("CamLookVec") * 20;
 			BuoyPos.y = 0;
 		}
 		//

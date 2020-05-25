@@ -42,6 +42,9 @@ public:
 	const D3DXVECTOR3& GetFishPos() { return m_world.GetPos(); }
 
 private:
+
+	void MoveHoriizontal();
+
 	std::string m_Tag;//‰½‚Ì‹›‚©
 	
 	//ŒQ‚ê‚Ì’†SÀ•W

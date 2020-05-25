@@ -69,6 +69,6 @@ private:
 	bool RodTextFlg = false;
 	bool BaitTextFlg = false;
 	bool ReelTextFlg = false;
-	bool enterFlg = false;
+	bool enterFlg;
 };
 

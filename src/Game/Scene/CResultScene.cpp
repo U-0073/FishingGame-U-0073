@@ -12,73 +12,78 @@ CResultScene::~CResultScene()
 {
 }
 
-void CResultScene::SetTagType(std::string Name) 
-{
-	
-}
-
 void CResultScene::Init()
 {
-	//ゲームシーンから取ってきたデータを保存する
-	ScoreData = DTWHOUCE.GetVec("score");
+	if (ScoreData.Success) {
+		//ゲームシーンから取ってきたデータを保存する
+		ScoreData = DTWHOUCE.GetVec("score");
 
+		fish = std::make_shared<Fish>();
+		fish->ResultInit();
+		if (ScoreData.Success)CalcData();
+		else {
+			Size = 1280;
+			Price = 8888;
+		}
 
-	fish = std::make_shared<Fish>();
-	fish->ResultInit();
+		mPos = { 0,0,0 };
 
-	if (ScoreData.Success)CalcData();
-	else {
-		Price = 8888;
+		Sky = std::make_shared<Skysphere>();
+		Sky->Init();
+
+		CalcNum();
+
+		CoinTex = RESOURCE_MNG.GetTexture("Coin.png");
+		mCoinMat.SetTrans(1280.0f / 3, 720.0f / 6 * 5, 0.0f);
+
+		NameTex = RESOURCE_MNG.GetTexture(fish->getTag() + ".png");
+		mNameMat.SetTrans(1280.0f / 2, 720.0f / 2 + 75, 0.0f);
+
+		result = std::make_shared<Result>();
+		result->Init();
+		CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -25), fish->GetFishPos());
+		if (fish->getTag() == "SunFish" || fish->getTag() == "Whale") {
+			CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -50), fish->GetFishPos());
+		}
+		KD3D.CreateDirectionalLight(D3DXVECTOR3(0, 0, -1), D3DXVECTOR4(1, 1, 1, 1), D3DXVECTOR4(1.0, 1.0, 1.0, 1.0));
 	}
-
-	mPos = { 0,0,0 };
-
-	Sky = std::make_shared<Skysphere>();
-	Sky->Init();
-	NumberTex = RESOURCE_MNG.GetTexture("BLackNumber.png");
-	
-	CoinTex = RESOURCE_MNG.GetTexture("Coin.png");
-	mCoinMat.SetTrans(1280.0f / 3, 720.0f / 5 * 4, 0.0f);
-
-	NameTex = RESOURCE_MNG.GetTexture(fish->getTag() + ".png");
-	mNameMat.SetTrans(1280.0f/2, 720.0f/2+75, 0.0f);
-	
-	result = std::make_shared<Result>();
-	result->Init();
-	CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -25), fish->GetFishPos());
-	if (fish->getTag() == "SunFish"||fish->getTag()=="Whale") {
-		CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -50), fish->GetFishPos());
-	}
-	KD3D.CreateDirectionalLight(D3DXVECTOR3(0, 0, -1), D3DXVECTOR4(1, 1, 1, 1), D3DXVECTOR4(1.0, 1.0, 1.0, 1.0));
-	
 }
 
 int CResultScene::Update()
 {
-	result->Update();
-	if (GetKey(VK_RETURN) & 0x8000)
-	{
-		int Possession;
-		Possession = DTWHOUCE.GetNo("Possession");
-		Possession += Price;
-		DTWHOUCE.SetNo("Possession", Possession);
+	
+	
+	if (!ScoreData.Success) {
 
-		SellSound = RESOURCE_MNG.GetSound("Money");
-		SellSound->Playsound("Money", true, false);
 		FADE.Start(5);
 		return MAP;
 	}
+	if (ScoreData.Success) {
+		result->Update();
+		if (GetKey(VK_RETURN) & 0x8000)
+		{
+			int Possession;
+			Possession = DTWHOUCE.GetNo("Possession");
+			Possession += Price;
+			DTWHOUCE.SetNo("Possession", Possession);
 
-	if (GetKey('I') & 0x8000) {
-		FADE.Start(5);
-		return SHOP;
-	}
+			SellSound = RESOURCE_MNG.GetSound("Money");
+			SellSound->Playsound("Money", true, false);
+			FADE.Start(5);
+			return MAP;
+		}
 
-	if (GetKey('F') & 0x8000) {
-		FADE.Start(5);
-		return GAME;
+		if (GetKey('I') & 0x8000) {
+			FADE.Start(5);
+			return SHOP;
+		}
+
+		if (GetKey('F') & 0x8000) {
+			FADE.Start(5);
+			return GAME;
+		}
 	}
-	return RESULT;
+		return RESULT;
 }
 
 void CResultScene::Draw2D()
@@ -93,16 +98,20 @@ void CResultScene::Draw2D()
 	SPRITE->SetTransform(&mCoinMat);
 	SPRITE->Draw(*CoinTex, &rcCoin, &D3DXVECTOR3(40.0f, 40.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
-	RECT rcNumber = { 0,0,400,80 };
-	SPRITE->SetTransform(&mNameMat);
-	SPRITE->Draw(*NumberTex, &rcNumber, &D3DXVECTOR3(200.0f, 40.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-}
 
+	mNumberMat.SetTrans(1280 / 2, 720 / 5 * 3, 0);
+	for (int i = 0; i < 4; i++)
+	{
+		mNumberMat *= mTransMat;
+		SPRITE->SetTransform(&mNumberMat);
+		SPRITE->Draw(*NumberTex, &rcNum[i], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+	}
+}
 
 void CResultScene::Draw3D()
 {
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, TRUE);
-	
+
 	Sky->Draw3D();
 	if (ScoreData.Success) {
 		fish->Draw3D();
@@ -125,28 +134,48 @@ void CResultScene::End()
 void CResultScene::CalcData()
 {
 	//魚のサイズと売値
-	if (DTWHOUCE.GetStr("FishName") == "RedSnapper"){
+	if (DTWHOUCE.GetStr("FishName") == "RedSnapper") {
 		Size = 50;
 		Price = 3500;
 	}
-	if (DTWHOUCE.GetStr("FishName") == "Saury"){
+	if (DTWHOUCE.GetStr("FishName") == "Saury") {
 		Size = 35;
 		Price = 300;
 	}
-	if (DTWHOUCE.GetStr("FishName") == "Tuna"){
+	if (DTWHOUCE.GetStr("FishName") == "Tuna") {
 		Size = 150;
-		Price = 20000;
+		Price = 2000000;
 	}
-	if (DTWHOUCE.GetStr("FishName") == "Shark"){
+	if (DTWHOUCE.GetStr("FishName") == "Shark") {
 		Size = 430;
 		Price = 10000;
 	}
-	if (DTWHOUCE.GetStr("FishName") == "SunFish"){
+	if (DTWHOUCE.GetStr("FishName") == "SunFish") {
 		Size = 250;
 		Price = 20000;
 	}
-	if (DTWHOUCE.GetStr("FishName") == "Whale"){
+	if (DTWHOUCE.GetStr("FishName") == "Whale") {
 		Size = 2700;
 		Price = 3500000;
 	}
+}
+
+void CResultScene::CalcNum()
+{
+	NumberTex = RESOURCE_MNG.GetTexture("Shop/number.png");
+
+	//サイズ
+	//mNumberMat.SetScale(5.0f, 5.0f, 5.0f);
+
+	int FishSize = (int)Size;
+	//位取り
+	rcNum[0] = { (FishSize / 1000) * 50,0,(FishSize / 1000) * 50 + 50,50 };//億の位
+	FishSize =   (FishSize % 1000);
+	rcNum[1] = { (FishSize / 100)  * 50,0,(FishSize / 100)  * 50 + 50,50 };
+	FishSize =   (FishSize % 100);
+	rcNum[2] = { (FishSize / 10)   * 50,0,(FishSize / 10)   * 50 + 50,50 };
+	FishSize =   (FishSize % 10);
+	rcNum[3] = { (FishSize / 1) * 50,0,(FishSize / 1) * 50 + 50,50 };
+
+
 }

@@ -10,11 +10,11 @@ void CRogoScene::Init()
 	wAnim.SetTrans(0, 0, 0);
 
 	animAlpha = 0;
-	animFlg = true;//‚à‚Æ‚à‚Æfalse
+	animFlg = false;//‚à‚Æ‚à‚Æfalse
 
 	m_pSound = RESOURCE_MNG.GetSound("Archievement_Jingle");
 	m_pSound->Playsound("Archievement_Jingle", true, false);
-
+	m_pSound->SetVol(0.8f);
 }
 
 int CRogoScene::Update()
@@ -28,7 +28,7 @@ int CRogoScene::Update()
 		}
 	}
 	else {
-		FADE.Start(0.5);//fade5->0.5
+		FADE.Start(5);//fade5->0.5
 		return TITLE;
 	}
 
