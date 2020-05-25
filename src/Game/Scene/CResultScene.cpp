@@ -127,17 +127,20 @@ void CResultScene::Draw2D()
 	sprintf_s(cSize, sizeof(cSize), "%d", Size);
 	D3DXMatrixTranslation(&mNumberMat, 1280 / 2*0.95, 720 / 5 *3, 0);
 	D3DXMatrixTranslation(&mTransMat, -35, 0, 0);
-
-	int j;
-	for (j = 0; cScore[j] != '\0'; j++);
-
-	for (j -= 1; j >= 0; j--) {
-		mNumberMat = mSizeScaleMat * mNumberMat;
-		mNumberMat *= mTransMat;
-		SPRITE->SetTransform(&mNumberMat);
-		SPRITE->Draw(*NumberTex, &rcScore[cScore[j] - '0'], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-	}
 	
+	{
+		int j;
+		for (j = 0; cScore[j] != '\0'; j++);
+		
+		
+		for (j -= 1; j >= 0; j--) {
+			mNumberMat = mSizeScaleMat * mNumberMat;
+
+			mNumberMat *= mTransMat;
+			SPRITE->SetTransform(&mNumberMat);
+			SPRITE->Draw(*NumberTex, &rcScore[cScore[j] - '0'], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+		}
+	}
 }
 
 

@@ -187,7 +187,7 @@ void Fish::MoveHoriizontal()
 	KdVec3 vCross;
 
 	auto vnZ = vTo;
-	vnZ.x =0 ;
+	vnZ.y =0 ;
 	vnZ.Normalize();
 
 	//‚³‚ç‚É×‚©‚¢ŒvŽZ‚ð‚·‚é‚½‚ß‚É“àÏ‚ð‹‚ß‚é
@@ -199,7 +199,7 @@ void Fish::MoveHoriizontal()
 	//Ž©•ª‚ÌŽp¨‚©‚çŒ©‚½•ûŒü‚È‚Ì‚Å0,-1,0‚ÅOK
 	D3DXVec3Cross(&vCross, &vnZ, &KdVec3(0, 0, 1));
 	if (vCross.z > 0.1f) { m_world.RotateYLocal(D3DXToRadian(-5));}
-	if (vCross.z < -0.1f) { m_world.RotateYLocal(D3DXToRadian(5)); }
+	if (vCross.z < -0.1f) { m_world.RotateYLocal(D3DXToRadian(5));}
 	//ƒtƒ‰ƒtƒ‰“®‚­
 	m_world.MoveLocal(0, 0, -0.5);
 
