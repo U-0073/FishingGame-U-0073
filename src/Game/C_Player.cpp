@@ -71,6 +71,7 @@ void C_Player::Update()
 		KdVec3 Vec(0.0f, 0.1f, 0.0f);
 		PlayerPos -= Vec;
 	}
+
 	if (GetKey('8') & 0x8000) {
 		//	　（クライアント座標）（スクリーン座標）
 		SetCursorPos(BasePt.x, BasePt.y);
@@ -104,14 +105,18 @@ void C_Player::FlgProc()
 			ClickFlg = true;
 			//釣りモード解除
 			if (FishingFlg) {
-				ShowCursor(TRUE);
 				FishingFlg = false;
 				RestoreFlg = true;
+
+				DTWHOUCE.SetFlg("FishingFlg", false);
+				ShowCursor(TRUE);
+				SetCursorPos(BasePt.x, BasePt.y);
 			}
 			else
 			{
 				//釣りモードに移行
 				FishingFlg = true;
+				DTWHOUCE.SetFlg("FishingFlg", true);
 				ShowCursor(FALSE);
 				SetCursorPos(BasePt.x, BasePt.y);
 			}
