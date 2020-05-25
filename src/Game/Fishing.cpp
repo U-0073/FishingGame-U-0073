@@ -49,7 +49,7 @@ void C_Fishing::FishingProc()
 		//ƒEƒL‚ğŠC‚É“Š‚°‚Şˆ—
 		if (!StopFlg) {
 			StopFlg = true;
-			BuoyPos = DTWHOUCE.GetVec("CamLookVec") * 20;
+			BuoyPos = PlayerPos + DTWHOUCE.GetVec("CamLookVec") * 20;
 			BuoyPos.y = 0;
 		}
 		//

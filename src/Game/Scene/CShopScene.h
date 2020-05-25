@@ -21,7 +21,6 @@ private:
 	std::shared_ptr<Shop2D> shop2d = nullptr;
 	std::shared_ptr<ShopObject> shopObj = nullptr;
 
-
 	KdMatrix mMat;
 	KdMatrix mScale;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> vTex;
@@ -29,4 +28,6 @@ private:
 
 	std::shared_ptr<SoundBase> m_pSound = nullptr;
 
+	//Š‹à
+	int Possession;
 };
