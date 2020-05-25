@@ -28,25 +28,25 @@ void CResultScene::Init()
 
 		mPos = { 0,0,0 };
 
-	Sky = std::make_shared<Skysphere>();
-	Sky->Init();
+		Sky = std::make_shared<Skysphere>();
+		Sky->Init();
 
-	CalcNum();
+		CalcNum();
 
-	CoinTex = RESOURCE_MNG.GetTexture("Coin.png");
-	mCoinMat.SetTrans(1280.0f / 3, 720.0f / 6 * 5, 0.0f);
+		CoinTex = RESOURCE_MNG.GetTexture("Coin.png");
+		mCoinMat.SetTrans(1280.0f / 3, 720.0f / 6 * 5, 0.0f);
 
-	NameTex = RESOURCE_MNG.GetTexture(fish->getTag() + ".png");
-	mNameMat.SetTrans(1280.0f / 2, 720.0f / 2 + 75, 0.0f);
+		NameTex = RESOURCE_MNG.GetTexture(fish->getTag() + ".png");
+		mNameMat.SetTrans(1280.0f / 2, 720.0f / 2 + 75, 0.0f);
 
-	result = std::make_shared<Result>();
-	result->Init();
-	CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -25), fish->GetFishPos());
-	if (fish->getTag() == "SunFish" || fish->getTag() == "Whale") {
-		CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -50), fish->GetFishPos());
+		result = std::make_shared<Result>();
+		result->Init();
+		CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -25), fish->GetFishPos());
+		if (fish->getTag() == "SunFish" || fish->getTag() == "Whale") {
+			CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -50), fish->GetFishPos());
+		}
+		KD3D.CreateDirectionalLight(D3DXVECTOR3(0, 0, -1), D3DXVECTOR4(1, 1, 1, 1), D3DXVECTOR4(1.0, 1.0, 1.0, 1.0));
 	}
-	KD3D.CreateDirectionalLight(D3DXVECTOR3(0, 0, -1), D3DXVECTOR4(1, 1, 1, 1), D3DXVECTOR4(1.0, 1.0, 1.0, 1.0));
-
 }
 
 int CResultScene::Update()
