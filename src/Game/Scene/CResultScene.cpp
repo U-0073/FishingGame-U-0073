@@ -106,13 +106,14 @@ void CResultScene::Draw2D()
 	D3DXMatrixTranslation(&mTransMat, -35, 0, 0);
 
 	int i;
-	for (i = 0; cScore[i] != '\0'; i++);
+	for (int i = 0; cScore[i] != '\0'; i++);
 
 	for (i -= 1; i >= 0; i--) {
 		mNumberMat *= mTransMat;
 		SPRITE->SetTransform(&mNumberMat);
 		SPRITE->Draw(*NumberTex, &rcScore[cScore[i] - '0'], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 	}
+
 	RECT rcSize[] = {
 	{  0    ,0, 50 * 1,50 },
 	{ 50 * 1,0, 50 * 2,50 },
