@@ -14,34 +14,40 @@ CResultScene::~CResultScene()
 
 void CResultScene::Init()
 {
-	//ゲームシーンから取ってきたデータを保存する
-	ScoreData = DTWHOUCE.GetVec("score");
+	if (ScoreData.Success) {
+		//ゲームシーンから取ってきたデータを保存する
+		ScoreData = DTWHOUCE.GetVec("score");
 
-	fish = std::make_shared<Fish>();
-	fish->ResultInit();
-	if (ScoreData.Success)CalcData();
-	else {
-		Size = 1280;
-		Price = 8888;
+		fish = std::make_shared<Fish>();
+		fish->ResultInit();
+		if (ScoreData.Success)CalcData();
+		else {
+			Size = 1280;
+			Price = 8888;
+		}
+
+		mPos = { 0,0,0 };
+
+		Sky = std::make_shared<Skysphere>();
+		Sky->Init();
+		NumberTex = RESOURCE_MNG.GetTexture("Shop/number.png");
+		mNumberMat.SetScale(5.0f, 5.0f, 5.0f);
+		CoinTex = RESOURCE_MNG.GetTexture("Coin.png");
+		mCoinMat.SetTrans(1280.0f / 3, 720.0f / 6 * 5, 0.0f);
+
+		NameTex = RESOURCE_MNG.GetTexture(fish->getTag() + ".png");
+		mNameMat.SetTrans(1280.0f / 2, 720.0f / 2 + 75, 0.0f);
+
+		result = std::make_shared<Result>();
+		result->Init();
+		CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -25), fish->GetFishPos());
+		if (fish->getTag() == "SunFish" || fish->getTag() == "Whale") {
+			CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -50), fish->GetFishPos());
+		}
 	}
-
-	mPos = { 0,0,0 };
-
-	Sky = std::make_shared<Skysphere>();
-	Sky->Init();
-	NumberTex = RESOURCE_MNG.GetTexture("Shop/number.png");
-	mNumberMat.SetScale(5.0f, 5.0f, 5.0f);
-	CoinTex = RESOURCE_MNG.GetTexture("Coin.png");
-	mCoinMat.SetTrans(1280.0f / 3, 720.0f / 6 * 5, 0.0f);
-
-	NameTex = RESOURCE_MNG.GetTexture(fish->getTag() + ".png");
-	mNameMat.SetTrans(1280.0f/2, 720.0f/2+75, 0.0f);
-	
-	result = std::make_shared<Result>();
-	result->Init();
-	CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -25), fish->GetFishPos());
-	if (fish->getTag() == "SunFish"||fish->getTag()=="Whale") {
-		CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -50), fish->GetFishPos());
+	if (ScoreData.Success) {
+		BackTex = RESOURCE_MNG.GetTexture("SeaBack001.png");
+		mBackMat.SetTrans(1280/2, 720/2, 0);
 	}
 	KD3D.CreateDirectionalLight(D3DXVECTOR3(0, 0, -1), D3DXVECTOR4(1, 1, 1, 1), D3DXVECTOR4(1.0, 1.0, 1.0, 1.0));
 	
@@ -49,31 +55,39 @@ void CResultScene::Init()
 
 int CResultScene::Update()
 {
-	result->Update();
 	
-	if (GetKey(VK_RETURN) & 0x8000)
-	{
-		int Possession;
-		Possession = DTWHOUCE.GetNo("Possession");
-		Possession += Price;
-		DTWHOUCE.SetNo("Possession", Possession);
+	
+	if (!ScoreData.Success) {
 
-		SellSound = RESOURCE_MNG.GetSound("Money");
-		SellSound->Playsound("Money", true, false);
 		FADE.Start(5);
 		return MAP;
 	}
+	if (ScoreData.Success) {
+		result->Update();
+		if (GetKey(VK_RETURN) & 0x8000)
+		{
+			int Possession;
+			Possession = DTWHOUCE.GetNo("Possession");
+			Possession += Price;
+			DTWHOUCE.SetNo("Possession", Possession);
 
-	if (GetKey('I') & 0x8000) {
-		FADE.Start(5);
-		return SHOP;
-	}
+			SellSound = RESOURCE_MNG.GetSound("Money");
+			SellSound->Playsound("Money", true, false);
+			FADE.Start(5);
+			return MAP;
+		}
 
-	if (GetKey('F') & 0x8000) {
-		FADE.Start(5);
-		return GAME;
+		if (GetKey('I') & 0x8000) {
+			FADE.Start(5);
+			return SHOP;
+		}
+
+		if (GetKey('F') & 0x8000) {
+			FADE.Start(5);
+			return GAME;
+		}
 	}
-	return RESULT;
+		return RESULT;
 }
 
 void CResultScene::Draw2D()
@@ -192,9 +206,5 @@ void CResultScene::CalcData()
 	if (DTWHOUCE.GetStr("FishName") == "Whale"){
 		Size = 2700;
 		Price = 3500000;
-	}
-	if (DTWHOUCE.GetStr("FishName") == "") {
-		Size = 0;
-		Price = 0;
 	}
 }
