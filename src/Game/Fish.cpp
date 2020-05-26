@@ -86,10 +86,10 @@ void Fish::Update()
 		if (Rot > 180)Rot -= 360;
 
 		if (Rot > 0) {
-			m_world.RotateYLocal(D3DXToRadian(3.0f));
+			m_world.RotateYLocal(D3DXToRadian(-3.0f));
 		}
 		else {
-			m_world.RotateYLocal(D3DXToRadian(-3.0f));
+			m_world.RotateYLocal(D3DXToRadian(3.0f));
 		}
 		if ((Rot < 3) && (Rot > -3))
 		{

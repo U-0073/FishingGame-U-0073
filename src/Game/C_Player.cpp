@@ -152,14 +152,15 @@ void C_Player::Move()
 			MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 0);
 			MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 0);
 
-
-			bool B_SkipFlg = false;
-			D3DXVec3TransformCoord(&Vec, &CoordVec.Right, &RotMat);
-			if (!B_SkipFlg)B_SkipFlg = MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 1);
-			D3DXVec3TransformCoord(&Vec, &CoordVec.Left, &RotMat);
-			if (!B_SkipFlg)B_SkipFlg = MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 1);
-			D3DXVec3TransformCoord(&Vec, &CoordVec.Back, &RotMat);
-			if (!B_SkipFlg)B_SkipFlg = MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 1);
+			/*
+				bool B_SkipFlg = false;
+				D3DXVec3TransformCoord(&Vec, &CoordVec.Right, &RotMat);
+				if (!B_SkipFlg)B_SkipFlg = MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 1);
+				D3DXVec3TransformCoord(&Vec, &CoordVec.Left, &RotMat);
+				if (!B_SkipFlg)B_SkipFlg = MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 1);
+				D3DXVec3TransformCoord(&Vec, &CoordVec.Back, &RotMat);
+				if (!B_SkipFlg)B_SkipFlg = MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 1);
+			*/
 
 			bool S_SkipFlg = false;
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Front, &RotMat);
