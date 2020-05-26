@@ -36,20 +36,20 @@ void C_Player::Init()
 										//	　（クライアント座標）（スクリーン座標）
 	SetCursorPos(BasePt.x, BasePt.y);
 	ShowCursor(FALSE);
-	
-		//―――――――――――――以下Json使用例――――――――――――//
-		auto Json = std::make_shared<json11::Json>();
-		Json = JSONS.LoadJson("Default/Test.json");//読み込み
-		std::string tag = "Player";//VisualStudioバグ対策でstringは一度宣言してから入れて
 
-		bool test1 = JSONS.checkValue(Json, "Tag", tag);//文字列比較
-		test1 = JSONS.checkValue(Json, "Tag", 111);//数字と比較
-		//まだ使えない
-		JSONS.AddKeyValue(Json, "Value5", std::string("ABCD"));//要素の変更、追加
+	//―――――――――――――以下Json使用例――――――――――――//
+	auto Json = std::make_shared<json11::Json>();
+	Json = JSONS.LoadJson("Default/Test.json");//読み込み
+	std::string tag = "Player";//VisualStudioバグ対策でstringは一度宣言してから入れて
 
-		JSONS.SaveJson(Json, "Save/Test.json");//セーブ
-		//――――――――――――――――――――――――――――――――//
-		
+	bool test1 = JSONS.checkValue(Json, "Tag", tag);//文字列比較
+	test1 = JSONS.checkValue(Json, "Tag", 111);//数字と比較
+	//まだ使えない
+	JSONS.AddKeyValue(Json, "Value5", std::string("ABCD"));//要素の変更、追加
+
+	JSONS.SaveJson(Json, "Save/Test.json");//セーブ
+	//――――――――――――――――――――――――――――――――//
+
 }
 
 void C_Player::End()
@@ -61,16 +61,18 @@ void C_Player::End()
 
 void C_Player::Update()
 {
+	if (PlayerPos.y > 0) {
+		KdVec3 Vec(0.0f, 0.1f, 0.0f);
+		PlayerPos -= Vec;
+	}
+	else PlayerPos.y = 0;
+
 
 	if (ShopFlg);
 	FlgProc();
 	MoveProc();
 	CameraProc();
 
-	if (GetKey('X') & 0x8000) {//前へ
-		KdVec3 Vec(0.0f, 0.1f, 0.0f);
-		PlayerPos -= Vec;
-	}
 
 	if (GetKey('8') & 0x8000) {
 		//	　（クライアント座標）（スクリーン座標）
