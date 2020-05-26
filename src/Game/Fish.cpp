@@ -60,8 +60,6 @@ void Fish::Update()
 	//U‚èŒü‚«ˆ—
 	if (DTWHOUCE.GetFlg("Fishing"))
 	{
-		MoveHoriizontal();
-		/*
 		//¡‹›‚ª‚Ç‚±‚ğŒü‚¢‚Ä‚¢‚é‚©
 		KdVec3 vKVec;
 		D3DXVec3TransformNormal(&vKVec, &KdVec3(0, 0, 1), &m_world);
@@ -99,8 +97,8 @@ void Fish::Update()
 			//m_world.RotateYLocal(D3DXToRadian((rand() % 10) - 5));
 		}
 		m_world.MoveLocal(0, 0, -0.5);
-		*/
 	}
+
 	else
 	{
 		//ƒtƒ‰ƒtƒ‰“®‚­
