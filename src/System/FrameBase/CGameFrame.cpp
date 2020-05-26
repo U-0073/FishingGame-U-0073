@@ -11,13 +11,17 @@
 LRESULT APIENTRY WndFunc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg) {
-	case WM_DESTROY:
-		PostQuitMessage(0);
+	case WM_CLOSE:
+		if (MessageBox(hwnd, "終了しますか？", "終了メニュー", MB_ICONQUESTION | MB_YESNO) == IDYES) {
+			PostQuitMessage(0);
+		}
 		return 0;
 	case WM_KEYDOWN:
 		switch (wParam) {
 		case VK_ESCAPE:
-			PostQuitMessage(0);
+			if (MessageBox(hwnd, "終了しますか？", "終了メニュー", MB_ICONQUESTION | MB_YESNO) == IDYES) {
+				PostQuitMessage(0);
+			}
 			return 0;
 		}
 		return 0;
@@ -37,7 +41,7 @@ CGameFrame::CGameFrame()
 	, nowScene(nullptr)
 	, mIsFullScreen(false)
 	, mWindowSize(1280, 720)
-	, mAppName("KDFrame")
+	, mAppName("ANGLERS")
 
 {
 
@@ -70,7 +74,7 @@ const bool CGameFrame::CreateHWND(HINSTANCE aHInst, const int aCmdShow)
 	SetFocus(mpHwnd);
 
 	mIsFullScreen = false;	// ウィンドウモード
-	if (MessageBox(mpHwnd, "フルスクリーンにしますか？", "フルスクリーン?", MB_ICONQUESTION | MB_YESNO) == IDYES) {
+	if (MessageBox(mpHwnd, "フルスクリーンにしますか？", "フルスクリーン?", MB_ICONQUESTION | MB_YESNO | MB_DEFBUTTON2) == IDYES) {
 		mIsFullScreen = true;
 	}
 

@@ -20,4 +20,7 @@ private:
 	DWORD verNum;
 	bool HeightCtrl;
 	char* pV;
+
+	std::shared_ptr<KdModel> m_pModel2 = nullptr;
+
 };

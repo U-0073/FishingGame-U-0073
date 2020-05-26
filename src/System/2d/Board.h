@@ -31,10 +31,12 @@ public:
 
 
 protected:
-	VERTEX v[4];
+	std::vector<VERTEX> v;
+	std::vector<unsigned int> ib;
+
 	D3DXMATRIX vMat;
 	//板ポリのサイズ
-	D3DXVECTOR3 mSize;
+	D3DXVECTOR3 mSize = {1,1,1};
 
 	//テクスチャ関係の変数
 	std::string mPath = "";
