@@ -61,9 +61,9 @@ int CResultScene::Update()
 		if (ScoreData.Success) 
 		{
 			int Possession;
-			Possession = DTWHOUCE.GetNo("Possession");
+			Possession = DTWHOUCE.GetInt("Possession");
 			Possession += Price;
-			DTWHOUCE.SetNo("Possession", Possession);
+			DTWHOUCE.SetInt("Possession", Possession);
 
 			SellSound = RESOURCE_MNG.GetSound("Money");
 			SellSound->Playsound("Money", true, false);

@@ -50,14 +50,20 @@ private:
 	std::shared_ptr<LPDIRECT3DTEXTURE9> numberTex;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> statusTex;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> BaitTex;
-
 	D3DXVECTOR3 mPos;
 
+	//アイテムの値段
+	int RodPrice[8];
+	int BaitPrice[8];
+	int ReelPrice[8];
+	//カーソル
 	int cursor = 0;
 	int tabPattern = 0;
 	//所持金
 	int Possession;
 	int num[10];
+	//ウィンドウパターン
+	int WindowPattern = 0;
 
 	float select[LISTNUMBER];
 	float tabL = 0, tabC = 0, tabR = 0;
@@ -69,6 +75,7 @@ private:
 	bool RodTextFlg = false;
 	bool BaitTextFlg = false;
 	bool ReelTextFlg = false;
-	bool enterFlg;
+	bool EnterFlg = false;
+	bool EnterDownFlg = false;
 };
 

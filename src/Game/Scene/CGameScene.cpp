@@ -32,7 +32,11 @@ void CGameScene::Init()
 	clickCNT = clickInitialize;
 	frame = MFInitialize;
 
-
+	//魚が釣れた？
+	FishingResult = false;
+	FResultTex = RESOURCE_MNG.GetTexture("get.png");
+	FResultMat.SetScale(2, 2, 0);
+	FResultMat.SetTrans(1280 / 2, 720 / 2, 0);
 
 	judgeFlg = Default_judge;
 	len = defLenInitialize;
@@ -171,10 +175,19 @@ int CGameScene::Update()
 				m_pSound->Playsound("レベルが上がったり何かをクリアした時の短いジングル", true, false);
 
 				//ゲーム結果をDTWHOUCEに保存する
-				int calcAve = Excellent / (Excellent + Miss);//calcAveは全ノーツのエクセレント率
 				bool clear;
-				if (calcAve >= FishSuccess) { clear = true; }
-				if (calcAve < FishSuccess) { clear = false; }
+
+				if (Excellent + Miss != 0) {
+					float calcAve = (float)Excellent / (Excellent + Miss);//calcAveは全ノーツのエクセレント率
+					if (calcAve >= FishSuccess) { 
+						FishingResult = true;
+						clear = true; 
+					}
+					if (calcAve < FishSuccess) { clear = false; }
+				}
+				else {
+					clear = false;
+				}
 				score.Set(Excellent, Miss, clear);
 				DTWHOUCE.SetVec("score", score);
 				//保存後、リザルトシーンヘ
@@ -227,6 +240,12 @@ void CGameScene::Draw2D()
 		rc = { 0,0,335,200 };
 		if (resultTex)		SPRITE->Draw(*resultTex, &rc, &D3DXVECTOR3(335 / 2, 200 / 2, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 		else SPRITE->Draw(*judgeTex, &rc, &D3DXVECTOR3(335 / 2, 200 / 2, 0.0f), NULL, D3DCOLOR_ARGB(125, 255, 255, 255));
+	}
+
+	if (FishingResult){
+		RECT rcFR = { 0,0,270,271 };
+		SPRITE->SetTransform(&FResultMat);
+		SPRITE->Draw(*FResultTex, &rcFR, &D3DXVECTOR3(	 270/2 , 271/2 , 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 	}
 
 

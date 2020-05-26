@@ -106,6 +106,13 @@ private:
 	int Excellent;
 	int Miss;
 
+
+	bool FishingResult;
+	std::shared_ptr<LPDIRECT3DTEXTURE9> FResultTex = nullptr;
+	KdMatrix FResultMat;
+
+
+
 	//‰½‚Ì‹›‚©
 	std::string name;
 

@@ -36,20 +36,20 @@ void C_Player::Init()
 										//	　（クライアント座標）（スクリーン座標）
 	SetCursorPos(BasePt.x, BasePt.y);
 	ShowCursor(FALSE);
-
-	//―――――――――――――以下Json使用例――――――――――――//
-	auto Json = std::make_shared<json11::Json>();
-	Json = JSONS.LoadJson("Default/Test.json");//読み込み
-	std::string tag = "Player";//VisualStudioバグ対策でstringは一度宣言してから入れて
+	/*
+		//―――――――――――――以下Json使用例――――――――――――//
+		auto Json = std::make_shared<json11::Json>();
+		Json = JSONS.LoadJson("Default/Test.json");//読み込み
+		std::string tag = "Player";//VisualStudioバグ対策でstringは一度宣言してから入れて
 
 	bool test1 = JSONS.checkValue(Json, "Tag", tag);//文字列比較
 	test1 = JSONS.checkValue(Json, "Tag", 111);//数字と比較
 	//まだ使えない
 	JSONS.AddKeyValue(Json, "Value5", std::string("ABCD"));//要素の変更、追加
 
-	JSONS.SaveJson(Json, "Save/Test.json");//セーブ
-	//――――――――――――――――――――――――――――――――//
-
+		JSONS.SaveJson(Json, "Save/Test.json");//セーブ
+		//――――――――――――――――――――――――――――――――//
+		*/
 }
 
 void C_Player::End()
@@ -108,7 +108,7 @@ void C_Player::FlgProc()
 			//釣りモード解除
 			if (FishingFlg) {
 				FishingFlg = false;
-				RestoreFlg = true;
+				//RestoreFlg = true;
 
 				DTWHOUCE.SetFlg("FishingFlg", false);
 				ShowCursor(TRUE);
@@ -152,14 +152,30 @@ void C_Player::Move()
 			MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 0);
 			MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 0);
 
-
-			bool B_SkipFlg = false;
-			D3DXVec3TransformCoord(&Vec, &CoordVec.Right, &RotMat);
-			if (!B_SkipFlg)B_SkipFlg = MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 1);
-			D3DXVec3TransformCoord(&Vec, &CoordVec.Left, &RotMat);
-			if (!B_SkipFlg)B_SkipFlg = MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 1);
-			D3DXVec3TransformCoord(&Vec, &CoordVec.Back, &RotMat);
-			if (!B_SkipFlg)B_SkipFlg = MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 1);
+			/*
+				bool B_SkipFlg = false;
+				D3DXVec3TransformCoord(&Vec, &CoordVec.Right, &RotMat);
+				if (!B_SkipFlg)B_SkipFlg = MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 1);
+				D3DXVec3TransformCoord(&Vec, &CoordVec.Left, &RotMat);
+				if (!B_SkipFlg)B_SkipFlg = MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 1);
+				D3DXVec3TransformCoord(&Vec, &CoordVec.Back, &RotMat);
+				if (!B_SkipFlg)B_SkipFlg = MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 1);
+			*/
+			/*
+				bool B_SkipFlg = false;
+				D3DXVec3TransformCoord(&Vec, &CoordVec.Right, &RotMat);
+				WallDot = -3;
+				MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 2);
+				if (WallDot < 1 && WallDot>-1)MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 1);
+				D3DXVec3TransformCoord(&Vec, &CoordVec.Left, &RotMat);
+				WallDot = -3;
+				MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 2);
+				if (WallDot < 1 && WallDot>-1)MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 1);
+				D3DXVec3TransformCoord(&Vec, &CoordVec.Back, &RotMat);
+				WallDot = -3;
+				MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 2);
+				if (WallDot < 1 && WallDot>-1)MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 1);
+			*/
 
 			bool S_SkipFlg = false;
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Front, &RotMat);
@@ -280,7 +296,7 @@ void C_Player::MouseUpdate() {
 	GetCursorPos(&Pt);
 
 	//釣りモードじゃないときにマウスでカメラの回転をできるように移動させる
-	if (!FishingFlg && !RestoreFlg)
+	if (!FishingFlg)
 	{
 		long MoveX = (Pt.x - BasePt.x);
 		if ((MoveX >= 3) || (MoveX <= -3)) {
@@ -298,7 +314,7 @@ void C_Player::MouseUpdate() {
 	if (CamAngY > 180)	CamAngY = -180;
 
 	if (CamAngX < -80.0f) CamAngX = -80.0f;
-	if (CamAngX > 40.0f && !RestoreFlg) CamAngX = 40.0f;
+	if (CamAngX > 40.0f) CamAngX = 40.0f;
 
 	if (!FishingFlg) SetCursorPos(BasePt.x, BasePt.y);
 }
@@ -342,7 +358,7 @@ void C_Player::CameraSet()
 
 		CamLook = Vec;
 		CAMERA.SetCameraVec(PlayerPos + InitCamPos, Vec);
-		RestoreFlg = false;
+		//RestoreFlg = false;
 	}
 
 }
@@ -646,31 +662,34 @@ bool C_Player::MoveRay_Bridge(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMe
 		//法線の取得完了
 
 		Dot = D3DXVec3Dot(&-WallVec, &(Vec * MeshDis));//Playerと壁の距離を計算
+		WallDot = Dot;
 
 		//ポリゴンからどれだけ離して壁ずりするかを調整('Д')
 		float Limit = -1.0f;
 		WallFlg = false;
 
-		//ここが壁ずり処理。
-		//立ち入り禁止エリアと店に当たった時に自信を跳ね返す処理です＿(　_´ω`)_ﾍﾟｼｮ
-		if (Dot > Limit && Dot < 0) {
-			float Tmp = Limit - Dot;
-			KdVec3 TmpVec = (Tmp * WallVec);
-			TmpVec.Set(TmpVec.x, 0.0f, TmpVec.z);
-			PlayerPos += TmpVec;
-			if (Mode == 1)
-				WallFlg = true;
-		}
+		if (Mode != 2) {
+			//ここが壁ずり処理。
+			//立ち入り禁止エリアと店に当たった時に自信を跳ね返す処理です＿(　_´ω`)_ﾍﾟｼｮ
+			if (Dot > Limit && Dot < 0) {
+				float Tmp = Limit - Dot;
+				KdVec3 TmpVec = (Tmp * WallVec);
+				TmpVec.Set(TmpVec.x, 0.0f, TmpVec.z);
+				PlayerPos += TmpVec;
+				if (Mode == 1)
+					WallFlg = true;
+			}
 
-		Limit *= -1;
-		//↑のやつはポリゴンの裏面だけを判定するのでこっちは表面も判定するように
-		//立ち入り禁止エリアに入った時に跳ね返す処理
-		if (Dot < Limit && Dot > 0) {
-			float Tmp = Limit - Dot;
-			KdVec3 TmpVec = (Tmp * WallVec);
-			TmpVec.Set(TmpVec.x, 0.0f, TmpVec.z);
-			PlayerPos += TmpVec;
-			if (Mode == 1)	WallFlg = true;
+			Limit *= -1;
+			//↑のやつはポリゴンの裏面だけを判定するのでこっちは表面も判定するように
+			//立ち入り禁止エリアに入った時に跳ね返す処理
+			if (Dot < Limit && Dot > 0) {
+				float Tmp = Limit - Dot;
+				KdVec3 TmpVec = (Tmp * WallVec);
+				TmpVec.Set(TmpVec.x, 0.0f, TmpVec.z);
+				PlayerPos += TmpVec;
+				if (Mode == 1)	WallFlg = true;
+			}
 		}
 	}
 
