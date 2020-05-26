@@ -96,7 +96,7 @@ void Fish::Update()
 			m_world.RotateYLocal(D3DXToRadian(Rot));
 			//m_world.RotateYLocal(D3DXToRadian((rand() % 10) - 5));
 		}
-		m_world.MoveLocal(0, 0, -0.5);
+		m_world.MoveLocal(0, 0, 0.5);
 	}
 	else
 	{
