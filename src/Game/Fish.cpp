@@ -60,8 +60,8 @@ void Fish::Update()
 	//U‚èŒü‚«ˆ—
 	if (DTWHOUCE.GetFlg("Fishing"))
 	{
-		MoveHoriizontal();
-	/*
+		//MoveHoriizontal();
+	
 		{
 			//¡‹›‚ª‚Ç‚±‚ðŒü‚¢‚Ä‚¢‚é‚©
 			KdVec3 vKVec;
@@ -75,7 +75,7 @@ void Fish::Update()
 			fpos = m_world.GetPos();
 			bpos = DTWHOUCE.GetVec("Buoy");
 			fpos = bpos - fpos;
-			fpos.y = 0;
+			//fpos.y = 0;
 			fpos.Normalize();
 			float FishRot = D3DXVec3Dot(&KdVec3(0, 0, 1), &fpos);
 			FishRot = D3DXToDegree(acos(FishRot));
@@ -83,20 +83,24 @@ void Fish::Update()
 
 			//‚Ç‚Á‚¿Œü‚«‚É‰½“xˆÚ“®‚·‚é‚©
 			float Rot = FishRot - nowRot;
-			if (Rot > 180) { Rot = 360 - Rot; }
-			if (Rot < -180) { Rot = 360 + Rot; }
+			//if (Rot > 180) { Rot = 360 - Rot; }
+			//if (Rot < -180) { Rot = 360 + Rot; }
+			if (Rot < -180)Rot += 360;
+			if (Rot > 180)Rot -= 360;
+
 			if (Rot > 0) {
-				if (Rot > 3) { m_world.RotateYLocal(D3DXToRadian(3.0f)); }
-				if (Rot < 3) { m_world.RotateYLocal(D3DXToRadian(Rot)); }
+				m_world.RotateYLocal(D3DXToRadian(3.0f));
 			}
-			if (Rot < 0) {
-				if (Rot < -3) { m_world.RotateYLocal(D3DXToRadian(-3.0f)); }
-				if (Rot > -3) { m_world.RotateYLocal(D3DXToRadian(Rot)); }
+			else {
+				m_world.RotateYLocal(D3DXToRadian(-3.0f));
+			}
+			if ((Rot < 3) && (Rot > -3))
+			{
+				m_world.RotateYLocal(D3DXToRadian(Rot));
+				//m_world.RotateYLocal(D3DXToRadian((rand() % 10) - 5));
 			}
 			m_world.MoveLocal(0, 0, -0.5);
-			//m_world.RotateYLocal(D3DXToRadian((rand() % 10) - 5));
 		}
-	*/
 	}
 	else
 	{
