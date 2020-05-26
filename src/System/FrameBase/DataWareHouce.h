@@ -7,18 +7,21 @@ public:
 	void SetStr(const std::string& Tag, const std::string& data)	{ Str[Tag] = data; }
 	void SetVec (const std::string& Tag, const KdVec3& data)		{ Pos[Tag] = data; }
 	void SetNo  (const std::string& Tag, const float& data)			{ No[Tag] = data; }
+	void SetInt  (const std::string& Tag, const int& data)			{ Integer[Tag] = data; }
 	void SetFlg  (const std::string& Tag, const float& data)			{ Flg[Tag] = data; }
 
 	//データ保存
 	std::string& GetStr(const std::string& Tag) { return Str[Tag]; }
 	KdVec3&		GetVec(const std::string& Tag)		{ return Pos[Tag]; }
 	float&	    GetNo(const std::string& Tag)		{ return No[Tag]; }
+	int&	    GetInt(const std::string& Tag)		{ return Integer[Tag]; }
 	bool&	    GetFlg(const std::string& Tag)		{ return Flg[Tag]; }
 
 private:
 	std::map<std::string, std::string>	Str;
 	std::map<std::string, KdVec3>		Pos;
 	std::map<std::string, float>		No;
+	std::map<std::string, int>			Integer;
 	std::map<std::string, bool>			Flg;
 
 	//シングルトン
