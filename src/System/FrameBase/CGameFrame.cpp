@@ -11,13 +11,17 @@
 LRESULT APIENTRY WndFunc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg) {
-	case WM_DESTROY:
-		PostQuitMessage(0);
+	case WM_CLOSE:
+		if (MessageBox(hwnd, "終了しますか？", "終了メニュー", MB_ICONQUESTION | MB_YESNO) == IDYES) {
+			PostQuitMessage(0);
+		}
 		return 0;
 	case WM_KEYDOWN:
 		switch (wParam) {
 		case VK_ESCAPE:
-			PostQuitMessage(0);
+			if (MessageBox(hwnd, "終了しますか？", "終了メニュー", MB_ICONQUESTION | MB_YESNO) == IDYES) {
+				PostQuitMessage(0);
+			}
 			return 0;
 		}
 		return 0;
