@@ -99,7 +99,7 @@ void CResultScene::Draw2D()
 		SPRITE->SetTransform(&mNumberMat);
 		SPRITE->Draw(*NumberTex, &rcNum[i], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 	}
-
+}
 
 
 
