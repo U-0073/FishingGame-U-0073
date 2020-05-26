@@ -154,6 +154,7 @@ static void dump(const Json::array& values, string& out, bool debug, int indent 
 static void dump(const Json::object &values, string &out,bool debug,int indent = 0) {
     bool first = true;
     out += "{";
+    
 	AddNewLine(out, debug);
 	indent++;
     for (const auto &kv : values) {

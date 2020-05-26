@@ -60,7 +60,7 @@ void Fish::Update()
 	//U‚èŒü‚«ˆ—
 	if (DTWHOUCE.GetFlg("Fishing"))
 	{
-		//MoveHoriizontal();
+
 	
 		{
 			//¡‹›‚ª‚Ç‚±‚ğŒü‚¢‚Ä‚¢‚é‚©
