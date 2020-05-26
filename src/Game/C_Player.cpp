@@ -36,20 +36,20 @@ void C_Player::Init()
 										//	　（クライアント座標）（スクリーン座標）
 	SetCursorPos(BasePt.x, BasePt.y);
 	ShowCursor(FALSE);
-
-	//―――――――――――――以下Json使用例――――――――――――//
-	auto Json = std::make_shared<json11::Json>();
-	Json = JSONS.LoadJson("Default/Test.json");//読み込み
-	std::string tag = "Player";//VisualStudioバグ対策でstringは一度宣言してから入れて
+	/*
+		//―――――――――――――以下Json使用例――――――――――――//
+		auto Json = std::make_shared<json11::Json>();
+		Json = JSONS.LoadJson("Default/Test.json");//読み込み
+		std::string tag = "Player";//VisualStudioバグ対策でstringは一度宣言してから入れて
 
 	bool test1 = JSONS.checkValue(Json, "Tag", tag);//文字列比較
 	test1 = JSONS.checkValue(Json, "Tag", 111);//数字と比較
 	//まだ使えない
 	JSONS.AddKeyValue(Json, "Value5", std::string("ABCD"));//要素の変更、追加
 
-	JSONS.SaveJson(Json, "Save/Test.json");//セーブ
-	//――――――――――――――――――――――――――――――――//
-
+		JSONS.SaveJson(Json, "Save/Test.json");//セーブ
+		//――――――――――――――――――――――――――――――――//
+		*/
 }
 
 void C_Player::End()
