@@ -171,10 +171,16 @@ int CGameScene::Update()
 				m_pSound->Playsound("レベルが上がったり何かをクリアした時の短いジングル", true, false);
 
 				//ゲーム結果をDTWHOUCEに保存する
-				int calcAve = Excellent / (Excellent + Miss);//calcAveは全ノーツのエクセレント率
 				bool clear;
-				if (calcAve >= FishSuccess) { clear = true; }
-				if (calcAve < FishSuccess) { clear = false; }
+
+				if (Excellent + Miss != 0) {
+					float calcAve = (float)Excellent / (Excellent + Miss);//calcAveは全ノーツのエクセレント率
+					if (calcAve >= FishSuccess) { clear = true; }
+					if (calcAve < FishSuccess) { clear = false; }
+				}
+				else {
+					clear = false;
+				}
 				score.Set(Excellent, Miss, clear);
 				DTWHOUCE.SetVec("score", score);
 				//保存後、リザルトシーンヘ
