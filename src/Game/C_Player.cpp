@@ -151,15 +151,23 @@ void C_Player::Move()
 			MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 0);
 
 
-			bool SkipFlg = false;
-			D3DXVec3TransformCoord(&Vec, &CoordVec.Front, &RotMat);
-			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			bool B_SkipFlg = false;
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Right, &RotMat);
-			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			if (!B_SkipFlg)B_SkipFlg = MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 1);
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Left, &RotMat);
-			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			if (!B_SkipFlg)B_SkipFlg = MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 1);
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Back, &RotMat);
-			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			if (!B_SkipFlg)B_SkipFlg = MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 1);
+
+			bool S_SkipFlg = false;
+			D3DXVec3TransformCoord(&Vec, &CoordVec.Front, &RotMat);
+			if (!S_SkipFlg)S_SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			D3DXVec3TransformCoord(&Vec, &CoordVec.Right, &RotMat);
+			if (!S_SkipFlg)S_SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			D3DXVec3TransformCoord(&Vec, &CoordVec.Left, &RotMat);
+			if (!S_SkipFlg)S_SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			D3DXVec3TransformCoord(&Vec, &CoordVec.Back, &RotMat);
+			if (!S_SkipFlg)S_SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
 		}
 		if (GetKey('A') & 0x8000) {//左
 			D3DXMATRIX RotMat;
@@ -170,16 +178,15 @@ void C_Player::Move()
 			MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 0);
 			MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 0);
 
-
-			bool SkipFlg = false;
+			bool S_SkipFlg = false;
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Front, &RotMat);
-			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			if (!S_SkipFlg)S_SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Right, &RotMat);
-			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			if (!S_SkipFlg)S_SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Left, &RotMat);
-			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			if (!S_SkipFlg)S_SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Back, &RotMat);
-			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			if (!S_SkipFlg)S_SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
 		}
 		if (GetKey('S') & 0x8000) {//後ろへ
 			D3DXMATRIX RotMat;
@@ -191,15 +198,15 @@ void C_Player::Move()
 			MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 0);
 
 
-			bool SkipFlg = false;
+			bool S_SkipFlg = false;
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Front, &RotMat);
-			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			if (!S_SkipFlg)S_SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Right, &RotMat);
-			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			if (!S_SkipFlg)S_SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Left, &RotMat);
-			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			if (!S_SkipFlg)S_SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Back, &RotMat);
-			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			if (!S_SkipFlg)S_SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
 
 		}
 		if (GetKey('D') & 0x8000) {//右
@@ -212,15 +219,15 @@ void C_Player::Move()
 			MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 0);
 
 
-			bool SkipFlg = false;
+			bool S_SkipFlg = false;
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Front, &RotMat);
-			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			if (!S_SkipFlg)S_SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Right, &RotMat);
-			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			if (!S_SkipFlg)S_SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Left, &RotMat);
-			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			if (!S_SkipFlg)S_SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Back, &RotMat);
-			if (!SkipFlg)SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
+			if (!S_SkipFlg)S_SkipFlg = MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 1);
 		}
 	}
 
@@ -640,7 +647,7 @@ bool C_Player::MoveRay_Bridge(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMe
 
 		//ポリゴンからどれだけ離して壁ずりするかを調整('Д')
 		float Limit = -1.0f;
-
+		WallFlg = false;
 
 		//ここが壁ずり処理。
 		//立ち入り禁止エリアと店に当たった時に自信を跳ね返す処理です＿(　_´ω`)_ﾍﾟｼｮ
@@ -649,6 +656,8 @@ bool C_Player::MoveRay_Bridge(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMe
 			KdVec3 TmpVec = (Tmp * WallVec);
 			TmpVec.Set(TmpVec.x, 0.0f, TmpVec.z);
 			PlayerPos += TmpVec;
+			if (Mode == 1)
+				WallFlg = true;
 		}
 
 		Limit *= -1;
@@ -659,13 +668,16 @@ bool C_Player::MoveRay_Bridge(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMe
 			KdVec3 TmpVec = (Tmp * WallVec);
 			TmpVec.Set(TmpVec.x, 0.0f, TmpVec.z);
 			PlayerPos += TmpVec;
+			if (Mode == 1)	WallFlg = true;
 		}
-
 	}
 
 
-	if (!WallFlg && Mode == 0)PlayerPos += Vec * MoveSpeed;
+	if (Mode == 0)PlayerPos += Vec * MoveSpeed;
+
+	if (Mode == 1) {
+		if (WallFlg)return true;
+		else return false;
+	}
 	return false;
 }
-
-
