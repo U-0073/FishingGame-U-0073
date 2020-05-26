@@ -81,23 +81,25 @@ int CResultScene::Update()
 
 void CResultScene::Draw2D()
 {
-	result->Draw2D();
-
-	RECT rcName = { 0,0,300,50 };
-	SPRITE->SetTransform(&mNameMat);
-	SPRITE->Draw(*NameTex, &rcName, &D3DXVECTOR3(150.0f, 50.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-
-	RECT rcCoin = { 0,0,80,80 };
-	SPRITE->SetTransform(&mCoinMat);
-	SPRITE->Draw(*CoinTex, &rcCoin, &D3DXVECTOR3(40.0f, 40.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-
-
-	mNumberMat.SetTrans(1280 / 2, 720 / 5 * 3, 0);
-	for (int i = 0; i < 4; i++)
+	if (ScoreData.Success)
 	{
-		mNumberMat *= mTransMat;
-		SPRITE->SetTransform(&mNumberMat);
-		SPRITE->Draw(*NumberTex, &rcNum[i], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+		result->Draw2D();
+		RECT rcName = { 0,0,300,50 };
+		SPRITE->SetTransform(&mNameMat);
+		SPRITE->Draw(*NameTex, &rcName, &D3DXVECTOR3(150.0f, 50.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+
+		RECT rcCoin = { 0,0,80,80 };
+		SPRITE->SetTransform(&mCoinMat);
+		SPRITE->Draw(*CoinTex, &rcCoin, &D3DXVECTOR3(40.0f, 40.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+
+
+		mNumberMat.SetTrans(1280 / 2, 720 / 5 * 3, 0);
+		for (int i = 0; i < 4; i++)
+		{
+			mNumberMat *= mTransMat;
+			SPRITE->SetTransform(&mNumberMat);
+			SPRITE->Draw(*NumberTex, &rcNum[i], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+		}
 	}
 }
 
