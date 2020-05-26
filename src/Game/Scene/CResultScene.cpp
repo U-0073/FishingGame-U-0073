@@ -14,22 +14,20 @@ CResultScene::~CResultScene()
 
 void CResultScene::Init()
 {
+	Sky = std::make_shared<Skysphere>();
+	Sky->Init();
+	ScoreData = DTWHOUCE.GetVec("score");
+	//ゲームシーンで成功していたらロードする
 	if (ScoreData.Success) {
 		//ゲームシーンから取ってきたデータを保存する
-		ScoreData = DTWHOUCE.GetVec("score");
 
 		fish = std::make_shared<Fish>();
 		fish->ResultInit();
 		if (ScoreData.Success)CalcData();
-		else {
-			Size = 1280;
-			Price = 8888;
-		}
+
 
 		mPos = { 0,0,0 };
 
-		Sky = std::make_shared<Skysphere>();
-		Sky->Init();
 
 		CalcNum();
 
@@ -47,20 +45,20 @@ void CResultScene::Init()
 		}
 		KD3D.CreateDirectionalLight(D3DXVECTOR3(0, 0, -1), D3DXVECTOR4(1, 1, 1, 1), D3DXVECTOR4(1.0, 1.0, 1.0, 1.0));
 	}
+	else {
+		Size = 1280;
+		Price = 8888;
+	}
 }
 
 int CResultScene::Update()
 {
-	
-	
-	if (!ScoreData.Success) {
-
-		FADE.Start(5);
-		return MAP;
-	}
 	if (ScoreData.Success) {
 		result->Update();
-		if (GetKey(VK_RETURN) & 0x8000)
+	}
+	if (GetKey(VK_RETURN) & 0x8000)
+	{
+		if (ScoreData.Success) 
 		{
 			int Possession;
 			Possession = DTWHOUCE.GetNo("Possession");
@@ -72,18 +70,13 @@ int CResultScene::Update()
 			FADE.Start(5);
 			return MAP;
 		}
-
-		if (GetKey('I') & 0x8000) {
+		else 
+		{
 			FADE.Start(5);
-			return SHOP;
-		}
-
-		if (GetKey('F') & 0x8000) {
-			FADE.Start(5);
-			return GAME;
+			return MAP;
 		}
 	}
-		return RESULT;
+	return RESULT;
 }
 
 void CResultScene::Draw2D()
@@ -108,6 +101,8 @@ void CResultScene::Draw2D()
 	}
 }
 
+
+
 void CResultScene::Draw3D()
 {
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, TRUE);
@@ -123,11 +118,13 @@ void CResultScene::End()
 {
 	Sky->End();
 	Sky = nullptr;
-	fish->End();
-	fish = nullptr;
-	result->End();
-	result = nullptr;
-
+	if (ScoreData.Success) 
+	{
+		fish->End();
+		fish = nullptr;
+		result->End();
+		result = nullptr;
+	}
 	DTWHOUCE.SetVec("score", { 0,0,0 });
 }
 
