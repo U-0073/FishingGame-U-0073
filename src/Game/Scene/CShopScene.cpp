@@ -16,9 +16,6 @@ CShopScene::~CShopScene()
 
 void CShopScene::Init()
 {
-	//Š‹à‚ÌŠm”F
-	Possession = (int)DTWHOUCE.GetNo("Possession");
-
 	vTex = RESOURCE_MNG.GetTexture("Shop/ShopBack001.png");
 
 	m_pSound = RESOURCE_MNG.GetSound("New_Place_of_Work");
@@ -34,7 +31,6 @@ void CShopScene::Init()
 int CShopScene::Update()
 {
 	shop2d->Update();
-	shop2d->GetPoss(Possession);
 	shopObj->Update();
 
 	shopObj->Get2D(shop2d->SetTabPattern(), shop2d->SetCursor());
@@ -46,8 +42,6 @@ int CShopScene::Update()
 	if (GetKey('O') & 0x8000)
 	{
 		DTWHOUCE.SetFlg("ShopFlg", false);
-		//Š‹à‚ÌÄ“o˜^
-		DTWHOUCE.SetNo("Possession", Possession);
 		FADE.Start(5);
 		return MAP;
 	}

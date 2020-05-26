@@ -41,6 +41,7 @@ void CGameScene::Init()
 	//初期の曲
 	m_pSound = RESOURCE_MNG.GetSound("スタート時のカウントダウン音");
 	m_pSound->Playsound("スタート時のカウントダウン音", true, false);
+	m_pSound->SetVol(0.9);
 
 
 	//譜面描画制御用フラグ
@@ -92,6 +93,7 @@ int CGameScene::Update()
 				break;
 			}
 			m_pSound = RESOURCE_MNG.GetSound(name);
+			m_pSound->SetVol(0.9);
 			m_pSound->Playsound(name, true, true);
 
 
