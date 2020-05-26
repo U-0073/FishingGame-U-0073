@@ -87,9 +87,9 @@ private:
 	float				MoveSpeed = 0.1f;
 	float				FishScene_CamAngX = 0.0f;
 	float				TextMeshDis2;
-	
+	float				WallDot;
+
 	bool				FishingFlg = false;
-	bool				RestoreFlg = false;
 	bool				WallFlg = false;
 	bool				ClickFlg = false;
 	bool				ShopFlg=false;
