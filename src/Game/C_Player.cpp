@@ -36,7 +36,7 @@ void C_Player::Init()
 										//	　（クライアント座標）（スクリーン座標）
 	SetCursorPos(BasePt.x, BasePt.y);
 	ShowCursor(FALSE);
-	/*
+	
 		//―――――――――――――以下Json使用例――――――――――――//
 		auto Json = std::make_shared<json11::Json>();
 		Json = JSONS.LoadJson("Default/Test.json");//読み込み
@@ -49,7 +49,7 @@ void C_Player::Init()
 
 		JSONS.SaveJson(Json, "Save/Test.json");//セーブ
 		//――――――――――――――――――――――――――――――――//
-		*/
+		
 }
 
 void C_Player::End()
