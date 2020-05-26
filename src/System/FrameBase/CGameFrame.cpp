@@ -41,7 +41,7 @@ CGameFrame::CGameFrame()
 	, nowScene(nullptr)
 	, mIsFullScreen(false)
 	, mWindowSize(1280, 720)
-	, mAppName("KDFrame")
+	, mAppName("ANGLERS")
 
 {
 
@@ -74,7 +74,7 @@ const bool CGameFrame::CreateHWND(HINSTANCE aHInst, const int aCmdShow)
 	SetFocus(mpHwnd);
 
 	mIsFullScreen = false;	// ウィンドウモード
-	if (MessageBox(mpHwnd, "フルスクリーンにしますか？", "フルスクリーン?", MB_ICONQUESTION | MB_YESNO) == IDYES) {
+	if (MessageBox(mpHwnd, "フルスクリーンにしますか？", "フルスクリーン?", MB_ICONQUESTION | MB_YESNO | MB_DEFBUTTON2) == IDYES) {
 		mIsFullScreen = true;
 	}
 
