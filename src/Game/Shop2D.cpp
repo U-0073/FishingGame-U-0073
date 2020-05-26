@@ -18,7 +18,7 @@ Shop2D::~Shop2D()
 void Shop2D::Init()
 {
 	//所持金の確認
-	Possession = DTWHOUCE.GetNo("Possession");
+	Possession = DTWHOUCE.GetInt("Possession");
 	//アイテムの値段
 	RodPrice[0] = 1000;
 	RodPrice[1] = 2500;
