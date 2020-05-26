@@ -158,6 +158,7 @@ void Shop2D::Update()
 	//w“üˆ—
 	if (WindowPattern == 2) {
 		Possession -= RodPrice[cursor];
+		WindowPattern = 0;
 		EnterFlg = false;
 	}
 
