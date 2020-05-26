@@ -514,7 +514,7 @@ void Shop2D::End()
 	BaitTex = nullptr;
 
 	//Š‹à‚ÌÄ“o˜^
-	DTWHOUCE.SetNo("Possession", Possession);
+	DTWHOUCE.SetInt("Possession", Possession);
 }
 
 int Shop2D::SetTabPattern()
