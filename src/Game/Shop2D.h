@@ -77,5 +77,8 @@ private:
 	bool ReelTextFlg = false;
 	bool EnterFlg = false;
 	bool EnterDownFlg = false;
+
+	//«”\’l
+	float Quality[3];
 };
 

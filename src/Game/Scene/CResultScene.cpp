@@ -157,6 +157,9 @@ void CResultScene::CalcData()
 		Size = 2700;
 		Price = 3500000;
 	}
+	float Quality = 1.0f + DTWHOUCE.GetNo("Quality");
+	Size *= Quality;
+	Price *= Quality;
 }
 
 void CResultScene::CalcNum()

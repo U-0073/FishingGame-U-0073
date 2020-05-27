@@ -18,7 +18,7 @@ Shop2D::~Shop2D()
 void Shop2D::Init()
 {
 	//所持金の確認
-	Possession = DTWHOUCE.GetNo("Possession");
+	Possession = DTWHOUCE.GetInt("Possession");
 	//アイテムの値段
 	RodPrice[0] = 1000;
 	RodPrice[1] = 2500;
@@ -158,6 +158,7 @@ void Shop2D::Update()
 	//購入処理
 	if (WindowPattern == 2) {
 		Possession -= RodPrice[cursor];
+		WindowPattern = 0;
 		EnterFlg = false;
 	}
 
@@ -199,6 +200,11 @@ void Shop2D::Update()
 
 	//能力及び購入ウィンドウ
 
+
+
+	//3つの能力値を合計し、３で割って/100する
+	//0.0～1.0にする
+	DTWHOUCE.SetNo("Quality", 1111);
 }
 
 void Shop2D::Draw2D()
