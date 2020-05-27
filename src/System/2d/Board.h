@@ -16,6 +16,8 @@ class Board
 public:
 	Board();
 	~Board();
+	void SetSize();
+	void SetArray();
 	void Update(const int *Side, const int *Virtical);
 	virtual void Draw() = 0;
 	void SafeRelease(LPDIRECT3DTEXTURE9& LoadTex);
@@ -32,7 +34,6 @@ public:
 
 protected:
 	std::vector<VERTEX> v;
-	std::vector<unsigned int> ib;
 
 	D3DXMATRIX vMat;
 	//板ポリのサイズ
