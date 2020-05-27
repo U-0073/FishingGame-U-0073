@@ -23,14 +23,16 @@ public:
 
 private:
 	KdVec3 mSize = { 1000,0,1000 };
-	KdVec3 mPos = { 0,-3,25 };
+	KdVec3 mPos = { 0.0f,-3.0f,25.0f };
 	KdMatrix m_world;
-	float vScale;
+	KdMatrix m_world2;
+	float vMin;
+	float vMax;
 
 	VERTEX v[4];
 	VERTEX v2[4];
 
 	std::shared_ptr<LPDIRECT3DTEXTURE9> vTex = nullptr;
 
-	float speed=0.01f;
+	float speed=0.0001f;
 };

@@ -65,7 +65,6 @@ public:
 	{
 		static CGameFrame instance;
 		return instance;
-
 	}
 };
 #define FRAME CGameFrame::GetInstance()
