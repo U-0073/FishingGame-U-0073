@@ -93,7 +93,7 @@ void C_Player::Update()
 void C_Player::FlgProc()
 {
 	if (ShopFlg) {
-		if (GetKey('I') & 0x8000) {
+		if (GetKey(VK_RETURN) & 0x8000) {
 			DTWHOUCE.SetFlg("ShopFlg", true);
 		}
 		else DTWHOUCE.SetFlg("ShopFlg", false);
