@@ -16,8 +16,10 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrev,
     LPSTR lpszCmdParam, int nCmdshow)
 {
     MSG msg;
-
-  /*  CGameFrame gameFrame;*/
+    // メモリリークを知らせる
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+  
+    /*  CGameFrame gameFrame;*/
     
     const bool result = FRAME.Initialize(hInst, nCmdshow);
     if( result == false )
