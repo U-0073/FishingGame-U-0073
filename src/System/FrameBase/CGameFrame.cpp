@@ -157,6 +157,7 @@ void CGameFrame::GameLoop()
 				nowScene = std::make_shared<CGameScene>();
 				nowScene->Init();
 				nowscene = nowScene->GetID();//シーンIDの保存
+				ShowCursor(TRUE);
 				break;
 			case MAP:
 				nowScene = std::make_shared<CMapScene>();

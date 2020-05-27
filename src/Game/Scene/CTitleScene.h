@@ -27,6 +27,11 @@ private:
 	std::shared_ptr<Title>		title	= nullptr;
 	std::shared_ptr<Sea>		sea		= nullptr;
 	
+	KdVec3 score;
+	
+	int Excellent;//デバック
+	int Miss;
+	bool clear;
 
 	D3DXVECTOR3 mPos;
 	BOOL MoveFlg;

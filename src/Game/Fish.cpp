@@ -60,43 +60,7 @@ void Fish::Update()
 	//振り向き処理
 	if (DTWHOUCE.GetFlg("Fishing"))
 	{
-		//今魚がどこを向いているか
-		KdVec3 vKVec;
-		D3DXVec3TransformNormal(&vKVec, &KdVec3(0, 0, 1), &m_world);
-		float nowRot = D3DXVec3Dot(&KdVec3(0, 0, 1), &vKVec);
-		nowRot = D3DXToDegree(acos(nowRot));
-		if (vKVec.x < 0) { nowRot *= -1; }
-
-		//魚とウキの角度の差
-		KdVec3 fpos, bpos;
-		fpos = m_world.GetPos();
-		bpos = DTWHOUCE.GetVec("Buoy");
-		fpos = bpos - fpos;
-		fpos.y = 0;
-		fpos.Normalize();
-		float FishRot = D3DXVec3Dot(&KdVec3(0, 0, 1), &fpos);
-		FishRot = D3DXToDegree(acos(FishRot));
-		if (fpos.x < 0) { FishRot *= -1; }
-
-		//どっち向きに何度移動するか
-		float Rot = FishRot - nowRot;
-		//if (Rot > 180) { Rot = 360 - Rot; }
-		//if (Rot < -180) { Rot = 360 + Rot; }
-		if (Rot < -180)Rot += 360;
-		if (Rot > 180)Rot -= 360;
-
-		if (Rot > 0) {
-			m_world.RotateYLocal(D3DXToRadian(-3.0f));
-		}
-		else {
-			m_world.RotateYLocal(D3DXToRadian(3.0f));
-		}
-		if ((Rot < 3) && (Rot > -3))
-		{
-			m_world.RotateYLocal(D3DXToRadian(Rot));
-			//m_world.RotateYLocal(D3DXToRadian((rand() % 10) - 5));
-		}
-		m_world.MoveLocal(0, 0, -0.5);
+		MoveHorizontal();
 	}
 
 	else
@@ -162,54 +126,56 @@ void Fish::ResultInit()
 	m_world.SetScale(2, 2, 2);
 }
 
-void Fish::MoveHoriizontal()
+void Fish::MoveHorizontal()
 {
+	//今魚がどこを向いているか
+	KdVec3 vKVec;
+	D3DXVec3TransformNormal(&vKVec, &KdVec3(0, 0, 1), &m_world);
+	float nowRot = D3DXVec3Dot(&KdVec3(0, 0, 1), &vKVec);
+	nowRot = D3DXToDegree(acos(nowRot));
+	if (vKVec.x < 0) { nowRot *= -1; }
+
+	//魚とウキの角度の差
 	KdVec3 fpos, bpos;
 	fpos = m_world.GetPos();
 	bpos = DTWHOUCE.GetVec("Buoy");
-
-
-	//自分の逆行列を計算
-	auto mInv = m_world;
-	mInv.Inverse();
-
-
-	KdVec3 vTo;
-	D3DXVec3TransformCoord(&vTo, &bpos, &mInv);
-	float dist = vTo.Length();
-	vTo.Normalize();
-
-
-
-
-	//操縦桿を左右に
-	KdVec3 vCross;
-
-	auto vnY = vTo;
-	vnY.y = 0;
-	vnY.Normalize();
-
-	//さらに細かい計算をするために内積を求める
-	float dot = D3DXVec3Dot(&vnY, &KdVec3(0, 0, 1));
-	float rad = acos(dot);//2つのベクトルがなす角(ラジアン角)
-
-
-
-	//自分の姿勢から見た方向なので0,-1,0でOK
-	D3DXVec3Cross(&vCross, &vnY, &KdVec3(0, 0, 1));
-	if (D3DXVec3Length(&vCross) > 0)
+	fpos = bpos - fpos;
+	fpos.y = 0;
+	float len = D3DXVec3Length(&fpos);
+	//
+	if (len < 2.0f) 
 	{
-		if (vCross.y > 0.1f) { m_world.RotateYLocal(D3DXToRadian(5)); }
-		if (vCross.y < -0.1f) { m_world.RotateYLocal(D3DXToRadian(-5)); }
+		DTWHOUCE.SetFlg("HitFish", true);
+		DTWHOUCE.SetStr("Name", m_Tag);
 	}
-	else if(vnY.z < 0){
-		m_world.RotateYLocal(D3DXToRadian(-5));
+	else 
+	{
+		DTWHOUCE.SetFlg("HitFish", false);
 	}
+		fpos.Normalize();
+	float FishRot = D3DXVec3Dot(&KdVec3(0, 0, 1), &fpos);
+	FishRot = D3DXToDegree(acos(FishRot));
+	if (fpos.x < 0) { FishRot *= -1; }
 
-	//フラフラ動く
+	//どっち向きに何度移動するか
+	float Rot = FishRot - nowRot;
+	//if (Rot > 180) { Rot = 360 - Rot; }
+	//if (Rot < -180) { Rot = 360 + Rot; }
+	if (Rot < -180)Rot += 360;
+	if (Rot > 180)Rot -= 360;
+
+	if (Rot > 0) {
+		m_world.RotateYLocal(D3DXToRadian(-3.0f));
+	}
+	else {
+		m_world.RotateYLocal(D3DXToRadian(3.0f));
+	}
+	if ((Rot < 3) && (Rot > -3))
+	{
+		m_world.RotateYLocal(D3DXToRadian(Rot));
+		//m_world.RotateYLocal(D3DXToRadian((rand() % 10) - 5));
+	}
 	m_world.MoveLocal(0, 0, -0.5);
-
-
 }
 
 
@@ -217,10 +183,13 @@ void Fish::MoveHoriizontal()
 void Fishes::Init()
 {
 	std::vector<std::shared_ptr<Fish>>m_Fishs;
-	for (int c = 0; c < 3; c++) {
-		int name = rand() % 3;
+	for (int c = 0; c < 1; c++) {
+	//for (int c = 0; c < 3; c++) {
+		int name = 5;
+		//int name = rand() % 3 + 3;
 		KdVec3 Pos;
-		for (int i = 0; i < rand() % 5; i++) {
+		for (int i = 0; i < 1; i++) {
+		//for (int i = 0; i < rand() % 5; i++) {
 
 			auto l_Fish = std::make_shared<Fish>();
 
