@@ -80,7 +80,7 @@ const bool CGameFrame::CreateHWND(HINSTANCE aHInst, const int aCmdShow)
 
 
 	if (mIsFullScreen) {
-		ShowCursor(FALSE);
+		MouceShowSwich(false);
 	}
 	else {
 		RECT rc = { 0,0, static_cast<LONG>(mWindowSize.x), static_cast<LONG>(mWindowSize.y) };
@@ -157,7 +157,7 @@ void CGameFrame::GameLoop()
 				nowScene = std::make_shared<CGameScene>();
 				nowScene->Init();
 				nowscene = nowScene->GetID();//シーンIDの保存
-				ShowCursor(TRUE);
+				MouceShowSwich(true);
 				break;
 			case MAP:
 				nowScene = std::make_shared<CMapScene>();
@@ -173,6 +173,8 @@ void CGameFrame::GameLoop()
 				nowScene = std::make_shared<CResultScene>();
 				nowScene->Init();
 				nowscene = nowScene->GetID();//シーンIDの保存
+				MouceShowSwich(false);
+
 				break;
 			}
 
