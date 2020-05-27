@@ -28,6 +28,9 @@ private:
 	float vScale;
 
 	VERTEX v[4];
+	VERTEX v2[4];
+
 	std::shared_ptr<LPDIRECT3DTEXTURE9> vTex = nullptr;
 
+	float speed=0.01f;
 };

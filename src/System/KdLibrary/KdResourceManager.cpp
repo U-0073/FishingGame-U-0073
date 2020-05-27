@@ -154,7 +154,6 @@ std::shared_ptr<SoundBase> KdResourcemanager::GetSound(const std::string& Filena
 
 	if (m_sounds.find(Path) != m_sounds.end()) {
 		//Šù‚É‚ ‚Á‚½‚ç
-		//copySoundŠÖ”ŒÄ‚Ño‚µ
 		return m_sounds[Path];
 	}
 	//‚Ü‚¾‘¶İ‚µ‚È‚©‚Á‚½
