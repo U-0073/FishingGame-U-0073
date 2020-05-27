@@ -33,7 +33,7 @@ void ChangeMouseCursorMode(bool on_off) {
 	static bool MouseCursorSwich;
 	if (MouseCursorSwich == on_off)return;
 	MouseCursorSwich = on_off;
-	ShowCursor(on_off);
+	ShowCursor(MouseCursorSwich);
 
 }
 
