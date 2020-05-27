@@ -66,7 +66,7 @@ int CGameScene::Update()
 {
 	ShowCursor(true);
 	GetCursorPos(&Mouse);
-	ScreenToClient(GETHWND, &Mouse);
+	ScreenToClient(FRAME.GetHWND(), &Mouse);
 
 
 	if (!frameStopper) {
@@ -108,107 +108,107 @@ int CGameScene::Update()
 			frameStopper = true;
 		}
 	}
-
-
-	if (GetKey(VK_LBUTTON) & 0x8000) {
-		if (!keyFlg) {
-			clickPos = { (float)Mouse.x,(float)Mouse.y,0.0f };
-			KdVec3 ringPos = { ringMat._41, ringMat._42, ringMat._43 };
-			len = ringMat.GetPos().LengthToTarget(clickPos);
-
-
-			keyFlg = true;
-		}
-	}
 	else {
-		keyFlg = false;
-		clickPos = { 0,0,0 };
-	}
+
+		if (GetKey(VK_LBUTTON) & 0x8000) {
+			if (!keyFlg) {
+				clickPos = { (float)Mouse.x,(float)Mouse.y,0.0f };
+				KdVec3 ringPos = { ringMat._41, ringMat._42, ringMat._43 };
+				len = ringMat.GetPos().LengthToTarget(clickPos);
 
 
-	//ノーツ判定処理
-	//エクセレント（内側）の時の処理
-	if (len <= Length && scale > judgeMin && scale < judgeMax) {
-		if (judgeFlg == Default_judge) {
-			judgeTex = RESOURCE_MNG.GetTexture("excellent1.png");
-			Excellent++;
-			judgeFlg = Excellent_judge;//	成功
-		}
-	}
-	//ミスの時の処理
-	else {
-		if (judgeFlg == Default_judge) {
-			if (scale < judgeMin) {
-				judgeTex = RESOURCE_MNG.GetTexture("miss.png");
-				Miss++;
-				judgeFlg = Miss_judge;//失敗
-			}
-			if (keyFlg == true && scale > judgeMax) {
-				judgeTex = RESOURCE_MNG.GetTexture("miss.png");
-				Miss++;
-				judgeFlg = Miss_judge;//失敗
-
-			}
-			if (keyFlg == true && len > Length && scale > judgeMin && scale < judgeMax) {
-				judgeTex = RESOURCE_MNG.GetTexture("miss.png");
-				Miss++;
-				judgeFlg = Miss_judge;//失敗
-
+				keyFlg = true;
 			}
 		}
-	}
-
-
-	if (Check) {
-
-		//scale縮小
-		scale -= speed;
-		if (scale < scaleLimit) {
-			len = defLenInitialize;
+		else {
+			keyFlg = false;
 			clickPos = { 0,0,0 };
-			clickNum--;
-			//デバッグ用回避手段
-			if (clickNum <= ZEROreturn) {
-				Check = false;
+		}
 
-				//曲変更
-				m_pSound->LDSB8->Stop();
-				m_pSound = RESOURCE_MNG.GetSound("レベルが上がったり何かをクリアした時の短いジングル");
-				m_pSound->Playsound("レベルが上がったり何かをクリアした時の短いジングル", true, false);
 
-				//ゲーム結果をDTWHOUCEに保存する
-				bool clear;
-
-				if (Excellent + Miss != 0) {
-					float calcAve = (float)Excellent / (Excellent + Miss);//calcAveは全ノーツのエクセレント率
-					if (calcAve >= FishSuccess) { 
-						FishingResult = true;
-						clear = true; 
-					}
-					if (calcAve < FishSuccess) { clear = false; }
-				}
-				else {
-					clear = false;
-				}
-				score.Set(Excellent, Miss, clear);
-				DTWHOUCE.SetVec("score", score);
-				//保存後、リザルトシーンヘ
-				FADE.Start(6.5);
-				return RESULT;
+		//ノーツ判定処理
+		//エクセレント（内側）の時の処理
+		if (len <= Length && scale > judgeMin && scale < judgeMax) {
+			if (judgeFlg == Default_judge) {
+				judgeTex = RESOURCE_MNG.GetTexture("excellent1.png");
+				Excellent++;
+				judgeFlg = Excellent_judge;//	成功
 			}
+		}
+		//ミスの時の処理
+		else {
+			if (judgeFlg == Default_judge) {
+				if (scale < judgeMin) {
+					judgeTex = RESOURCE_MNG.GetTexture("miss.png");
+					Miss++;
+					judgeFlg = Miss_judge;//失敗
+				}
+				if (keyFlg == true && scale > judgeMax) {
+					judgeTex = RESOURCE_MNG.GetTexture("miss.png");
+					Miss++;
+					judgeFlg = Miss_judge;//失敗
 
-			judgeFlg = Default_judge;
-			ringMat.SetTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
-			SetPos(KdVec3(ringMat._41, ringMat._42, ringMat._43));
-			notesMat = ringMat;
+				}
+				if (keyFlg == true && len > Length && scale > judgeMin && scale < judgeMax) {
+					judgeTex = RESOURCE_MNG.GetTexture("miss.png");
+					Miss++;
+					judgeFlg = Miss_judge;//失敗
+
+				}
+			}
+		}
 
 
-			clickCNT--;
-			if (clickNum == ZEROreturn)clickCNT = ZEROreturn;
-			scale = scaleInitialize;
+		if (Check) {
+
+			//scale縮小
+			scale -= speed;
+			if (scale < scaleLimit) {
+				len = defLenInitialize;
+				clickPos = { 0,0,0 };
+				clickNum--;
+				//デバッグ用回避手段
+				if (clickNum <= ZEROreturn) {
+					Check = false;
+
+					//曲変更
+					m_pSound->LDSB8->Stop();
+					m_pSound = RESOURCE_MNG.GetSound("レベルが上がったり何かをクリアした時の短いジングル");
+					m_pSound->Playsound("レベルが上がったり何かをクリアした時の短いジングル", true, false);
+
+					//ゲーム結果をDTWHOUCEに保存する
+					bool clear;
+
+					if (Excellent + Miss != 0) {
+						float calcAve = (float)Excellent / (Excellent + Miss);//calcAveは全ノーツのエクセレント率
+						if (calcAve >= FishSuccess) {
+							FishingResult = true;
+							clear = true;
+						}
+						if (calcAve < FishSuccess) { clear = false; }
+					}
+					else {
+						clear = false;
+					}
+					score.Set(Excellent, Miss, clear);
+					DTWHOUCE.SetVec("score", score);
+					//保存後、リザルトシーンヘ
+					FADE.Start(6.5);
+					return RESULT;
+				}
+
+				judgeFlg = Default_judge;
+				ringMat.SetTrans((rand() % 1080) + 100, (rand() % 520) + 100, 0);
+				SetPos(KdVec3(ringMat._41, ringMat._42, ringMat._43));
+				notesMat = ringMat;
+
+
+				clickCNT--;
+				if (clickNum == ZEROreturn)clickCNT = ZEROreturn;
+				scale = scaleInitialize;
+			}
 		}
 	}
-
 	return GAME;
 }
 
