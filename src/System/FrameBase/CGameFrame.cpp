@@ -208,15 +208,15 @@ void CGameFrame::GameLoop()
 
 	if (nowScene) {
 
+		//3D描画.
+		KD3D.SetLights();
+		nowScene->Draw3D();
 
 		//2D描画.
 		SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
 		nowScene->Draw2D();
 		SPRITE->End();
 
-		//3D描画.
-		KD3D.SetLights();
-		nowScene->Draw3D();
 
 	}
 	FADE.Draw();

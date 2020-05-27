@@ -41,7 +41,7 @@ void Result::Update()
 		mPos = D3DXVECTOR3(1280.0f / 2, 720.0f /2, 0.0f);
 		mMat.SetTrans(mPos.x, mPos.y, mPos.z);
 		mBackPos = D3DXVECTOR3(1280.0f / 2, 720.0f /2, 0.0f);
-		mMat.SetTrans(mBackPos.x, mBackPos.y, mBackPos.z);
+		mBackMat.SetTrans(mBackPos.x, mBackPos.y, mBackPos.z);
 	}
 }
 
