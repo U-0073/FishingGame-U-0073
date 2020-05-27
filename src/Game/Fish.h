@@ -9,16 +9,12 @@ public:
 	Fish();
 	~Fish();
 	void SetTagType(int No);
-	void SetTagType(std::string name) { m_Tag = name; }
 	
 	void Init()override;
 	const std::string& getTag() {
 		return m_Tag;
 	}
-	void setBuoy(const KdVec3 Pos) {
 
-		BuoyPos = Pos;
-	}
 	inline void SetCenter(KdVec3 pos) {
 		Center = pos;
 
@@ -36,8 +32,6 @@ public:
 	void ResultInit();
 
 
-	const void SetPlayerPos(const KdVec3& Vec) { PlayerPos = Vec; }
-	const void SetFishingFlg(const bool& flg) { FishFlg = flg; }
 	
 	const D3DXVECTOR3& GetFishPos() { return m_world.GetPos(); }
 
@@ -61,6 +55,18 @@ private:
 	float Count = 0.0f;
 	float AngY;
 	bool  FishFlg;
+
+
+	//‹›‰e—p
+private:
+	void ShadowInit();
+	void ShadowUpdate();
+	void ShadowDraw();
+
+	std::shared_ptr<LPDIRECT3DTEXTURE9> ShadowTex = nullptr;
+	KdVec3 ShadowPos;
+	KdMatrix ShadowMat;
+	VERTEX Shadow[4];
 };
 
 //ŒQ‚ê‚½‚Ì“®‚«Bˆê•C‚¸‚Â‚ÌW‡‘Ì

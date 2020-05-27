@@ -33,9 +33,7 @@ void CResultScene::Init()
 		NameTex = RESOURCE_MNG.GetTexture(fish->getTag() + ".png");
 		mNameMat.SetTrans(1280.0f / 2, 720.0f / 2 + 75, 0.0f);
 		CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -25), fish->GetFishPos());
-		if (fish->getTag() == "SunFish" || fish->getTag() == "Whale") {
-			CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -50), fish->GetFishPos());
-		}
+
 		KD3D.CreateDirectionalLight(D3DXVECTOR3(0, 0, -1), D3DXVECTOR4(1, 1, 1, 1), D3DXVECTOR4(1.0, 1.0, 1.0, 1.0));
 	}
 	else {
