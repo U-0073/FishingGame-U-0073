@@ -19,6 +19,7 @@ void CResultScene::Init()
 	result = std::make_shared<Result>();
 	result->Init();
 	//ゲームシーンで成功していたらロードする
+	ScoreData = DTWHOUCE.GetVec("score");
 	if (ScoreData.Success) {
 		//ゲームシーンから取ってきたデータを保存する
 
