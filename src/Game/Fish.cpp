@@ -75,7 +75,7 @@ void Fish::Update()
 void Fish::Draw2D()
 {
 	SPRITE->End();
-	RECT rcText = { 10,30 * 0,0,0 };
+	RECT rcText = { 10,0,0,0 };
 	char Text[100];
 	sprintf_s(Text, sizeof(Text), "FishPos x %f y %f z %f", FishPos.x, FishPos.y, FishPos.z);
 	FONT->DrawText(NULL, Text, -1, &rcText, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
@@ -180,11 +180,45 @@ void Fish::MoveHorizontal()
 
 void Fish::ShadowInit()
 {
-	ShadowTex = RESOURCE_MNG.GetTexture()
+	ShadowTex = RESOURCE_MNG.GetTexture("FishShadow1.png");
+	KdVec3 mSize = { 1.0f,0,1.0f };
+	Shadow[0].Pos = { -(mSize.x * 0.5f), 0,  (mSize.z * 0.5f) };
+	Shadow[1].Pos = {  (mSize.x * 0.5f), 0,  (mSize.z * 0.5f) };
+	Shadow[2].Pos = {  (mSize.x * 0.5f), 0, -(mSize.z * 0.5f) };
+	Shadow[3].Pos = { -(mSize.x * 0.5f), 0, -(mSize.z * 0.5f) };
+
+	Shadow[0].Color = D3DCOLOR_ARGB(255, 255, 255, 255);
+	Shadow[1].Color = D3DCOLOR_ARGB(255, 255, 255, 255);
+	Shadow[2].Color = D3DCOLOR_ARGB(255, 255, 255, 255);
+	Shadow[3].Color = D3DCOLOR_ARGB(255, 255, 255, 255);
+
+	Shadow[0].Tex = D3DXVECTOR2(0, 0);
+	Shadow[1].Tex = D3DXVECTOR2(1, 0);
+	Shadow[2].Tex = D3DXVECTOR2(1, 1);
+	Shadow[3].Tex = D3DXVECTOR2(0, 1);
+
 }
+void Fish::ShadowUpdate()
+{
+	 
+	ShadowMat=m_world;
+	ShadowMat.SetScale(10, 10, 10);
+	ShadowMat._42 = -2;
+}
+void Fish::ShadowDraw()
+{
+	D3DEV->SetFVF(FVF_VERTEX);
+	D3DEV->SetRenderState(D3DRS_LIGHTING, FALSE);
 
+	D3DEV->SetTexture(0, *ShadowTex);
+	KD3D.SetWorldMatrix(&ShadowMat);
+	D3DEV->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, Shadow, sizeof(VERTEX));
 
+	D3DEV->SetTexture(0, NULL);
 
+	D3DEV->SetRenderState(D3DRS_LIGHTING, TRUE);
+
+}
 void Fishes::Init()
 {
 	std::vector<std::shared_ptr<Fish>>m_Fishs;
@@ -194,7 +228,7 @@ void Fishes::Init()
 		for (int i = 0; i < rand() % 5; i++) {
 
 			auto l_Fish = std::make_shared<Fish>();
-
+			l_Fish->ShadowInit();
 
 			l_Fish->SetTagType(name);
 			l_Fish->Init();
@@ -222,6 +256,7 @@ void Fishes::Update()
 		for (auto&& pp : p) {
 			CenterPos[i] += pp->GetPos();
 			pp->Update();
+			pp->ShadowUpdate();
 			c++;
 		}
 		if (c != 0) {
@@ -250,7 +285,7 @@ void Fishes::Draw3D()
 	for (auto&& p : m_Fihes) {
 		for (auto&& pp : p) {
 			pp->Draw3D();
-
+			pp->ShadowDraw();
 		}
 	}
 }

@@ -46,7 +46,6 @@ private:
 	//ウキの位置
 	KdVec3 BuoyPos;
 
-	KdVec3 PlayerPos;
 	KdVec3 FishPos;
 	KdMatrix TransMat;
 	KdMatrix ScaleMat;
@@ -58,11 +57,12 @@ private:
 
 
 	//魚影用
-private:
+public:
 	void ShadowInit();
 	void ShadowUpdate();
 	void ShadowDraw();
 
+private:
 	std::shared_ptr<LPDIRECT3DTEXTURE9> ShadowTex = nullptr;
 	KdVec3 ShadowPos;
 	KdMatrix ShadowMat;
@@ -72,6 +72,7 @@ private:
 //群れた時の動き。一匹ずつの集合体
 class Fishes {
 public:
+
 	void Init();
 
 	void Update();
