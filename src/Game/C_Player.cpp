@@ -5,7 +5,6 @@
 
 #define	SCRW		1280	// ウィンドウ幅（Width
 #define	SCRH		720		// ウィンドウ高さ（Height
-#define	FVF_VERTEX (D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1)
 
 C_Player::C_Player()
 {

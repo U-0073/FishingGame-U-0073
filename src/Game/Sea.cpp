@@ -31,6 +31,8 @@ void Sea::Init()
 	//ˆÊ’u‚ÌÝ’è
 	m_world.SetTrans(mPos);
 	DTWHOUCE.SetVec("Sea", m_world.GetPos());
+
+	v[0] = v2[0];
 }
 
 void Sea::Update()
@@ -44,12 +46,14 @@ void Sea::Update()
 
 void Sea::Draw3D()
 {
-	KD3D.SetWorldMatrix(&m_world);
 	D3DEV->SetFVF(FVF_VERTEX);
 	D3DEV->SetRenderState(D3DRS_LIGHTING, FALSE);
+
 	D3DEV->SetTexture(0, *vTex);
+	KD3D.SetWorldMatrix(&m_world);
 	D3DEV->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, v, sizeof(VERTEX));
 	D3DEV->SetTexture(0, NULL);
+
 	D3DEV->SetRenderState(D3DRS_LIGHTING, TRUE);
 
 

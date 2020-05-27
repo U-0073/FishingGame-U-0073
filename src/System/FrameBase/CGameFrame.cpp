@@ -202,21 +202,19 @@ void CGameFrame::GameLoop()
 	// 描画開始
 	KD3D.GetDev()->BeginScene();
 
-	//CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -0.5), D3DXVECTOR3(0, 0, 1));
-
 	CAMERA.Set(mWindowSize);
 
 	if (nowScene) {
 
+		//3D描画.
+		KD3D.SetLights();
+		nowScene->Draw3D();
 
 		//2D描画.
 		SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
 		nowScene->Draw2D();
 		SPRITE->End();
 
-		//3D描画.
-		KD3D.SetLights();
-		nowScene->Draw3D();
 
 	}
 	FADE.Draw();
