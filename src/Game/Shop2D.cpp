@@ -82,6 +82,10 @@ void Shop2D::Init()
 	//選択カーソル
 	ListSelectTex = RESOURCE_MNG.GetTexture("Shop/ListSelect.png");
 	D3DXMatrixTranslation(&ListSelectMat, 50.0f, select[0], 0.0f);
+
+	//購入不可ウィンドウ
+	Can_tBuyTex = RESOURCE_MNG.GetTexture("Shop/Can'tBuy.png");
+	D3DXMatrixTranslation(&Can_tBuyMat, 1280.0f / 2.0f, 720.0f / 2.0f, 0.0f);
 }
 
 void Shop2D::Update()
@@ -157,13 +161,29 @@ void Shop2D::Update()
 
 	//購入処理
 	if (WindowPattern == 2) {
-		Possession -= RodPrice[cursor];
+		//足りないとき
+		if ((Possession < RodPrice[cursor]) || (Possession < BaitPrice[cursor]) || (Possession < ReelPrice[cursor])) {
+			Can_tBuyFlg = true;
+		}
+		//足りるとき
+		else {
+			if (tabPattern == 0)Possession -= RodPrice[cursor];
+			if (tabPattern == 1)Possession -= BaitPrice[cursor];
+			if (tabPattern == 2)Possession -= ReelPrice[cursor];
+		}
 		WindowPattern = 0;
 		EnterFlg = false;
 	}
-
+	//
 	if (Possession <= 0) {
 		Possession = 0;
+	}
+	if (Can_tBuyFlg) {
+		ctCnt++;
+	}
+	if (ctCnt >= 60) {
+		Can_tBuyFlg = false;
+		ctCnt = 0;
 	}
 
 	//=========================================
@@ -197,9 +217,6 @@ void Shop2D::Update()
 	D3DXMatrixTranslation(&TabLeftMat, 50.0f, 0.0f - tabL, 0.0f);
 	D3DXMatrixTranslation(&TabCenterMat, 50.0f, 0.0f - tabC, 0.0f);
 	D3DXMatrixTranslation(&TabRightMat, 50.0f, 0.0f - tabR, 0.0f);
-
-	//能力及び購入ウィンドウ
-
 
 
 	//3つの能力値を合計し、３で割って/100する
@@ -496,6 +513,12 @@ void Shop2D::Draw2D()
 		numberMat *= transMat;
 		SPRITE->SetTransform(&numberMat);
 		SPRITE->Draw(*numberTex, &rcNum[cScore[i] - '0'], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+	}
+
+	RECT rcCan_tBuy = { 0,0,600,100 };
+	SPRITE->SetTransform(&Can_tBuyMat);
+	if (Can_tBuyFlg) {
+		SPRITE->Draw(*Can_tBuyTex, &rcCan_tBuy, &D3DXVECTOR3(300.0f, 50.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 	}
 
 	SPRITE->End();
