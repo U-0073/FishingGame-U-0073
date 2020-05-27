@@ -16,6 +16,8 @@ class Board
 public:
 	Board();
 	~Board();
+	void SetSize();
+	void SetArray();
 	void Update(const int *Side, const int *Virtical);
 	virtual void Draw() = 0;
 	void SafeRelease(LPDIRECT3DTEXTURE9& LoadTex);
@@ -31,10 +33,11 @@ public:
 
 
 protected:
-	VERTEX v[4];
+	std::vector<VERTEX> v;
+
 	D3DXMATRIX vMat;
 	//板ポリのサイズ
-	D3DXVECTOR3 mSize;
+	D3DXVECTOR3 mSize = {1,1,1};
 
 	//テクスチャ関係の変数
 	std::string mPath = "";

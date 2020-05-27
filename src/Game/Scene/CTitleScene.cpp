@@ -25,6 +25,11 @@ void CTitleScene::Init()
 
 	CAMERA.SetCameraPos(D3DXVECTOR3(0, 3, -5), Fishes->GetFishPos());
 	MoveFlg = false;
+	clear = false;
+
+	Excellent = 0;
+	Miss = 10;
+
 	mPos = D3DXVECTOR3(0, 20, 0);
 	m_PSound = RESOURCE_MNG.GetSound("Smash");
 	m_PSound->Playsound("Smash", true, true);
@@ -34,7 +39,7 @@ void CTitleScene::Init()
 int CTitleScene::Update()
 {
 	title->Update();
-
+	
 	//ƒV[ƒ“Ø‚è‘Ö‚¦
 	if (GetKey(VK_RETURN) & 0x8000)
 	{
@@ -57,14 +62,6 @@ int CTitleScene::Update()
 	if (GetKey('I') & 0x8000) {
 		FADE.Start(5);
 		return SHOP;
-	}
-	if (GetKey('F') & 0x8000) {
-		FADE.Start(5);
-		return GAME;
-	}
-	if (GetKey('R') & 0x8000) {
-		FADE.Start(5);
-		return RESULT;
 	}
 	return TITLE;
 }

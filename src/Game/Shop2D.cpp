@@ -18,8 +18,32 @@ Shop2D::~Shop2D()
 void Shop2D::Init()
 {
 	//所持金の確認
-	Possession = (int)DTWHOUCE.GetNo("Possession");
-
+	Possession = DTWHOUCE.GetInt("Possession");
+	//アイテムの値段
+	RodPrice[0] = 1000;
+	RodPrice[1] = 2500;
+	RodPrice[2] = 4000;
+	RodPrice[3] = 10000;
+	RodPrice[4] = 20000;
+	RodPrice[5] = 50000;
+	RodPrice[6] = 100000;
+	RodPrice[7] = 100000000;
+	BaitPrice[0] = 100;
+	BaitPrice[1] = 200;
+	BaitPrice[2] = 500;
+	BaitPrice[3] = 800;
+	BaitPrice[4] = 1000;
+	BaitPrice[5] = 3000;
+	BaitPrice[6] = 5000;
+	BaitPrice[7] = 50000000;
+	ReelPrice[0] = 1000;
+	ReelPrice[1] = 2000;
+	ReelPrice[2] = 2500;
+	ReelPrice[3] = 4000;
+	ReelPrice[4] = 10000;
+	ReelPrice[5] = 20000;
+	ReelPrice[6] = 50000;
+	ReelPrice[7] = 999999999;
 	//リスト
 	FrameTex = RESOURCE_MNG.GetTexture("Shop/ShopFrame.png");
 	D3DXMatrixTranslation(&FrameMat, 50.0f, 0.0f, 0.0f);
@@ -116,11 +140,30 @@ void Shop2D::Update()
 
 	//エンターキーでウィンドウオープン
 	if (GetKey(VK_RETURN) & 0x8000) {
-		enterFlg = true;
+		if (EnterDownFlg == false) {
+			WindowPattern++; //0:非表示　1:ステータス  2:購入準備
+			EnterFlg = true;
+			EnterDownFlg = true;
+		}
+	}
+	else {
+		EnterDownFlg = false;
 	}
 	//バックスペースでウィンドウクローズ
 	if (GetKey(VK_BACK) & 0x8000) {
-		enterFlg = false;
+		WindowPattern = 0;
+		EnterFlg = false;
+	}
+
+	//購入処理
+	if (WindowPattern == 2) {
+		Possession -= RodPrice[cursor];
+		WindowPattern = 0;
+		EnterFlg = false;
+	}
+
+	if (Possession <= 0) {
+		Possession = 0;
 	}
 
 	//=========================================
@@ -157,6 +200,11 @@ void Shop2D::Update()
 
 	//能力及び購入ウィンドウ
 
+
+
+	//3つの能力値を合計し、３で割って/100する
+	//0.0～1.0にする
+	DTWHOUCE.SetNo("Quality", 1111);
 }
 
 void Shop2D::Draw2D()
@@ -332,7 +380,7 @@ void Shop2D::Draw2D()
 	//ステータスウィンドウ
 	//釣り竿
 	RECT rcStatus;;
-	if (enterFlg == true) {
+	if (EnterFlg == true) {
 		if (tabPattern == 0) {
 			switch (cursor)
 			{
@@ -397,20 +445,28 @@ void Shop2D::Draw2D()
 			switch (cursor)
 			{
 			case 0:
+				rcStatus = { 1000,0,1500,500 };
 				break;
 			case 1:
+				rcStatus = { 1000,500 * 1,1500,500 * 2 };
 				break;
 			case 2:
+				rcStatus = { 1000,500 * 2,1500,500 * 3 };
 				break;
 			case 3:
+				rcStatus = { 1000,500 * 3,1500,500 * 4 };
 				break;
 			case 4:
+				rcStatus = { 1000,500 * 4,1500,500 * 5 };
 				break;
 			case 5:
+				rcStatus = { 1000,500 * 5,1500,500 * 6 };
 				break;
 			case 6:
+				rcStatus = { 1000,500 * 6,1500,500 * 7 };
 				break;
 			case 7:
+				rcStatus = { 1000,500 * 7,1500,500 * 8 };
 				break;
 			}
 		}
@@ -464,7 +520,7 @@ void Shop2D::End()
 	BaitTex = nullptr;
 
 	//所持金の再登録
-	DTWHOUCE.SetNo("Possession", Possession);
+	DTWHOUCE.SetInt("Possession", Possession);
 }
 
 int Shop2D::SetTabPattern()

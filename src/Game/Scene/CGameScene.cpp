@@ -14,6 +14,8 @@ CGameScene::~CGameScene()
 
 void CGameScene::Init()
 {
+	ShowCursor(TRUE);
+
 	srand(timeGetTime());
 
 	ringTex = RESOURCE_MNG.GetTexture("Ring5.png");
