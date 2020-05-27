@@ -34,7 +34,7 @@ void C_Player::Init()
 	ClientToScreen(FRAME.GetHWND(), &BasePt);		//ゲーム画面内座標⇒パソコン画面内座標
 										//	　（クライアント座標）（スクリーン座標）
 	SetCursorPos(BasePt.x, BasePt.y);
-	ShowCursor(FALSE);
+	//ShowCursor(FALSE);
 	/*
 		//―――――――――――――以下Json使用例――――――――――――//
 		auto Json = std::make_shared<json11::Json>();
@@ -76,12 +76,12 @@ void C_Player::Update()
 	if (GetKey('8') & 0x8000) {
 		//	　（クライアント座標）（スクリーン座標）
 		SetCursorPos(BasePt.x, BasePt.y);
-		ShowCursor(FALSE);
+		//ShowCursor(FALSE);
 	}
 	if (GetKey('7') & 0x8000) {
 		//	　（クライアント座標）（スクリーン座標）
 		SetCursorPos(BasePt.x, BasePt.y);
-		ShowCursor(TRUE);
+		//ShowCursor(TRUE);
 	}
 	DTWHOUCE.SetVec("Player", PlayerPos);
 	DTWHOUCE.SetFlg("Fishing", FishingFlg);
@@ -110,7 +110,7 @@ void C_Player::FlgProc()
 				//RestoreFlg = true;
 
 				DTWHOUCE.SetFlg("FishingFlg", false);
-				ShowCursor(TRUE);
+				//ShowCursor(TRUE);
 				SetCursorPos(BasePt.x, BasePt.y);
 			}
 			else
@@ -118,7 +118,7 @@ void C_Player::FlgProc()
 				//釣りモードに移行
 				FishingFlg = true;
 				DTWHOUCE.SetFlg("FishingFlg", true);
-				ShowCursor(FALSE);
+				//ShowCursor(FALSE);
 				SetCursorPos(BasePt.x, BasePt.y);
 			}
 		}

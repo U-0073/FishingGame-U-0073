@@ -26,16 +26,7 @@ void KdSafeRelease(T*& p) {
 	}
 }
 
-//マウスカーソルのオンオフ設定用関数
-//現状がtrueならfalse以外は処理をしない
-//現状がfalseならtrue以外は処理をしない
-void MouceShowSwich(bool on_off) {
-	static bool MouseCursorSwich;
-	if (MouseCursorSwich == on_off)return;
-	MouseCursorSwich = on_off;
-	ShowCursor(MouseCursorSwich);
 
-}
 
 
 

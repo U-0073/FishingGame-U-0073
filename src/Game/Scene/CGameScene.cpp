@@ -14,7 +14,8 @@ CGameScene::~CGameScene()
 
 void CGameScene::Init()
 {
-	ShowCursor(TRUE);
+
+
 
 	srand(timeGetTime());
 
@@ -64,7 +65,7 @@ void CGameScene::Init()
 
 int CGameScene::Update()
 {
-	ShowCursor(true);
+
 	GetCursorPos(&Mouse);
 	ScreenToClient(FRAME.GetHWND(), &Mouse);
 

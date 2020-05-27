@@ -106,6 +106,7 @@ const bool CGameFrame::Initialize(HINSTANCE aHInst, const int aCmdShow)
 	DTWHOUCE.SetStr("FishName", "Sunfish");//何の魚もつれていない//デバック
 	DTWHOUCE.SetInt("Possession", 999999999);
 	nowscene = nowScene->GetID();
+	MShowSwich(false);
 	CAMERA.Set(mWindowSize);
 
 	return true;
@@ -146,33 +147,40 @@ void CGameFrame::GameLoop()
 			case ROGO:
 				nowScene = std::make_shared<CRogoScene>();
 				nowScene->Init();
+				MShowSwich(true);
 				nowscene = nowScene->GetID();//シーンIDの保存
 				break;
 			case TITLE:
 				nowScene = std::make_shared<CTitleScene>();
 				nowScene->Init();
+				MShowSwich(false);
 				nowscene = nowScene->GetID();//シーンIDの保存
+
 				break;
 			case GAME:
 				nowScene = std::make_shared<CGameScene>();
 				nowScene->Init();
 				nowscene = nowScene->GetID();//シーンIDの保存
-				ShowCursor(TRUE);
+				MShowSwich(true);
+				//ShowCursor(TRUE);
 				break;
 			case MAP:
 				nowScene = std::make_shared<CMapScene>();
 				nowScene->Init();
 				nowscene = nowScene->GetID();//シーンIDの保存
+				MShowSwich(false);
 				break;
 			case SHOP:
 				nowScene = std::make_shared<CShopScene>();
 				nowScene->Init();
 				nowscene = nowScene->GetID();//シーンIDの保存
+				MShowSwich(false);
 				break;
 			case RESULT:
 				nowScene = std::make_shared<CResultScene>();
 				nowScene->Init();
 				nowscene = nowScene->GetID();//シーンIDの保存
+				MShowSwich(false);
 				break;
 			}
 
@@ -229,6 +237,19 @@ void CGameFrame::GameLoop()
 
 	// バックバッファをプライマリバッファにコピー
 	KD3D.GetDev()->Present(NULL, NULL, NULL, NULL);
+}
+
+void CGameFrame::MShowSwich(bool on_off)
+{
+
+
+	if (mSS == on_off)return;
+	else {
+		mSS = on_off;
+		if(mSS==true)ShowCursor(TRUE);
+		else ShowCursor(FALSE);
+	}
+
 }
 
 const bool CGameFrame::CreateWNDCLASS(HINSTANCE aHInst)

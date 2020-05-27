@@ -75,7 +75,7 @@ int CMapScene::Update()
 
 
 	if (DTWHOUCE.GetFlg("FishingFlg")) {
-		ShowCursor(FALSE);
+		//ShowCursor(FALSE);
 	}
 	else {
 		POINT BasePt;
@@ -83,7 +83,7 @@ int CMapScene::Update()
 		BasePt.y = 360;
 		ClientToScreen(FRAME.GetHWND(), &BasePt);
 		
-		ShowCursor(FALSE);
+		//ShowCursor(FALSE);
 		SetCursorPos(BasePt.x, BasePt.y);
 	}
 
