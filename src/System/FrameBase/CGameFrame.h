@@ -20,7 +20,10 @@ public:
 	void GameLoop();
 	const HWND& GetHWND() { return mpHwnd; }
 
+	//
+	
 private:
+
 	CGameFrame();
 	~CGameFrame();
 	const bool CreateWNDCLASS(HINSTANCE aHInst);
