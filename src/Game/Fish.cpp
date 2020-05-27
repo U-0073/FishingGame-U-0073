@@ -141,7 +141,18 @@ void Fish::MoveHorizontal()
 	bpos = DTWHOUCE.GetVec("Buoy");
 	fpos = bpos - fpos;
 	fpos.y = 0;
-	fpos.Normalize();
+	float len = D3DXVec3Length(&fpos);
+	//
+	if (len < 2.0f) 
+	{
+		DTWHOUCE.SetFlg("HitFish", true);
+		DTWHOUCE.SetStr("Name", m_Tag);
+	}
+	else 
+	{
+		DTWHOUCE.SetFlg("HitFish", false);
+	}
+		fpos.Normalize();
 	float FishRot = D3DXVec3Dot(&KdVec3(0, 0, 1), &fpos);
 	FishRot = D3DXToDegree(acos(FishRot));
 	if (fpos.x < 0) { FishRot *= -1; }
@@ -172,10 +183,13 @@ void Fish::MoveHorizontal()
 void Fishes::Init()
 {
 	std::vector<std::shared_ptr<Fish>>m_Fishs;
-	for (int c = 0; c < 3; c++) {
-		int name = rand() % 3;
+	for (int c = 0; c < 1; c++) {
+	//for (int c = 0; c < 3; c++) {
+		int name = 5;
+		//int name = rand() % 3 + 3;
 		KdVec3 Pos;
-		for (int i = 0; i < rand() % 5; i++) {
+		for (int i = 0; i < 1; i++) {
+		//for (int i = 0; i < rand() % 5; i++) {
 
 			auto l_Fish = std::make_shared<Fish>();
 

@@ -96,7 +96,7 @@ int CMapScene::Update()
 		FADE.Start(5);
 		return SHOP;
 	}
-	if (GetKey('F') & 0x8000) {
+	if (DTWHOUCE.GetFlg("HitFish")) {
 		FADE.Start(5);
 		return GAME;
 	}
