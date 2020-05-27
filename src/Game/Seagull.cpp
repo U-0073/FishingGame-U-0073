@@ -16,9 +16,9 @@ void Seagull::Init()
 	
 	//初期位置ランダム配置
 	srand(time(0));
-	SeagullPos.x = rand() % 300 - 150;
+	SeagullPos.x = rand() % 150 - 75;
 	SeagullPos.y = rand() % 30 + 80;
-	SeagullPos.z = rand() % 300 - 150;
+	SeagullPos.z = rand() % 150 - 75;
 
 	//行列設定
 	//初期位置
@@ -33,13 +33,15 @@ void Seagull::Update()
 	//1フレームで何度傾きたいか
 	m_world.RotateYLocal(D3DXToRadian(0.75));
 
+	//カモメの位置情報取得
+	SeagullPos = m_world.GetPos();
 
 	sound = rand() % 500;
 	if (sound == 0) {
 		//サウンド
 		SeagullVoice = RESOURCE_MNG.GetSound("umineko");
 		SeagullVoice->LDS3B8->SetMode(DS3DMODE_NORMAL, DS3D_IMMEDIATE);
-		SeagullVoice->LDS3B8->SetPosition(0, 50, 0, DS3D_IMMEDIATE);
+		SeagullVoice->LDS3B8->SetPosition(SeagullPos.x, 5, SeagullPos.z, DS3D_IMMEDIATE);
 		SeagullVoice->Playsound("umineko", true, false);
 	}
 
