@@ -43,7 +43,7 @@ public:
 
 private:
 
-	void MoveHoriizontal();
+	void MoveHorizontal();
 
 	std::string m_Tag;//‰½‚Ì‹›‚©
 	
