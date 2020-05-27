@@ -80,7 +80,7 @@ const bool CGameFrame::CreateHWND(HINSTANCE aHInst, const int aCmdShow)
 
 
 	if (mIsFullScreen) {
-		MouceShowSwich(false);
+		
 	}
 	else {
 		RECT rc = { 0,0, static_cast<LONG>(mWindowSize.x), static_cast<LONG>(mWindowSize.y) };
