@@ -145,8 +145,8 @@ void Fish::MoveHorizontal()
 	//
 	if (len < 2.0f) 
 	{
+		DTWHOUCE.SetStr("FishName", m_Tag);
 		DTWHOUCE.SetFlg("HitFish", true);
-		DTWHOUCE.SetStr("Name", m_Tag);
 	}
 	else 
 	{

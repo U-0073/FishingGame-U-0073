@@ -1,13 +1,6 @@
 #pragma once
 
 
-// ’¸“_î•ñ‚Ì’è‹`
-struct VERTEX
-{
-	KdVec3 Pos;
-	D3DCOLOR Color;
-	D3DXVECTOR2 Tex;
-};
 
 class Sea 
 {

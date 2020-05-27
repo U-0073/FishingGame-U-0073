@@ -1,15 +1,6 @@
 #pragma once
 #define	FVF_VERTEX (D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1)
 
-// í∏ì_èÓïÒÇÃíËã`
-struct VERTEX
-{
-	D3DXVECTOR3 Pos;
-	D3DCOLOR Color;
-	D3DXVECTOR2 Tex;
-};
-
-
 
 class Board
 {

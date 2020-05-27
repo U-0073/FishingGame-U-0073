@@ -106,3 +106,10 @@ struct CLONEVERTEX
 	D3DXVECTOR3 Normal;
 	D3DXVECTOR2 Tex;
 };
+// ’¸“_î•ñ‚Ì’è‹`
+struct VERTEX
+{
+	KdVec3 Pos;
+	D3DCOLOR Color;
+	D3DXVECTOR2 Tex;
+};
