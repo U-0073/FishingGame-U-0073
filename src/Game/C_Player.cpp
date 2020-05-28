@@ -34,15 +34,7 @@ void C_Player::Init()
 	ClientToScreen(FRAME.GetHWND(), &BasePt);		//ゲーム画面内座標⇒パソコン画面内座標
 										//	　（クライアント座標）（スクリーン座標）
 	SetCursorPos(BasePt.x, BasePt.y);
-	/*
-	bool test1 = JSONS.checkValue(Json, "Tag", tag);//文字列比較
-	test1 = JSONS.checkValue(Json, "Tag", 111);//数字と比較
-	//まだ使えない
-	JSONS.AddKeyValue(Json, "Value5", std::string("ABCD"));//要素の変更、追加
 
-		JSONS.SaveJson(Json, "Save/Test.json");//セーブ
-		//――――――――――――――――――――――――――――――――//
-		*/
 	enterTex = RESOURCE_MNG.GetTexture("enterKey.png");
 	enterMat.SetTrans(1280 / 2, 720 / 3, 0);
 
@@ -85,30 +77,30 @@ void C_Player::FlgProc()
 	}
 
 	//マウスでのカメラ移動のon off
-	if (!BuoiRay()) 
+	if (!BuoiRay())
 	{
-	if (GetKey('E') & 0x8000)
-	{
-		if (!ClickFlg)
+		if (GetKey('E') & 0x8000)
 		{
-			ClickFlg = true;
-			//釣りモード解除
-			if (FishingFlg) {
-				FishingFlg = false;
-
-				DTWHOUCE.SetFlg("FishingFlg", false);
-				SetCursorPos(BasePt.x, BasePt.y);
-			}
-			else
+			if (!ClickFlg)
 			{
-				//釣りモードに移行
-				FishingFlg = true;
-				DTWHOUCE.SetFlg("FishingFlg", true);
-				SetCursorPos(BasePt.x, BasePt.y);
+				ClickFlg = true;
+				//釣りモード解除
+				if (FishingFlg) {
+					FishingFlg = false;
+
+					DTWHOUCE.SetFlg("FishingFlg", false);
+					SetCursorPos(BasePt.x, BasePt.y);
+				}
+				else
+				{
+					//釣りモードに移行
+					FishingFlg = true;
+					DTWHOUCE.SetFlg("FishingFlg", true);
+					SetCursorPos(BasePt.x, BasePt.y);
+				}
 			}
 		}
-	}
-	else ClickFlg = false;
+		else ClickFlg = false;
 	}
 
 
@@ -136,29 +128,6 @@ void C_Player::Move()
 			MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 0);
 			MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 0);
 
-			bool B_SkipFlg = false;
-
-			/*
-				DTWHOUCE.SetNo("frontDot", WallDot);
-
-				D3DXVec3TransformCoord(&Vec, &CoordVec.Right, &RotMat);
-				WallDot = -3;
-				MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 2);
-				if (WallDot < 1 && WallDot>-1)MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 1);
-				DTWHOUCE.SetNo("RightDot", WallDot);
-
-				D3DXVec3TransformCoord(&Vec, &CoordVec.Left, &RotMat);
-				WallDot = -3;
-				MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 2);
-				if (WallDot < 1 && WallDot>-1)MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 1);
-				DTWHOUCE.SetNo("LeftDot", WallDot);
-
-				D3DXVec3TransformCoord(&Vec, &CoordVec.Back, &RotMat);
-				WallDot = -3;
-				MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 2);
-				if (WallDot < 1 && WallDot>-1)MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 1);
-				DTWHOUCE.SetNo("BackDot", WallDot);
-			*/
 
 			bool S_SkipFlg = false;
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Front, &RotMat);
@@ -375,15 +344,9 @@ void C_Player::Draw2D()
 	RECT rcText3 = { 10,30 * 3,0,0 };
 	if (!ShopFlg)FONT->DrawText(NULL, "ShopFlg=false", -1, &rcText3, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	else FONT->DrawText(NULL, "ShopFlg=true", -1, &rcText3, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	//RECT rcText4 = { 10,30 * 4,0,0 };
-	//if (!DTWHOUCE.GetFlg("TestFlg"))FONT->DrawText(NULL, "TestFlg=false", -1, &rcText4, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	//else FONT->DrawText(NULL, "TestFlg=true", -1, &rcText4, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	RECT rcText5 = { 10,30 * 5,0,0 };
 	sprintf_s(Text, sizeof(Text), "Dot %f Right %f Left%f Back%f", DTWHOUCE.GetNo("frontDot"), DTWHOUCE.GetNo("RightDot"), DTWHOUCE.GetNo("LeftDot"), DTWHOUCE.GetNo("BackDot"));
 	KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText5, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	//RECT rcText6 = { 10,30 * 6,0,0 };
-	//sprintf_s(Text, sizeof(Text), "FishingScene_CamPos  x %f  y%f z %f ", FishScene_CamPos.x, FishScene_CamPos.y, FishScene_CamPos.z);
-	//FONT->DrawText(NULL, Text, -1, &rcText6, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 
 	SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
 

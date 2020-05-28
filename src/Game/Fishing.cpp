@@ -57,10 +57,7 @@ void C_Fishing::FishingProc()
 			if (BuoyPos.y < -2.9f)BuoyPos += KdVec3(0.0f, 0.05f, 0.0f);
 			else BuoyPos.y = -2.9f;
 		}
-		//魚が食いついてウキが海中に引っ張られる様にするフラグを建てる
-		if (GetKey('1') & 0x8000) {
-			HitFlg = true;
-		}
+
 	}
 	else {
 		//ブイをカメラの真後ろに置いて隠す
@@ -73,18 +70,7 @@ void C_Fishing::FishingProc()
 	}
 	//魚が食いついてウキが海中に引っ張られる様にする動き
 	if (HitFlg)
-	{
-		if (BuoyPos.y > -3.7f)BuoyPos -= KdVec3(0.0f, 0.15f, 0.0f);
-		else
-		{
-			BuoyPos.y = -3.7f;
-			//魚が外れて海にもう一度浮き上がってくる処理
-			if (GetKey('2') & 0x8000)
-			{
-				HitFlg = false;
-			}
-		}
-	}
+	
 	
 	TransMat.SetTrans(BuoyPos);
 	m_world = ScileMat * TransMat;
