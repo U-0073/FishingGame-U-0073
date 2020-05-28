@@ -49,6 +49,10 @@ void Fish::Init()
 	m_pModel = RESOURCE_MNG.GetModel(m_Tag);
 	m_world.SetScale(0.1, 0.1, 0.1);
 
+	hitChecker = false;
+	hitCheckTex = RESOURCE_MNG.GetTexture("mark_exclamation.png");
+	hitCheckMat.SetTrans(1280 / 2, 720 / 3, 0);
+
 }
 
 void Fish::Update()
@@ -74,6 +78,11 @@ void Fish::Update()
 
 void Fish::Draw2D()
 {
+	if (hitChecker) {
+		RECT rcHitCheck = { 0,0,141,200 };
+		SPRITE->SetTransform(&hitCheckMat);
+		SPRITE->Draw(*hitCheckTex, &rcHitCheck, &D3DXVECTOR3(141 / 2, 200 / 2, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+	}
 	SPRITE->End();
 	RECT rcText = { 10,0,0,0 };
 	char Text[100];
@@ -94,6 +103,7 @@ void Fish::Draw3D()
 void Fish::End()
 {
 	m_pModel = nullptr;
+	hitCheckTex = nullptr;
 }
 
 void Fish::TitleInit()
@@ -145,6 +155,7 @@ void Fish::MoveHorizontal()
 	//
 	if (len < 2.0f)
 	{
+		hitChecker = true;
 		DTWHOUCE.SetStr("FishName", m_Tag);
 		DTWHOUCE.SetFlg("HitFish", true);
 	}

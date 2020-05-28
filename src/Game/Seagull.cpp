@@ -42,6 +42,7 @@ void Seagull::Update()
 		SeagullVoice = RESOURCE_MNG.GetSound("umineko");
 		SeagullVoice->LDS3B8->SetMode(DS3DMODE_NORMAL, DS3D_IMMEDIATE);
 		SeagullVoice->LDS3B8->SetPosition(SeagullPos.x, 5, SeagullPos.z, DS3D_IMMEDIATE);
+		SeagullVoice->SetVol(1);
 		SeagullVoice->Playsound("umineko", true, false);
 	}
 
