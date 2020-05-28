@@ -240,7 +240,6 @@ void Shop2D::Update()
 	TabCenterMat.SetTrans(50.0f, 0.0f - tabC, 0.0f);
 	TabRightMat.SetTrans(50.0f, 0.0f - tabR, 0.0f);
 
-
 	//3つの能力値を合計し、３で割って/100する
 	//0.0～1.0にする
 	DTWHOUCE.SetNo("Quality", 1111);
