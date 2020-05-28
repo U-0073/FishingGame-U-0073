@@ -15,18 +15,18 @@ void Title::Init()
 	vTex2 = RESOURCE_MNG.GetTexture("PRESSENTER.png");
 
 
-	mPos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	mPos2 = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	mPos =  { 0.0f, 0.0f, 0.0f };
+	mPos2 = { 0.0f, 0.0f, 0.0f };
 
 
-	D3DXMatrixTranslation(&mMat, 0.0f, 0.0f, 0.0f);
-	D3DXMatrixTranslation(&mMat2, 0.0f, 0.0f, 0.0f);
+	mMat.SetTrans(mPos);
+	mMat2.SetTrans(mPos2);
 }
 
 void Title::Update()
 {
-	mPos = D3DXVECTOR3(628, 150, 0);
-	mPos2 = D3DXVECTOR3(628, 600, 0);
+	mPos = {628, 150, 0};
+	mPos2 ={628, 600, 0};
 
 	if (alpha > 255) {
 		alpha -= 1;
@@ -41,8 +41,8 @@ void Title::Update()
 		}
 	}
 
-	D3DXMatrixTranslation(&mMat, mPos.x, mPos.y, mPos.z);
-	D3DXMatrixTranslation(&mMat2, mPos2.x, mPos2.y, mPos2.z);
+	mMat.SetTrans(mPos);
+	mMat2.SetTrans(mPos2);
 
 }
 
@@ -66,10 +66,5 @@ void Title::End()
 	m_pModel = nullptr;
 	vTex = nullptr;
 	vTex2 = nullptr;
-
-	/*
-	if (vTex != nullptr)vTex->Release();
-	if (vTex2 != nullptr)vTex2->Release();
-	*/
 }
 
