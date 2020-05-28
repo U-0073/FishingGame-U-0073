@@ -19,7 +19,6 @@ private:
 	std::shared_ptr<SoundBase> SeagullVoice = nullptr;
 
 	int sound;
-	float MoveZ = 0.3f;
 
 	KdVec3 SeagullPos;
 	KdVec3 SeagullLen;
