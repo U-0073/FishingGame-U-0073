@@ -3,7 +3,6 @@
 #include"CMapScene.h"
 //―――――――――――――――――――――――――
 
-#include"../structList.h"
 #include"../C_Player.h"
 #include"../Skysphere.h"
 #include"../Sea.h"

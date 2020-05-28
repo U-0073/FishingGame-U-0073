@@ -77,7 +77,7 @@ void Shop2D::Init()
 	FrameMat.SetTrans(50.0f, 0.0f, 0.0f);
 
 	ItemNameTextTex = RESOURCE_MNG.GetTexture("Shop/ShopFrameText0.png");
-	ItemNameTextMat.SetTrans( 50.0f, 0.0f, 0.0f);
+	ItemNameTextMat.SetTrans(50.0f, 0.0f, 0.0f);
 
 	//アイテム説明枠
 	ItemDesTex = RESOURCE_MNG.GetTexture("Shop/ItemDes.png");
@@ -88,7 +88,7 @@ void Shop2D::Init()
 	MoneyFrameTex = RESOURCE_MNG.GetTexture("Shop/MoneyFrame.png");
 	MoneyFrameMat.SetTrans(840.0f, 10.0f, 0.0f);
 	numberTex = RESOURCE_MNG.GetTexture("Shop/number.png");
-	numberMat.SetTrans( 940.0f, 10.0f, 0.0f);
+	numberMat.SetTrans(940.0f, 10.0f, 0.0f);
 	statusTex = RESOURCE_MNG.GetTexture("Shop/statusC.png");
 	statusMat.SetTrans(1280.0f / 2.0f, 640.0f / 2.0f, 0.0f);
 
@@ -100,9 +100,9 @@ void Shop2D::Init()
 	TabLeftTex = RESOURCE_MNG.GetTexture("Shop/ShopFrameTab1.png");
 	TabCenterTex = RESOURCE_MNG.GetTexture("Shop/ShopFrameTab2.png");
 	TabRightTex = RESOURCE_MNG.GetTexture("Shop/ShopFrameTab3.png");
-	TabLeftMat.  SetTrans(50.0f, 0.0f, 0.0f);
+	TabLeftMat.SetTrans(50.0f, 0.0f, 0.0f);
 	TabCenterMat.SetTrans(50.0f, 0.0f, 0.0f);
-	TabRightMat. SetTrans(50.0f, 0.0f, 0.0f);
+	TabRightMat.SetTrans(50.0f, 0.0f, 0.0f);
 	tabL = 0;
 	tabC = 0;
 	tabR = 0;
@@ -343,95 +343,17 @@ void Shop2D::Draw2D()
 	if (RodTextFlg) {
 		rcItemNameText = { 0,0,500,720 };
 		//カーソル位置に応じてアイテム説明変更
-		switch (cursor)
-		{
-		case 0:
-			rcItemDes = { 0,0,650,200 };
-			break;
-		case 1:
-			rcItemDes = { 0,200,650,400 };
-			break;
-		case 2:
-			rcItemDes = { 0,400,650,600 };
-			break;
-		case 3:
-			rcItemDes = { 0,600,650,800 };
-			break;
-		case 4:
-			rcItemDes = { 0,800,650,1000 };
-			break;
-		case 5:
-			rcItemDes = { 0,1000,650,1200 };
-			break;
-		case 6:
-			rcItemDes = { 0,1200,650,1400 };
-			break;
-		case 7:
-			rcItemDes = { 0,1400,650,1600 };
-			break;
-		}
+		rcItemDes = { 0,200 * cursor,650,200 * cursor + 200 };
 	}
 	if (BaitTextFlg) {
 		rcItemNameText = { 500,0,1000,720 };
-		//カーソル位置に応じてアイテム説明変更
-		switch (cursor)
-		{
-		case 0:
-			rcItemDes = { 650,0,1300,200 };
-			break;
-		case 1:
-			rcItemDes = { 650,200,1300,400 };
-			break;
-		case 2:
-			rcItemDes = { 650,400,1300,600 };
-			break;
-		case 3:
-			rcItemDes = { 650,600,1300,800 };
-			break;
-		case 4:
-			rcItemDes = { 650,800,1300,1000 };
-			break;
-		case 5:
-			rcItemDes = { 650,1000,1300,1200 };
-			break;
-		case 6:
-			rcItemDes = { 650,1200,1300,1400 };
-			break;
-		case 7:
-			rcItemDes = { 650,1400,1300,1600 };
-			break;
-		}
+		//カーソル位置に応じてアイテム説明変
+		rcItemDes = { 650,200 * cursor,1300,200 * cursor + 200 };
 	}
 	if (ReelTextFlg) {
 		rcItemNameText = { 1000,0,1500,720 };
 		//カーソル位置に応じてアイテム説明変更
-		switch (cursor)
-		{
-		case 0:
-			rcItemDes = { 1300,0,1950,200 };
-			break;
-		case 1:
-			rcItemDes = { 1300,200,1950,400 };
-			break;
-		case 2:
-			rcItemDes = { 1300,400,1950,600 };
-			break;
-		case 3:
-			rcItemDes = { 1300,600,1950,800 };
-			break;
-		case 4:
-			rcItemDes = { 1300,800,1950,1000 };
-			break;
-		case 5:
-			rcItemDes = { 1300,1000,1950,1200 };
-			break;
-		case 6:
-			rcItemDes = { 1300,1200,1950,1400 };
-			break;
-		case 7:
-			rcItemDes = { 1300,1400,1950,1600 };
-			break;
-		}
+		rcItemDes = { 1300,200 * cursor,1950,200 * cursor + 200 };
 	}
 	SPRITE->SetTransform(&ItemNameTextMat);
 	SPRITE->Draw(*ItemNameTextTex, &rcItemNameText, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
@@ -447,7 +369,7 @@ void Shop2D::Draw2D()
 			SPRITE->Draw(*SoldOutTex, &rcSoldOut, &D3DXVECTOR3(25.0f, 25.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 		}
 	}
-	
+
 
 	RECT rcE_Power = { 0,0,350,39 };
 	SPRITE->SetTransform(&E_PowerMat);
@@ -459,33 +381,7 @@ void Shop2D::Draw2D()
 	//エサ
 	RECT rcBait;
 	if (BaitTextFlg) {
-		switch (cursor)
-		{
-		case 0:
-			rcBait = { 0,0,300,328 };
-			break;
-		case 1:
-			rcBait = { 300,0,600,328 };
-			break;
-		case 2:
-			rcBait = { 600,0,900,328 };
-			break;
-		case 3:
-			rcBait = { 900,0,1200,328 };
-			break;
-		case 4:
-			rcBait = { 1200,0,1500,328 };
-			break;
-		case 5:
-			rcBait = { 1500,0,1800,328 };
-			break;
-		case 6:
-			rcBait = { 1800,0,2100,328 };
-			break;
-		case 7:
-			rcBait = { 2100,0,2400,328 };
-			break;
-		}
+		rcBait = { 300 * cursor, 0,300 * cursor + 300, 328 };
 		SPRITE->SetTransform(&BaitMat);
 		SPRITE->Draw(*BaitTex, &rcBait, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 	}
@@ -522,11 +418,10 @@ void Shop2D::Draw2D()
 		char cScore[64];
 		sprintf_s(cScore, sizeof(cScore), "%d", Possession);
 		numberMat.SetTrans(1210, 20, 0);
-		transMat.SetTrans(-35, 0, 0);
 		int i;
 		for (i = 0; cScore[i] != '\0'; i++);
 		for (i -= 1; i >= 0; i--) {
-			numberMat *= transMat;
+			numberMat.MoveLocal({ -35,0,0 });
 			SPRITE->SetTransform(&numberMat);
 			SPRITE->Draw(*numberTex, &rcNum[cScore[i] - '0'], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 		}
