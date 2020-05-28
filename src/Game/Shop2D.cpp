@@ -86,7 +86,7 @@ void Shop2D::Init()
 	//購入不可ウィンドウ
 	Can_tBuyTex = RESOURCE_MNG.GetTexture("Shop/Can'tBuy.png");
 	Can_tBuyMat.SetTrans(1280.0f / 2.0f, 720.0f / 2.0f, 0.0f);
-}
+
 
 	BuyItem.x = -1;
 	BuyItem.y = -1;
@@ -261,7 +261,7 @@ void Shop2D::Draw2D()
 	SPRITE->SetTransform(&TabCenterMat);
 	SPRITE->Draw(*TabCenterTex, &rcTag, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 	SPRITE->SetTransform(&TabRightMat);
-	SPRITE->Draw(*TabRightTex, &rcTagR, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+	SPRITE->Draw(*TabRightTex, &rcTag, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
 	//リスト
 	RECT rcFrame = { 0,0,500,720 };
