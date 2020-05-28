@@ -56,6 +56,11 @@ void CMapScene::Init()
 	m_PBGM->LDS3B8->SetMode(DS3DMODE_DISABLE, DS3D_IMMEDIATE);
 	m_PBGM->SetVol(0.5f);
 	m_PBGM->Playsound("超使いやすいドラム&ベース無限BGM", true, true);
+	m_pSE = nullptr;
+
+
+
+
 
 	DTWHOUCE.SetStr("FishName", "SunFish");
 }
@@ -83,20 +88,30 @@ int CMapScene::Update()
 
 	if (GetKey(VK_SPACE) & 0x8000)
 	{
+		m_pSE = RESOURCE_MNG.GetSound("システム　決定音2");
+		m_pSE->Playsound("システム　決定音2", true, false);
+
 		FADE.Start(5);
 		return ROGO;
 	}
 	if (DTWHOUCE.GetFlg("ShopFlg")) {
+		m_pSE = RESOURCE_MNG.GetSound("ドア");
+		m_PBGM->SetVol(0.1f);
+		m_PSound->SetVol(0.1f);
+		m_pSE->SetVol(1.0f);
+		m_pSE->Playsound("ドア", true, false);
+
 		FADE.Start(5);
 		return SHOP;
 	}
 	if (DTWHOUCE.GetFlg("HitFish")) {
+		m_pSE = RESOURCE_MNG.GetSound("システム　決定音2");
+		m_PBGM->SetVol(0.1f);
+		m_PSound->SetVol(0.1f);
+		m_pSE->Playsound("システム　決定音2", true, false);
+
 		FADE.Start(5);
 		return GAME;
-	}
-	if (GetKey('R') & 0x8000) {
-		FADE.Start(5);
-		return RESULT;
 	}
 
 	return MAP;
@@ -137,4 +152,6 @@ void CMapScene::End()
 	m_PSound = nullptr;
 	m_PBGM->LDSB8->Stop();
 	m_PBGM = nullptr;
+	m_pSE->LDSB8->Stop();
+	m_pSE = nullptr;
 }
