@@ -86,6 +86,14 @@ void Shop2D::Init()
 	//購入不可ウィンドウ
 	Can_tBuyTex = RESOURCE_MNG.GetTexture("Shop/Can'tBuy.png");
 	Can_tBuyMat.SetTrans(1280.0f / 2.0f, 720.0f / 2.0f, 0.0f);
+
+
+	BuyItem.x = -1;
+	BuyItem.y = -1;
+	BuyItem.z = -1;
+	OpenItem.x = 0;
+	OpenItem.y = 0;
+	OpenItem.z = 0;
 }
 
 void Shop2D::Update()
@@ -161,15 +169,29 @@ void Shop2D::Update()
 
 	//購入処理
 	if (WindowPattern == 2) {
-		//足りないとき
+		//開放してたら
+		if (BuyItem.x < OpenItem.x) {
+			OpenItem.x++;
+		}
+
+		//所持金が足りないとき
 		if ((Possession < RodPrice[cursor]) || (Possession < BaitPrice[cursor]) || (Possession < ReelPrice[cursor])) {
 			Can_tBuyFlg = true;
 		}
 		//足りるとき
 		else {
-			if (tabPattern == 0)Possession -= RodPrice[cursor];
-			if (tabPattern == 1)Possession -= BaitPrice[cursor];
-			if (tabPattern == 2)Possession -= ReelPrice[cursor];
+			if (tabPattern == 0) {
+				Possession -= RodPrice[cursor];
+				BuyItem.x++;
+			}
+			if (tabPattern == 1) {
+				Possession -= BaitPrice[cursor];
+				BuyItem.y++;
+			}
+			if (tabPattern == 2) {
+				Possession -= ReelPrice[cursor];
+				BuyItem.z++;
+			}
 		}
 		WindowPattern = 0;
 		EnterFlg = false;
@@ -180,10 +202,10 @@ void Shop2D::Update()
 	}
 	if (Can_tBuyFlg) {
 		ctCnt++;
-	}
-	if (ctCnt >= 60) {
-		Can_tBuyFlg = false;
-		ctCnt = 0;
+		if (ctCnt >= 60) {
+			Can_tBuyFlg = false;
+			ctCnt = 0;
+		}
 	}
 
 	//=========================================
@@ -218,10 +240,12 @@ void Shop2D::Update()
 	TabCenterMat.SetTrans(50.0f, 0.0f - tabC, 0.0f);
 	TabRightMat.SetTrans(50.0f, 0.0f - tabR, 0.0f);
 
-
 	//3つの能力値を合計し、３で割って/100する
 	//0.0～1.0にする
 	DTWHOUCE.SetNo("Quality", 1111);
+
+	//今、釣り竿、エサ、リールを上から何番目まで買ったかを保存する
+	//DTWHOUCE.SetVec("BuyPattern", );
 }
 
 void Shop2D::Draw2D()
@@ -230,15 +254,13 @@ void Shop2D::Draw2D()
 	SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
 
 	//タグ
-	RECT rcTagL = { 0,0,500,720 };
+	RECT rcTag = { 0,0,500,720 };
 	SPRITE->SetTransform(&TabLeftMat);
-	SPRITE->Draw(*TabLeftTex, &rcTagL, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-	RECT rcTagC = { 0,0,500,720 };
+	SPRITE->Draw(*TabLeftTex, &rcTag, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 	SPRITE->SetTransform(&TabCenterMat);
-	SPRITE->Draw(*TabCenterTex, &rcTagC, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-	RECT rcTagR = { 0,0,500,720 };
+	SPRITE->Draw(*TabCenterTex, &rcTag, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 	SPRITE->SetTransform(&TabRightMat);
-	SPRITE->Draw(*TabRightTex, &rcTagR, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+	SPRITE->Draw(*TabRightTex, &rcTag, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
 	//リスト
 	RECT rcFrame = { 0,0,500,720 };
@@ -352,6 +374,16 @@ void Shop2D::Draw2D()
 
 	SPRITE->SetTransform(&ItemDesMat);
 	SPRITE->Draw(*ItemDesTex, &rcItemDes, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+
+	//売り切れ
+	RECT rcSoldOut = { 0,0,50,50 };
+	for (int i = 0; i < LISTNUMBER; i++) {
+		for (int j = 0; j < TAB; j++) {
+			SPRITE->SetTransform(&SoldOutMat[j][i]);
+			SPRITE->Draw(*SoldOutTex, &rcSoldOut, &D3DXVECTOR3(25.0f, 25.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+		}
+	}
+	
 
 	RECT rcE_Power = { 0,0,350,39 };
 	SPRITE->SetTransform(&E_PowerMat);
