@@ -56,6 +56,8 @@ public:
 
 	void Playsound(const std::string& Key, bool Init, bool Loop);
 
+
+	//0.0Å`1.0
 	void SetVol(float Volume) {
 		if (Volume < 0)Volume = 0;
 		LDSB8->SetVolume(-5000 + (5000 * Volume)); }

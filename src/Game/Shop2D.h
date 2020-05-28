@@ -35,6 +35,7 @@ private:
 	KdMatrix transMat;
 	KdMatrix statusMat;
 	KdMatrix BaitMat;
+	KdMatrix Can_tBuyMat;
 
 	std::shared_ptr<LPDIRECT3DTEXTURE9> FrameTex;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> FrameSecTex;
@@ -50,6 +51,7 @@ private:
 	std::shared_ptr<LPDIRECT3DTEXTURE9> numberTex;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> statusTex;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> BaitTex;
+	std::shared_ptr<LPDIRECT3DTEXTURE9> Can_tBuyTex;
 	D3DXVECTOR3 mPos;
 
 	//アイテムの値段
@@ -64,6 +66,7 @@ private:
 	int num[10];
 	//ウィンドウパターン
 	int WindowPattern = 0;
+	int ctCnt = 0;
 
 	float select[LISTNUMBER];
 	float tabL = 0, tabC = 0, tabR = 0;
@@ -77,5 +80,9 @@ private:
 	bool ReelTextFlg = false;
 	bool EnterFlg = false;
 	bool EnterDownFlg = false;
+	bool Can_tBuyFlg = false;
+
+	//性能値
+	float Quality[3];
 };
 

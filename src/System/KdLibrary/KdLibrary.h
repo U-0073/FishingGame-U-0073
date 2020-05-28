@@ -88,6 +88,8 @@
 
 #define GetKey GetAsyncKeyState
 #define MESH m_pModel->GetMesh()
+#define	FVF_VERTEX (D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1)
+
 enum Scene
 {
 	ROGO,
@@ -102,5 +104,12 @@ struct CLONEVERTEX
 {
 	D3DXVECTOR3 Pos;
 	D3DXVECTOR3 Normal;
+	D3DXVECTOR2 Tex;
+};
+// í∏ì_èÓïÒÇÃíËã`
+struct VERTEX
+{
+	KdVec3 Pos;
+	D3DCOLOR Color;
 	D3DXVECTOR2 Tex;
 };

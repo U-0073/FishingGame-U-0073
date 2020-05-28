@@ -20,7 +20,19 @@ public:
 	void GameLoop();
 	const HWND& GetHWND() { return mpHwnd; }
 
+	//
+	//マウスカーソルのオンオフ設定用関数
+//現状がtrueならfalse以外は処理をしない
+//現状がfalseならtrue以外は処理をしない
+
+	
 private:
+	void MShowSwich(bool on_off);
+
+	//マウス見えるか保存
+	bool mSS=true;
+
+
 	CGameFrame();
 	~CGameFrame();
 	const bool CreateWNDCLASS(HINSTANCE aHInst);
@@ -53,7 +65,6 @@ public:
 	{
 		static CGameFrame instance;
 		return instance;
-
 	}
 };
 #define FRAME CGameFrame::GetInstance()

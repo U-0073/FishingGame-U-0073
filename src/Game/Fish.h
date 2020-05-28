@@ -9,16 +9,12 @@ public:
 	Fish();
 	~Fish();
 	void SetTagType(int No);
-	void SetTagType(std::string name) { m_Tag = name; }
 	
 	void Init()override;
 	const std::string& getTag() {
 		return m_Tag;
 	}
-	void setBuoy(const KdVec3 Pos) {
 
-		BuoyPos = Pos;
-	}
 	inline void SetCenter(KdVec3 pos) {
 		Center = pos;
 
@@ -36,14 +32,12 @@ public:
 	void ResultInit();
 
 
-	const void SetPlayerPos(const KdVec3& Vec) { PlayerPos = Vec; }
-	const void SetFishingFlg(const bool& flg) { FishFlg = flg; }
 	
 	const D3DXVECTOR3& GetFishPos() { return m_world.GetPos(); }
 
 private:
 
-	void MoveHoriizontal();
+	void MoveHorizontal();
 
 	std::string m_Tag;//何の魚か
 	
@@ -52,7 +46,6 @@ private:
 	//ウキの位置
 	KdVec3 BuoyPos;
 
-	KdVec3 PlayerPos;
 	KdVec3 FishPos;
 	KdMatrix TransMat;
 	KdMatrix ScaleMat;
@@ -61,11 +54,25 @@ private:
 	float Count = 0.0f;
 	float AngY;
 	bool  FishFlg;
+
+
+	//魚影用
+public:
+	void ShadowInit();
+	void ShadowUpdate();
+	void ShadowDraw();
+
+private:
+	std::shared_ptr<LPDIRECT3DTEXTURE9> ShadowTex = nullptr;
+	KdVec3 ShadowPos;
+	KdMatrix ShadowMat;
+	VERTEX Shadow[4];
 };
 
 //群れた時の動き。一匹ずつの集合体
 class Fishes {
 public:
+
 	void Init();
 
 	void Update();

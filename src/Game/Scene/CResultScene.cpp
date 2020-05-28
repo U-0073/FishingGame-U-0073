@@ -16,36 +16,28 @@ void CResultScene::Init()
 {
 	Sky = std::make_shared<Skysphere>();
 	Sky->Init();
-	ScoreData = DTWHOUCE.GetVec("score");
+	result = std::make_shared<Result>();
+	result->Init();
 	//ゲームシーンで成功していたらロードする
+	ScoreData = DTWHOUCE.GetVec("score");
 	if (ScoreData.Success) {
 		//ゲームシーンから取ってきたデータを保存する
 
 		fish = std::make_shared<Fish>();
 		fish->ResultInit();
 		if (ScoreData.Success)CalcData();
-
-
 		mPos = { 0,0,0 };
-
-
 		CalcNum();
-
 		CoinTex = RESOURCE_MNG.GetTexture("Coin.png");
 		mCoinMat.SetTrans(1280.0f / 3, 720.0f / 6 * 5, 0.0f);
-
 		NameTex = RESOURCE_MNG.GetTexture(fish->getTag() + ".png");
 		mNameMat.SetTrans(1280.0f / 2, 720.0f / 2 + 75, 0.0f);
-
-		result = std::make_shared<Result>();
-		result->Init();
 		CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -25), fish->GetFishPos());
-		if (fish->getTag() == "SunFish" || fish->getTag() == "Whale") {
-			CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -50), fish->GetFishPos());
-		}
+
 		KD3D.CreateDirectionalLight(D3DXVECTOR3(0, 0, -1), D3DXVECTOR4(1, 1, 1, 1), D3DXVECTOR4(1.0, 1.0, 1.0, 1.0));
 	}
 	else {
+		CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -25), D3DXVECTOR3(0,0,0));
 		Size = 1280;
 		Price = 8888;
 	}
@@ -53,17 +45,15 @@ void CResultScene::Init()
 
 int CResultScene::Update()
 {
-	if (ScoreData.Success) {
-		result->Update();
-	}
+	result->Update();
 	if (GetKey(VK_RETURN) & 0x8000)
 	{
 		if (ScoreData.Success) 
 		{
 			int Possession;
-			Possession = DTWHOUCE.GetNo("Possession");
+			Possession = DTWHOUCE.GetInt("Possession");
 			Possession += Price;
-			DTWHOUCE.SetNo("Possession", Possession);
+			DTWHOUCE.SetInt("Possession", Possession);
 
 			SellSound = RESOURCE_MNG.GetSound("Money");
 			SellSound->Playsound("Money", true, false);
@@ -81,9 +71,9 @@ int CResultScene::Update()
 
 void CResultScene::Draw2D()
 {
+	result->Draw2D();
 	if (ScoreData.Success)
 	{
-		result->Draw2D();
 		RECT rcName = { 0,0,300,50 };
 		SPRITE->SetTransform(&mNameMat);
 		SPRITE->Draw(*NameTex, &rcName, &D3DXVECTOR3(150.0f, 50.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
@@ -120,12 +110,12 @@ void CResultScene::End()
 {
 	Sky->End();
 	Sky = nullptr;
-	if (ScoreData.Success) 
+	result->End();
+	result = nullptr;
+	if (ScoreData.Success)
 	{
 		fish->End();
 		fish = nullptr;
-		result->End();
-		result = nullptr;
 	}
 	DTWHOUCE.SetVec("score", { 0,0,0 });
 }
@@ -157,6 +147,9 @@ void CResultScene::CalcData()
 		Size = 2700;
 		Price = 3500000;
 	}
+	float Quality = 1.0f + DTWHOUCE.GetNo("Quality");
+	Size *= Quality;
+	Price *= Quality;
 }
 
 void CResultScene::CalcNum()

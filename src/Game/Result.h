@@ -18,6 +18,14 @@ private:
 	std::shared_ptr<LPDIRECT3DTEXTURE9> vTex = nullptr;//ボード
 	KdMatrix mMat;
 	D3DXVECTOR3 mPos;
+	std::shared_ptr<LPDIRECT3DTEXTURE9> vBackTex = nullptr;//ボード
+	KdMatrix mBackMat;
+	D3DXVECTOR3 mBackPos;
+	KdVec3 ScoreData;
 
 };
 
+
+#define Excellent x
+#define Miss	  y
+#define	Success	  z

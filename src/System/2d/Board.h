@@ -1,21 +1,14 @@
 #pragma once
 #define	FVF_VERTEX (D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1)
 
-// 頂点情報の定義
-struct VERTEX
-{
-	D3DXVECTOR3 Pos;
-	D3DCOLOR Color;
-	D3DXVECTOR2 Tex;
-};
-
-
 
 class Board
 {
 public:
 	Board();
 	~Board();
+	void SetSize();
+	void SetArray();
 	void Update(const int *Side, const int *Virtical);
 	virtual void Draw() = 0;
 	void SafeRelease(LPDIRECT3DTEXTURE9& LoadTex);
@@ -31,10 +24,11 @@ public:
 
 
 protected:
-	VERTEX v[4];
+	std::vector<VERTEX> v;
+
 	D3DXMATRIX vMat;
 	//板ポリのサイズ
-	D3DXVECTOR3 mSize;
+	D3DXVECTOR3 mSize = {1,1,1};
 
 	//テクスチャ関係の変数
 	std::string mPath = "";

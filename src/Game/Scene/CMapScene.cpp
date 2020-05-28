@@ -74,16 +74,11 @@ int CMapScene::Update()
 
 
 
-	if (DTWHOUCE.GetFlg("FishingFlg")) {
-		ShowCursor(FALSE);
-	}
-	else {
+	if (!DTWHOUCE.GetFlg("FishingFlg")) {
 		POINT BasePt;
 		BasePt.x = 640;
 		BasePt.y = 360;
 		ClientToScreen(FRAME.GetHWND(), &BasePt);
-		
-		ShowCursor(FALSE);
 		SetCursorPos(BasePt.x, BasePt.y);
 	}
 
@@ -96,7 +91,7 @@ int CMapScene::Update()
 		FADE.Start(5);
 		return SHOP;
 	}
-	if (GetKey('F') & 0x8000) {
+	if (DTWHOUCE.GetFlg("HitFish")) {
 		FADE.Start(5);
 		return GAME;
 	}

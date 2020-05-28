@@ -12,64 +12,66 @@ Sea::~Sea()
 
 void Sea::Init()
 {
-	srand(timeGetTime());
-	m_pModel = RESOURCE_MNG.GetModel("Sea");
+	vTex = RESOURCE_MNG.GetTexture("Sea.png");
 
-	verNum = MESH->GetNumVertices();
+	//板ポリの中心点が対角線の交点になるように配置している
+	v2[0].Pos = v[0].Pos = { -(mSize.x * 0.5f),  (mSize.y * 0.5f),  (mSize.z * 0.5f) };
+	v2[1].Pos = v[1].Pos = { (mSize.x * 0.5f),  (mSize.y * 0.5f),  (mSize.z * 0.5f) };
+	v2[2].Pos = v[2].Pos = { (mSize.x * 0.5f), -(mSize.y * 0.5f), -(mSize.z * 0.5f) };
+	v2[3].Pos = v[3].Pos = { -(mSize.x * 0.5f), -(mSize.y * 0.5f), -(mSize.z * 0.5f) };
+
+
+	v[0].Color = D3DCOLOR_ARGB(255, 255, 255, 255);
+	v[1].Color = D3DCOLOR_ARGB(255, 255, 255, 255);
+	v[2].Color = D3DCOLOR_ARGB(255, 255, 255, 255);
+	v[3].Color = D3DCOLOR_ARGB(255, 255, 255, 255);
+
+	v2[0].Color = D3DCOLOR_ARGB(150, 255, 255, 255);
+	v2[1].Color = D3DCOLOR_ARGB(150, 255, 255, 255);
+	v2[2].Color = D3DCOLOR_ARGB(150, 255, 255, 255);
+	v2[3].Color = D3DCOLOR_ARGB(150, 255, 255, 255);
+
+	vMax = 5.0f;
+	vMin = 0.0f;
+
 	//位置の設定
-	D3DXMatrixTranslation(&m_world, 0, -3, 0);
+	m_world.SetTrans(mPos);
+	mPos.y += 0.001f;
+	m_world2.SetTrans(mPos);
+	m_world2.SetRotation(0, 90, 0);
 	DTWHOUCE.SetVec("Sea", m_world.GetPos());
-	//
-	int vSize = MESH->GetNumBytesPerVertex();
-
-	//CLONEVERTEX* pV;
-	pV = nullptr;
-
-	MESH->LockVertexBuffer(0, (VOID**)&pV);
-
-	//クローン			頂点バッファ				先頭アドレスが入る(0番目の頂点の内容)
-	for (DWORD i = 0; i < verNum; i++) {
-		D3DXVECTOR3* pos = (D3DXVECTOR3*)(pV + vSize * i);
-		pos->y = (rand() % WaveHeight - WaveHeight / 2) * 0.01;
-	}
-	(*m_pModel).GetMesh()->UnlockVertexBuffer();
-
-	HeightCtrl = false;
 
 }
 
 void Sea::Update()
 {
-	int vSize = MESH->GetNumBytesPerVertex();
-	pV = nullptr;
+	vMin += speed;
+	vMax += speed;
+	if (vMin > 1.0f)vMin = 0.0f;
+	if (vMax > 5.0f)vMax = 5.0f;
+	//画像の設定
+	v2[0].Tex = v[0].Tex = D3DXVECTOR2(vMin, vMin);
+	v2[1].Tex = v[1].Tex = D3DXVECTOR2(vMax, vMin);
+	v2[2].Tex = v[2].Tex = D3DXVECTOR2(vMax, vMax);
+	v2[3].Tex = v[3].Tex = D3DXVECTOR2(vMin, vMax);
 
-	MESH->LockVertexBuffer(0, (VOID**)&pV);
-	//クローン			頂点バッファ				先頭アドレスが入る(0番目の頂点の内容)
-
-	D3DXVECTOR3* pos;
-
-	for (DWORD i = 0; i < verNum; i++) {
-		pos = (D3DXVECTOR3*)(pV + vSize * i);
-		if (HeightCtrl == false) {
-			pos->y += 0.02;
-			if (pos->y > 1) { HeightCtrl = true; }
-		}
-		else {
-			pos->y -= 0.02;
-			if (pos->y < -1) { HeightCtrl = false; }
-		}
-	}
-
-	MESH->UnlockVertexBuffer();
 }
 
 void Sea::Draw3D()
 {
-	KD3D.SetWorldMatrix(&m_world);
+	D3DEV->SetFVF(FVF_VERTEX);
+	D3DEV->SetRenderState(D3DRS_LIGHTING, FALSE);
 
-	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, TRUE);
-	m_pModel->Draw();
-	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
+	D3DEV->SetTexture(0, *vTex);
+	KD3D.SetWorldMatrix(&m_world);
+	D3DEV->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, v, sizeof(VERTEX));
+
+	KD3D.SetWorldMatrix(&m_world2);
+	D3DEV->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, v2, sizeof(VERTEX));
+	D3DEV->SetTexture(0, NULL);
+
+	D3DEV->SetRenderState(D3DRS_LIGHTING, TRUE);
+
 
 }
 

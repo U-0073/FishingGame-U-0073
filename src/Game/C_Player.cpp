@@ -5,7 +5,6 @@
 
 #define	SCRW		1280	// ウィンドウ幅（Width
 #define	SCRH		720		// ウィンドウ高さ（Height
-#define	FVF_VERTEX (D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1)
 
 C_Player::C_Player()
 {
@@ -23,7 +22,7 @@ void C_Player::Init()
 	ShopMat.SetTrans(14, -0.6f, -42);
 
 	CollisionModel = RESOURCE_MNG.GetModel("PortWall_CollisionTest2");
-	m_pModel = RESOURCE_MNG.GetModel("Portfloer_Collision");
+	m_pModel = RESOURCE_MNG.GetModel("Portfloor_Collision");
 	ShopModel = RESOURCE_MNG.GetModel("Shop");
 
 
@@ -68,7 +67,7 @@ void C_Player::Update()
 void C_Player::FlgProc()
 {
 	if (ShopFlg) {
-		if (GetKey('I') & 0x8000) {
+		if (GetKey(VK_RETURN) & 0x8000) {
 			DTWHOUCE.SetFlg("ShopFlg", true);
 		}
 		else DTWHOUCE.SetFlg("ShopFlg", false);

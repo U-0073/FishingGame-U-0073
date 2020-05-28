@@ -17,6 +17,8 @@ public:
 
 private:
 	std::shared_ptr<LPDIRECT3DTEXTURE9> vTex = nullptr;
+
+
 	D3DXMATRIX mMat;//ƒ^ƒCƒgƒ‹
 	D3DXVECTOR3 mPos;
 
