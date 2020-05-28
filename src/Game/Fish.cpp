@@ -193,13 +193,14 @@ void Fish::ShadowInit()
 	Shadow[1].Tex = D3DXVECTOR2(1, 0);
 	Shadow[2].Tex = D3DXVECTOR2(1, 1);
 	Shadow[3].Tex = D3DXVECTOR2(0, 1);
+	m_world._42 = -5;
 
 }
 void Fish::ShadowUpdate()
 {
 	 
 	ShadowMat=m_world;
-	ShadowMat.SetScale(3, 3, 3);
+	ShadowMat.SetScale(1.5, 1.5, 1.5);
 	ShadowMat._42 = -2;
 }
 void Fish::ShadowDraw()
