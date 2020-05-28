@@ -34,7 +34,7 @@ void C_Player::Init()
 	ClientToScreen(FRAME.GetHWND(), &BasePt);		//ゲーム画面内座標⇒パソコン画面内座標
 										//	　（クライアント座標）（スクリーン座標）
 	SetCursorPos(BasePt.x, BasePt.y);
-
+	/*
 	bool test1 = JSONS.checkValue(Json, "Tag", tag);//文字列比較
 	test1 = JSONS.checkValue(Json, "Tag", 111);//数字と比較
 	//まだ使えない
