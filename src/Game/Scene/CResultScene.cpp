@@ -36,7 +36,9 @@ void CResultScene::Init()
 		if (DTWHOUCE.GetStr("FishName") == "SunFish") {
 			CAMERA.SetCameraPos(D3DXVECTOR3(0, -5, -50), D3DXVECTOR3(0, -5, 0));
 		}
-		CAMERA.SetCameraPos(D3DXVECTOR3(0, -5, -25), D3DXVECTOR3(0, -5, 0));
+		else {
+			CAMERA.SetCameraPos(D3DXVECTOR3(0, -5, -25), D3DXVECTOR3(0, -5, 0));
+		}
 	}
 	else {
 		CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -25), D3DXVECTOR3(0, 0, 0));
