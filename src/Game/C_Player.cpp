@@ -34,6 +34,7 @@ void C_Player::Init()
 	ClientToScreen(FRAME.GetHWND(), &BasePt);		//ゲーム画面内座標⇒パソコン画面内座標
 										//	　（クライアント座標）（スクリーン座標）
 	SetCursorPos(BasePt.x, BasePt.y);
+
 }
 
 void C_Player::End()
@@ -52,13 +53,9 @@ void C_Player::Update()
 	else PlayerPos.y = 0;
 
 
-	//DTWHOUCE.SetFlg("TestFlg", BuoiRay());
-
-	if (ShopFlg);
 	FlgProc();
 	MoveProc();
 	CameraProc();
-
 
 	DTWHOUCE.SetVec("Player", PlayerPos);
 	DTWHOUCE.SetFlg("Fishing", FishingFlg);
@@ -86,10 +83,8 @@ void C_Player::FlgProc()
 			//釣りモード解除
 			if (FishingFlg) {
 				FishingFlg = false;
-				//RestoreFlg = true;
 
 				DTWHOUCE.SetFlg("FishingFlg", false);
-
 				SetCursorPos(BasePt.x, BasePt.y);
 			}
 			else
@@ -97,6 +92,7 @@ void C_Player::FlgProc()
 				//釣りモードに移行
 				FishingFlg = true;
 				DTWHOUCE.SetFlg("FishingFlg", true);
+				SetCursorPos(BasePt.x, BasePt.y);
 			}
 		}
 	}
@@ -125,7 +121,6 @@ void C_Player::Move()
 
 			D3DXVec3TransformCoord(&Vec, &CoordVec.Front, &RotMat);
 
-			//PlayerPos += Vec * MoveSpeed;
 			MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 0);
 			MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 0);
 
@@ -313,7 +308,6 @@ void C_Player::CameraSet()
 		float MoveSize = 0.1f;
 
 		if (cntY < 50)CamPos.y += MoveSize;
-		//		if (CamPos.y - PlayerPos.y < 5)CamPos.y += MoveSize;
 		CAMERA.SetCameraPos(CamPos, BuoyPos);
 	}
 	else
@@ -325,7 +319,6 @@ void C_Player::CameraSet()
 		float MoveSize = 0.1f;
 
 		if (cntY > 0)CamPos.y -= MoveSize;
-		//if (CamPos.y - PlayerPos.y > 0)CamPos.y -= MoveSize;
 
 
 		//カメラの移動処理
@@ -336,7 +329,6 @@ void C_Player::CameraSet()
 
 		CamLook = Vec;
 		CAMERA.SetCameraVec(PlayerPos + InitCamPos, Vec);
-		//RestoreFlg = false;
 	}
 
 }
@@ -356,9 +348,6 @@ void C_Player::Draw2D()
 	RECT rcText = { 10,30 * 1,0,0 };
 	sprintf_s(Text, sizeof(Text), "所持金 %d", (int)DTWHOUCE.GetNo("Possession"));
 	FONT->DrawText(NULL, Text, -1, &rcText, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	//RECT rcText1 = { 10,30 * 7,0,0 };
-	//sprintf_s(Text, sizeof(Text), "TextMeshDis %f", TextMeshDis);
-	//FONT->DrawText(NULL, Text, -1, &rcText1, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	RECT rcText2 = { 10,30 * 2,0,0 };
 	sprintf_s(Text, sizeof(Text), "PlayerPos  x %f  y%f z %f ", PlayerPos.x, PlayerPos.y, PlayerPos.z);
 	FONT->DrawText(NULL, Text, -1, &rcText2, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));

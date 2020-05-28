@@ -30,8 +30,8 @@ void ShopObject::Init()
 	m_world.MoveLocal(0.5f, -0.5f, 0);
 	m_world.SetRotation(D3DXToRadian(0), D3DXToRadian(90), D3DXToRadian(-45));
 
-	D3DXMatrixTranslation(&m_reel, 9, 7, 0);
-	D3DXMatrixScaling(&m_reelScal, 40, 40, 40);
+	m_reel.SetTrans(9, 7, 0);
+	m_reelScal.SetScale(40, 40, 40);
 	m_reel = m_reelScal * m_reel;
 	
 	KD3D.CreateDirectionalLight(D3DXVECTOR3(0, 0, 10), D3DXVECTOR4(1, 1, 1, 1), D3DXVECTOR4(1.0, 1.0, 1.0, 1.0));
@@ -76,11 +76,11 @@ void ShopObject::Draw3D()
 			break;
 		}
 	}
-	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, FALSE);
+	D3DEV->SetRenderState(D3DRS_LIGHTING, FALSE);
 
 
 	KD3D.SetWorldMatrix(&m_reel);
-	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, TRUE);
+	D3DEV->SetRenderState(D3DRS_LIGHTING, TRUE);
 	if (tPattern == 2) {
 		//ƒŠ[ƒ‹
 		switch (Cur)

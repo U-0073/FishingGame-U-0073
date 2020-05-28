@@ -19,11 +19,11 @@ private:
 	std::shared_ptr<LPDIRECT3DTEXTURE9> vTex = nullptr;
 
 
-	D3DXMATRIX mMat;//タイトル
-	D3DXVECTOR3 mPos;
+	KdMatrix mMat;//タイトル
+	KdVec3 mPos;
 
-	D3DXMATRIX mMat2;//エンターキー
-	D3DXVECTOR3 mPos2;
+	KdMatrix mMat2;//エンターキー
+	KdVec3 mPos2;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> vTex2 = nullptr;
 	int alpha;
 

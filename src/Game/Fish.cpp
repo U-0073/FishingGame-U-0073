@@ -121,7 +121,7 @@ void Fish::ResultInit()
 
 	m_pModel = RESOURCE_MNG.GetModel(m_Tag);
 
-	m_world.SetTrans(0.0f, 5.0f, 0);
+	m_world.SetTrans(0.0f, 7.0f, 0.0f);
 	m_world.CreateRotationY(D3DXToRadian(90));
 	m_world.SetScale(2, 2, 2);
 }
@@ -159,8 +159,6 @@ void Fish::MoveHorizontal()
 
 	//‚Ç‚Á‚¿Œü‚«‚É‰½“xˆÚ“®‚·‚é‚©
 	float Rot = FishRot - nowRot;
-	//if (Rot > 180) { Rot = 360 - Rot; }
-	//if (Rot < -180) { Rot = 360 + Rot; }
 	if (Rot < -180)Rot += 360;
 	if (Rot > 180)Rot -= 360;
 
@@ -173,7 +171,6 @@ void Fish::MoveHorizontal()
 	if ((Rot < 3) && (Rot > -3))
 	{
 		m_world.RotateYLocal(D3DXToRadian(Rot));
-		//m_world.RotateYLocal(D3DXToRadian((rand() % 10) - 5));
 	}
 	m_world.MoveLocal(0, 0, -0.5);
 }
@@ -202,7 +199,7 @@ void Fish::ShadowUpdate()
 {
 	 
 	ShadowMat=m_world;
-	ShadowMat.SetScale(10, 10, 10);
+	ShadowMat.SetScale(3, 3, 3);
 	ShadowMat._42 = -2;
 }
 void Fish::ShadowDraw()
@@ -223,7 +220,7 @@ void Fishes::Init()
 {
 	std::vector<std::shared_ptr<Fish>>m_Fishs;
 	for (int c = 0; c < 3; c++) {
-		int name = rand() % 3 + 3;
+		int name = rand() % 6;
 		KdVec3 Pos;
 		for (int i = 0; i < rand() % 5; i++) {
 
