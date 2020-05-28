@@ -95,4 +95,11 @@ private:
 	bool				ClickFlg = false;
 	bool				ShopFlg=false;
 
+
+
+	std::shared_ptr<LPDIRECT3DTEXTURE9> enterTex = nullptr;
+	KdMatrix enterMat;
+
+
+
 };

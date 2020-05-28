@@ -34,6 +34,17 @@ void C_Player::Init()
 	ClientToScreen(FRAME.GetHWND(), &BasePt);		//ゲーム画面内座標⇒パソコン画面内座標
 										//	　（クライアント座標）（スクリーン座標）
 	SetCursorPos(BasePt.x, BasePt.y);
+	/*
+	bool test1 = JSONS.checkValue(Json, "Tag", tag);//文字列比較
+	test1 = JSONS.checkValue(Json, "Tag", 111);//数字と比較
+	//まだ使えない
+	JSONS.AddKeyValue(Json, "Value5", std::string("ABCD"));//要素の変更、追加
+
+		JSONS.SaveJson(Json, "Save/Test.json");//セーブ
+		//――――――――――――――――――――――――――――――――//
+		*/
+	enterTex = RESOURCE_MNG.GetTexture("enterKey.png");
+	enterMat.SetTrans(1280 / 2, 720 / 3, 0);
 
 }
 
@@ -41,6 +52,7 @@ void C_Player::End()
 {
 	m_pModel = nullptr;
 	CollisionModel = nullptr;
+	enterTex = nullptr;
 }
 
 
@@ -343,6 +355,15 @@ void C_Player::Draw3D() {
 }
 void C_Player::Draw2D()
 {
+
+	if (ShopFlg) {
+		RECT rcEnter = { 0,0,200,200 };
+		SPRITE->SetTransform(&enterMat);
+		SPRITE->Draw(*enterTex, &rcEnter, &D3DXVECTOR3(200 / 2, 200 / 2, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+	}
+
+
+
 	SPRITE->End();
 	char Text[100];
 	RECT rcText = { 10,30 * 1,0,0 };

@@ -56,6 +56,12 @@ private:
 	bool  FishFlg;
 
 
+	std::shared_ptr<LPDIRECT3DTEXTURE9> hitCheckTex = nullptr;
+	KdMatrix hitCheckMat;
+	bool hitChecker;
+
+
+
 	//‹›‰e—p
 public:
 	void ShadowInit();
