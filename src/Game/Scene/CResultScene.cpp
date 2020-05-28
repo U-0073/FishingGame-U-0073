@@ -32,8 +32,7 @@ void CResultScene::Init()
 		mCoinMat.SetTrans(1280.0f / 3, 720.0f / 6 * 5, 0.0f);
 		NameTex = RESOURCE_MNG.GetTexture(fish->getTag() + ".png");
 		mNameMat.SetTrans(1280.0f / 2, 720.0f / 2 + 75, 0.0f);
-		CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -25), fish->GetFishPos());
-
+		CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -25), D3DXVECTOR3(0,-1, 0));
 		KD3D.CreateDirectionalLight(D3DXVECTOR3(0, 0, -1), D3DXVECTOR4(1, 1, 1, 1), D3DXVECTOR4(1.0, 1.0, 1.0, 1.0));
 	}
 	else {
@@ -83,8 +82,8 @@ void CResultScene::Draw2D()
 		SPRITE->Draw(*CoinTex, &rcCoin, &D3DXVECTOR3(40.0f, 40.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
 
-		mNumberMat.SetTrans(1280 / 2, 720 / 5 * 3, 0);
-		for (int i = 0; i < 4; i++)
+		mNumberMat.SetTrans(1280 / 2*0.3, 720 / 5 * 3, 0);
+		for (int i = 0; i < 6; i++)
 		{
 			mNumberMat *= mTransMat;
 			SPRITE->SetTransform(&mNumberMat);
@@ -155,19 +154,21 @@ void CResultScene::CalcData()
 void CResultScene::CalcNum()
 {
 	NumberTex = RESOURCE_MNG.GetTexture("Shop/number.png");
-
 	//ƒTƒCƒY
-	//mNumberMat.SetScale(5.0f, 5.0f, 5.0f);
-
-	int FishSize = (int)Size;
+	mTransMat.SetTrans(100, 0, 0);
+	mNumberMat.SetScale(2.0f, 2.0f, 2.0f);
+	int FishSize = Size*100;
 	//ˆÊŽæ‚è
-	rcNum[0] = { (FishSize / 1000) * 50,0,(FishSize / 1000) * 50 + 50,50 };//‰­‚ÌˆÊ
+	rcNum[0] = { (FishSize / 100000) * 50,0,(FishSize / 100000) * 50 + 50,50 };//‰­‚ÌˆÊ
+	FishSize =   (FishSize % 100000);
+	rcNum[1] = { (FishSize / 10000)  * 50,0,(FishSize / 10000)  * 50 + 50,50 };
+	FishSize =   (FishSize % 10000);
+	rcNum[2] = { (FishSize / 1000)   * 50,0,(FishSize / 10)   * 50 + 50,50 };
 	FishSize =   (FishSize % 1000);
-	rcNum[1] = { (FishSize / 100)  * 50,0,(FishSize / 100)  * 50 + 50,50 };
-	FishSize =   (FishSize % 100);
-	rcNum[2] = { (FishSize / 10)   * 50,0,(FishSize / 10)   * 50 + 50,50 };
-	FishSize =   (FishSize % 10);
-	rcNum[3] = { (FishSize / 1) * 50,0,(FishSize / 1) * 50 + 50,50 };
-
-
+	rcNum[3] = { (FishSize / 100) * 50,0,(FishSize / 100) * 50 + 50,50 };
+	FishSize = (FishSize % 100);
+	rcNum[4] = { (FishSize / 10) * 50,0,(FishSize / 10) * 50 + 50,50 };
+	FishSize = (FishSize % 10);
+	rcNum[5] = { (FishSize / 1) * 50,0,(FishSize / 1) * 50 + 50,50 };
+	FishSize = (FishSize % 1);
 }
