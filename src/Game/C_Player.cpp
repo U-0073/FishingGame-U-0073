@@ -52,6 +52,7 @@ void C_Player::End()
 {
 	m_pModel = nullptr;
 	CollisionModel = nullptr;
+	enterTex = nullptr;
 }
 
 
@@ -328,11 +329,11 @@ void C_Player::Draw3D() {
 void C_Player::Draw2D()
 {
 
-
-	RECT rcEnter = { 0,0,200,200 };
-	SPRITE->SetTransform(&enterMat);
-	SPRITE->Draw(*enterTex, &rcEnter, &D3DXVECTOR3(200 / 2, 200 / 2, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-
+	if (ShopFlg) {
+		RECT rcEnter = { 0,0,200,200 };
+		SPRITE->SetTransform(&enterMat);
+		SPRITE->Draw(*enterTex, &rcEnter, &D3DXVECTOR3(200 / 2, 200 / 2, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+	}
 
 
 

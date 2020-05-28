@@ -98,7 +98,6 @@ private:
 
 	std::shared_ptr<LPDIRECT3DTEXTURE9> enterTex = nullptr;
 	KdMatrix enterMat;
-	std::shared_ptr<SoundBase> m_pSound = nullptr;
 
 
 
