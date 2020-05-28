@@ -35,21 +35,6 @@ void C_Player::Init()
 	ClientToScreen(FRAME.GetHWND(), &BasePt);		//ゲーム画面内座標⇒パソコン画面内座標
 										//	　（クライアント座標）（スクリーン座標）
 	SetCursorPos(BasePt.x, BasePt.y);
-	ShowCursor(FALSE);
-	/*
-		//―――――――――――――以下Json使用例――――――――――――//
-		auto Json = std::make_shared<json11::Json>();
-		Json = JSONS.LoadJson("Default/Test.json");//読み込み
-		std::string tag = "Player";//VisualStudioバグ対策でstringは一度宣言してから入れて
-
-	bool test1 = JSONS.checkValue(Json, "Tag", tag);//文字列比較
-	test1 = JSONS.checkValue(Json, "Tag", 111);//数字と比較
-	//まだ使えない
-	JSONS.AddKeyValue(Json, "Value5", std::string("ABCD"));//要素の変更、追加
-
-		JSONS.SaveJson(Json, "Save/Test.json");//セーブ
-		//――――――――――――――――――――――――――――――――//
-		*/
 }
 
 void C_Player::End()
@@ -74,16 +59,6 @@ void C_Player::Update()
 	CameraProc();
 
 
-	if (GetKey('8') & 0x8000) {
-		//	　（クライアント座標）（スクリーン座標）
-		SetCursorPos(BasePt.x, BasePt.y);
-		ShowCursor(FALSE);
-	}
-	if (GetKey('7') & 0x8000) {
-		//	　（クライアント座標）（スクリーン座標）
-		SetCursorPos(BasePt.x, BasePt.y);
-		ShowCursor(TRUE);
-	}
 	DTWHOUCE.SetVec("Player", PlayerPos);
 	DTWHOUCE.SetFlg("Fishing", FishingFlg);
 
@@ -111,7 +86,7 @@ void C_Player::FlgProc()
 				//RestoreFlg = true;
 
 				DTWHOUCE.SetFlg("FishingFlg", false);
-				ShowCursor(TRUE);
+
 				SetCursorPos(BasePt.x, BasePt.y);
 			}
 			else
@@ -119,8 +94,6 @@ void C_Player::FlgProc()
 				//釣りモードに移行
 				FishingFlg = true;
 				DTWHOUCE.SetFlg("FishingFlg", true);
-				ShowCursor(FALSE);
-				SetCursorPos(BasePt.x, BasePt.y);
 			}
 		}
 	}
@@ -152,29 +125,28 @@ void C_Player::Move()
 			MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 0);
 			MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 0);
 
+			bool B_SkipFlg = false;
+			
 			/*
-				bool B_SkipFlg = false;
-				D3DXVec3TransformCoord(&Vec, &CoordVec.Right, &RotMat);
-				if (!B_SkipFlg)B_SkipFlg = MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 1);
-				D3DXVec3TransformCoord(&Vec, &CoordVec.Left, &RotMat);
-				if (!B_SkipFlg)B_SkipFlg = MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 1);
-				D3DXVec3TransformCoord(&Vec, &CoordVec.Back, &RotMat);
-				if (!B_SkipFlg)B_SkipFlg = MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 1);
-			*/
-			/*
-				bool B_SkipFlg = false;
+				DTWHOUCE.SetNo("frontDot", WallDot);
+
 				D3DXVec3TransformCoord(&Vec, &CoordVec.Right, &RotMat);
 				WallDot = -3;
 				MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 2);
 				if (WallDot < 1 && WallDot>-1)MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 1);
+				DTWHOUCE.SetNo("RightDot", WallDot);
+
 				D3DXVec3TransformCoord(&Vec, &CoordVec.Left, &RotMat);
 				WallDot = -3;
 				MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 2);
 				if (WallDot < 1 && WallDot>-1)MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 1);
+				DTWHOUCE.SetNo("LeftDot", WallDot);
+
 				D3DXVec3TransformCoord(&Vec, &CoordVec.Back, &RotMat);
 				WallDot = -3;
 				MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 2);
 				if (WallDot < 1 && WallDot>-1)MoveRay_Bridge(Vec, CollisionMat, CollisionModel->GetMesh(), 1);
+				DTWHOUCE.SetNo("BackDot", WallDot);
 			*/
 
 			bool S_SkipFlg = false;
@@ -269,12 +241,14 @@ void C_Player::HitObject()
 	D3DXVec3TransformNormal(&LocalVec, &Vec, &InvMat);
 
 	BOOL Hit;
+	static float MeshDis;//本来ならfloat　MeshDisでいいが、今回モデルの関係で隙間ができてるため、そこに到達したら次元のはざまに飛ばされる(´・ω・`)
+
 	DWORD PolyNo;	//ポリゴン番号
 	D3DXIntersect(m_pModel->GetMesh(), &LocalPos, &LocalVec, &Hit,
-		&PolyNo, NULL, NULL, &TextMeshDis2, NULL, NULL);
+		&PolyNo, NULL, NULL, &MeshDis, NULL, NULL);
 
-	if (TextMeshDis2 < 1) {
-		PlayerPos.y += 1 - TextMeshDis2;
+	if (MeshDis < 1) {
+		PlayerPos.y += 1 - MeshDis;
 	}
 
 	if (PlayerPos.y < 0) {
@@ -362,108 +336,6 @@ void C_Player::CameraSet()
 	}
 
 }
-/*
-void C_Player::CameraSet()
-{
-	static KdVec3		CamPos;
-	static KdVec3		CamLook;
-	static float		_CamAngX;
-	static bool			flg1 = false;
-	static bool			flg2 = false;
-	//釣りモードだとカメラは動かせなくなる
-	static bool			StopFlg = false;//釣りモードに移行した一回の間だけ動かす処理用
-
-	//カメラの移動が終わったときに浮きが浮くようにするもの
-	if (flg1 && flg2) { BuoyFlg = true; }
-	else { BuoyFlg = false; }
-
-	//釣りモードじゃないとき
-	if (!FishingFlg) {
-		StopFlg = false;
-		//釣りモードが解除されたとき、カメラの回転をもとに戻す
-		if (FishScene_CamAngX > 0) {
-			FishScene_CamAngX -= 0.2f;
-			if (RestoreFlg) {
-				CamAngX -= 0.2f;
-				flg1 = false;
-			}
-		}
-		else FishScene_CamAngX = 0;
-
-		//同じく解除されたときにカメラの位置を戻す
-		if (FishScene_CamPos.Length() > PlayerPos.y + FishScene_LenMin) {
-			KdMatrix		CamRot;
-			KdVec3			TmpVec;
-
-			CamRot.SetRotation(0, D3DXToRadian(CamAngY), 0);
-			D3DXVec3TransformCoord(&TmpVec, &CoordVec.Z, &CamRot);
-			FishScene_CamPos -= TmpVec * 0.025f;
-			D3DXVec3TransformCoord(&TmpVec, &CoordVec.Y, &CamRot);
-			FishScene_CamPos -= TmpVec * 0.05f;
-		}
-		else {
-			FishScene_CamPos = InitCamPos;
-			flg2 = false;
-		}
-
-		if (FishScene_CamPos.Length() == FishScene_LenMin && FishScene_CamAngX == 0) {
-			RestoreFlg = false;
-		}
-
-
-		KdMatrix			CamRot;
-		D3DXVECTOR3			Vec;
-
-		CamRot.CreateRotation(D3DXToRadian(CamAngX), D3DXToRadian(CamAngY), 0);
-		D3DXVec3TransformCoord(&Vec, &CoordVec.Z, &CamRot);
-
-		CamLook = Vec;
-		CamPos = PlayerPos + FishScene_CamPos;
-	}
-
-	//釣りモードの時
-	if (FishingFlg) {
-		if (!StopFlg) {
-			FishScene_CamAngX = CamAngX;
-			StopFlg = true;
-		}
-		//カメラのアングルを変更するプログラム
-		if (FishScene_CamAngX < CamAngX_MaxLimit)FishScene_CamAngX += 0.2f;
-		else {
-			FishScene_CamAngX = CamAngX_MaxLimit;
-			flg1 = true;
-		}
-
-		//カメラの位置を変えるプログラム
-		if (FishScene_CamPos.Length() < FishScene_LenMax + PlayerPos.y) {
-			KdMatrix CamRot;
-			KdVec3 TmpVec;
-
-			CamRot.SetRotation(0, D3DXToRadian(CamAngY), 0);
-			D3DXVec3TransformCoord(&TmpVec, &CoordVec.Z, &CamRot);
-			FishScene_CamPos += TmpVec * 0.025f;
-			D3DXVec3TransformCoord(&TmpVec, &CoordVec.Y, &CamRot);
-			FishScene_CamPos += TmpVec * 0.05f;
-		}
-		else {
-			flg2 = true;
-		}
-
-		KdMatrix			CamRot;
-		D3DXVECTOR3			Vec;
-
-		CamRot.SetRotation(D3DXToRadian(FishScene_CamAngX), D3DXToRadian(CamAngY), 0);
-		D3DXVec3TransformCoord(&Vec, &CoordVec.Z, &CamRot);
-		CamLook = Vec;
-
-		CamPos = PlayerPos + FishScene_CamPos;
-		CamAngX = FishScene_CamAngX;
-	}
-
-
-	CAMERA.SetCameraVec(CamPos, CamLook);
-}
-*/
 
 void C_Player::Draw3D() {
 
@@ -481,7 +353,7 @@ void C_Player::Draw2D()
 	sprintf_s(Text, sizeof(Text), "所持金 %d", (int)DTWHOUCE.GetNo("Possession"));
 	FONT->DrawText(NULL, Text, -1, &rcText, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	//RECT rcText1 = { 10,30 * 7,0,0 };
-	//sprintf_s(Text, sizeof(Text), "Dot %f", TextDot);
+	//sprintf_s(Text, sizeof(Text), "TextMeshDis %f", TextMeshDis);
 	//FONT->DrawText(NULL, Text, -1, &rcText1, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	RECT rcText2 = { 10,30 * 2,0,0 };
 	sprintf_s(Text, sizeof(Text), "PlayerPos  x %f  y%f z %f ", PlayerPos.x, PlayerPos.y, PlayerPos.z);
@@ -492,9 +364,9 @@ void C_Player::Draw2D()
 	RECT rcText4 = { 10,30 * 4,0,0 };
 	if (!WallFlg)FONT->DrawText(NULL, "WallFlg=false", -1, &rcText4, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	else FONT->DrawText(NULL, "WallFlg=true", -1, &rcText4, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	//RECT rcText5 = { 10,30 * 5,0,0 };
-	//sprintf_s(Text, sizeof(Text), "TextDot2 %f ", TextDot2);
-	//KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText5, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	RECT rcText5 = { 10,30 * 5,0,0 };
+	sprintf_s(Text, sizeof(Text), "Dot %f Right %f Left%f Back%f", DTWHOUCE.GetNo("frontDot"), DTWHOUCE.GetNo("RightDot"), DTWHOUCE.GetNo("LeftDot"), DTWHOUCE.GetNo("BackDot"));
+	KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText5, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	//RECT rcText6 = { 10,30 * 6,0,0 };
 	//sprintf_s(Text, sizeof(Text), "FishingScene_CamPos  x %f  y%f z %f ", FishScene_CamPos.x, FishScene_CamPos.y, FishScene_CamPos.z);
 	//FONT->DrawText(NULL, Text, -1, &rcText6, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
@@ -622,7 +494,8 @@ bool C_Player::MoveRay_Bridge(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMe
 		&PolyNo, NULL, NULL, &MeshDis, NULL, NULL);
 
 
-	float Dot = -1;
+	float Dot = -3;
+	WallDot = Dot;
 
 	if (Hit) {
 		//レイ判定で当たっているポリゴンの識別
