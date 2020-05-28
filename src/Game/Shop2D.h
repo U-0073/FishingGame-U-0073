@@ -36,10 +36,11 @@ private:
 	KdMatrix statusMat;
 	KdMatrix BaitMat;
 	KdMatrix Can_tBuyMat;
+	KdMatrix N_OpenMat;
+	KdMatrix BuyMat;
 	KdMatrix SoldOutMat[TAB][LISTNUMBER];
 	KdVec3 BuyItem;		//今持ってるアイテム
-	KdVec3 OpenItem;	//今解放してるアイテム
-
+	
 	std::shared_ptr<LPDIRECT3DTEXTURE9> FrameTex;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> FrameSecTex;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> FrameSrdTex;
@@ -55,13 +56,16 @@ private:
 	std::shared_ptr<LPDIRECT3DTEXTURE9> statusTex;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> BaitTex;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> Can_tBuyTex;
+	std::shared_ptr<LPDIRECT3DTEXTURE9> N_OpenTex;
+	std::shared_ptr<LPDIRECT3DTEXTURE9> BuyTex;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> SoldOutTex;
 	D3DXVECTOR3 mPos;
 
-	//アイテムの値段
-	int RodPrice[8];
-	int BaitPrice[8];
-	int ReelPrice[8];
+	//アイテムの情報
+	D3DXVECTOR2 RodStatus[8];
+	D3DXVECTOR2 BaitStatus[8];
+	D3DXVECTOR2 ReelStatus[8];
+	float AllStatus = 0;
 	//カーソル
 	int cursor = 0;
 	int tabPattern = 0;
@@ -71,6 +75,8 @@ private:
 	//ウィンドウパターン
 	int WindowPattern = 0;
 	int ctCnt = 0;
+	int noCnt = 0;
+	int byCnt = 0;
 
 	float select[LISTNUMBER];
 	float tabL = 0, tabC = 0, tabR = 0;
@@ -85,6 +91,8 @@ private:
 	bool EnterFlg = false;
 	bool EnterDownFlg = false;
 	bool Can_tBuyFlg = false;
+	bool BuyFlg = false;			//購入済みフラグ
+	bool NotOpenFlg = false;		//未開放フラグ
 
 	//性能値
 	float Quality[3];
