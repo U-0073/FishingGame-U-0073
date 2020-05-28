@@ -38,8 +38,8 @@ void C_Player::Init()
 
 void C_Player::End()
 {
-	if (m_pModel != nullptr)m_pModel = nullptr;
-	if (CollisionModel != nullptr)CollisionModel = nullptr;
+	m_pModel = nullptr;
+	CollisionModel = nullptr;
 }
 
 
@@ -51,6 +51,8 @@ void C_Player::Update()
 	}
 	else PlayerPos.y = 0;
 
+
+	//DTWHOUCE.SetFlg("TestFlg", BuoiRay());
 
 	if (ShopFlg);
 	FlgProc();
@@ -74,6 +76,8 @@ void C_Player::FlgProc()
 	}
 
 	//マウスでのカメラ移動のon off
+	if (!BuoiRay()) 
+	{
 	if (GetKey('E') & 0x8000)
 	{
 		if (!ClickFlg)
@@ -97,6 +101,7 @@ void C_Player::FlgProc()
 		}
 	}
 	else ClickFlg = false;
+	}
 
 
 }
@@ -125,7 +130,7 @@ void C_Player::Move()
 			MoveRay_Shop(Vec, ShopMat, ShopModel->GetMesh(), 0);
 
 			bool B_SkipFlg = false;
-			
+
 			/*
 				DTWHOUCE.SetNo("frontDot", WallDot);
 
@@ -360,9 +365,9 @@ void C_Player::Draw2D()
 	RECT rcText3 = { 10,30 * 3,0,0 };
 	if (!ShopFlg)FONT->DrawText(NULL, "ShopFlg=false", -1, &rcText3, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	else FONT->DrawText(NULL, "ShopFlg=true", -1, &rcText3, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	RECT rcText4 = { 10,30 * 4,0,0 };
-	if (!WallFlg)FONT->DrawText(NULL, "WallFlg=false", -1, &rcText4, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	else FONT->DrawText(NULL, "WallFlg=true", -1, &rcText4, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	//RECT rcText4 = { 10,30 * 4,0,0 };
+	//if (!DTWHOUCE.GetFlg("TestFlg"))FONT->DrawText(NULL, "TestFlg=false", -1, &rcText4, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
+	//else FONT->DrawText(NULL, "TestFlg=true", -1, &rcText4, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
 	RECT rcText5 = { 10,30 * 5,0,0 };
 	sprintf_s(Text, sizeof(Text), "Dot %f Right %f Left%f Back%f", DTWHOUCE.GetNo("frontDot"), DTWHOUCE.GetNo("RightDot"), DTWHOUCE.GetNo("LeftDot"), DTWHOUCE.GetNo("BackDot"));
 	KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText5, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
@@ -372,6 +377,41 @@ void C_Player::Draw2D()
 
 	SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
 
+}
+
+
+bool C_Player::BuoiRay()
+{
+	KdVec3 Vec(0.0f, 1.0f, 0.0f);
+
+	static bool Stop = false;
+	//かべずり判定（メッシュ）
+	D3DXMATRIX	InvMat;
+	D3DXMatrixInverse(&InvMat, NULL, &CollisionMat);
+	D3DXVECTOR3	LocalPos, LocalVec;
+
+
+	KdMatrix CamRot;
+	KdVec3	 CamVec;
+	CamRot.CreateRotationY(D3DXToRadian(CamAngY));
+	D3DXVec3TransformCoord(&CamVec, &CoordVec.Z, &CamRot);
+	DTWHOUCE.SetVec("CamVecY", CamVec);
+
+	D3DXVec3TransformCoord(&LocalPos, &(PlayerPos + KdVec3(0, -PlayerPos.y - 1.0f, 0) + (CamVec * 15)), &InvMat);
+	D3DXVec3TransformNormal(&LocalVec, &Vec, &InvMat);
+
+	BOOL Hit;
+	static float MeshDis;//本来ならfloat　MeshDisでいいが、今回モデルの関係で隙間ができてるため、そこに到達したら次元のはざまに飛ばされる(´・ω・`)
+
+	DWORD PolyNo;	//ポリゴン番号
+	D3DXIntersect(m_pModel->GetMesh(), &LocalPos, &LocalVec, &Hit,
+		&PolyNo, NULL, NULL, &MeshDis, NULL, NULL);
+
+	if (Hit)
+	{
+		return true;
+	}
+	return false;
 }
 
 //当たり判定
