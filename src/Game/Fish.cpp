@@ -199,7 +199,7 @@ void Fish::ShadowUpdate()
 {
 	 
 	ShadowMat=m_world;
-	ShadowMat.SetScale(10, 10, 10);
+	ShadowMat.SetScale(3, 3, 3);
 	ShadowMat._42 = -2;
 }
 void Fish::ShadowDraw()

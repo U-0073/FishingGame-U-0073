@@ -425,11 +425,10 @@ void Shop2D::Draw2D()
 		char cScore[64];
 		sprintf_s(cScore, sizeof(cScore), "%d", Possession);
 		numberMat.SetTrans(1210, 20, 0);
-		transMat.SetTrans(-35, 0, 0);
 		int i;
 		for (i = 0; cScore[i] != '\0'; i++);
 		for (i -= 1; i >= 0; i--) {
-			numberMat *= transMat;
+			numberMat.MoveLocal({ -35,0,0 });
 			SPRITE->SetTransform(&numberMat);
 			SPRITE->Draw(*numberTex, &rcNum[cScore[i] - '0'], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 		}
