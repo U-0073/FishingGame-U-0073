@@ -49,6 +49,9 @@ void C_Player::Init()
 		JSONS.SaveJson(Json, "Save/Test.json");//セーブ
 		//――――――――――――――――――――――――――――――――//
 		*/
+	enterTex = RESOURCE_MNG.GetTexture("enterKey.png");
+	enterMat.SetTrans(1280 / 2, 720 / 3, 0);
+
 }
 
 void C_Player::End()
@@ -474,6 +477,15 @@ void C_Player::Draw3D() {
 }
 void C_Player::Draw2D()
 {
+
+
+	RECT rcEnter = { 0,0,200,200 };
+	SPRITE->SetTransform(&enterMat);
+	SPRITE->Draw(*enterTex, &rcEnter, &D3DXVECTOR3(200 / 2, 200 / 2, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+
+
+
+
 	SPRITE->End();
 	char Text[100];
 	RECT rcText = { 10,30 * 1,0,0 };
