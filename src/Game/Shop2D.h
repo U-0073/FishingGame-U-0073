@@ -2,7 +2,7 @@
 #include"../System/FrameBase/GameObject.h"
 
 #define LISTNUMBER 8
-
+#define TAB 3
 
 
 class Shop2D : GameObject
@@ -36,6 +36,9 @@ private:
 	KdMatrix statusMat;
 	KdMatrix BaitMat;
 	KdMatrix Can_tBuyMat;
+	KdMatrix SoldOutMat[TAB][LISTNUMBER];
+	KdVec3 BuyItem;		//今持ってるアイテム
+	KdVec3 OpenItem;	//今解放してるアイテム
 
 	std::shared_ptr<LPDIRECT3DTEXTURE9> FrameTex;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> FrameSecTex;
@@ -52,6 +55,7 @@ private:
 	std::shared_ptr<LPDIRECT3DTEXTURE9> statusTex;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> BaitTex;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> Can_tBuyTex;
+	std::shared_ptr<LPDIRECT3DTEXTURE9> SoldOutTex;
 	D3DXVECTOR3 mPos;
 
 	//アイテムの値段
