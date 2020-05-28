@@ -213,12 +213,14 @@ void C_Player::HitObject()
 	D3DXVec3TransformNormal(&LocalVec, &Vec, &InvMat);
 
 	BOOL Hit;
+	static float MeshDis;//本来ならfloat　MeshDisでいいが、今回モデルの関係で隙間ができてるため、そこに到達したら次元のはざまに飛ばされる(´・ω・`)
+
 	DWORD PolyNo;	//ポリゴン番号
 	D3DXIntersect(m_pModel->GetMesh(), &LocalPos, &LocalVec, &Hit,
-		&PolyNo, NULL, NULL, &TextMeshDis2, NULL, NULL);
+		&PolyNo, NULL, NULL, &MeshDis, NULL, NULL);
 
-	if (TextMeshDis2 < 1) {
-		PlayerPos.y += 1 - TextMeshDis2;
+	if (MeshDis < 1) {
+		PlayerPos.y += 1 - MeshDis;
 	}
 
 	if (PlayerPos.y < 0) {
@@ -452,7 +454,8 @@ bool C_Player::MoveRay_Bridge(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMe
 		&PolyNo, NULL, NULL, &MeshDis, NULL, NULL);
 
 
-	float Dot = -1;
+	float Dot = -3;
+	WallDot = Dot;
 
 	if (Hit) {
 		//レイ判定で当たっているポリゴンの識別
