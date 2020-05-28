@@ -46,46 +46,54 @@ void Shop2D::Init()
 	ReelPrice[7] = 999999999;
 	//リスト
 	FrameTex = RESOURCE_MNG.GetTexture("Shop/ShopFrame.png");
-	D3DXMatrixTranslation(&FrameMat, 50.0f, 0.0f, 0.0f);
+	FrameMat.SetTrans(50.0f, 0.0f, 0.0f);
 
 	ItemNameTextTex = RESOURCE_MNG.GetTexture("Shop/ShopFrameText0.png");
-	D3DXMatrixTranslation(&ItemNameTextMat, 50.0f, 0.0f, 0.0f);
+	ItemNameTextMat.SetTrans( 50.0f, 0.0f, 0.0f);
 
 	//アイテム説明枠
 	ItemDesTex = RESOURCE_MNG.GetTexture("Shop/ItemDes.png");
-	D3DXMatrixTranslation(&ItemDesMat, 575.0f, 465.0f, 0.0f);
+	ItemDesMat.SetTrans(575.0f, 465.0f, 0.0f);
 	//ステータス関係
 	E_PowerTex = RESOURCE_MNG.GetTexture("Shop/E_power.png");
-	D3DXMatrixTranslation(&E_PowerMat, 850.0f, 435.0f, 0.0f);
+	E_PowerMat.SetTrans(850.0f, 435.0f, 0.0f);
 	MoneyFrameTex = RESOURCE_MNG.GetTexture("Shop/MoneyFrame.png");
-	D3DXMatrixTranslation(&MoneyFrameMat, 840.0f, 10.0f, 0.0f);
+	MoneyFrameMat.SetTrans(840.0f, 10.0f, 0.0f);
 	numberTex = RESOURCE_MNG.GetTexture("Shop/number.png");
-	D3DXMatrixTranslation(&numberMat, 940.0f, 10.0f, 0.0f);
+	numberMat.SetTrans( 940.0f, 10.0f, 0.0f);
 	statusTex = RESOURCE_MNG.GetTexture("Shop/statusC.png");
-	D3DXMatrixTranslation(&statusMat, 1280.0f / 2.0f, 640.0f / 2.0f, 0.0f);
+	statusMat.SetTrans(1280.0f / 2.0f, 640.0f / 2.0f, 0.0f);
 
 	//エサ
 	BaitTex = RESOURCE_MNG.GetTexture("Shop/Bait.png");
-	D3DXMatrixTranslation(&BaitMat, 735.0f, 125.0f, 0.0f);
+	BaitMat.SetTrans(735.0f, 125.0f, 0.0f);
 
 	//タブ
 	TabLeftTex = RESOURCE_MNG.GetTexture("Shop/ShopFrameTab1.png");
 	TabCenterTex = RESOURCE_MNG.GetTexture("Shop/ShopFrameTab2.png");
 	TabRightTex = RESOURCE_MNG.GetTexture("Shop/ShopFrameTab3.png");
-	D3DXMatrixTranslation(&TabLeftMat, 50.0f, 0.0f, 0.0f);
-	D3DXMatrixTranslation(&TabCenterMat, 50.0f, 0.0f, 0.0f);
-	D3DXMatrixTranslation(&TabRightMat, 50.0f, 0.0f, 0.0f);
+	TabLeftMat.  SetTrans(50.0f, 0.0f, 0.0f);
+	TabCenterMat.SetTrans(50.0f, 0.0f, 0.0f);
+	TabRightMat. SetTrans(50.0f, 0.0f, 0.0f);
 	tabL = 0;
 	tabC = 0;
 	tabR = 0;
 
 	//選択カーソル
 	ListSelectTex = RESOURCE_MNG.GetTexture("Shop/ListSelect.png");
-	D3DXMatrixTranslation(&ListSelectMat, 50.0f, select[0], 0.0f);
+	ListSelectMat.SetTrans(50.0f, select[0], 0.0f);
 
 	//購入不可ウィンドウ
 	Can_tBuyTex = RESOURCE_MNG.GetTexture("Shop/Can'tBuy.png");
-	D3DXMatrixTranslation(&Can_tBuyMat, 1280.0f / 2.0f, 720.0f / 2.0f, 0.0f);
+	Can_tBuyMat.SetTrans(1280.0f / 2.0f, 720.0f / 2.0f, 0.0f);
+}
+
+	BuyItem.x = -1;
+	BuyItem.y = -1;
+	BuyItem.z = -1;
+	OpenItem.x = 0;
+	OpenItem.y = 0;
+	OpenItem.z = 0;
 }
 
 void Shop2D::Update()
@@ -161,15 +169,29 @@ void Shop2D::Update()
 
 	//購入処理
 	if (WindowPattern == 2) {
-		//足りないとき
+		//開放してたら
+		if (BuyItem.x < OpenItem.x) {
+			OpenItem.x++;
+		}
+
+		//所持金が足りないとき
 		if ((Possession < RodPrice[cursor]) || (Possession < BaitPrice[cursor]) || (Possession < ReelPrice[cursor])) {
 			Can_tBuyFlg = true;
 		}
 		//足りるとき
 		else {
-			if (tabPattern == 0)Possession -= RodPrice[cursor];
-			if (tabPattern == 1)Possession -= BaitPrice[cursor];
-			if (tabPattern == 2)Possession -= ReelPrice[cursor];
+			if (tabPattern == 0) {
+				Possession -= RodPrice[cursor];
+				BuyItem.x++;
+			}
+			if (tabPattern == 1) {
+				Possession -= BaitPrice[cursor];
+				BuyItem.y++;
+			}
+			if (tabPattern == 2) {
+				Possession -= ReelPrice[cursor];
+				BuyItem.z++;
+			}
 		}
 		WindowPattern = 0;
 		EnterFlg = false;
@@ -180,10 +202,10 @@ void Shop2D::Update()
 	}
 	if (Can_tBuyFlg) {
 		ctCnt++;
-	}
-	if (ctCnt >= 60) {
-		Can_tBuyFlg = false;
-		ctCnt = 0;
+		if (ctCnt >= 60) {
+			Can_tBuyFlg = false;
+			ctCnt = 0;
+		}
 	}
 
 	//=========================================
@@ -194,7 +216,7 @@ void Shop2D::Update()
 	for (int i = 0; i < LISTNUMBER; i++) {
 		select[i] = i * 60.5f;
 	}
-	D3DXMatrixTranslation(&ListSelectMat, 50.0f, select[cursor], 0.0f);
+	ListSelectMat.SetTrans(50.0f, select[cursor], 0.0f);
 	//タブ
 	if (tabPattern == 0) {
 		tabL = 43; tabC = 0; tabR = 0;
@@ -214,32 +236,33 @@ void Shop2D::Update()
 		BaitTextFlg = false;
 		ReelTextFlg = true;
 	}
-	D3DXMatrixTranslation(&TabLeftMat, 50.0f, 0.0f - tabL, 0.0f);
-	D3DXMatrixTranslation(&TabCenterMat, 50.0f, 0.0f - tabC, 0.0f);
-	D3DXMatrixTranslation(&TabRightMat, 50.0f, 0.0f - tabR, 0.0f);
+	TabLeftMat.SetTrans(50.0f, 0.0f - tabL, 0.0f);
+	TabCenterMat.SetTrans(50.0f, 0.0f - tabC, 0.0f);
+	TabRightMat.SetTrans(50.0f, 0.0f - tabR, 0.0f);
 
 
 	//3つの能力値を合計し、３で割って/100する
 	//0.0～1.0にする
 	DTWHOUCE.SetNo("Quality", 1111);
+
+	//今、釣り竿、エサ、リールを上から何番目まで買ったかを保存する
+	//DTWHOUCE.SetVec("BuyPattern", );
 }
 
 void Shop2D::Draw2D()
 {
-	
+
 	SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
 
 	//タグ
-	RECT rcTagL = { 0,0,500,720 };
+	RECT rcTag = { 0,0,500,720 };
 	SPRITE->SetTransform(&TabLeftMat);
-	SPRITE->Draw(*TabLeftTex, &rcTagL, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-	RECT rcTagC = { 0,0,500,720 };
+	SPRITE->Draw(*TabLeftTex, &rcTag, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 	SPRITE->SetTransform(&TabCenterMat);
-	SPRITE->Draw(*TabCenterTex, &rcTagC, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-	RECT rcTagR = { 0,0,500,720 };
+	SPRITE->Draw(*TabCenterTex, &rcTag, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 	SPRITE->SetTransform(&TabRightMat);
 	SPRITE->Draw(*TabRightTex, &rcTagR, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-	
+
 	//リスト
 	RECT rcFrame = { 0,0,500,720 };
 	SPRITE->SetTransform(&FrameMat);
@@ -316,7 +339,7 @@ void Shop2D::Draw2D()
 			break;
 		}
 	}
-	if (ReelTextFlg){
+	if (ReelTextFlg) {
 		rcItemNameText = { 1000,0,1500,720 };
 		//カーソル位置に応じてアイテム説明変更
 		switch (cursor)
@@ -352,6 +375,16 @@ void Shop2D::Draw2D()
 
 	SPRITE->SetTransform(&ItemDesMat);
 	SPRITE->Draw(*ItemDesTex, &rcItemDes, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+
+	//売り切れ
+	RECT rcSoldOut = { 0,0,50,50 };
+	for (int i = 0; i < LISTNUMBER; i++) {
+		for (int j = 0; j < TAB; j++) {
+			SPRITE->SetTransform(&SoldOutMat[j][i]);
+			SPRITE->Draw(*SoldOutTex, &rcSoldOut, &D3DXVECTOR3(25.0f, 25.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+		}
+	}
+	
 
 	RECT rcE_Power = { 0,0,350,39 };
 	SPRITE->SetTransform(&E_PowerMat);
@@ -396,140 +429,60 @@ void Shop2D::Draw2D()
 
 	//ステータスウィンドウ
 	//釣り竿
-	RECT rcStatus;;
+	RECT rcStatus;
 	if (EnterFlg == true) {
 		if (tabPattern == 0) {
-			switch (cursor)
-			{
-			case 0:
-				rcStatus = { 0,0,500,500 };
-				break;
-			case 1:
-				rcStatus = { 0,500 * 1,500,500 * 2};
-				break;
-			case 2:
-				rcStatus = { 0,500 * 2,500,500 * 3};
-				break;
-			case 3:
-				rcStatus = { 0,500 * 3,500,500 * 4};
-				break;
-			case 4:
-				rcStatus = { 0,500 * 4,500,500 * 5};
-				break;
-			case 5:
-				rcStatus = { 0,500 * 5,500,500 * 6};
-				break;
-			case 6:
-				rcStatus = { 0,500 * 6,500,500 * 7};
-				break;
-			case 7:
-				rcStatus = { 0,500 * 7,500,500 * 8};
-				break;
-			}
-		}
-		//餌
-		if (tabPattern == 1) {
-			switch (cursor)
-			{
-			case 0:
-				rcStatus = { 500,0,1000,500 };
-				break;
-			case 1:
-				rcStatus = { 500,500 * 1,1000,500 * 2 };
-				break;
-			case 2:
-				rcStatus = { 500,500 * 2,1000,500 * 3 };
-				break;
-			case 3:
-				rcStatus = { 500,500 * 3,1000,500 * 4 };
-				break;
-			case 4:
-				rcStatus = { 500,500 * 4,1000,500 * 5 };
-				break;
-			case 5:
-				rcStatus = { 500,500 * 5,1000,500 * 6 };
-				break;
-			case 6:
-				rcStatus = { 500,500 * 6,1000,500 * 7 };
-				break;
-			case 7:
-				rcStatus = { 500,500 * 7,1000,500 * 8 };
-				break;
-			}
-		}
-		//リール
-		if (tabPattern == 2) {
-			switch (cursor)
-			{
-			case 0:
-				rcStatus = { 1000,0,1500,500 };
-				break;
-			case 1:
-				rcStatus = { 1000,500 * 1,1500,500 * 2 };
-				break;
-			case 2:
-				rcStatus = { 1000,500 * 2,1500,500 * 3 };
-				break;
-			case 3:
-				rcStatus = { 1000,500 * 3,1500,500 * 4 };
-				break;
-			case 4:
-				rcStatus = { 1000,500 * 4,1500,500 * 5 };
-				break;
-			case 5:
-				rcStatus = { 1000,500 * 5,1500,500 * 6 };
-				break;
-			case 6:
-				rcStatus = { 1000,500 * 6,1500,500 * 7 };
-				break;
-			case 7:
-				rcStatus = { 1000,500 * 7,1500,500 * 8 };
-				break;
-			}
-		}
-	}
-	SPRITE->SetTransform(&statusMat);
-	SPRITE->Draw(*statusTex, &rcStatus, &D3DXVECTOR3(250.0f, 250.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
-	//所持金
-	RECT rcNum[] = {
-	{  0    ,0, 50 *  1,50 },
-	{ 50 * 1,0, 50 *  2,50 },
-	{ 50 * 2,0, 50 *  3,50 },
-	{ 50 * 3,0, 50 *  4,50 },
-	{ 50 * 4,0, 50 *  5,50 },
-	{ 50 * 5,0, 50 *  6,50 },
-	{ 50 * 6,0, 50 *  7,50 },
-	{ 50 * 7,0, 50 *  8,50 },
-	{ 50 * 8,0, 50 *  9,50 },
-	{ 50 * 9,0, 50 * 10,50 } };
-	char cScore[64];
-	sprintf_s(cScore, sizeof(cScore), "%d", Possession);
-	D3DXMatrixTranslation(&numberMat, 1210, 20, 0);
-	D3DXMatrixTranslation(&transMat, -35, 0, 0);
-	int i;
-	for (i = 0; cScore[i] != '\0'; i++);
-	for (i -= 1; i >= 0; i--) {
-		numberMat *= transMat;
-		SPRITE->SetTransform(&numberMat);
-		SPRITE->Draw(*numberTex, &rcNum[cScore[i] - '0'], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-	}
+			rcStatus = { 500 * tabPattern,
+						500 * cursor,
+						500 * tabPattern + 500,
+						500 * (cursor + 1)
+			};
 
-	RECT rcCan_tBuy = { 0,0,600,100 };
-	SPRITE->SetTransform(&Can_tBuyMat);
-	if (Can_tBuyFlg) {
-		SPRITE->Draw(*Can_tBuyTex, &rcCan_tBuy, &D3DXVECTOR3(300.0f, 50.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-	}
+		}
+		SPRITE->SetTransform(&statusMat);
+		SPRITE->Draw(*statusTex, &rcStatus, &D3DXVECTOR3(250.0f, 250.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
-	SPRITE->End();
+		//所持金
+		RECT rcNum[] = {
+		{  0    ,0, 50 * 1,50 },
+		{ 50 * 1,0, 50 * 2,50 },
+		{ 50 * 2,0, 50 * 3,50 },
+		{ 50 * 3,0, 50 * 4,50 },
+		{ 50 * 4,0, 50 * 5,50 },
+		{ 50 * 5,0, 50 * 6,50 },
+		{ 50 * 6,0, 50 * 7,50 },
+		{ 50 * 7,0, 50 * 8,50 },
+		{ 50 * 8,0, 50 * 9,50 },
+		{ 50 * 9,0, 50 * 10,50 } };
+		char cScore[64];
+		sprintf_s(cScore, sizeof(cScore), "%d", Possession);
+		numberMat.SetTrans(1210, 20, 0);
+		transMat.SetTrans(-35, 0, 0);
+		int i;
+		for (i = 0; cScore[i] != '\0'; i++);
+		for (i -= 1; i >= 0; i--) {
+			numberMat *= transMat;
+			SPRITE->SetTransform(&numberMat);
+			SPRITE->Draw(*numberTex, &rcNum[cScore[i] - '0'], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+		}
+
+		RECT rcCan_tBuy = { 0,0,600,100 };
+		SPRITE->SetTransform(&Can_tBuyMat);
+		if (Can_tBuyFlg) {
+			SPRITE->Draw(*Can_tBuyTex, &rcCan_tBuy, &D3DXVECTOR3(300.0f, 50.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+		}
+
+		SPRITE->End();
+	}
 }
 
-void Shop2D::Draw3D()
-{
-}
 
 void Shop2D::End()
 {
+	//所持金の再登録
+	DTWHOUCE.SetInt("Possession", Possession);
+
 	m_pModel = nullptr;
 	FrameTex = nullptr;
 	FrameSecTex = nullptr;
@@ -542,8 +495,6 @@ void Shop2D::End()
 	ListSelectTex = nullptr;
 	BaitTex = nullptr;
 
-	//所持金の再登録
-	DTWHOUCE.SetInt("Possession", Possession);
 }
 
 int Shop2D::SetTabPattern()

@@ -77,5 +77,4 @@ void Sea::Draw3D()
 
 void Sea::End()
 {
-	//m_pModel = nullptr;
 }
