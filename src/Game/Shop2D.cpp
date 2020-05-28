@@ -112,9 +112,19 @@ void Shop2D::Init()
 	ListSelectMat.SetTrans(50.0f, select[0], 0.0f);
 
 	//購入関係ウィンドウ
+	for (int i = 0; i < LISTNUMBER; i++) {
+		for (int j = 0; j < TAB; j++) {
+			SoldOutTex = RESOURCE_MNG.GetTexture("Shop/SoldOut.png");
+			SoldOutMat[j][i].SetTrans(490, 183.0f + (60.2f * i), 0.0f);
+		}
+	}
 	Can_tBuyTex = RESOURCE_MNG.GetTexture("Shop/Can'tBuy.png");
 	Can_tBuyMat.SetTrans(1280.0f / 2.0f, 720.0f / 2.0f, 0.0f);
 
+	N_OpenTex = RESOURCE_MNG.GetTexture("Shop/NotOpen.png");
+	N_OpenMat.SetTrans(1280.0f / 2.0f, 720.0f / 2.0f, 0.0f);
+	BuyTex = RESOURCE_MNG.GetTexture("Shop/Buy.png");
+	BuyMat.SetTrans(1280.0f / 2.0f, 720.0f / 2.0f, 0.0f);
 
 	BuyItem.x = 0;
 	BuyItem.y = 0;
@@ -387,53 +397,59 @@ void Shop2D::Draw2D()
 	}
 
 	//ステータスウィンドウ
-	//釣り竿
 	RECT rcStatus;
 	if (EnterFlg == true) {
 		//釣り竿
-		if (tabPattern == 0) {
-
-			rcStatus = { 500 * tabPattern,
-						500 * cursor,
-						500 * tabPattern + 500,
-						500 * (cursor + 1)
-			};
-
-		}
+		rcStatus = { 500 * tabPattern,
+					500 * cursor,
+					500 * tabPattern + 500,
+					500 * (cursor + 1)
+		};
 		SPRITE->SetTransform(&statusMat);
 		SPRITE->Draw(*statusTex, &rcStatus, &D3DXVECTOR3(250.0f, 250.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
-		//所持金
-		RECT rcNum[] = {
-		{  0    ,0, 50 * 1,50 },
-		{ 50 * 1,0, 50 * 2,50 },
-		{ 50 * 2,0, 50 * 3,50 },
-		{ 50 * 3,0, 50 * 4,50 },
-		{ 50 * 4,0, 50 * 5,50 },
-		{ 50 * 5,0, 50 * 6,50 },
-		{ 50 * 6,0, 50 * 7,50 },
-		{ 50 * 7,0, 50 * 8,50 },
-		{ 50 * 8,0, 50 * 9,50 },
-		{ 50 * 9,0, 50 * 10,50 } };
-		char cScore[64];
-		sprintf_s(cScore, sizeof(cScore), "%d", Possession);
-		numberMat.SetTrans(1210, 20, 0);
-		int i;
-		for (i = 0; cScore[i] != '\0'; i++);
-		for (i -= 1; i >= 0; i--) {
-			numberMat.MoveLocal({ -35,0,0 });
-			SPRITE->SetTransform(&numberMat);
-			SPRITE->Draw(*numberTex, &rcNum[cScore[i] - '0'], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-		}
-
-		RECT rcCan_tBuy = { 0,0,600,100 };
-		SPRITE->SetTransform(&Can_tBuyMat);
-		if (Can_tBuyFlg) {
-			SPRITE->Draw(*Can_tBuyTex, &rcCan_tBuy, &D3DXVECTOR3(300.0f, 50.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-		}
-
-		SPRITE->End();
 	}
+	//ウィンドウ関係
+	RECT rcCan_tBuy = { 0,0,600,100 };
+	SPRITE->SetTransform(&Can_tBuyMat);
+	if (Can_tBuyFlg) {
+		SPRITE->Draw(*Can_tBuyTex, &rcCan_tBuy, &D3DXVECTOR3(300.0f, 50.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+	}
+	RECT rcNotOpen = { 0,0,600,100 };
+	SPRITE->SetTransform(&N_OpenMat);
+	if (NotOpenFlg) {
+		SPRITE->Draw(*N_OpenTex, &rcNotOpen, &D3DXVECTOR3(300.0f, 50.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+	}
+	RECT rcBuy = { 0,0,600,100 };
+	SPRITE->SetTransform(&BuyMat);
+	if (BuyFlg) {
+		SPRITE->Draw(*BuyTex, &rcBuy, &D3DXVECTOR3(300.0f, 50.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+	}
+
+	//所持金
+	RECT rcNum[] = {
+	{  0    ,0, 50 * 1,50 },
+	{ 50 * 1,0, 50 * 2,50 },
+	{ 50 * 2,0, 50 * 3,50 },
+	{ 50 * 3,0, 50 * 4,50 },
+	{ 50 * 4,0, 50 * 5,50 },
+	{ 50 * 5,0, 50 * 6,50 },
+	{ 50 * 6,0, 50 * 7,50 },
+	{ 50 * 7,0, 50 * 8,50 },
+	{ 50 * 8,0, 50 * 9,50 },
+	{ 50 * 9,0, 50 * 10,50 } };
+	char cScore[64];
+	sprintf_s(cScore, sizeof(cScore), "%d", Possession);
+	numberMat.SetTrans(1210, 20, 0);
+	int i;
+	for (i = 0; cScore[i] != '\0'; i++);
+	for (i -= 1; i >= 0; i--) {
+		numberMat.MoveLocal({ -35,0,0 });
+		SPRITE->SetTransform(&numberMat);
+		SPRITE->Draw(*numberTex, &rcNum[cScore[i] - '0'], &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+	}
+
+	SPRITE->End();
 }
 
 
