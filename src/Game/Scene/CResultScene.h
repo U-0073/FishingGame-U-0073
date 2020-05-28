@@ -30,7 +30,9 @@ private:
 	KdMatrix mNameMat;
 	std::shared_ptr<LPDIRECT3DTEXTURE9>NumberTex = nullptr;
 	KdMatrix mNumberMat;
+	KdMatrix mPriceMat;
 	KdMatrix mTransMat;
+	KdMatrix mPriceTransMat;
 	std::shared_ptr<LPDIRECT3DTEXTURE9>CoinTex = nullptr;
 	KdMatrix mCoinMat;
 	std::shared_ptr<LPDIRECT3DTEXTURE9>BackTex = nullptr;
@@ -47,7 +49,8 @@ private:
 	float Price = 0;
 	float Size = 0;
 
-	RECT rcNum[6];
+	RECT rcSize[6];
+	RECT rcPrice[7];
 
 	void CalcNum();
 };
