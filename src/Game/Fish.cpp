@@ -219,10 +219,17 @@ void Fish::ShadowDraw()
 void Fishes::Init()
 {
 	std::vector<std::shared_ptr<Fish>>m_Fishs;
-	for (int c = 0; c < 3; c++) {
-		int name = rand() % 6;
+	for (int c = 0; c < 10; c++) {
+		static int name ;
+		srand(timeGetTime());
+		int newname = rand() % 6;
+		if (name != newname) {
+			//‘O‰ñ‚ÌŒQ‚ê‚Æ‚Íˆá‚¤Ží—Þ‚ðÝ’è
+			name = newname;
+		}
 		KdVec3 Pos;
-		for (int i = 0; i < rand() % 5; i++) {
+		int num =rand() % 5;
+		for (int i = 0; i < num; i++) {
 
 			auto l_Fish = std::make_shared<Fish>();
 			l_Fish->ShadowInit();
