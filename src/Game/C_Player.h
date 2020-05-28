@@ -48,6 +48,7 @@ private:
 	void CameraSet();
 	void MouseUpdate();
 
+	bool BuoiRay();
 	bool MoveRay_Shop(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh,int Mode);	//“–‚½‚è”»’è‚ğŠÜ‚ß‚½ˆÚ“®
 	bool MoveRay_Bridge(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh,int Mode);	//“–‚½‚è”»’è‚ğŠÜ‚ß‚½ˆÚ“®
 	//---------s—ñ-------------
