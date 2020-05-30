@@ -17,7 +17,7 @@ C_Player::~C_Player()
 void C_Player::Init()
 {
 	PlayerPos = { 0,0,0 };
-	CAMERA.SetCameraVec(InitCamPos, KdVec3(0, 0, 1));
+	CAMERA.SetCameraVec(PlayerPos + InitCamPos, KdVec3(0, 0, 1));
 	CollisionMat.SetTrans(0.0f, -1.5f, 0.0f);
 	ShopMat.SetTrans(14, -0.6f, -42);
 
@@ -268,7 +268,7 @@ void C_Player::MouseUpdate() {
 	if (CamAngY > 180)	CamAngY = -180;
 
 	if (CamAngX < -80.0f) CamAngX = -80.0f;
-	if (CamAngX > 50.0f) CamAngX = 50.0f;
+	if (CamAngX > 60.0f) CamAngX = 60.0f;
 
 	if (!FishingFlg) SetCursorPos(BasePt.x, BasePt.y);
 }
@@ -279,7 +279,6 @@ void C_Player::CameraSet()
 	static KdVec3 TmpCamPosZ;
 	static KdVec3	 TmpVec;
 	static int cntY = 0;
-	static int cntZ = 0;
 	KdMatrix CamRot;
 	KdVec3	 Vec;
 
@@ -299,7 +298,7 @@ void C_Player::CameraSet()
 		//if (cntY < 50)CamPos.y += MoveSize;
 		if (cntY < 50) {
 			TmpCamPosY.y += MoveSize;
-			if (cntY >= 30)cntZ++;
+			if (cntY > 30)TmpCamPosZ.z += 0.05f;
 
 			CamPos.y += MoveSize;
 
@@ -307,7 +306,6 @@ void C_Player::CameraSet()
 		if (CamAngX < 40)
 			CamAngX += 0.4;
 
-		if (cntZ < 20) TmpCamPosZ.z += 0.05f;
 		//CAMERA.SetCameraPos(CamPos, BuoyPos);
 	}
 	else
@@ -322,15 +320,12 @@ void C_Player::CameraSet()
 		if (cntY > 0) {
 			if (CamAngX > 0)
 				CamAngX -= 0.4;
-			CamPos.y -= MoveSize;
+			if (cntY > 30)TmpCamPosZ.z -= 0.05f;
+			else TmpCamPosZ.z = 0;
+			//CamPos.y -= MoveSize;
 			TmpCamPosY.y -= MoveSize;
 		}
-
-
-		if (cntZ > 0) cntZ--;
-		else cntZ = 0;
-
-		if (cntZ > 0) TmpCamPosZ.z -= 0.1f;
+		else TmpCamPosY.y = 0;
 
 	}
 

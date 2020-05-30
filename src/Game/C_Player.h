@@ -53,7 +53,7 @@ private:
 	bool MoveRay_Bridge(D3DXVECTOR3 Vec, KdMatrix Mat, LPD3DXBASEMESH lpMesh,int Mode);	//“–‚½‚è”»’è‚ğŠÜ‚ß‚½ˆÚ“®
 	//---------s—ñ-------------
 	//ŒÅ’è•Ï”
-	KdVec3			InitCamPos = KdVec3(0.0f, 2.0f, 0.0f);
+	KdVec3			InitCamPos = KdVec3(0.0f, 3.0f, 0.4f);
 	S_CoordVec		CoordVec;
 
 	float			CamAngX_LowLimit = -80;
