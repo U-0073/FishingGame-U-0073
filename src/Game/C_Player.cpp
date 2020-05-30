@@ -287,7 +287,7 @@ void C_Player::MouseUpdate() {
 	if (CamAngY > 180)	CamAngY = -180;
 
 	if (CamAngX < -80.0f) CamAngX = -80.0f;
-	if (CamAngX > 40.0f) CamAngX = 40.0f;
+	if (CamAngX > 50.0f) CamAngX = 50.0f;
 
 	if (!FishingFlg) SetCursorPos(BasePt.x, BasePt.y);
 }
@@ -296,6 +296,7 @@ void C_Player::CameraSet()
 	static float TmpCamAngX = 0;
 	static KdVec3 TmpCamPosY;
 	static KdVec3 TmpCamPosZ;
+	static KdVec3	 TmpVec;
 	static int cntY = 0;
 	static int cntZ = 0;
 	KdMatrix CamRot;
@@ -317,7 +318,7 @@ void C_Player::CameraSet()
 		//if (cntY < 50)CamPos.y += MoveSize;
 		if (cntY < 50) {
 			TmpCamPosY.y += MoveSize;
-			if (cntY > 30)cntZ++;
+			if (cntY >= 30)cntZ++;
 
 			CamPos.y += MoveSize;
 
@@ -341,9 +342,9 @@ void C_Player::CameraSet()
 			CamPos.y -= MoveSize;
 			TmpCamPosY.y -= MoveSize;
 		}
-		if (cntY > 30) {
-			cntZ--;
-		}
+		if (cntZ > 0) cntZ--;
+		else cntZ = 0;
+
 		if (cntZ > 0) TmpCamPosZ.z -= 0.1f;
 
 	}
@@ -351,10 +352,10 @@ void C_Player::CameraSet()
 	CamRot.CreateRotation(D3DXToRadian(CamAngX + TmpCamAngX), D3DXToRadian(CamAngY), 0);
 	D3DXVec3TransformCoord(&Vec, &CoordVec.Z, &CamRot);
 	CamRot.CreateRotationY(D3DXToRadian(CamAngY));
-	D3DXVec3TransformCoord(&TmpCamPosZ, &CoordVec.Z, &CamRot);
+	D3DXVec3TransformCoord(&TmpVec, &TmpCamPosZ, &CamRot);
 
 	CamLook = Vec;
-	CAMERA.SetCameraVec((CamPos + TmpCamPosY + TmpCamPosZ), Vec);
+	CAMERA.SetCameraVec((CamPos + TmpCamPosY + TmpVec), Vec);
 }
 
 void C_Player::Draw3D() {
