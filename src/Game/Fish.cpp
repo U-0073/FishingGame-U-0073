@@ -49,6 +49,10 @@ void Fish::Init()
 	m_pModel = RESOURCE_MNG.GetModel(m_Tag);
 	m_world.SetScale(0.1, 0.1, 0.1);
 
+	hitChecker = false;
+	hitCheckTex = RESOURCE_MNG.GetTexture("mark_exclamation.png");
+	hitCheckMat.SetTrans(1280 / 2, 720 / 3, 0);
+
 }
 
 void Fish::Update()
@@ -62,11 +66,10 @@ void Fish::Update()
 		//U‚èŒü‚«ˆ—
 		MoveHorizontal();
 	}
-
 	else
 	{
 		//ƒtƒ‰ƒtƒ‰“®‚­
-		m_world.MoveLocal(0, 0, -0.5);
+		m_world.MoveLocal(0, 0, -0.1f);
 		m_world.RotateYLocal(D3DXToRadian((rand() % 10) - 5));
 	}
 }
@@ -74,6 +77,11 @@ void Fish::Update()
 
 void Fish::Draw2D()
 {
+	if (hitChecker) {
+		RECT rcHitCheck = { 0,0,141,200 };
+		SPRITE->SetTransform(&hitCheckMat);
+		SPRITE->Draw(*hitCheckTex, &rcHitCheck, &D3DXVECTOR3(141 / 2, 200 / 2, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
+	}
 	SPRITE->End();
 	RECT rcText = { 10,0,0,0 };
 	char Text[100];
@@ -94,6 +102,7 @@ void Fish::Draw3D()
 void Fish::End()
 {
 	m_pModel = nullptr;
+	hitCheckTex = nullptr;
 }
 
 void Fish::TitleInit()
@@ -143,14 +152,15 @@ void Fish::MoveHorizontal()
 	fpos.y = 0;
 	float len = D3DXVec3Length(&fpos);
 	//
-	if (len < 2.0f)
+	if (len < 2.0f && !DTWHOUCE.GetFlg("HitFish"))
 	{
+		hitChecker = true;
 		DTWHOUCE.SetStr("FishName", m_Tag);
 		DTWHOUCE.SetFlg("HitFish", true);
 	}
 	else
 	{
-		DTWHOUCE.SetFlg("HitFish", false);
+		//DTWHOUCE.SetFlg("HitFish", false);
 	}
 	fpos.Normalize();
 	float FishRot = D3DXVec3Dot(&KdVec3(0, 0, 1), &fpos);
@@ -172,7 +182,7 @@ void Fish::MoveHorizontal()
 	{
 		m_world.RotateYLocal(D3DXToRadian(Rot));
 	}
-	m_world.MoveLocal(0, 0, -0.5);
+	m_world.MoveLocal(0, 0, -0.1f);
 }
 
 void Fish::ShadowInit()
@@ -193,13 +203,14 @@ void Fish::ShadowInit()
 	Shadow[1].Tex = D3DXVECTOR2(1, 0);
 	Shadow[2].Tex = D3DXVECTOR2(1, 1);
 	Shadow[3].Tex = D3DXVECTOR2(0, 1);
+	m_world._42 = -5;
 
 }
 void Fish::ShadowUpdate()
 {
 	 
 	ShadowMat=m_world;
-	ShadowMat.SetScale(3, 3, 3);
+	ShadowMat.SetScale(1.5, 1.5, 1.5);
 	ShadowMat._42 = -2;
 }
 void Fish::ShadowDraw()
@@ -228,7 +239,7 @@ void Fishes::Init()
 			name = newname;
 		}
 		KdVec3 Pos;
-		int num =rand() % 5;
+		int num = rand() % 4 + 1;
 		for (int i = 0; i < num; i++) {
 
 			auto l_Fish = std::make_shared<Fish>();

@@ -38,7 +38,6 @@ private:
 	KdMatrix Can_tBuyMat;
 	KdMatrix N_OpenMat;
 	KdMatrix BuyMat;
-	KdMatrix SoldOutMat[TAB][LISTNUMBER];
 	KdVec3 BuyItem;		//今持ってるアイテム
 	
 	std::shared_ptr<LPDIRECT3DTEXTURE9> FrameTex;
@@ -58,7 +57,6 @@ private:
 	std::shared_ptr<LPDIRECT3DTEXTURE9> Can_tBuyTex;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> N_OpenTex;
 	std::shared_ptr<LPDIRECT3DTEXTURE9> BuyTex;
-	std::shared_ptr<LPDIRECT3DTEXTURE9> SoldOutTex;
 	D3DXVECTOR3 mPos;
 
 	//アイテムの情報

@@ -9,9 +9,6 @@ ShopObject::~ShopObject()
 {
 }
 
-	KdVec3 getvec;
-	KdMatrix getmat;
-
 void ShopObject::Init()
 {
 	GameObject::Init();
@@ -27,27 +24,28 @@ void ShopObject::Init()
 	CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -5.5f), D3DXVECTOR3(0, 0, 1));
 
 	//ˆÊ’u’²®
-	m_world.MoveLocal(0.5f, -0.5f, 0);
-	m_world.SetRotation(D3DXToRadian(0), D3DXToRadian(90), D3DXToRadian(-45));
-
 	m_reel.SetTrans(9, 7, 0);
 	m_reelScal.SetScale(40, 40, 40);
 	m_reel = m_reelScal * m_reel;
-	
+
+	m_rod.SetTrans(0.7f, 0, 0);
+	m_rodRot.SetRotation(45, 90, 0);
+	m_rodRot.SetScale(0.8f, 0.8f, 0.8f);
+	m_rod = m_rodRot * m_rodScal * m_rod;
+
 	KD3D.CreateDirectionalLight(D3DXVECTOR3(0, 0, 10), D3DXVECTOR4(1, 1, 1, 1), D3DXVECTOR4(1.0, 1.0, 1.0, 1.0));
 }
 
 void ShopObject::Update()
 {
-
 }
 
 void ShopObject::Draw3D()
 {
-	KD3D.SetWorldMatrix(&m_world);
+	//’Ş‚èŠÆ
+	KD3D.SetWorldMatrix(&m_rod);
 	KD3D.GetDev()->SetRenderState(D3DRS_LIGHTING, TRUE);
 	if (tPattern == 0) {
-		//’Ş‚èŠÆ
 		switch (Cur)
 		{
 		case 0:
@@ -78,11 +76,10 @@ void ShopObject::Draw3D()
 	}
 	D3DEV->SetRenderState(D3DRS_LIGHTING, FALSE);
 
-
+	//ƒŠ[ƒ‹
 	KD3D.SetWorldMatrix(&m_reel);
 	D3DEV->SetRenderState(D3DRS_LIGHTING, TRUE);
 	if (tPattern == 2) {
-		//ƒŠ[ƒ‹
 		switch (Cur)
 		{
 		case 0:

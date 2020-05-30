@@ -34,9 +34,11 @@ void CResultScene::Init()
 		mNameMat.SetTrans(1280.0f / 2, 720.0f / 2 + 75, 0.0f);
 		KD3D.CreateDirectionalLight(D3DXVECTOR3(0, 0, -1), D3DXVECTOR4(1, 1, 1, 1), D3DXVECTOR4(1.0, 1.0, 1.0, 1.0));
 		if (DTWHOUCE.GetStr("FishName") == "SunFish") {
+			CAMERA.SetCameraPos(D3DXVECTOR3(0, -5, -50), D3DXVECTOR3(0, -5, 0));
+		}
+		else {
 			CAMERA.SetCameraPos(D3DXVECTOR3(0, -5, -25), D3DXVECTOR3(0, -5, 0));
 		}
-		CAMERA.SetCameraPos(D3DXVECTOR3(0, -5, -25), D3DXVECTOR3(0, -5, 0));
 	}
 	else {
 		CAMERA.SetCameraPos(D3DXVECTOR3(0, 0, -25), D3DXVECTOR3(0, 0, 0));
@@ -128,6 +130,7 @@ void CResultScene::End()
 		fish = nullptr;
 	}
 	DTWHOUCE.SetVec("score", { 0,0,0 });
+	DTWHOUCE.SetFlg("HitFish", false);
 }
 
 void CResultScene::CalcData()

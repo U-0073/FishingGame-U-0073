@@ -104,7 +104,7 @@ const bool CGameFrame::Initialize(HINSTANCE aHInst, const int aCmdShow)
 	nowScene = std::make_shared<CRogoScene>();
 	nowScene->Init();
 	DTWHOUCE.SetStr("FishName", "Shark");//何の魚もつれていない//デバック
-	DTWHOUCE.SetInt("Possession", 999999999);
+	DTWHOUCE.SetInt("Possession", 2000);
 	nowscene = nowScene->GetID();
 	MShowSwich(false);
 	CAMERA.Set(mWindowSize);
@@ -185,7 +185,6 @@ void CGameFrame::GameLoop()
 			}
 
 
-			//nowScene->Update();
 		}
 	}
 
