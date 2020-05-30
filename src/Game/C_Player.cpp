@@ -73,30 +73,30 @@ void C_Player::FlgProc()
 	}
 
 	//マウスでのカメラ移動のon off
-	if (!BuoiRay()) 
+	if (!BuoiRay())
 	{
-	if (GetKey('E') & 0x8000)
-	{
-		if (!ClickFlg)
+		if (GetKey('E') & 0x8000)
 		{
-			ClickFlg = true;
-			//釣りモード解除
-			if (FishingFlg) {
-				FishingFlg = false;
-
-				DTWHOUCE.SetFlg("FishingFlg", false);
-				SetCursorPos(BasePt.x, BasePt.y);
-			}
-			else
+			if (!ClickFlg)
 			{
-				//釣りモードに移行
-				FishingFlg = true;
-				DTWHOUCE.SetFlg("FishingFlg", true);
-				SetCursorPos(BasePt.x, BasePt.y);
+				ClickFlg = true;
+				//釣りモード解除
+				if (FishingFlg) {
+					FishingFlg = false;
+
+					DTWHOUCE.SetFlg("FishingFlg", false);
+					SetCursorPos(BasePt.x, BasePt.y);
+				}
+				else
+				{
+					//釣りモードに移行
+					FishingFlg = true;
+					DTWHOUCE.SetFlg("FishingFlg", true);
+					SetCursorPos(BasePt.x, BasePt.y);
+				}
 			}
 		}
-	}
-	else ClickFlg = false;
+		else ClickFlg = false;
 	}
 
 
@@ -293,44 +293,68 @@ void C_Player::MouseUpdate() {
 }
 void C_Player::CameraSet()
 {
+	static float TmpCamAngX = 0;
+	static KdVec3 TmpCamPosY;
+	static KdVec3 TmpCamPosZ;
 	static int cntY = 0;
-	KdVec3 CamPos = CAMERA.GetCameraPos();		//カメラの座標を取ってくる
+	static int cntZ = 0;
+	KdMatrix CamRot;
+	KdVec3	 Vec;
+
+	KdVec3 CamPos = PlayerPos + InitCamPos;		//カメラの座標を取ってくる
 	//釣りモードかどうか
 	if (FishingFlg)
 	{
-		if (cntY < 50) { cntY++; }
+		if (cntY < 50)cntY++;
 		else cntY = 50;
 
 		//カメラを上に上げる処理(注視点はブイの座標)
 
-		KdVec3 BuoyPos = DTWHOUCE.GetVec("Buoy");	//ブイの座標を取ってくる
+		//KdVec3 BuoyPos = DTWHOUCE.GetVec("Buoy");	//ブイの座標を取ってくる
 		//カメラの移動量
 		float MoveSize = 0.1f;
 
-		if (cntY < 50)CamPos.y += MoveSize;
-		CAMERA.SetCameraPos(CamPos, BuoyPos);
+		//if (cntY < 50)CamPos.y += MoveSize;
+		if (cntY < 50) {
+			TmpCamPosY.y += MoveSize;
+			if (cntY > 30)cntZ++;
+
+			CamPos.y += MoveSize;
+
+		}
+		if (CamAngX < 40)
+			CamAngX += 0.4;
+
+		if (cntZ < 20) TmpCamPosZ.z += 0.05f;
+		//CAMERA.SetCameraPos(CamPos, BuoyPos);
 	}
 	else
 	{
 		if (cntY > 0)cntY--;
 		else cntY = 0;
-
 		//カメラの位置を下げる処理
 		float MoveSize = 0.1f;
 
-		if (cntY > 0)CamPos.y -= MoveSize;
+		if (cntY > 0) {
+			if (CamAngX > 0)
+				CamAngX -= 0.4;
+			CamPos.y -= MoveSize;
+			TmpCamPosY.y -= MoveSize;
+		}
+		if (cntY > 30) {
+			cntZ--;
+		}
+		if (cntZ > 0) TmpCamPosZ.z -= 0.1f;
 
-
-		//カメラの移動処理
-		KdMatrix CamRot;
-		KdVec3	 Vec;
-		CamRot.CreateRotation(D3DXToRadian(CamAngX), D3DXToRadian(CamAngY), 0);
-		D3DXVec3TransformCoord(&Vec, &CoordVec.Z, &CamRot);
-
-		CamLook = Vec;
-		CAMERA.SetCameraVec(PlayerPos + InitCamPos, Vec);
 	}
 
+	CamRot.CreateRotation(D3DXToRadian(CamAngX + TmpCamAngX), D3DXToRadian(CamAngY), 0);
+	D3DXVec3TransformCoord(&Vec, &CoordVec.Z, &CamRot);
+	CamRot.CreateRotationY(D3DXToRadian(CamAngY));
+	D3DXVec3TransformCoord(&TmpCamPosZ, &CoordVec.Z, &CamRot);
+
+	CamLook = Vec;
+	CAMERA.SetCameraVec((CamPos + TmpCamPosY + TmpCamPosZ), Vec);
 }
 
 void C_Player::Draw3D() {

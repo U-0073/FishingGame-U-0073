@@ -254,22 +254,24 @@ void CGameScene::Draw2D()
 
 	SPRITE->End();
 
+	/*
 	//デバッグ文字
-	char buf[100];
-	rc = { 0,650,0,0 };
-	sprintf_s(buf, sizeof(buf), "残り譜面数：%d", clickCNT);
-	FONT->DrawText(NULL, buf, -1, &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
+		char buf[100];
+		rc = { 0,650,0,0 };
+		sprintf_s(buf, sizeof(buf), "残り譜面数：%d", clickCNT);
+		FONT->DrawText(NULL, buf, -1, &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
 
-	char Excel[20];
-	rc = { 0,600,0,0 };
-	sprintf_s(Excel, sizeof(Excel), "Excellent：%d", Excellent);
-	FONT->DrawText(NULL, Excel, -1, &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
+		char Excel[20];
+		rc = { 0,600,0,0 };
+		sprintf_s(Excel, sizeof(Excel), "Excellent：%d", Excellent);
+		FONT->DrawText(NULL, Excel, -1, &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
 
-	char Ms[20];
-	rc = { 0,625,0,0 };
-	sprintf_s(Ms, sizeof(Ms), "Miss：%d", Miss);
-	FONT->DrawText(NULL, Ms, -1, &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
+		char Ms[20];
+		rc = { 0,625,0,0 };
+		sprintf_s(Ms, sizeof(Ms), "Miss：%d", Miss);
+		FONT->DrawText(NULL, Ms, -1, &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
 
+	*/
 
 
 	SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
