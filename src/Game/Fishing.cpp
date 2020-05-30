@@ -68,8 +68,6 @@ void C_Fishing::FishingProc()
 		StopFlg = false;
 		HitFlg = false;
 	}
-	//魚が食いついてウキが海中に引っ張られる様にする動き
-	if (HitFlg)
 	
 	
 	TransMat.SetTrans(BuoyPos);

@@ -66,11 +66,10 @@ void Fish::Update()
 		//U‚èŒü‚«ˆ—
 		MoveHorizontal();
 	}
-
 	else
 	{
 		//ƒtƒ‰ƒtƒ‰“®‚­
-		m_world.MoveLocal(0, 0, -0.5);
+		m_world.MoveLocal(0, 0, -0.1f);
 		m_world.RotateYLocal(D3DXToRadian((rand() % 10) - 5));
 	}
 }
@@ -153,7 +152,7 @@ void Fish::MoveHorizontal()
 	fpos.y = 0;
 	float len = D3DXVec3Length(&fpos);
 	//
-	if (len < 2.0f)
+	if (len < 2.0f && !DTWHOUCE.GetFlg("HitFish"))
 	{
 		hitChecker = true;
 		DTWHOUCE.SetStr("FishName", m_Tag);
@@ -161,7 +160,7 @@ void Fish::MoveHorizontal()
 	}
 	else
 	{
-		DTWHOUCE.SetFlg("HitFish", false);
+		//DTWHOUCE.SetFlg("HitFish", false);
 	}
 	fpos.Normalize();
 	float FishRot = D3DXVec3Dot(&KdVec3(0, 0, 1), &fpos);
@@ -183,7 +182,7 @@ void Fish::MoveHorizontal()
 	{
 		m_world.RotateYLocal(D3DXToRadian(Rot));
 	}
-	m_world.MoveLocal(0, 0, -0.5f);
+	m_world.MoveLocal(0, 0, -0.1f);
 }
 
 void Fish::ShadowInit()
@@ -240,7 +239,7 @@ void Fishes::Init()
 			name = newname;
 		}
 		KdVec3 Pos;
-		int num =rand() % 5;
+		int num = rand() % 4 + 1;
 		for (int i = 0; i < num; i++) {
 
 			auto l_Fish = std::make_shared<Fish>();

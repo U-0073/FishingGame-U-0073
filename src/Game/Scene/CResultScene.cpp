@@ -130,6 +130,7 @@ void CResultScene::End()
 		fish = nullptr;
 	}
 	DTWHOUCE.SetVec("score", { 0,0,0 });
+	DTWHOUCE.SetFlg("HitFish", false);
 }
 
 void CResultScene::CalcData()
