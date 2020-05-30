@@ -112,15 +112,8 @@ void Shop2D::Init()
 	ListSelectMat.SetTrans(50.0f, select[0], 0.0f);
 
 	//購入関係ウィンドウ
-	for (int i = 0; i < LISTNUMBER; i++) {
-		for (int j = 0; j < TAB; j++) {
-			SoldOutTex = RESOURCE_MNG.GetTexture("Shop/SoldOut.png");
-			SoldOutMat[j][i].SetTrans(490, 183.0f + (60.2f * i), 0.0f);
-		}
-	}
 	Can_tBuyTex = RESOURCE_MNG.GetTexture("Shop/Can'tBuy.png");
 	Can_tBuyMat.SetTrans(1280.0f / 2.0f, 720.0f / 2.0f, 0.0f);
-
 	N_OpenTex = RESOURCE_MNG.GetTexture("Shop/NotOpen.png");
 	N_OpenMat.SetTrans(1280.0f / 2.0f, 720.0f / 2.0f, 0.0f);
 	BuyTex = RESOURCE_MNG.GetTexture("Shop/Buy.png");
@@ -257,9 +250,12 @@ void Shop2D::Update()
 		WindowPattern = 0;
 		EnterFlg = false;
 	}
-	//
+	//所持金制限
 	if (Possession <= 0) {
 		Possession = 0;
+	}
+	else if (Possession >= 999999999) {
+		Possession = 999999999;
 	}
 	//所持金足りません
 	if (Can_tBuyFlg) {
@@ -317,14 +313,10 @@ void Shop2D::Update()
 	TabLeftMat.SetTrans(50.0f, 0.0f - tabL, 0.0f);
 	TabCenterMat.SetTrans(50.0f, 0.0f - tabC, 0.0f);
 	TabRightMat.SetTrans(50.0f, 0.0f - tabR, 0.0f);
-
-	//今、釣り竿、エサ、リールを上から何番目まで買ったかを保存する
-	DTWHOUCE.SetVec("Buy", BuyItem);
 }
 
 void Shop2D::Draw2D()
 {
-
 	SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
 
 	//タグ
@@ -368,19 +360,11 @@ void Shop2D::Draw2D()
 	SPRITE->SetTransform(&ItemNameTextMat);
 	SPRITE->Draw(*ItemNameTextTex, &rcItemNameText, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
+	//アイテム説明
 	SPRITE->SetTransform(&ItemDesMat);
 	SPRITE->Draw(*ItemDesTex, &rcItemDes, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
 
-	//売り切れ
-	RECT rcSoldOut = { 0,0,50,50 };
-	for (int i = 0; i < LISTNUMBER; i++) {
-		for (int j = 0; j < TAB; j++) {
-			SPRITE->SetTransform(&SoldOutMat[j][i]);
-			SPRITE->Draw(*SoldOutTex, &rcSoldOut, &D3DXVECTOR3(25.0f, 25.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-		}
-	}
-
-
+	//ステータスUI関係
 	RECT rcE_Power = { 0,0,350,39 };
 	SPRITE->SetTransform(&E_PowerMat);
 	SPRITE->Draw(*E_PowerTex, &rcE_Power, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
@@ -407,8 +391,8 @@ void Shop2D::Draw2D()
 		};
 		SPRITE->SetTransform(&statusMat);
 		SPRITE->Draw(*statusTex, &rcStatus, &D3DXVECTOR3(250.0f, 250.0f, 0.0f), NULL, D3DCOLOR_ARGB(255, 255, 255, 255));
-
 	}
+	
 	//ウィンドウ関係
 	RECT rcCan_tBuy = { 0,0,600,100 };
 	SPRITE->SetTransform(&Can_tBuyMat);
@@ -457,19 +441,27 @@ void Shop2D::End()
 {
 	//所持金の再登録
 	DTWHOUCE.SetInt("Possession", Possession);
+	//今、釣り竿、エサ、リールを上から何番目まで買ったかを保存する
+	DTWHOUCE.SetVec("Buy", BuyItem); 
 
-	m_pModel = nullptr;
-	FrameTex = nullptr;
-	FrameSecTex = nullptr;
-	FrameSrdTex = nullptr;
-	ItemNameTextTex = nullptr;
-	ItemDesTex = nullptr;
-	TabLeftTex = nullptr;
-	TabCenterTex = nullptr;
-	TabRightTex = nullptr;
-	ListSelectTex = nullptr;
-	BaitTex = nullptr;
-
+	m_pModel		 = nullptr;
+	FrameTex		 = nullptr;
+	FrameSecTex		 = nullptr;
+	FrameSrdTex		 = nullptr;
+	ItemNameTextTex	 = nullptr;
+	ItemDesTex		 = nullptr;
+	TabLeftTex		 = nullptr;
+	TabCenterTex	 = nullptr;
+	TabRightTex		 = nullptr;
+	ListSelectTex	 = nullptr;
+	MoneyFrameTex	 = nullptr;
+	E_PowerTex		 = nullptr;
+	numberTex		 = nullptr;
+	statusTex		 = nullptr;
+	BaitTex			 = nullptr;
+	Can_tBuyTex		 = nullptr;
+	N_OpenTex		 = nullptr;
+	BuyTex			 = nullptr;
 }
 
 int Shop2D::SetTabPattern()
