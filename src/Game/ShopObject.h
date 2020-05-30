@@ -21,6 +21,7 @@ private:
 	std::map<std::string, std::shared_ptr<KdModel>> Reel;
 
 	KdMatrix m_reel, m_reelScal, m_reelRot;
+	KdMatrix m_rod, m_rodScal, m_rodRot;
 
 	int tPattern,Cur;
 };

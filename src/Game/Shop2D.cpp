@@ -313,6 +313,9 @@ void Shop2D::Update()
 	TabLeftMat.SetTrans(50.0f, 0.0f - tabL, 0.0f);
 	TabCenterMat.SetTrans(50.0f, 0.0f - tabC, 0.0f);
 	TabRightMat.SetTrans(50.0f, 0.0f - tabR, 0.0f);
+
+	//今、釣り竿、エサ、リールを上から何番目まで買ったかを保存する
+	DTWHOUCE.SetVec("Buy", BuyItem);
 }
 
 void Shop2D::Draw2D()
@@ -441,8 +444,6 @@ void Shop2D::End()
 {
 	//所持金の再登録
 	DTWHOUCE.SetInt("Possession", Possession);
-	//今、釣り竿、エサ、リールを上から何番目まで買ったかを保存する
-	DTWHOUCE.SetVec("Buy", BuyItem); 
 
 	m_pModel		 = nullptr;
 	FrameTex		 = nullptr;
