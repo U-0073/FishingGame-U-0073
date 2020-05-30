@@ -310,8 +310,8 @@ void C_Player::CameraSet()
 		else cntY = 50;
 
 		//カメラを上に上げる処理(注視点はブイの座標)
-
 		//KdVec3 BuoyPos = DTWHOUCE.GetVec("Buoy");	//ブイの座標を取ってくる
+
 		//カメラの移動量
 		float MoveSize = 0.1f;
 
@@ -333,6 +333,8 @@ void C_Player::CameraSet()
 	{
 		if (cntY > 0)cntY--;
 		else cntY = 0;
+
+		//if (cntY > 0)CamPos.y -= MoveSize;
 		//カメラの位置を下げる処理
 		float MoveSize = 0.1f;
 
@@ -342,6 +344,8 @@ void C_Player::CameraSet()
 			CamPos.y -= MoveSize;
 			TmpCamPosY.y -= MoveSize;
 		}
+
+
 		if (cntZ > 0) cntZ--;
 		else cntZ = 0;
 
@@ -351,6 +355,7 @@ void C_Player::CameraSet()
 
 	CamRot.CreateRotation(D3DXToRadian(CamAngX + TmpCamAngX), D3DXToRadian(CamAngY), 0);
 	D3DXVec3TransformCoord(&Vec, &CoordVec.Z, &CamRot);
+
 	CamRot.CreateRotationY(D3DXToRadian(CamAngY));
 	D3DXVec3TransformCoord(&TmpVec, &TmpCamPosZ, &CamRot);
 
