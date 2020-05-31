@@ -65,9 +65,6 @@
     <ClCompile Include="src\System\KdLibrary\KdDirect3D.cpp">
       <Filter>ライブラリ</Filter>
     </ClCompile>
-    <ClCompile Include="src\System\2d\Board.cpp">
-      <Filter>2d</Filter>
-    </ClCompile>
     <ClCompile Include="src\Game\Sea.cpp">
       <Filter>src\ゲーム</Filter>
     </ClCompile>
@@ -171,9 +168,6 @@
     </ClInclude>
     <ClInclude Include="src\System\KdLibrary\KdDirect3D.h">
       <Filter>ライブラリ</Filter>
-    </ClInclude>
-    <ClInclude Include="src\System\2d\Board.h">
-      <Filter>2d</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\Sea.h">
       <Filter>src\ゲーム</Filter>

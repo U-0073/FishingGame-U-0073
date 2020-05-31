@@ -359,6 +359,7 @@ void C_Player::Draw2D()
 
 
 	SPRITE->End();
+	/*
 	char Text[100];
 	RECT rcText = { 10,30 * 1,0,0 };
 	sprintf_s(Text, sizeof(Text), "ŠŽ‹à %d", (int)DTWHOUCE.GetNo("Possession"));
@@ -372,7 +373,7 @@ void C_Player::Draw2D()
 	RECT rcText5 = { 10,30 * 5,0,0 };
 	sprintf_s(Text, sizeof(Text), "Dot %f Right %f Left%f Back%f", DTWHOUCE.GetNo("frontDot"), DTWHOUCE.GetNo("RightDot"), DTWHOUCE.GetNo("LeftDot"), DTWHOUCE.GetNo("BackDot"));
 	KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText5, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-
+	*/
 	SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
 
 }
