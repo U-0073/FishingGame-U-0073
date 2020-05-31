@@ -359,21 +359,7 @@ void C_Player::Draw2D()
 
 
 	SPRITE->End();
-	/*
-	char Text[100];
-	RECT rcText = { 10,30 * 1,0,0 };
-	sprintf_s(Text, sizeof(Text), "ŠŽ‹à %d", (int)DTWHOUCE.GetNo("Possession"));
-	FONT->DrawText(NULL, Text, -1, &rcText, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	RECT rcText2 = { 10,30 * 2,0,0 };
-	sprintf_s(Text, sizeof(Text), "PlayerPos  x %f  y%f z %f ", PlayerPos.x, PlayerPos.y, PlayerPos.z);
-	FONT->DrawText(NULL, Text, -1, &rcText2, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	RECT rcText3 = { 10,30 * 3,0,0 };
-	if (!ShopFlg)FONT->DrawText(NULL, "ShopFlg=false", -1, &rcText3, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	else FONT->DrawText(NULL, "ShopFlg=true", -1, &rcText3, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	RECT rcText5 = { 10,30 * 5,0,0 };
-	sprintf_s(Text, sizeof(Text), "Dot %f Right %f Left%f Back%f", DTWHOUCE.GetNo("frontDot"), DTWHOUCE.GetNo("RightDot"), DTWHOUCE.GetNo("LeftDot"), DTWHOUCE.GetNo("BackDot"));
-	KD3D.GetFont()->DrawText(NULL, Text, -1, &rcText5, DT_LEFT | DT_NOCLIP, D3DCOLOR_XRGB(255, 255, 255));
-	*/
+
 	SPRITE->Begin(D3DXSPRITE_ALPHABLEND);
 
 }
