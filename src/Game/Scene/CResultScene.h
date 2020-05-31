@@ -53,6 +53,8 @@ private:
 	RECT rcPrice[7];
 
 	void CalcNum();
+
+	bool sellflg = false;
 };
 
 #define Excellent x

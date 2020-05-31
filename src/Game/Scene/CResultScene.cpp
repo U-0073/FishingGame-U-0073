@@ -52,22 +52,30 @@ int CResultScene::Update()
 	result->Update();
 	if (GetKey(VK_RETURN) & 0x8000)
 	{
-		if (ScoreData.Success) 
+		if (sellflg == false)
 		{
-			int Possession;
-			Possession = DTWHOUCE.GetInt("Possession");
-			Possession += Price;
-			DTWHOUCE.SetInt("Possession", Possession);
+			if (ScoreData.Success)
+			{
+				if (sellflg == false) 
+				{
+					int Possession;
+					Possession = DTWHOUCE.GetInt("Possession");
+					Possession += Price;
+					DTWHOUCE.SetInt("Possession", Possession);
 
-			SellSound = RESOURCE_MNG.GetSound("Money");
-			SellSound->Playsound("Money", true, false);
-			FADE.Start(5);
-			return MAP;
-		}
-		else 
-		{
-			FADE.Start(5);
-			return MAP;
+					SellSound = RESOURCE_MNG.GetSound("Money");
+					SellSound->Playsound("Money", true, false);
+				}
+				sellflg = true;
+
+				FADE.Start(5);
+				return MAP;
+			}
+			else
+			{
+				FADE.Start(5);
+				return MAP;
+			}
 		}
 	}
 	return RESULT;
@@ -89,7 +97,7 @@ void CResultScene::Draw2D()
 		mNumberMat.SetTrans(1280 / 2 * 0.3, 720 / 5 * 3, 0);
 		mPriceMat.SetTrans(1280 / 2, 720 / 5 * 4, 0);
 
-		
+
 		for (int i = 0; i < 6; i++)
 		{
 			mNumberMat *= mTransMat;
@@ -172,14 +180,14 @@ void CResultScene::CalcNum()
 	mTransMat.SetTrans(100, 0, 0);
 	mPriceTransMat.SetTrans(50, 0, 0);
 	mNumberMat.SetScale(2.0f, 2.0f, 2.0f);
-	int FishSize = Size*100;
+	int FishSize = Size * 100;
 	//ˆÊŽæ‚è
 	rcSize[0] = { (FishSize / 100000) * 50,0,(FishSize / 100000) * 50 + 50,50 };//‰­‚ÌˆÊ
-	FishSize =   (FishSize % 100000);
-	rcSize[1] = { (FishSize / 10000)  * 50,0,(FishSize / 10000)  * 50 + 50,50 };
-	FishSize =   (FishSize % 10000);
-	rcSize[2] = { (FishSize / 1000)   * 50,0,(FishSize / 1000)   * 50 + 50,50 };
-	FishSize =   (FishSize % 1000);
+	FishSize = (FishSize % 100000);
+	rcSize[1] = { (FishSize / 10000) * 50,0,(FishSize / 10000) * 50 + 50,50 };
+	FishSize = (FishSize % 10000);
+	rcSize[2] = { (FishSize / 1000) * 50,0,(FishSize / 1000) * 50 + 50,50 };
+	FishSize = (FishSize % 1000);
 	rcSize[3] = { (FishSize / 100) * 50,0,(FishSize / 100) * 50 + 50,50 };
 	FishSize = (FishSize % 100);
 	rcSize[4] = { (FishSize / 10) * 50,0,(FishSize / 10) * 50 + 50,50 };

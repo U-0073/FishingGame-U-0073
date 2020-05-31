@@ -188,7 +188,7 @@ void Fish::MoveHorizontal()
 void Fish::ShadowInit()
 {
 	ShadowTex = RESOURCE_MNG.GetTexture("FishShadow1.png");
-	KdVec3 mSize = { 1.0f,0,1.0f };
+	KdVec3 mSize = { 0.5f,0,1.0f };
 	Shadow[0].Pos = { -(mSize.x * 0.5f), 0,  (mSize.z * 0.5f) };
 	Shadow[1].Pos = {  (mSize.x * 0.5f), 0,  (mSize.z * 0.5f) };
 	Shadow[2].Pos = {  (mSize.x * 0.5f), 0, -(mSize.z * 0.5f) };
